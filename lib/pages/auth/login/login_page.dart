@@ -20,6 +20,18 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isAPIcallProcess = false;
+  bool hidePassword = true;
+  GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+
+  bool validatedAndSave() {
+    final form = globalKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

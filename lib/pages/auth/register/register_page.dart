@@ -23,8 +23,20 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-
   late bool isCheck;
+  bool isAPIcallProcess = false;
+  bool hidePassword = true;
+  GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+
+  bool validatedAndSave() {
+    final form = globalKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   @override
   void initState() {

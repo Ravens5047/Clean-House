@@ -19,6 +19,7 @@ class SharedServices {
       var cacheData = await APICacheManager().getCacheData("login_details");
       return loginResponseJson(cacheData.syncData);
     }
+    return null;
   }
 
   static Future<void> setLoginDetails(
@@ -35,9 +36,10 @@ class SharedServices {
 
   static Future<void> logout(BuildContext context) async {
     await APICacheManager().deleteCache("login_details");
+    // ignore: use_build_context_synchronously
     Navigator.pushAndRemoveUntil(
       context,
-      '/login',
+      '/login' as Route<Object?>,
       (route) => false,
     );
   }
