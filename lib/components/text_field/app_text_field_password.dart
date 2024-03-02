@@ -11,6 +11,7 @@ class AppTextFieldPassword extends StatefulWidget {
     this.hintext,
     this.onFieldSubmitted,
     this.onChanged,
+    this.validator,
   });
 
   final TextEditingController? controller;
@@ -19,6 +20,7 @@ class AppTextFieldPassword extends StatefulWidget {
   final TextInputAction? textInputAction;
   final Function(String)? onChanged;
   final Function(String)? onFieldSubmitted;
+  final FormFieldValidator<String>? validator;
 
   @override
   State<AppTextFieldPassword> createState() => _AppTextFieldPasswordState();
@@ -29,6 +31,10 @@ class _AppTextFieldPasswordState extends State<AppTextFieldPassword> {
 
   @override
   Widget build(BuildContext context) {
+    OutlineInputBorder outlineInputBorder(Color color) => OutlineInputBorder(
+          borderSide: BorderSide(color: color, width: 1.2),
+          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+        );
     return Container(
       decoration: BoxDecoration(
         color: AppColor.grey.withOpacity(0.4),
@@ -41,10 +47,13 @@ class _AppTextFieldPasswordState extends State<AppTextFieldPassword> {
         controller: widget.controller,
         obscureText: !showPassword,
         textInputAction: widget.textInputAction,
+        validator: widget.validator,
         style: AppStyle.h16Normal.copyWith(color: AppColor.brown),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
-          border: InputBorder.none,
+          border: outlineInputBorder(AppColor.red),
+          focusedBorder: outlineInputBorder(AppColor.blue),
+          enabledBorder: outlineInputBorder(AppColor.white),
           hintText: widget.hintext,
           hintStyle: AppStyle.h16Normal.copyWith(color: AppColor.grey),
           suffixIcon: GestureDetector(
@@ -53,7 +62,7 @@ class _AppTextFieldPasswordState extends State<AppTextFieldPassword> {
               showPassword
                   ? Icons.remove_red_eye_rounded
                   : Icons.remove_red_eye_outlined,
-              color: showPassword ? AppColor.brown : AppColor.grey,
+              color: showPassword ? AppColor.blue : AppColor.grey,
             ),
           ),
         ),

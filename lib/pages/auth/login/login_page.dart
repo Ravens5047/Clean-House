@@ -14,6 +14,7 @@ import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/auth_services.dart';
 import 'package:capstone2_clean_house/services/remote/body/login_body.dart';
 import 'package:capstone2_clean_house/services/remote/code_error.dart';
+import 'package:capstone2_clean_house/utils/validator.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -105,12 +106,14 @@ class _LoginPageState extends State<LoginPage> {
               AppTextField(
                 controller: emailController,
                 hintext: 'Enter Email',
+                validator: Validator.emailValidator,
                 textInputAction: TextInputAction.next,
               ),
               const SizedBox(height: 16.0),
               AppTextFieldPassword(
                 controller: passwordController,
                 hintext: 'Enter Password',
+                validator: Validator.passwordValidator,
                 textInputAction: TextInputAction.done,
               ),
               const SizedBox(height: 12.0),

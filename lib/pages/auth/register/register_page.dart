@@ -10,6 +10,7 @@ import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/resources/app_style.dart';
 import 'package:capstone2_clean_house/services/remote/auth_services.dart';
 import 'package:capstone2_clean_house/services/remote/body/register_body.dart';
+import 'package:capstone2_clean_house/utils/validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -108,12 +109,14 @@ class _RegisterPageState extends State<RegisterPage> {
               AppTextField(
                 controller: nameController,
                 hintext: 'User Name',
+                validator: Validator.requiredValidator,
                 textInputAction: TextInputAction.next,
               ),
               const SizedBox(height: 16.0),
               AppTextField(
                 controller: emailController,
                 hintext: 'Email Address',
+                validator: Validator.emailValidator,
                 textInputAction: TextInputAction.next,
               ),
               // const SizedBox(height: 16.0),
@@ -126,6 +129,7 @@ class _RegisterPageState extends State<RegisterPage> {
               AppTextFieldPassword(
                 controller: passwordController,
                 hintext: 'Password',
+                validator: Validator.passwordValidator,
                 textInputAction: TextInputAction.next,
               ),
               const SizedBox(height: 16.0),
@@ -134,6 +138,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 onChanged: (_) => setState(() {}),
                 hintext: 'Confirm Password',
                 onFieldSubmitted: (_) => _sendOtp(),
+                validator: Validator.confirmPasswordValidator(
+                  passwordController.text,
+                ),
                 textInputAction: TextInputAction.done,
               ),
               const SizedBox(height: 30.0),
