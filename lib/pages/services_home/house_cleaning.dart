@@ -304,7 +304,8 @@ class _HouseCleaningState extends State<HouseCleaning> {
                     onTap: () {
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
-                            builder: (context) => const HomeScreen()),
+                          builder: (context) => const HomeScreen(),
+                        ),
                         (Route<dynamic> route) => false,
                       );
                     },

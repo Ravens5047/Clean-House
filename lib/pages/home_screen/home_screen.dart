@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:icony/icony_ikonate.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

@@ -1,8 +1,11 @@
 class AppConstant {
   AppConstant._();
-  static const String appName = "House Cleaning";
-  static const String apiURL = "";
-  static const String loginAPI = "/users/login";
-  static const String registerAPI = "/users/register";
-  static const String userProfileAPI = "/users/user-profile";
+
+  static const baseTodo = 'http://206.189.150.98:3000/api/v1';
+
+  static const endPointAuthRegister = '$baseTodo/auth/register';
+  static const endPointOtp = '$baseTodo/auth/send-otp';
+  static const endPointLogin = '$baseTodo/auth/login';
+  static const endPointForgotPassword = '$baseTodo/auth/forgot-password';
+  static const endPointChangePassword = '$baseTodo/auth/change-password';
 }

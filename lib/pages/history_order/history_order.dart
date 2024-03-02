@@ -1,3 +1,4 @@
+import 'package:capstone2_clean_house/pages/history_order/detail_history_order.dart';
 import 'package:capstone2_clean_house/pages/home_screen/home_screen.dart';
 import 'package:capstone2_clean_house/pages/information_person/information_person.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
@@ -19,7 +20,9 @@ class _HistoryOrderState extends State<HistoryOrder> {
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
+              MaterialPageRoute(
+                  builder: (context) => const HomeScreen(
+                      )),
               (Route<dynamic> route) => false,
             );
           },
@@ -43,81 +46,88 @@ class _HistoryOrderState extends State<HistoryOrder> {
             const SizedBox(
               height: 20.0,
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: AppColor.white,
-                border: Border.all(
-                  color: AppColor.black,
-                  width: 2,
+            GestureDetector(
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const DetailHistoryOrder(),
                 ),
-                borderRadius: BorderRadius.circular(5.0),
-                boxShadow: const [
-                  BoxShadow(
-                    color: AppColor.shadow,
-                    offset: Offset(0.0, 3.0),
-                    blurRadius: 6.0,
-                  ),
-                ],
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        '#001',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w500,
-                          color: AppColor.black,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Total Price: 100.00\$',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w400,
-                          color: AppColor.black,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Method Payment: Cash',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w400,
-                          color: AppColor.black,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Status Payment',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Ikonate(
-                          Ikonate.checkbox,
-                          color: AppColor.green,
-                          width: 30.0,
-                        ),
-                      ],
+              child: Container(
+                decoration: BoxDecoration(
+                  color: AppColor.white,
+                  border: Border.all(
+                    color: AppColor.black,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(5.0),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppColor.shadow,
+                      offset: Offset(0.0, 3.0),
+                      blurRadius: 6.0,
                     ),
                   ],
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          '#001',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w500,
+                            color: AppColor.black,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Total Price: 100.00\$',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w400,
+                            color: AppColor.black,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Method Payment: Cash',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w400,
+                            color: AppColor.black,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Status Payment',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w400,
+                                color: AppColor.black,
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Ikonate(
+                            Ikonate.checkbox,
+                            color: AppColor.green,
+                            width: 30.0,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -372,7 +382,8 @@ class _HistoryOrderState extends State<HistoryOrder> {
                   onTap: () {
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
-                          builder: (context) => const HomeScreen()),
+                          builder: (context) => const HomeScreen(
+                              )),
                       (Route<dynamic> route) => false,
                     );
                   },

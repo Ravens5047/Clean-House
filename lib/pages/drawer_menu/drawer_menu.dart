@@ -1,5 +1,5 @@
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
-import 'package:capstone2_clean_house/pages/auth/history_order/history_order.dart';
+import 'package:capstone2_clean_house/pages/history_order/history_order.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:icony/icony_ikonate.dart';

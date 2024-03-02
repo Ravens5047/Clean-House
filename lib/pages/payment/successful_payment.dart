@@ -52,7 +52,9 @@ class _SuccessfulPaymentState extends State<SuccessfulPayment> {
                     onTap: () {
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
-                            builder: (context) => const HomeScreen()),
+                          builder: (context) => const HomeScreen(
+                          ),
+                        ),
                         (Route<dynamic> route) => false,
                       );
                     },

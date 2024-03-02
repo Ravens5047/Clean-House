@@ -118,7 +118,8 @@ class _SelectPaymentState extends State<SelectPayment> {
                   onTap: () {
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
-                          builder: (context) => const HomeScreen()),
+                          builder: (context) => const HomeScreen(
+                              )),
                       (Route<dynamic> route) => false,
                     );
                   },

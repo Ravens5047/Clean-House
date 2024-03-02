@@ -21,7 +21,9 @@ class _InformationPersonState extends State<InformationPerson> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
+              MaterialPageRoute(
+                  builder: (context) => const HomeScreen(
+                      )),
               (Route<dynamic> route) => false,
             );
           },
@@ -68,7 +70,8 @@ class _InformationPersonState extends State<InformationPerson> {
                   onTap: () {
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
-                          builder: (context) => const HomeScreen()),
+                          builder: (context) => const HomeScreen(
+                              )),
                       (Route<dynamic> route) => false,
                     );
                   },

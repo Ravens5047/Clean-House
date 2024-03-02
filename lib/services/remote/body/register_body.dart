@@ -1,8 +1,9 @@
 class RegisterBody {
   String? name;
   String? email;
-  String? phone;
+  // String? phone;
   String? password;
+  String? code; //OTP
 
   RegisterBody();
 
@@ -10,8 +11,9 @@ class RegisterBody {
     return {
       'name': name,
       'email': email,
-      'phone': phone,
+      // 'phone': phone,
       'password': password,
+      'code': code,
     };
   }
 }

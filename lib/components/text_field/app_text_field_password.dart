@@ -6,15 +6,19 @@ class AppTextFieldPassword extends StatefulWidget {
   const AppTextFieldPassword({
     super.key,
     this.controller,
-    required this.hintext,
     this.borderRadius = const BorderRadius.all(Radius.circular(10.0)),
     this.textInputAction,
+    this.hintext,
+    this.onFieldSubmitted,
+    this.onChanged,
   });
 
   final TextEditingController? controller;
-  final String hintext;
+  final String? hintext;
   final BorderRadius borderRadius;
   final TextInputAction? textInputAction;
+  final Function(String)? onChanged;
+  final Function(String)? onFieldSubmitted;
 
   @override
   State<AppTextFieldPassword> createState() => _AppTextFieldPasswordState();
@@ -30,7 +34,9 @@ class _AppTextFieldPasswordState extends State<AppTextFieldPassword> {
         color: AppColor.grey.withOpacity(0.4),
         borderRadius: widget.borderRadius,
       ),
-      child: TextField(
+      child: TextFormField(
+        onChanged: widget.onChanged,
+        onFieldSubmitted: widget.onFieldSubmitted,
         textAlignVertical: const TextAlignVertical(y: 0.0),
         controller: widget.controller,
         obscureText: !showPassword,
