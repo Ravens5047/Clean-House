@@ -1,6 +1,10 @@
+import 'package:capstone2_clean_house/components/app_text_field.dart';
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
+import 'package:capstone2_clean_house/pages/auth/change_password/change_password_page.dart';
+import 'package:capstone2_clean_house/pages/auth/login/login_page.dart';
 import 'package:capstone2_clean_house/pages/history_order/history_order.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
+import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:icony/icony_ikonate.dart';
 
@@ -71,6 +75,83 @@ class DrawerMenu extends StatelessWidget {
                         'History',
                         style: TextStyle(
                           fontSize: 20.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ChangePasswordPage(
+                        email: '',
+                      ),
+                    ),
+                  ),
+                  child: const Row(
+                    children: [
+                      SizedBox(
+                        height: 30.0,
+                        width: 30.0,
+                        child: Ikonate(Ikonate.lock),
+                      ),
+                      SizedBox(
+                        width: 15.0,
+                      ),
+                      Text(
+                        'Change Password',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 520.0,
+                ),
+                InkWell(
+                  onTap: () => AppDialog.dialog(
+                    context,
+                    title: 'Sign Out',
+                    content: 'Do you want to logout ?',
+                    action: () async {
+                      await SharedPrefs.removeSeason();
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ),
+                          (Route<dynamic> route) => false,
+                        );
+                      });
+                    },
+                  ),
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  child: const Row(
+                    children: [
+                      SizedBox(
+                        height: 30.0,
+                        width: 30.0,
+                        child: Ikonate(
+                          Ikonate.exit,
+                          color: AppColor.blue,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 15.0,
+                      ),
+                      Text(
+                        'Logout',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: AppColor.blue,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
