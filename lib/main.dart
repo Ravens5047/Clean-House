@@ -1,22 +1,11 @@
 import 'package:capstone2_clean_house/pages/splash/splash_page.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarBrightness: Brightness.light,
-    statusBarIconBrightness: Brightness.dark,
-  ));
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-  // shared preferences
-  await SharedPrefs.initialise();
 
+  await SharedPrefs.initialise();
   runApp(const MyApp());
 }
 

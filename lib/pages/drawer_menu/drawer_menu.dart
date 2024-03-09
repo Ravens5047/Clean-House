@@ -1,5 +1,6 @@
-import 'package:capstone2_clean_house/components/app_text_field.dart';
+import 'package:capstone2_clean_house/components/app_dialog.dart';
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
+import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/pages/auth/change_password/change_password_page.dart';
 import 'package:capstone2_clean_house/pages/auth/login/login_page.dart';
 import 'package:capstone2_clean_house/pages/history_order/history_order.dart';
@@ -8,9 +9,19 @@ import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:icony/icony_ikonate.dart';
 
-class DrawerMenu extends StatelessWidget {
-  const DrawerMenu({super.key});
+class DrawerMenu extends StatefulWidget {
+  const DrawerMenu({
+    super.key,
+    required this.appUser,
+  });
 
+  final AppUsersModel appUser;
+
+  @override
+  State<DrawerMenu> createState() => _DrawerMenuState();
+}
+
+class _DrawerMenuState extends State<DrawerMenu> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -18,16 +29,16 @@ class DrawerMenu extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: const Text(
-              'Hwgn',
-              style: TextStyle(
+            accountName: Text(
+              widget.appUser.username ?? '-:-',
+              style: const TextStyle(
                 fontSize: 20.0,
                 color: AppColor.white,
               ),
             ),
-            accountEmail: const Text(
-              'hungnguyenhoang415@gmail.com',
-              style: TextStyle(
+            accountEmail: Text(
+              widget.appUser.email ?? '-:-',
+              style: const TextStyle(
                 fontSize: 15.0,
                 color: AppColor.white,
               ),
@@ -42,10 +53,10 @@ class DrawerMenu extends StatelessWidget {
                 ),
               ),
             ),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(
-                  'https://img.freepik.com/free-photo/amazing-beautiful-sky-with-clouds_58702-1653.jpg?w=1380&t=st=1708876219~exp=1708876819~hmac=d7c0f644226f22adfa8b6e220f1df2fed2cc2edb037afd39170d935f1f01e449',
+                image: AssetImage(
+                  Assets.images.backgroundProfile.path,
                 ),
                 fit: BoxFit.cover,
               ),
@@ -75,7 +86,7 @@ class DrawerMenu extends StatelessWidget {
                         'History',
                         style: TextStyle(
                           fontSize: 20.0,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ],
@@ -106,14 +117,14 @@ class DrawerMenu extends StatelessWidget {
                         'Change Password',
                         style: TextStyle(
                           fontSize: 20.0,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(
-                  height: 520.0,
+                  height: 450.0,
                 ),
                 InkWell(
                   onTap: () => AppDialog.dialog(
@@ -121,7 +132,7 @@ class DrawerMenu extends StatelessWidget {
                     title: 'Sign Out',
                     content: 'Do you want to logout ?',
                     action: () async {
-                      await SharedPrefs.removeSeason();
+                      await SharedPrefs.removeSeason;
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(

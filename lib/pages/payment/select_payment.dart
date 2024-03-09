@@ -1,9 +1,7 @@
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
-import 'package:capstone2_clean_house/pages/home_screen/home_screen.dart';
 import 'package:capstone2_clean_house/pages/payment/successful_payment.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
-import 'package:icony/icony_ikonate.dart';
 
 class SelectPayment extends StatefulWidget {
   const SelectPayment({super.key});
@@ -110,52 +108,6 @@ class _SelectPaymentState extends State<SelectPayment> {
             ),
             const SizedBox(
               height: 30.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen(
-                              )),
-                      (Route<dynamic> route) => false,
-                    );
-                  },
-                  child: const Ikonate(
-                    Ikonate.home_alt,
-                    color: AppColor.blue,
-                    height: 40.0,
-                  ),
-                ),
-                const SizedBox(
-                  width: 50.0,
-                ),
-                const Ikonate(
-                  Ikonate.calendar_event,
-                  color: AppColor.blue,
-                  height: 40.0,
-                ),
-                const SizedBox(
-                  width: 50.0,
-                ),
-                const Ikonate(
-                  Ikonate.inbox,
-                  color: AppColor.blue,
-                  height: 40.0,
-                ),
-                const SizedBox(
-                  width: 50.0,
-                ),
-                GestureDetector(
-                  child: const Ikonate(
-                    Ikonate.user,
-                    color: AppColor.blue,
-                    height: 40.0,
-                  ),
-                ),
-              ],
             ),
           ],
         ),

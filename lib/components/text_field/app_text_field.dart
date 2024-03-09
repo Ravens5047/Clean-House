@@ -10,6 +10,8 @@ class AppTextField extends StatelessWidget {
     this.borderRadius = const BorderRadius.all(Radius.circular(10.0)),
     this.textInputAction,
     this.validator,
+    this.onFieldSubmitted,
+    this.readOnly = false,
   });
 
   final TextEditingController? controller;
@@ -17,6 +19,8 @@ class AppTextField extends StatelessWidget {
   final BorderRadius borderRadius;
   final TextInputAction? textInputAction;
   final FormFieldValidator<String>? validator;
+  final Function(String)? onFieldSubmitted;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {

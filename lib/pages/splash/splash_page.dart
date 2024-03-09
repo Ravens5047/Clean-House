@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:capstone2_clean_house/components/app_bar/bottom_navigator_bar.dart';
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/pages/welcome/welcome_page.dart';
+import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 // import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,18 +29,22 @@ class _SplashPageState extends State<SplashPage> {
       statusBarBrightness: Brightness.dark,
       statusBarIconBrightness: Brightness.light,
     ));
+    onInit();
+  }
 
-    Timer(const Duration(milliseconds: 2600), () {
-      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.dark,
-      ));
-
+  void onInit() async {
+    final isLogin = SharedPrefs.isLogin;
+    await Future.delayed(const Duration(milliseconds: 2000));
+    if (isLogin) {
+      Route route = MaterialPageRoute(builder: (context) => const MainPage());
+      Navigator.pushAndRemoveUntil(
+          context, route, (Route<dynamic> route) => false);
+    } else {
       Route route =
           MaterialPageRoute(builder: (context) => const WelcomePage());
       Navigator.pushAndRemoveUntil(
           context, route, (Route<dynamic> route) => false);
-    });
+    }
   }
 
   @override

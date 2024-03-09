@@ -6,8 +6,8 @@ class TdElevatedButton extends StatelessWidget {
     super.key,
     this.onPressed,
     this.height = 48.0,
-    this.color = AppColor.red,
-    this.borderColor = AppColor.red,
+    this.color = AppColor.blue,
+    this.borderColor = AppColor.blue,
     required this.text,
     this.textColor = AppColor.white,
     this.fontSize = 16.0,
@@ -18,7 +18,7 @@ class TdElevatedButton extends StatelessWidget {
     Color? splashColor,
     Color? highlightColor,
   })  : borderRadius = borderRadius ?? BorderRadius.circular(10.0),
-        splashColor = splashColor ?? AppColor.yellow.withOpacity(0.8),
+        splashColor = splashColor ?? AppColor.orange.withOpacity(0.8),
         highlightColor = highlightColor ?? AppColor.green.withOpacity(0.8);
 
   TdElevatedButton.outline({
@@ -26,9 +26,9 @@ class TdElevatedButton extends StatelessWidget {
     this.onPressed,
     this.height = 48.0,
     this.color = AppColor.white,
-    this.borderColor = AppColor.red,
+    this.borderColor = AppColor.grey,
     required this.text,
-    this.textColor = AppColor.red,
+    this.textColor = AppColor.black,
     this.fontSize = 16.0,
     this.icon,
     BorderRadius? borderRadius,
@@ -37,7 +37,7 @@ class TdElevatedButton extends StatelessWidget {
     Color? splashColor,
     Color? highlightColor,
   })  : borderRadius = borderRadius ?? BorderRadius.circular(10.0),
-        splashColor = splashColor ?? AppColor.yellow.withOpacity(0.6),
+        splashColor = splashColor ?? AppColor.blue.withOpacity(0.6),
         highlightColor = highlightColor ?? AppColor.green.withOpacity(0.6);
 
   TdElevatedButton.small({

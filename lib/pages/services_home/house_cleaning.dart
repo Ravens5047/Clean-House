@@ -1,7 +1,5 @@
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
 import 'package:capstone2_clean_house/components/button/container_circle.dart';
-import 'package:capstone2_clean_house/pages/home_screen/home_screen.dart';
-import 'package:capstone2_clean_house/pages/information_person/information_person.dart';
 import 'package:capstone2_clean_house/pages/payment/select_payment.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
@@ -34,10 +32,7 @@ class _HouseCleaningState extends State<HouseCleaning> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
-              (Route<dynamic> route) => false,
-            );
+            Navigator.of(context).pop();
           },
         ),
         title: const Center(
@@ -286,10 +281,9 @@ class _HouseCleaningState extends State<HouseCleaning> {
               ),
               AppElevatedButton.normal1(
                 onPressed: () {
-                  Navigator.of(context).pushAndRemoveUntil(
+                  Navigator.of(context).push(
                     MaterialPageRoute(
                         builder: (context) => const SelectPayment()),
-                    (Route<dynamic> route) => false,
                   );
                 },
                 text: 'Continue',
@@ -297,59 +291,61 @@ class _HouseCleaningState extends State<HouseCleaning> {
               const SizedBox(
                 height: 30.0,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                          builder: (context) => const HomeScreen(),
-                        ),
-                        (Route<dynamic> route) => false,
-                      );
-                    },
-                    child: const Ikonate(
-                      Ikonate.home_alt,
-                      color: AppColor.blue,
-                      height: 40.0,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 50.0,
-                  ),
-                  const Ikonate(
-                    Ikonate.calendar_event,
-                    color: AppColor.blue,
-                    height: 40.0,
-                  ),
-                  const SizedBox(
-                    width: 50.0,
-                  ),
-                  const Ikonate(
-                    Ikonate.inbox,
-                    color: AppColor.blue,
-                    height: 40.0,
-                  ),
-                  const SizedBox(
-                    width: 50.0,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => const InformationPerson()),
-                        (Route<dynamic> route) => false,
-                      );
-                    },
-                    child: const Ikonate(
-                      Ikonate.user,
-                      color: AppColor.blue,
-                      height: 40.0,
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     GestureDetector(
+              //       onTap: () {
+              //         Navigator.of(context).pushAndRemoveUntil(
+              //           MaterialPageRoute(
+              //             builder: (context) => const HomeScreen(),
+              //           ),
+              //           (Route<dynamic> route) => false,
+              //         );
+              //       },
+              //       child: const Ikonate(
+              //         Ikonate.home_alt,
+              //         color: AppColor.blue,
+              //         height: 40.0,
+              //       ),
+              //     ),
+              //     const SizedBox(
+              //       width: 50.0,
+              //     ),
+              //     const Ikonate(
+              //       Ikonate.calendar_event,
+              //       color: AppColor.blue,
+              //       height: 40.0,
+              //     ),
+              //     const SizedBox(
+              //       width: 50.0,
+              //     ),
+              //     const Ikonate(
+              //       Ikonate.inbox,
+              //       color: AppColor.blue,
+              //       height: 40.0,
+              //     ),
+              //     const SizedBox(
+              //       width: 50.0,
+              //     ),
+              //     GestureDetector(
+              //       onTap: () {
+              //         Navigator.of(context).push(
+              //           MaterialPageRoute(
+              //             builder: (context) => InformationPerson(
+              //               appUser: AppUserModel(),
+              //             ),
+              //           ),
+              //         );
+              //       },
+              //       child: const Ikonate(
+              //         Ikonate.user,
+              //         color: AppColor.blue,
+              //         height: 40.0,
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),

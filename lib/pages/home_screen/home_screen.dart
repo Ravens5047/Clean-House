@@ -1,10 +1,9 @@
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
+import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/pages/drawer_menu/drawer_menu.dart';
-import 'package:capstone2_clean_house/pages/information_person/information_person.dart';
 import 'package:capstone2_clean_house/pages/services_home/house_cleaning.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
-import 'package:icony/icony_ikonate.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -16,12 +15,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  AppUsersModel appUser = AppUsersModel();
+  final searchController = TextEditingController();
   bool isDark = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: const DrawerMenu(),
+      drawer: DrawerMenu(
+        appUser: appUser,
+      ),
       body: ListView(
         children: [
           Padding(
@@ -41,6 +45,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 20.0,
                 ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                //   child: TdSearchBox(
+                //     controller: searchController,
+                //     onChanged: (_) {},
+                //   ),
+                // ),
                 SearchAnchor(
                   builder: (BuildContext context, SearchController controller) {
                     return SearchBar(
@@ -119,11 +130,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context).pushAndRemoveUntil(
+                                Navigator.of(context).push(
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const HouseCleaning()),
-                                  (Route<dynamic> route) => false,
+                                    builder: (context) => const HouseCleaning(),
+                                  ),
                                 );
                               },
                               child: Image.asset(
@@ -148,49 +158,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Ikonate(
-                      Ikonate.home_alt,
-                      color: AppColor.blue,
-                      height: 40.0,
-                    ),
-                    const SizedBox(
-                      width: 50.0,
-                    ),
-                    const Ikonate(
-                      Ikonate.calendar_event,
-                      color: AppColor.blue,
-                      height: 40.0,
-                    ),
-                    const SizedBox(
-                      width: 50.0,
-                    ),
-                    const Ikonate(
-                      Ikonate.box,
-                      color: AppColor.blue,
-                      height: 40.0,
-                    ),
-                    const SizedBox(
-                      width: 50.0,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => const InformationPerson()),
-                          (Route<dynamic> route) => false,
-                        );
-                      },
-                      child: const Ikonate(
-                        Ikonate.user,
-                        color: AppColor.blue,
-                        height: 40.0,
-                      ),
-                    ),
-                  ],
                 ),
               ],
             ),

@@ -9,6 +9,16 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsIconsGen {
+  const $AssetsIconsGen();
+
+  /// File path: assets/icons/search.svg
+  String get search => 'assets/icons/search.svg';
+
+  /// List of all assets
+  List<String> get values => [search];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -27,16 +37,24 @@ class $AssetsImagesGen {
   AssetGenImage get services3 =>
       const AssetGenImage('assets/images/services3.png');
 
+  AssetGenImage get backgroundProfile =>
+      const AssetGenImage('assets/images/backgroundProfile.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         splash,
         biaanh1,
+        biaanh2,
+        services1,
+        services2,
+        services3,
+        backgroundProfile,
       ];
 }
 
 class Assets {
   Assets._();
-
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 

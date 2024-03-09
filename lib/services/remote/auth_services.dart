@@ -1,68 +1,28 @@
 import 'dart:convert';
-  import 'package:capstone2_clean_house/components/constants/app_constant.dart';
-import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
-import 'package:capstone2_clean_house/services/remote/body/change_password_body.dart';
-import 'package:capstone2_clean_house/services/remote/body/login_body.dart';
-import 'package:capstone2_clean_house/services/remote/body/new_password_body.dart';
-import 'package:capstone2_clean_house/services/remote/body/register_body.dart';
+import 'package:capstone2_clean_house/model/request/login_request_model.dart';
+import 'package:capstone2_clean_house/model/request/register_request_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:capstone2_clean_house/components/constants/app_constant.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 
-abstract class ImplAuthServices {
-  Future<http.Response> sendOtp(String email);
-  Future<http.Response> register(RegisterBody body);
-  Future<http.Response> login(LoginBody body);
-  Future<http.Response> postForgotPassword(NewPasswordBody body);
-  Future<http.Response> changePassword(ChangePasswordBody body);
+abstract class AuthServices {
+  Future<http.Response> register(RegisterRequestModel body);
+  Future<http.Response> login(LoginRequestModel body);
 }
 
-class AuthServices implements ImplAuthServices {
-  static final httpLog = HttpWithMiddleware.build(middlewares: [
-    HttpLogger(logLevel: LogLevel.BODY),
-  ]);
+class APIService implements AuthServices {
+  static final HttpWithMiddleware _httpClient = HttpWithMiddleware.build(
+      middlewares: [HttpLogger(logLevel: LogLevel.BODY)]);
 
   @override
-  Future<http.Response> sendOtp(String email) async {
-    const url = AppConstant.endPointOtp;
-
-    http.Response response = await httpLog.post(
-      Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ${null}',
-      },
-      body: jsonEncode({'email': email}),
-    );
-    return response;
-  }
-
-  @override
-  Future<http.Response> register(RegisterBody body) async {
-    const url = AppConstant.endPointAuthRegister;
-
-    http.Response response = await httpLog.post(
-      Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ${null}',
-      },
-      body: jsonEncode(body.toJson()),
-    );
-    return response;
-  }
-
-  @override
-  Future<http.Response> login(LoginBody body) async {
+  Future<http.Response> login(LoginRequestModel body) async {
     const url = AppConstant.endPointLogin;
 
-    http.Response response = await httpLog.post(
+    final response = await _httpClient.post(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
-        'Authorization': 'Bearer ${null}',
       },
       body: jsonEncode(body.toJson()),
     );
@@ -70,31 +30,13 @@ class AuthServices implements ImplAuthServices {
   }
 
   @override
-  Future<http.Response> postForgotPassword(NewPasswordBody body) async {
-    const url = AppConstant.endPointForgotPassword;
-
-    http.Response response = await httpLog.post(
+  Future<http.Response> register(RegisterRequestModel body) async {
+    const url = AppConstant.endPointRegister;
+    final response = await _httpClient.post(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
-        'Authorization': 'Bearer ${null}',
-      },
-      body: jsonEncode(body.toJson()),
-    );
-    return response;
-  }
-
-  @override
-  Future<http.Response> changePassword(ChangePasswordBody body) async {
-    const url = AppConstant.endPointChangePassword;
-
-    http.Response response = await httpLog.put(
-      Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ${SharedPrefs.token}',
       },
       body: jsonEncode(body.toJson()),
     );

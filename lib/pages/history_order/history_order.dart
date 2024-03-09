@@ -1,6 +1,5 @@
+import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/pages/history_order/detail_history_order.dart';
-import 'package:capstone2_clean_house/pages/home_screen/home_screen.dart';
-import 'package:capstone2_clean_house/pages/information_person/information_person.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:icony/icony_ikonate.dart';
@@ -13,18 +12,15 @@ class HistoryOrder extends StatefulWidget {
 }
 
 class _HistoryOrderState extends State<HistoryOrder> {
+  AppUsersModel appUser = AppUsersModel();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                  builder: (context) => const HomeScreen(
-                      )),
-              (Route<dynamic> route) => false,
-            );
+            Navigator.of(context).pop();
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),
@@ -373,60 +369,6 @@ class _HistoryOrderState extends State<HistoryOrder> {
                   ],
                 ),
               ),
-            ),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen(
-                              )),
-                      (Route<dynamic> route) => false,
-                    );
-                  },
-                  child: const Ikonate(
-                    Ikonate.home_alt,
-                    color: AppColor.blue,
-                    height: 40.0,
-                  ),
-                ),
-                const SizedBox(
-                  width: 50.0,
-                ),
-                const Ikonate(
-                  Ikonate.calendar_event,
-                  color: AppColor.blue,
-                  height: 40.0,
-                ),
-                const SizedBox(
-                  width: 50.0,
-                ),
-                const Ikonate(
-                  Ikonate.inbox,
-                  color: AppColor.blue,
-                  height: 40.0,
-                ),
-                const SizedBox(
-                  width: 50.0,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const InformationPerson()),
-                      (Route<dynamic> route) => false,
-                    );
-                  },
-                  child: const Ikonate(
-                    Ikonate.user,
-                    color: AppColor.blue,
-                    height: 40.0,
-                  ),
-                ),
-              ],
             ),
           ],
         ),

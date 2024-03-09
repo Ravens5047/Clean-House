@@ -1,119 +1,104 @@
-import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
-import 'package:capstone2_clean_house/components/button/bounder_info.dart';
-import 'package:capstone2_clean_house/pages/home_screen/home_screen.dart';
+import 'package:capstone2_clean_house/components/button/td_elevated_button.dart';
+import 'package:capstone2_clean_house/components/text_field/app_text_field_profile.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
+import 'package:capstone2_clean_house/utils/validator.dart';
 import 'package:flutter/material.dart';
-import 'package:icony/icony_ikonate.dart';
 
 class InformationPerson extends StatefulWidget {
-  const InformationPerson({super.key});
+  const InformationPerson({
+    super.key,
+    required this.appUser,
+  });
+
+  final AppUserModel appUser;
 
   @override
   State<InformationPerson> createState() => _InformationPersonState();
 }
 
+class AppUserModel {}
+
 class _InformationPersonState extends State<InformationPerson> {
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+  final addressController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  bool isLoading = false;
+
+  Future<void> _updateProfile() async {}
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   nameController.text = widget.appUser.username ?? '';
+  //   emailController.text = widget.appUser.email ?? '';
+  //   // setState(() {});
+  // }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const HomeScreen()),
-              (Route<dynamic> route) => false,
-            );
-          },
-        ),
-        title: const Center(
-          child: Text(
-            'Information Person\t\t\t\t\t',
-            style: TextStyle(
-              color: AppColor.blue,
-              fontSize: 25.0,
-              fontWeight: FontWeight.w500,
-            ),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        body: Form(
+          key: formKey,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0).copyWith(
+                top: MediaQuery.of(context).padding.top + 38.0, bottom: 16.0),
+            children: [
+              const Text(
+                'My Profile',
+                style: TextStyle(
+                  color: AppColor.blue,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 38.0),
+              // Center(
+              //   child: _buildAvatar(),
+              // ),
+              const SizedBox(height: 42.0),
+              AppTextFieldProfile(
+                controller: nameController,
+                hintext: "Full Name",
+                prefixIcon: const Icon(Icons.person, color: AppColor.grey),
+                validator: Validator.requiredValidator,
+                textInputAction: TextInputAction.done,
+              ),
+              const SizedBox(height: 18.0),
+              AppTextFieldProfile(
+                controller: emailController,
+                hintext: "Email",
+                readOnly: true,
+                prefixIcon: const Icon(Icons.email, color: AppColor.grey),
+                textInputAction: TextInputAction.done,
+              ),
+              const SizedBox(height: 18.0),
+              AppTextFieldProfile(
+                controller: phoneController,
+                hintext: "Phone",
+                prefixIcon: const Icon(Icons.phone, color: AppColor.grey),
+                validator: Validator.requiredValidator,
+                textInputAction: TextInputAction.done,
+              ),
+              const SizedBox(height: 18.0),
+              AppTextFieldProfile(
+                controller: addressController,
+                hintext: "Address",
+                prefixIcon: const Icon(Icons.home, color: AppColor.grey),
+                validator: Validator.requiredValidator,
+                textInputAction: TextInputAction.done,
+              ),
+              const SizedBox(height: 72.0),
+              TdElevatedButton(
+                onPressed: _updateProfile,
+                text: 'Save',
+                isDisable: isLoading,
+              ),
+            ],
           ),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            BounderInfo(text: 'User Name'),
-            const SizedBox(
-              height: 50.0,
-            ),
-            BounderInfo(text: 'Email'),
-            const SizedBox(
-              height: 50.0,
-            ),
-            BounderInfo(text: 'Phone'),
-            const SizedBox(
-              height: 50.0,
-            ),
-            BounderInfo(text: 'Address'),
-            const SizedBox(
-              height: 160.0,
-            ),
-            AppElevatedButton.normal1(text: 'Confirm Change Information'),
-            const SizedBox(
-              height: 30.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen()),
-                      (Route<dynamic> route) => false,
-                    );
-                  },
-                  child: const Ikonate(
-                    Ikonate.home_alt,
-                    color: AppColor.blue,
-                    height: 40.0,
-                  ),
-                ),
-                const SizedBox(
-                  width: 50.0,
-                ),
-                const Ikonate(
-                  Ikonate.calendar_event,
-                  color: AppColor.blue,
-                  height: 40.0,
-                ),
-                const SizedBox(
-                  width: 50.0,
-                ),
-                const Ikonate(
-                  Ikonate.inbox,
-                  color: AppColor.blue,
-                  height: 40.0,
-                ),
-                const SizedBox(
-                  width: 50.0,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const InformationPerson()),
-                      (Route<dynamic> route) => false,
-                    );
-                  },
-                  child: const Ikonate(
-                    Ikonate.user,
-                    color: AppColor.blue,
-                    height: 40.0,
-                  ),
-                ),
-              ],
-            ),
-          ],
         ),
       ),
     );
