@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:capstone2_clean_house/components/app_bar/bottom_navigator_bar.dart';
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
 import 'package:capstone2_clean_house/components/snack_bar/td_snack_bar.dart';
 import 'package:capstone2_clean_house/components/snack_bar/top_snack_bar.dart';
@@ -9,7 +9,6 @@ import 'package:capstone2_clean_house/model/request/login_request_model.dart';
 import 'package:capstone2_clean_house/model/response/login_response_model.dart';
 import 'package:capstone2_clean_house/pages/auth/forgot_password/forgot_mail.dart';
 import 'package:capstone2_clean_house/pages/auth/register/register_page.dart';
-import 'package:capstone2_clean_house/pages/home_screen/home_screen.dart';
 import 'package:capstone2_clean_house/pages/widget/square_title.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/resources/app_style.dart';
@@ -42,15 +41,17 @@ class _LoginPageState extends State<LoginPage> {
       );
       await authServices.login(body).then((response) async {
         if (response.statusCode == 200) {
-          // final loginResponse = loginResponseJson(response.body);
           final loginResponse = Data.fromJson(jsonDecode(response.body));
-          print(loginResponse.key);
           final token = loginResponse.key;
-          if (token != null) {
+          final user_Id = loginResponse.id;
+          print('Token: $token');
+          print('User_id: $user_Id');
+          if (token != null && user_Id != null) {
             await SharedPrefs.setToken(token);
+            SharedPrefs.setUserId(user_Id);
             if (context.mounted) {
               Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                MaterialPageRoute(builder: (context) => const MainPage()),
                 (Route<dynamic> route) => false,
               );
             }

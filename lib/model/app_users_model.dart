@@ -1,50 +1,60 @@
 class AppUsersModel {
-  String? userid;
+  int? user_id;
   String? username;
   String? email;
+  String? first_name;
+  String? last_name;
   String? password;
-  String? roleid;
+  int? role;
+  int? status;
   String? avatar;
-  String? addressuser;
-  String? createdAt;
-  String? createdbyid;
-  String? updatedAt;
-  String? updatebyid;
-  String? phonenumber;
+  String? address_user;
+  String? created_at;
+  int? created_by_id;
+  String? updated_at;
+  int? updated_by_id;
+  String? phone_number;
+  String? api_key;
   int? v;
 
-  bool? status;
-
   AppUsersModel({
-    this.userid,
+    this.user_id,
     this.username,
     this.email,
+    this.first_name,
+    this.last_name,
     this.password,
-    this.roleid,
+    this.role,
     this.status,
     this.avatar,
-    this.addressuser,
-    this.createdAt,
-    this.createdbyid,
-    this.updatedAt,
-    this.updatebyid,
-    this.phonenumber,
+    this.address_user,
+    this.created_at,
+    this.created_by_id,
+    this.updated_at,
+    this.updated_by_id,
+    this.phone_number,
+    this.api_key,
     this.v,
   });
 
   factory AppUsersModel.fromJson(Map<String, dynamic> json) {
     return AppUsersModel(
-      userid: json['_userid'] as String?,
-      username: json['name'] as String?,
+      user_id: json['user_id'] as int?,
+      username: json['username'] as String?,
       email: json['email'] as String?,
+      first_name: json['first_name'] as String?,
+      last_name: json['last_name'] as String?,
+      phone_number: json['phone_number'] as String?,
       password: json['password'] as String?,
-      roleid: json['role_id'] as String?,
+      role: json['role'] as int?,
+      status: json['status'] as int?,
       avatar: json['avatar'] as String?,
-      addressuser: json['addressuser'] as String?,
-      createdAt: json['createdAt'] as String?,
-      createdbyid: json['createbyid'] as String?,
-      updatedAt: json['updatedAt'] as String?,
-      updatebyid: json['updatebyid'] as String?,
+      address_user: json['address_user'] as String?,
+      created_at: json['created_at'] as String?,
+      created_by_id: json['created_by_id'] as int?,
+      updated_at: json['updated_at'] as String?,
+      updated_by_id: json['updated_by_id'] as int?,
+      api_key: json['api_key'] as String?,
       v: json['__v'] as int?,
     );
   }

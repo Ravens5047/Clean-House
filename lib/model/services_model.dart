@@ -1,44 +1,40 @@
-import 'package:flutter/material.dart';
-
 class ServicesModel {
-  String? servicesid;
+  int? service_id;
   String? description;
-  String? nameservices;
-  String? unitprice;
-  String? createdAt;
-  String? createdbyid;
-  String? updatedAt;
-  String? updatebyid;
-  Image? image;
-  String? categoryid;
-  int? v;
+  String? name_service;
+  double? unit_price;
+  String? created_at;
+  int? created_by_id;
+  String? updated_at;
+  int? updated_by_id;
+  String? image;
+  int? category_id;
 
   ServicesModel({
-    this.servicesid,
+    this.service_id,
     this.description,
-    this.nameservices,
-    this.unitprice,
-    this.createdAt,
-    this.createdbyid,
-    this.updatedAt,
-    this.updatebyid,
+    this.name_service,
+    this.unit_price,
+    this.created_at,
+    this.created_by_id,
+    this.updated_at,
+    this.updated_by_id,
     this.image,
-    this.categoryid,
-    this.v,
+    this.category_id,
   });
 
   factory ServicesModel.fromJson(Map<String, dynamic> json) {
     return ServicesModel(
-      servicesid: json['servicesid'] as String?,
+      service_id: json['service_id'] as int?,
       description: json['description'] as String?,
-      nameservices: json['nameservices'] as String?,
-      unitprice: json['unitprice'] as String?,
-      createdAt: json['createdAt'] as String?,
-      createdbyid: json['createbyid'] as String?,
-      updatedAt: json['updatedAt'] as String?,
-      updatebyid: json['updatebyid'] as String?,
-      categoryid: json['categoryid'] as String?,
-      v: json['__v'] as int?,
+      name_service: json['name_service'] as String?,
+      unit_price: double.tryParse(json['unit_price'].toString()) ?? 0.0,
+      created_at: json['created_at'] as String?,
+      created_by_id: json['created_by_id'] as int?,
+      updated_at: json['updated_at'] as String?,
+      updated_by_id: json['updated_by_id'] as int?,
+      image: json['image'] as String?,
+      category_id: json['category_id'] as int?,
     );
   }
 }

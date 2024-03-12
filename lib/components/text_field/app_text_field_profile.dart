@@ -5,15 +5,14 @@ class AppTextFieldProfile extends StatelessWidget {
   const AppTextFieldProfile({
     super.key,
     this.controller,
-    this.textInputAction,
-    this.validator,
     this.focusNode,
     this.keyboardType,
     this.hintText,
     this.prefixIcon,
     this.onFieldSubmitted,
+    this.textInputAction,
+    this.validator,
     this.readOnly = false,
-    required String hintext,
   });
 
   final TextEditingController? controller;
@@ -65,7 +64,7 @@ class AppTextFieldProfile extends StatelessWidget {
             focusedBorder: outlineInputBorder(AppColor.orange),
             enabledBorder: outlineInputBorder(AppColor.blue),
             hintText: hintText,
-            hintStyle: const TextStyle(color: AppColor.grey),
+            hintStyle: const TextStyle(color: AppColor.black),
             labelText: hintText,
             prefixIcon: prefixIcon,
           ),

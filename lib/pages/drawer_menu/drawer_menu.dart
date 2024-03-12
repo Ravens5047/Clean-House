@@ -132,7 +132,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     title: 'Sign Out',
                     content: 'Do you want to logout ?',
                     action: () async {
-                      await SharedPrefs.removeSeason;
+                      SharedPrefs.removeSeason();
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(

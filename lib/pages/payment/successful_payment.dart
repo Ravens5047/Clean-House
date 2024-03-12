@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:icony/icony_ikonate.dart';
 
 class SuccessfulPayment extends StatefulWidget {
-  const SuccessfulPayment({super.key});
+  const SuccessfulPayment({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<SuccessfulPayment> createState() => _SuccessfulPaymentState();

@@ -59,27 +59,6 @@ class _SplashPageState extends State<SplashPage> {
             height: size.height,
             fit: BoxFit.fill,
           ),
-          // Center(
-          //   child: Column(
-          //     mainAxisAlignment: MainAxisAlignment.center,
-          //     children: [
-          //       Image.asset(
-          //         Assets.images.splash.path,
-          //         width: 160.0,
-          //       ),
-          //       Shimmer.fromColors(
-          //         baseColor: AppColor.white,
-          //         highlightColor: const Color.fromARGB(255, 250, 226, 6),
-          //         child: const Text(
-          //           'Foodie Social',
-          //           textAlign: TextAlign.center,
-          //           style:
-          //               TextStyle(fontSize: 38.0, fontWeight: FontWeight.bold),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
         ],
       ),
     );

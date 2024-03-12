@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:capstone2_clean_house/model/request/login_request_model.dart';
 import 'package:capstone2_clean_house/model/request/register_request_model.dart';
+import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:http/http.dart' as http;
 import 'package:capstone2_clean_house/components/constants/app_constant.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
@@ -23,6 +24,7 @@ class APIService implements AuthServices {
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${SharedPrefs.token}',
       },
       body: jsonEncode(body.toJson()),
     );
