@@ -101,6 +101,7 @@ class _InformationPersonState extends State<InformationPerson> {
                 controller: nameController,
                 hintText: "User Name Account",
                 prefixIcon: const Icon(Icons.person, color: AppColor.grey),
+                readOnly: true,
                 validator: Validator.requiredValidator,
                 textInputAction: TextInputAction.done,
               ),

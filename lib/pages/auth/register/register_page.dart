@@ -46,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
       final body = RegisterRequestModel(
         username: nameController.text.trim(),
         email: emailController.text.trim(),
-        phone: phoneController.text.trim(),
+        phone_number: phoneController.text.trim(),
         password: passwordController.text,
         role: 3,
       );

@@ -2,14 +2,14 @@ class RegisterRequestModel {
   String? username;
   String? password;
   String? email;
-  String? phone;
+  String? phone_number;
   int? role;
 
   RegisterRequestModel({
     this.username,
     this.password,
     this.email,
-    this.phone,
+    this.phone_number,
     this.role = 3,
   });
 
@@ -17,7 +17,7 @@ class RegisterRequestModel {
     username = json['username'];
     password = json['password'];
     email = json['email'];
-    phone = json['phone'];
+    phone_number = json['phone_number'];
     role = json['role'];
   }
 
@@ -26,7 +26,7 @@ class RegisterRequestModel {
       'username': username,
       'password': password,
       'email': email,
-      'phone': phone,
+      'phone_number': phone_number,
       'role': role,
     };
   }
