@@ -16,7 +16,11 @@ class AccountService implements ImlAccountService {
 
   @override
   Future<http.Response> getDetailUser(int user_id) async {
-    const url = AppConstant.endPointGetDetailUser;
+    String url = AppConstant.endPointGetDetailUser.replaceFirstMapped(
+      RegExp(':id'),
+      (match) => user_id.toString(),
+    );
+
     return await httpLog.get(
       Uri.parse(url),
       headers: {

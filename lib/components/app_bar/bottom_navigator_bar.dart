@@ -1,3 +1,4 @@
+import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/pages/home_screen/home_screen.dart';
 import 'package:capstone2_clean_house/pages/information_person/information_person.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
@@ -10,12 +11,12 @@ class MainPage extends StatefulWidget {
     Key? key,
   }) : super(key: key);
 
-
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
+  AppUsersModel appUser = AppUsersModel();
   late int userId;
   int currentPageIndex = 0;
 
@@ -49,7 +50,10 @@ class _MainPageState extends State<MainPage> {
       Container(
         color: AppColor.blue,
       ),
-      InformationPerson(user_id: userId),
+      InformationPerson(
+        user_id: userId,
+        appUser: appUser,
+      ),
     ];
   }
 

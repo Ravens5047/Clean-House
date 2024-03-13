@@ -46,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
       final body = RegisterRequestModel(
         username: nameController.text.trim(),
         email: emailController.text.trim(),
-        // phone: phoneController.text.trim(),
+        phone: phoneController.text.trim(),
         password: passwordController.text,
         role: 3,
       );
@@ -54,7 +54,6 @@ class _RegisterPageState extends State<RegisterPage> {
         final data = jsonDecode(response.body);
         if (response.statusCode >= 200 && response.statusCode < 300) {
           final registerResponse = RegisterResponseModel.fromJson(data);
-
           SharedPrefs.token = registerResponse.data?.token;
           showTopSnackBar(
             context,
@@ -62,7 +61,6 @@ class _RegisterPageState extends State<RegisterPage> {
               message: 'Register successfully, login ',
             ),
           );
-          // k can show snack nha, vi signin thanh cong no vao man hinh login nen ngta hieu
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
               builder: (context) => const LoginPage(),

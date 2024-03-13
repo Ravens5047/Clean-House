@@ -11,9 +11,11 @@ class InformationPerson extends StatefulWidget {
   const InformationPerson({
     Key? key,
     required this.user_id,
+    required this.appUser,
   }) : super(key: key);
 
   final int user_id;
+  final AppUsersModel appUser;
 
   @override
   State<InformationPerson> createState() => _InformationPersonState();
@@ -33,38 +35,49 @@ class _InformationPersonState extends State<InformationPerson> {
 
   @override
   void initState() {
-    userId = widget.user_id;
-    _getDetailUser(userId);
     super.initState();
+    userId = widget.user_id;
+    _initData();
   }
 
-  void _getDetailUser(int user_id) async {
-    try {
-      final response = await accountService.getDetailUser(user_id);
-      print('User ID: $user_id');
-      print('User ID from SharedPrefs: $user_id');
-      if (response.statusCode == 200) {
-        final dynamic responseData = json.decode(response.body);
-        if (responseData is Map<String, dynamic>) {
-          setState(() {
-            detailUsersList.add(AppUsersModel.fromJson(responseData));
-          });
-          print('Call Successful API');
-        } else {
-          print('No data returned from API');
-        }
+  Future<void> _initData() async {
+    final currentUser = await _getDetailUser(userId);
+    _updateTextControllers(currentUser);
+  }
+
+  Future<AppUsersModel> _getDetailUser(int user_id) async {
+    final response = await accountService.getDetailUser(user_id);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      final dynamic responseData = json.decode(response.body);
+      final dynamic userData = responseData['user'][0];
+      print('Response data: $responseData');
+      if (responseData is Map<String, dynamic>) {
+        return AppUsersModel.fromJson(userData);
       } else {
-        print('Failed to fetch user details: ${response.statusCode}');
+        throw Exception('No data returned from API');
       }
-    } catch (e) {
-      print('Error occurred while fetching user details: $e');
+    } else {
+      throw Exception('Failed to fetch user details: ${response.statusCode}');
     }
+  }
+
+  void _updateTextControllers(AppUsersModel currentUser) {
+    print('Current user: $currentUser');
+    setState(() {
+      print('Updating text controllers with user: ${currentUser.username}');
+      nameController.text = currentUser.username ?? '';
+      emailController.text = currentUser.email ?? '';
+      first_nameController.text = currentUser.first_name ?? '';
+      last_nameController.text = currentUser.last_name ?? '';
+      phoneController.text = currentUser.phone_number ?? '';
+      print(
+          'Updating text controllers with phone: ${currentUser.phone_number}');
+      addressController.text = currentUser.address_user ?? '';
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    AppUsersModel currentUser =
-        detailUsersList.isNotEmpty ? detailUsersList[0] : AppUsersModel();
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -85,7 +98,7 @@ class _InformationPersonState extends State<InformationPerson> {
               ),
               const SizedBox(height: 38.0),
               AppTextFieldProfile(
-                controller: nameController..text = currentUser.username ?? '',
+                controller: nameController,
                 hintText: "User Name Account",
                 prefixIcon: const Icon(Icons.person, color: AppColor.grey),
                 validator: Validator.requiredValidator,
@@ -93,8 +106,7 @@ class _InformationPersonState extends State<InformationPerson> {
               ),
               const SizedBox(height: 18.0),
               AppTextFieldProfile(
-                controller: first_nameController
-                  ..text = currentUser.first_name ?? '',
+                controller: first_nameController,
                 hintText: "First Name",
                 prefixIcon: const Icon(Icons.person, color: AppColor.grey),
                 validator: Validator.requiredValidator,
@@ -102,8 +114,7 @@ class _InformationPersonState extends State<InformationPerson> {
               ),
               const SizedBox(height: 18.0),
               AppTextFieldProfile(
-                controller: last_nameController
-                  ..text = currentUser.last_name ?? '',
+                controller: last_nameController,
                 hintText: "Last Name",
                 prefixIcon: const Icon(Icons.person, color: AppColor.grey),
                 validator: Validator.requiredValidator,
@@ -111,7 +122,7 @@ class _InformationPersonState extends State<InformationPerson> {
               ),
               const SizedBox(height: 18.0),
               AppTextFieldProfile(
-                controller: emailController..text = currentUser.email ?? '',
+                controller: emailController,
                 hintText: "Email",
                 readOnly: true,
                 prefixIcon: const Icon(Icons.email, color: AppColor.grey),
@@ -119,8 +130,7 @@ class _InformationPersonState extends State<InformationPerson> {
               ),
               const SizedBox(height: 18.0),
               AppTextFieldProfile(
-                controller: phoneController
-                  ..text = currentUser.phone_number ?? '',
+                controller: phoneController,
                 hintText: "Phone",
                 prefixIcon: const Icon(Icons.phone, color: AppColor.grey),
                 validator: Validator.requiredValidator,
@@ -128,8 +138,7 @@ class _InformationPersonState extends State<InformationPerson> {
               ),
               const SizedBox(height: 18.0),
               AppTextFieldProfile(
-                controller: addressController
-                  ..text = currentUser.address_user ?? '',
+                controller: addressController,
                 hintText: "Address",
                 prefixIcon: const Icon(Icons.home, color: AppColor.grey),
                 validator: Validator.requiredValidator,

@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ServicesModel servicesModel = ServicesModel();
   ProductService productService = ProductService();
   List<ServicesModel> servicesList = [];
-  
+
   @override
   void initState() {
     _getListProduct();
@@ -61,6 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(),
       drawer: DrawerMenu(
         appUser: appUser,
+        user_id: appUser.user_id ?? 0,
       ),
       body: Form(
         key: formKey,
