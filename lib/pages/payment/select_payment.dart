@@ -22,16 +22,16 @@ class _SelectPaymentState extends State<SelectPayment> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Payment        ',
-            style: TextStyle(
-              color: AppColor.blue,
-              fontSize: 25.0,
-              fontWeight: FontWeight.w500,
-            ),
+        title: const Text(
+          'Payment',
+          style: TextStyle(
+            color: AppColor.blue,
+            fontSize: 25.0,
+            fontWeight: FontWeight.w500,
           ),
+          textAlign: TextAlign.center,
         ),
+        centerTitle: true,
         leading: IconButton(
           onPressed: () => Navigator.of(context).pop(),
           icon: const Icon(Icons.arrow_back_ios),

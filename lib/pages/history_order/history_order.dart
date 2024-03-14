@@ -24,16 +24,16 @@ class _HistoryOrderState extends State<HistoryOrder> {
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),
-        title: const Center(
-          child: Text(
-            'History Order          ',
-            style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.w500,
-              color: AppColor.blue,
-            ),
+        title: const Text(
+          'History Order',
+          style: TextStyle(
+            fontSize: 25.0,
+            fontWeight: FontWeight.w500,
+            color: AppColor.blue,
           ),
+          textAlign: TextAlign.center,
         ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

@@ -14,16 +14,22 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Detail History Order      ',
-            style: TextStyle(
-              fontSize: 25.0,
-              fontWeight: FontWeight.w500,
-              color: AppColor.blue,
-            ),
-          ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
         ),
+        title: const Text(
+          'Detail History Order',
+          style: TextStyle(
+            fontSize: 25.0,
+            fontWeight: FontWeight.w500,
+            color: AppColor.blue,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

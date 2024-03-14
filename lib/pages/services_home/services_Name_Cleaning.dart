@@ -6,8 +6,8 @@ import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:icony/icony_ikonate.dart';
 
-class HouseCleaning extends StatefulWidget {
-  const HouseCleaning({
+class ServicesNameCleaning extends StatefulWidget {
+  const ServicesNameCleaning({
     super.key,
     required this.service,
   });
@@ -15,10 +15,10 @@ class HouseCleaning extends StatefulWidget {
   final ServicesModel service;
 
   @override
-  State<HouseCleaning> createState() => _HouseCleaningState();
+  State<ServicesNameCleaning> createState() => _ServicesNameCleaningState();
 }
 
-class _HouseCleaningState extends State<HouseCleaning> {
+class _ServicesNameCleaningState extends State<ServicesNameCleaning> {
   final formKey = GlobalKey<FormState>();
   String? selectedLocation;
   final List<String> locations = [
@@ -44,17 +44,16 @@ class _HouseCleaningState extends State<HouseCleaning> {
               Navigator.of(context).pop();
             },
           ),
-          title: Align(
-            alignment: Alignment.center,
-            child: Text(
-              widget.service.name_service ?? '-:-',
-              style: const TextStyle(
-                color: AppColor.blue,
-                fontSize: 25.0,
-                fontWeight: FontWeight.w500,
-              ),
+          title: Text(
+            widget.service.name_service ?? '-:-',
+            style: const TextStyle(
+              color: AppColor.blue,
+              fontSize: 25.0,
+              fontWeight: FontWeight.w500,
             ),
+            textAlign: TextAlign.center,
           ),
+          centerTitle: true,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -64,22 +63,56 @@ class _HouseCleaningState extends State<HouseCleaning> {
                 const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Location',
+                    'Descriptions Service',
                     style: TextStyle(
                       fontSize: 20.0,
-                      color: AppColor.grey,
+                      color: AppColor.blue,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 30.0,
+                  height: 10.0,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: AppColor.black.withOpacity(0.5),
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  padding: const EdgeInsets.all(17.0),
+                  child: Text(
+                    widget.service.description ?? '',
+                    style: const TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Location',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: AppColor.blue,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20.0,
                 ),
                 Container(
                   height: 55.0,
                   padding: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
-                    color: AppColor.grey,
+                    color: const Color.fromARGB(255, 74, 180, 241),
                     border: Border.all(
                       width: 1.2,
                       color: AppColor.black.withOpacity(0.98),
@@ -129,15 +162,16 @@ class _HouseCleaningState extends State<HouseCleaning> {
                     'Select Frequency',
                     style: TextStyle(
                       fontSize: 20.0,
-                      color: AppColor.grey,
+                      color: AppColor.blue,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const SizedBox(
-                      height: 100.0,
+                      height: 80.0,
                     ),
                     ContainerCircle(text: 'Weekly'),
                     const Spacer(),
@@ -147,7 +181,7 @@ class _HouseCleaningState extends State<HouseCleaning> {
                   ],
                 ),
                 const SizedBox(
-                  height: 30.0,
+                  height: 10.0,
                 ),
                 const Align(
                   alignment: Alignment.centerLeft,
@@ -155,7 +189,7 @@ class _HouseCleaningState extends State<HouseCleaning> {
                     'Work Time',
                     style: TextStyle(
                       fontSize: 20.0,
-                      color: AppColor.grey,
+                      color: AppColor.blue,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

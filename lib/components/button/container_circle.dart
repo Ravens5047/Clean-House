@@ -12,8 +12,8 @@ class ContainerCircle extends StatelessWidget {
     this.height = 48.0,
     this.padding = const EdgeInsets.symmetric(horizontal: 16.0),
     BorderRadius? borderRadius,
-  })  : color = color ?? AppColor.grey.withOpacity(0.98),
-        borderColor = borderColor ?? AppColor.grey.withOpacity(0.98),
+  })  : color = color ?? const Color.fromARGB(255, 74, 180, 241),
+        borderColor = borderColor ?? const Color.fromARGB(255, 74, 180, 241),
         borderRadius = borderRadius ?? BorderRadius.circular(10.0);
 
   ContainerCircle.text1({
