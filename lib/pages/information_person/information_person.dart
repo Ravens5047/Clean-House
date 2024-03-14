@@ -28,6 +28,7 @@ class _InformationPersonState extends State<InformationPerson> {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final addressController = TextEditingController();
+  final fullnameController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   AccountService accountService = AccountService();
   List<AppUsersModel> detailUsersList = [];

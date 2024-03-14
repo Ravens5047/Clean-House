@@ -58,7 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     print('servicesList length: ${servicesList.length}');
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 74, 180, 241),
+      ),
       drawer: DrawerMenu(
         appUser: appUser,
         user_id: appUser.user_id ?? 0,

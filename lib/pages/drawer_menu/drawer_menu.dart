@@ -29,6 +29,9 @@ class DrawerMenu extends StatefulWidget {
 class _DrawerMenuState extends State<DrawerMenu> {
   late String username;
   late String email;
+  late String first_name;
+  late String last_name;
+  late String full_name;
   AccountService accountService = AccountService();
   late int userId;
   final formKey = GlobalKey<FormState>();
@@ -83,6 +86,9 @@ class _DrawerMenuState extends State<DrawerMenu> {
       print('Updating text controllers with user: ${currentUser.username}');
       username = currentUser.username ?? '';
       email = currentUser.email ?? '';
+      first_name = currentUser.first_name ?? '';
+      last_name = currentUser.last_name ?? '';
+      full_name = '$first_name $last_name';
     });
   }
 
@@ -96,7 +102,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
           children: [
             UserAccountsDrawerHeader(
               accountName: Text(
-                username,
+                full_name,
                 style: const TextStyle(
                   fontSize: 17.0,
                   color: AppColor.white,
