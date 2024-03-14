@@ -6,4 +6,5 @@ class AppConstant {
   static const endPointRegister = '$baseAPI/users';
   static const endPointGetListServices = '$baseAPI/services';
   static const endPointGetDetailUser = '$baseAPI/users/:id';
+  static const endPointSeachServices = '$baseAPI/services/search';
 }

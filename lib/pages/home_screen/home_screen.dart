@@ -1,12 +1,11 @@
 import 'dart:convert';
-
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/model/services_model.dart';
 import 'package:capstone2_clean_house/pages/drawer_menu/drawer_menu.dart';
 import 'package:capstone2_clean_house/pages/services_home/detail_name_services.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
-import 'package:capstone2_clean_house/services/remote/product_services.dart';
+import 'package:capstone2_clean_house/services/remote/services.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,17 +23,17 @@ class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
   bool isDark = false;
   ServicesModel servicesModel = ServicesModel();
-  ProductService productService = ProductService();
+  ServicesName servicesName = ServicesName();
   List<ServicesModel> servicesList = [];
 
   @override
   void initState() {
-    _getListProduct();
+    _getListServices();
     super.initState();
   }
 
-  void _getListProduct() {
-    productService.getListProduct().then((response) {
+  void _getListServices() {
+    servicesName.getListServices().then((response) {
       if (response.statusCode == 200) {
         List<ServicesModel> tempList = [];
         List<dynamic> responseData = jsonDecode(response.body);
@@ -48,6 +47,26 @@ class _HomeScreenState extends State<HomeScreen> {
         });
       } else {
         print('Failed to load data from API');
+      }
+    }).catchError((onError) {
+      print('Error occurred: $onError');
+    });
+  }
+
+  void _searchServices(String name_service) {
+    servicesName.searchServices(name_service).then((response) {
+      if (response.statusCode == 200) {
+        List<ServicesModel> tempList = [];
+        List<dynamic> responseData = jsonDecode(response.body);
+        for (var data in responseData) {
+          ServicesModel service = ServicesModel.fromJson(data);
+          tempList.add(service);
+        }
+        setState(() {
+          servicesList = tempList;
+        });
+      } else {
+        print('Failed to search services');
       }
     }).catchError((onError) {
       print('Error occurred: $onError');
@@ -86,35 +105,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 20.0,
                   ),
-                  SearchAnchor(
-                    builder:
-                        (BuildContext context, SearchController controller) {
-                      return SearchBar(
-                        controller: controller,
-                        padding: const MaterialStatePropertyAll<EdgeInsets>(
-                            EdgeInsets.symmetric(horizontal: 16.0)),
-                        onTap: () {
-                          controller.openView();
-                        },
-                        onChanged: (_) {
-                          controller.openView();
-                        },
-                        leading: const Icon(Icons.search),
-                      );
-                    },
-                    suggestionsBuilder:
-                        (BuildContext context, SearchController controller) {
-                      return List<ListTile>.generate(5, (int index) {
-                        final String item = 'item $index';
-                        return ListTile(
-                          title: Text(item),
-                          onTap: () {
-                            setState(() {
-                              controller.closeView(item);
-                            });
-                          },
-                        );
-                      });
+                  TextField(
+                    controller: searchController,
+                    decoration: InputDecoration(
+                      hintText: 'Search services...',
+                      prefixIcon: const Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide: const BorderSide(color: Colors.grey),
+                      ),
+                      hintStyle: const TextStyle(color: Colors.grey),
+                    ),
+                    onChanged: (value) {
+                      _searchServices(value);
                     },
                   ),
                   const SizedBox(
@@ -187,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 service.name_service ?? 'Unknown service',
                                 style: const TextStyle(
-                                  fontSize: 15.0,
+                                  fontSize: 17.0,
                                   fontWeight: FontWeight.w400,
                                   color: AppColor.blue,
                                 ),

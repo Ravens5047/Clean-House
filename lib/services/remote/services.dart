@@ -2,18 +2,18 @@ import 'package:capstone2_clean_house/components/constants/app_constant.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:http/http.dart' as http;
 
-abstract class ImlProductServices {
-  Future<http.Response> getListProduct();
-  Future<http.Response> getDetailServices(int service_id);
+abstract class ImlServicesName {
+  Future<http.Response> getListServices();
+  Future<http.Response> searchServices(String name_service);
 }
 
-class ProductService implements ImlProductServices {
+class ServicesName implements ImlServicesName {
   static final httpLog = HttpWithMiddleware.build(middlewares: [
     HttpLogger(logLevel: LogLevel.BODY),
   ]);
 
   @override
-  Future<http.Response> getListProduct() async {
+  Future<http.Response> getListServices() async {
     const url = AppConstant.endPointGetListServices;
     return await httpLog.get(
       Uri.parse(url),
@@ -25,18 +25,13 @@ class ProductService implements ImlProductServices {
   }
 
   @override
-  Future<http.Response> getDetailServices(int service_id) async {
-    String url = AppConstant.endPointGetDetailUser.replaceFirstMapped(
-      RegExp(':id'),
-      (match) => service_id.toString(),
-    );
-
+  Future<http.Response> searchServices(String name_service) async {
+    String url = '${AppConstant.endPointSeachServices}?keyword=$name_service';
     return await httpLog.get(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
-        // 'Authorization': 'Bearer ${SharedPrefs.token}',
       },
     );
   }
