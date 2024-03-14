@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:capstone2_clean_house/components/app_dialog.dart';
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
@@ -27,11 +26,11 @@ class DrawerMenu extends StatefulWidget {
 }
 
 class _DrawerMenuState extends State<DrawerMenu> {
-  late String username;
-  late String email;
-  late String first_name;
-  late String last_name;
-  late String full_name;
+  String username = "";
+  String email = "";
+  String first_name = "";
+  String last_name = "";
+  String full_name = "";
   AccountService accountService = AccountService();
   late int userId;
   final formKey = GlobalKey<FormState>();
@@ -88,7 +87,11 @@ class _DrawerMenuState extends State<DrawerMenu> {
       email = currentUser.email ?? '';
       first_name = currentUser.first_name ?? '';
       last_name = currentUser.last_name ?? '';
-      full_name = '$first_name $last_name';
+      if (first_name.isEmpty && last_name.isEmpty) {
+        full_name = "No Name ??? ";
+      } else {
+        full_name = '$first_name $last_name';
+      }
     });
   }
 

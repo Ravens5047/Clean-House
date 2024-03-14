@@ -44,6 +44,7 @@ class SharedPrefs {
     print('Removing user session user_id: $user_id');
     _prefs.remove(accessTokenKey);
     _prefs.remove(checkAccessKey);
+    _prefs.remove(userIdKey);
     print('User session token and user_id removed successfully.');
   }
 

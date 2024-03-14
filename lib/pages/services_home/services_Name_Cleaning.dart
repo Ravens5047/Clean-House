@@ -332,64 +332,6 @@ class _ServicesNameCleaningState extends State<ServicesNameCleaning> {
                   },
                   text: 'Continue',
                 ),
-                const SizedBox(
-                  height: 30.0,
-                ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     GestureDetector(
-                //       onTap: () {
-                //         Navigator.of(context).pushAndRemoveUntil(
-                //           MaterialPageRoute(
-                //             builder: (context) => const HomeScreen(),
-                //           ),
-                //           (Route<dynamic> route) => false,
-                //         );
-                //       },
-                //       child: const Ikonate(
-                //         Ikonate.home_alt,
-                //         color: AppColor.blue,
-                //         height: 40.0,
-                //       ),
-                //     ),
-                //     const SizedBox(
-                //       width: 50.0,
-                //     ),
-                //     const Ikonate(
-                //       Ikonate.calendar_event,
-                //       color: AppColor.blue,
-                //       height: 40.0,
-                //     ),
-                //     const SizedBox(
-                //       width: 50.0,
-                //     ),
-                //     const Ikonate(
-                //       Ikonate.inbox,
-                //       color: AppColor.blue,
-                //       height: 40.0,
-                //     ),
-                //     const SizedBox(
-                //       width: 50.0,
-                //     ),
-                //     GestureDetector(
-                //       onTap: () {
-                //         Navigator.of(context).push(
-                //           MaterialPageRoute(
-                //             builder: (context) => InformationPerson(
-                //               appUser: AppUserModel(),
-                //             ),
-                //           ),
-                //         );
-                //       },
-                //       child: const Ikonate(
-                //         Ikonate.user,
-                //         color: AppColor.blue,
-                //         height: 40.0,
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ],
             ),
           ),

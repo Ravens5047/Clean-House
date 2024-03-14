@@ -4,7 +4,7 @@ import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/model/services_model.dart';
 import 'package:capstone2_clean_house/pages/drawer_menu/drawer_menu.dart';
-import 'package:capstone2_clean_house/pages/services_home/services_Name_Cleaning.dart';
+import 'package:capstone2_clean_house/pages/services_home/detail_name_services.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/remote/product_services.dart';
 import 'package:flutter/material.dart';
@@ -169,8 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onTap: () {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          ServicesNameCleaning(
+                                      builder: (context) => DetailNameServices(
                                         service: service,
                                       ),
                                     ),
