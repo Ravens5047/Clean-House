@@ -13,7 +13,7 @@ class ProductService implements ImlProductServices {
 
   @override
   Future<http.Response> getListProduct() async {
-    const url = AppConstant.endPointGetListProducts;
+    const url = AppConstant.endPointGetListServices;
     return await httpLog.get(
       Uri.parse(url),
       headers: {

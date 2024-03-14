@@ -64,14 +64,11 @@ class _InformationPersonState extends State<InformationPerson> {
   void _updateTextControllers(AppUsersModel currentUser) {
     print('Current user: $currentUser');
     setState(() {
-      print('Updating text controllers with user: ${currentUser.username}');
       nameController.text = currentUser.username ?? '';
       emailController.text = currentUser.email ?? '';
       first_nameController.text = currentUser.first_name ?? '';
       last_nameController.text = currentUser.last_name ?? '';
       phoneController.text = currentUser.phone_number ?? '';
-      print(
-          'Updating text controllers with phone: ${currentUser.phone_number}');
       addressController.text = currentUser.address_user ?? '';
     });
   }
