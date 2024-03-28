@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:capstone2_clean_house/components/constants/app_constant.dart';
-import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:pretty_http_logger/pretty_http_logger.dart';
 import 'package:http/http.dart' as http;

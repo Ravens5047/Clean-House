@@ -58,4 +58,25 @@ class AppUsersModel {
       v: json['__v'] as int?,
     );
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'user_id': user_id,
+      'username': username,
+      'email': email,
+      'first_name': first_name,
+      'last_name': last_name,
+      'phone_number': phone_number,
+      'password': password,
+      'role': role,
+      'status': status,
+      'avatar': avatar,
+      'address_user': address_user,
+      'created_at': created_at,
+      'created_by_id': created_by_id,
+      'updated_at': updated_at,
+      'updated_by_id': updated_by_id,
+      'api_key': api_key,
+      '__v': v,
+    };
+  }
 }
