@@ -10,7 +10,7 @@ class RegisterRequestModel {
     this.password,
     this.email,
     this.phone_number,
-    this.role = 3,
+    this.role = 4,
   });
 
   RegisterRequestModel.fromJson(Map<String, dynamic> json) {

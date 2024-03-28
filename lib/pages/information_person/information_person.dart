@@ -4,7 +4,6 @@ import 'package:capstone2_clean_house/components/text_field/app_text_field_profi
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
-import 'package:capstone2_clean_house/utils/validator.dart';
 import 'package:flutter/material.dart';
 
 class InformationPerson extends StatefulWidget {
@@ -74,6 +73,48 @@ class _InformationPersonState extends State<InformationPerson> {
     });
   }
 
+  void _updateProfile() async {
+    if (formKey.currentState!.validate()) {
+      final updatedUser = AppUsersModel(
+        user_id: userId,
+        username: nameController.text.trim(),
+        email: emailController.text.trim(),
+        first_name: first_nameController.text.trim(),
+        last_name: last_nameController.text.trim(),
+        phone_number: phoneController.text.trim(),
+        address_user: addressController.text.trim(),
+      );
+
+      try {
+        final response =
+            await accountService.UpdateDetailUser(userId, updatedUser.toJson());
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          _updateTextControllers(updatedUser); 
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Profile updated successfully.'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Failed to update profile: ${response.statusCode}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to update profile: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -100,7 +141,7 @@ class _InformationPersonState extends State<InformationPerson> {
                 hintText: "User Name Account",
                 prefixIcon: const Icon(Icons.person, color: AppColor.grey),
                 readOnly: true,
-                validator: Validator.requiredValidator,
+                // validator: Validator.requiredValidator,
                 textInputAction: TextInputAction.done,
               ),
               const SizedBox(height: 18.0),
@@ -108,7 +149,7 @@ class _InformationPersonState extends State<InformationPerson> {
                 controller: first_nameController,
                 hintText: "First Name",
                 prefixIcon: const Icon(Icons.person, color: AppColor.grey),
-                validator: Validator.requiredValidator,
+                // validator: Validator.requiredValidator,
                 textInputAction: TextInputAction.done,
               ),
               const SizedBox(height: 18.0),
@@ -116,7 +157,7 @@ class _InformationPersonState extends State<InformationPerson> {
                 controller: last_nameController,
                 hintText: "Last Name",
                 prefixIcon: const Icon(Icons.person, color: AppColor.grey),
-                validator: Validator.requiredValidator,
+                // validator: Validator.requiredValidator,
                 textInputAction: TextInputAction.done,
               ),
               const SizedBox(height: 18.0),
@@ -132,7 +173,7 @@ class _InformationPersonState extends State<InformationPerson> {
                 controller: phoneController,
                 hintText: "Phone",
                 prefixIcon: const Icon(Icons.phone, color: AppColor.grey),
-                validator: Validator.requiredValidator,
+                // validator: Validator.requiredValidator,
                 textInputAction: TextInputAction.done,
               ),
               const SizedBox(height: 18.0),
@@ -140,13 +181,13 @@ class _InformationPersonState extends State<InformationPerson> {
                 controller: addressController,
                 hintText: "Address",
                 prefixIcon: const Icon(Icons.home, color: AppColor.grey),
-                validator: Validator.requiredValidator,
+                // validator: Validator.requiredValidator,
                 textInputAction: TextInputAction.done,
               ),
               const SizedBox(height: 72.0),
               TdElevatedButton(
-                // onPressed: _updateProfile,
-                text: 'Save',
+                onPressed: _updateProfile,
+                text: 'Update Profile',
               ),
             ],
           ),

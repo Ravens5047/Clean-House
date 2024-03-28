@@ -7,12 +7,12 @@ class Validator {
 
   static final passwordValidator = MultiValidator([
     RequiredValidator(errorText: 'This field is required'),
-    MinLengthValidator(6, errorText: 'Password must be at least 6 digits long'),
+    MinLengthValidator(8, errorText: 'Password must be at least 8 digits long'),
   ]);
 
   static final emailValidator = MultiValidator([
     RequiredValidator(errorText: 'This field is required'),
-    EmailValidator(errorText: 'Enter a valid email address'),
+    EmailValidator(errorText: 'Invalid email address, please check @ and .'),
   ]);
 
   static MultiValidator confirmPasswordValidator(String? password) =>

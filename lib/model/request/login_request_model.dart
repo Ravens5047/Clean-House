@@ -6,7 +6,7 @@ class LoginRequestModel {
   LoginRequestModel({
     this.username,
     this.password,
-    this.role = 3,
+    this.role = 4,
   });
 
   LoginRequestModel.fromJson(Map<String, dynamic> json) {

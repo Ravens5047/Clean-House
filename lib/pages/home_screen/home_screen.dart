@@ -178,11 +178,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   );
                                 },
-                                child: Image.asset(
-                                  Assets.images.biaanh1.path,
-                                  width: 120.0,
-                                  fit: BoxFit.cover,
-                                ),
+                                // child: Image.asset(
+                                //   Assets.images.biaanh2.path,
+                                //   width: 120.0,
+                                //   fit: BoxFit.cover,
+                                // ),
+                                child: service.image != null
+                                    ? Image.network(
+                                        'https://bepchinhhang.com/ckfinder/userfiles/images/bai_viet/Bi-kip-rua-bat-dua-de-bao-toan-suc-khoe-moi-ngay.jpg',
+                                        width: 205.0,
+                                        height: 205.0,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.asset(
+                                        Assets.images.services1.path,
+                                        width: 205.0,
+                                        height: 205.0,
+                                        fit: BoxFit.cover,
+                                      ),
                               ),
                               const SizedBox(
                                 height: 10.0,

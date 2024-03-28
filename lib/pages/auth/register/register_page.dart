@@ -48,7 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
         email: emailController.text.trim(),
         phone_number: phoneController.text.trim(),
         password: passwordController.text,
-        role: 3,
+        role: 4,
       );
       await authServices.register(body).then((response) {
         final data = jsonDecode(response.body);

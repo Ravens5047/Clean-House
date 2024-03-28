@@ -4,7 +4,6 @@ import 'package:capstone2_clean_house/model/services_model.dart';
 import 'package:capstone2_clean_house/pages/payment/select_payment.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
-import 'package:icony/icony_ikonate.dart';
 
 class ServicesNameCleaning extends StatefulWidget {
   const ServicesNameCleaning({
@@ -31,6 +30,52 @@ class _ServicesNameCleaningState extends State<ServicesNameCleaning> {
     'Cao Lanh',
     'Da Lat',
   ];
+
+  // Trạng thái lưu trữ số lượng cho mỗi mục
+  int bathroomCount = 0;
+  int kitchenCount = 0;
+  int livingRoomCount = 0;
+  int bedroomCount = 0;
+
+  // Hàm tăng số lượng
+  void incrementCount(String item) {
+    setState(() {
+      switch (item) {
+        case 'bathroom':
+          bathroomCount++;
+          break;
+        case 'kitchenroom':
+          kitchenCount++;
+          break;
+        case 'livingroom':
+          livingRoomCount++;
+          break;
+        case 'bedroom':
+          bedroomCount++;
+          break;
+      }
+    });
+  }
+
+  // Hàm giảm số lượng
+  void decrementCount(String item) {
+    setState(() {
+      switch (item) {
+        case 'bathroom':
+          if (bathroomCount > 0) bathroomCount--;
+          break;
+        case 'kitchenroom':
+          if (kitchenCount > 0) kitchenCount--;
+          break;
+        case 'livingroom':
+          if (livingRoomCount > 0) livingRoomCount--;
+          break;
+        case 'bedroom':
+          if (bedroomCount > 0) bedroomCount--;
+          break;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -207,13 +252,13 @@ class _ServicesNameCleaningState extends State<ServicesNameCleaning> {
                     ContainerCircle(text: '14:00'),
                   ],
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.centerLeft,
                   child: Column(
                     children: [
                       Row(
                         children: [
-                          Text(
+                          const Text(
                             'Bath Room',
                             style: TextStyle(
                               color: AppColor.black,
@@ -221,24 +266,35 @@ class _ServicesNameCleaningState extends State<ServicesNameCleaning> {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                          Spacer(),
-                          Ikonate(
-                            Ikonate.minus,
-                            color: AppColor.black,
+                          const Spacer(),
+                          IconButton(
+                            icon: const Icon(Icons.remove),
+                            onPressed: () {
+                              decrementCount('bathroom');
+                            },
                           ),
-                          Icon(Icons.check_box_outline_blank),
-                          Ikonate(
-                            Ikonate.plus,
-                            color: AppColor.black,
+                          Text(
+                            bathroomCount.toString(),
+                            style: const TextStyle(
+                              color: AppColor.black,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.add),
+                            onPressed: () {
+                              incrementCount('bathroom');
+                            },
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
                         children: [
-                          Text(
+                          const Text(
                             'Kitchen Room',
                             style: TextStyle(
                               color: AppColor.black,
@@ -246,24 +302,35 @@ class _ServicesNameCleaningState extends State<ServicesNameCleaning> {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                          Spacer(),
-                          Ikonate(
-                            Ikonate.minus,
-                            color: AppColor.black,
+                          const Spacer(),
+                          IconButton(
+                            icon: const Icon(Icons.remove),
+                            onPressed: () {
+                              decrementCount('kitchenroom');
+                            },
                           ),
-                          Icon(Icons.check_box_outline_blank),
-                          Ikonate(
-                            Ikonate.plus,
-                            color: AppColor.black,
+                          Text(
+                            kitchenCount.toString(),
+                            style: const TextStyle(
+                              color: AppColor.black,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.add),
+                            onPressed: () {
+                              incrementCount('kitchenroom');
+                            },
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
                         children: [
-                          Text(
+                          const Text(
                             'Living Room',
                             style: TextStyle(
                               color: AppColor.black,
@@ -271,24 +338,35 @@ class _ServicesNameCleaningState extends State<ServicesNameCleaning> {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                          Spacer(),
-                          Ikonate(
-                            Ikonate.minus,
-                            color: AppColor.black,
+                          const Spacer(),
+                          IconButton(
+                            icon: const Icon(Icons.remove),
+                            onPressed: () {
+                              decrementCount('livingroom');
+                            },
                           ),
-                          Icon(Icons.check_box_outline_blank),
-                          Ikonate(
-                            Ikonate.plus,
-                            color: AppColor.black,
+                          Text(
+                            livingRoomCount.toString(),
+                            style: const TextStyle(
+                              color: AppColor.black,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.add),
+                            onPressed: () {
+                              incrementCount('livingroom');
+                            },
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
                         children: [
-                          Text(
+                          const Text(
                             'Bed Room',
                             style: TextStyle(
                               color: AppColor.black,
@@ -296,19 +374,30 @@ class _ServicesNameCleaningState extends State<ServicesNameCleaning> {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                          Spacer(),
-                          Ikonate(
-                            Ikonate.minus,
-                            color: AppColor.black,
+                          const Spacer(),
+                          IconButton(
+                            icon: const Icon(Icons.remove),
+                            onPressed: () {
+                              decrementCount('bedroom');
+                            },
                           ),
-                          Icon(Icons.check_box_outline_blank),
-                          Ikonate(
-                            Ikonate.plus,
-                            color: AppColor.black,
+                          Text(
+                            bedroomCount.toString(),
+                            style: const TextStyle(
+                              color: AppColor.black,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.add),
+                            onPressed: () {
+                              incrementCount('bedroom');
+                            },
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                     ],
