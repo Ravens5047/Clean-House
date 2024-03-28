@@ -6,6 +6,7 @@ class AppConstant {
   // static const baseAPI = 'http://192.168.3.41:3131/'; //Cty
 
   static const endPointLogin = '$baseAPI/login';
+  static const endPointLogin1 = '$baseAPI/login1';
   static const endPointRegister = '$baseAPI/users';
   static const endPointGetListServices = '$baseAPI/services';
   static const endPointGetDetailUser = '$baseAPI/users/:id';

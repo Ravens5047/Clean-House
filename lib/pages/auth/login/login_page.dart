@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:capstone2_clean_house/components/app_bar/bottom_navigator_bar.dart';
+import 'package:capstone2_clean_house/components/app_bar/bottom_navigator_bar_employee.dart';
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
 import 'package:capstone2_clean_house/components/snack_bar/td_snack_bar.dart';
 import 'package:capstone2_clean_house/components/snack_bar/top_snack_bar.dart';
@@ -32,28 +33,87 @@ class _LoginPageState extends State<LoginPage> {
   APIService authServices = APIService();
   final formKey = GlobalKey<FormState>();
 
+  // Future<void> _submitLogin() async {
+  //   if (formKey.currentState!.validate()) {
+  //     final body = LoginRequestModel(
+  //       username: nameController.text.trim(),
+  //       password: passwordController.text,
+  //       // role: 4,
+  //     );
+  //     await authServices.login1(body).then((response) async {
+  //       if (response.statusCode == 200) {
+  //         final loginResponse = Data.fromJson(jsonDecode(response.body));
+  //         final token = loginResponse.key;
+  //         final user_Id = loginResponse.id;
+  //         print('Token: $token');
+  //         print('User_id: $user_Id');
+  //         if (token != null && user_Id != null) {
+  //           await SharedPrefs.setToken(token);
+  //           SharedPrefs.setUserId(user_Id);
+  //           if (context.mounted) {
+  //             Navigator.of(context).pushAndRemoveUntil(
+  //               MaterialPageRoute(builder: (context) => const MainPage()),
+  //               (Route<dynamic> route) => false,
+  //             );
+  //           }
+  //         } else {
+  //           showTopSnackBar(
+  //             context,
+  //             const TDSnackBar.error(
+  //               message: "Invalid token received",
+  //             ),
+  //           );
+  //         }
+  //       }
+  //     }).catchError((onError) {
+  //       showTopSnackBar(
+  //         context,
+  //         TDSnackBar.error(
+  //           message: "Error: $onError",
+  //         ),
+  //       );
+  //     });
+  //   }
+  // }
+
   Future<void> _submitLogin() async {
     if (formKey.currentState!.validate()) {
       final body = LoginRequestModel(
         username: nameController.text.trim(),
         password: passwordController.text,
-        role: 4,
       );
-      await authServices.login(body).then((response) async {
+      await authServices.login1(body).then((response) async {
         if (response.statusCode == 200) {
           final loginResponse = Data.fromJson(jsonDecode(response.body));
           final token = loginResponse.key;
           final user_Id = loginResponse.id;
+          final role = loginResponse.role;
           print('Token: $token');
           print('User_id: $user_Id');
-          if (token != null && user_Id != null) {
+          print('Role: $role');
+          if (token != null && user_Id != null && role != null) {
             await SharedPrefs.setToken(token);
             SharedPrefs.setUserId(user_Id);
             if (context.mounted) {
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const MainPage()),
-                (Route<dynamic> route) => false,
-              );
+              if (role == 3) {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => const MainPageEmployee()),
+                  (Route<dynamic> route) => false,
+                );
+              } else if (role == 4) {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const MainPage()),
+                  (Route<dynamic> route) => false,
+                );
+              } else {
+                showTopSnackBar(
+                  context,
+                  const TDSnackBar.error(
+                    message: "Account does not exist",
+                  ),
+                );
+              }
             }
           } else {
             showTopSnackBar(

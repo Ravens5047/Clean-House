@@ -10,16 +10,19 @@ class LoginResponseModel {
   });
   String? message;
   Data? data;
+  int? role;
 
   LoginResponseModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     data = Data.fromJson(json['data']);
+    role = json['role'];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['message'] = message;
     _data['data'] = data?.toJson();
+    _data['role'] = role;
     return _data;
   }
 }
@@ -31,16 +34,19 @@ class Data {
   });
   String? key;
   int? id;
+  int? role;
 
   Data.fromJson(Map<String, dynamic> json) {
     key = json['key'];
     id = json['id'];
+    role = json['role'];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['key'] = key;
     _data['id'] = id;
+    _data['role'] = role;
     return _data;
   }
 }

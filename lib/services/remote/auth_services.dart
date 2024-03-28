@@ -9,6 +9,7 @@ import 'package:pretty_http_logger/pretty_http_logger.dart';
 abstract class AuthServices {
   Future<http.Response> register(RegisterRequestModel body);
   Future<http.Response> login(LoginRequestModel body);
+  Future<http.Response> login1(LoginRequestModel body);
 }
 
 class APIService implements AuthServices {
@@ -18,6 +19,22 @@ class APIService implements AuthServices {
   @override
   Future<http.Response> login(LoginRequestModel body) async {
     const url = AppConstant.endPointLogin;
+
+    final response = await _httpClient.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ${SharedPrefs.token}',
+      },
+      body: jsonEncode(body.toJson()),
+    );
+    return response;
+  }
+
+  @override
+  Future<http.Response> login1(LoginRequestModel body) async {
+    const url = AppConstant.endPointLogin1;
 
     final response = await _httpClient.post(
       Uri.parse(url),
