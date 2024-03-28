@@ -61,6 +61,52 @@ class _InformationPersonState extends State<InformationPerson> {
     }
   }
 
+  void _updateProfile() async {
+    if (formKey.currentState!.validate()) {
+      // Form is valid, proceed with updating profile
+      final updatedUser = AppUsersModel(
+        user_id: userId,
+        username: nameController.text.trim(),
+        email: emailController.text.trim(),
+        first_name: first_nameController.text.trim(),
+        last_name: last_nameController.text.trim(),
+        phone_number: phoneController.text.trim(),
+        address_user: addressController.text.trim(),
+      );
+
+      try {
+        final response =
+            await accountService.UpdateDetailUser(userId, updatedUser.toJson());
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          // Update successful, update UI with new user data
+          _updateTextControllers(updatedUser); // Update UI with new data
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Profile updated successfully.'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        } else {
+          // Update failed, show error message
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Failed to update profile: ${response.statusCode}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      } catch (e) {
+        // Exception occurred during update process, show error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to update profile: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
   void _updateTextControllers(AppUsersModel currentUser) {
     print('Current user: $currentUser');
     setState(() {
@@ -186,8 +232,8 @@ class _InformationPersonState extends State<InformationPerson> {
               ),
               const SizedBox(height: 72.0),
               TdElevatedButton(
-                onPressed: _updateProfile,
-                text: 'Update Profile',
+                // onPressed: _updateProfile,
+                text: 'Save',
               ),
             ],
           ),
