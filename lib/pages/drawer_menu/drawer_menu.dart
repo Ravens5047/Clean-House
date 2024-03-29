@@ -173,9 +173,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                   GestureDetector(
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const ChangePasswordPage(
-                          email: '',
-                        ),
+                        builder: (context) => const ChangePasswordPage(),
                       ),
                     ),
                     child: const Row(

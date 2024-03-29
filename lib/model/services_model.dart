@@ -28,7 +28,9 @@ class ServicesModel {
       service_id: json['service_id'] as int?,
       description: json['description'] as String?,
       name_service: json['name_service'] as String?,
-      unit_price: double.tryParse(json['unit_price'].toString()) ?? 0.0,
+      unit_price: json['unit_price'] != null
+          ? double.tryParse(json['unit_price'].toString())
+          : null,
       created_at: json['created_at'] as String?,
       created_by_id: json['created_by_id'] as int?,
       updated_at: json['updated_at'] as String?,

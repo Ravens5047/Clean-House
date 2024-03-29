@@ -5,11 +5,13 @@ import 'package:capstone2_clean_house/pages/payment/select_payment.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
 
+enum SelectedOption { frequency, workTime }
+
 class ServicesNameCleaning extends StatefulWidget {
   const ServicesNameCleaning({
-    super.key,
+    Key? key,
     required this.service,
-  });
+  }) : super(key: key);
 
   final ServicesModel service;
 
@@ -36,6 +38,42 @@ class _ServicesNameCleaningState extends State<ServicesNameCleaning> {
   int kitchenCount = 0;
   int livingRoomCount = 0;
   int bedroomCount = 0;
+  //Lựa Chọn
+  List<bool> isSelected = [false, false, false];
+  int? selectedFrequencyIndex;
+  int? selectedWorkTimeIndex;
+  double totalPrice = 0.0;
+  //Total Price
+  void _calculateTotalPrice() {
+    setState(() {
+      totalPrice = (widget.service.unit_price ?? 0.0) * bathroomCount +
+          (widget.service.unit_price ?? 0.0) * kitchenCount +
+          (widget.service.unit_price ?? 0.0) * livingRoomCount +
+          (widget.service.unit_price ?? 0.0) * bedroomCount;
+    });
+  }
+
+  //Selection of the Frequency
+  void handleFrequencySelection(int index) {
+    setState(() {
+      if (selectedFrequencyIndex == index) {
+        selectedFrequencyIndex = null;
+      } else {
+        selectedFrequencyIndex = index;
+      }
+    });
+  }
+
+  //Selection of the WorkTime
+  void handleWorkTimeSelection(int index) {
+    setState(() {
+      if (selectedWorkTimeIndex == index) {
+        selectedWorkTimeIndex = null;
+      } else {
+        selectedWorkTimeIndex = index;
+      }
+    });
+  }
 
   // Hàm tăng số lượng
   void incrementCount(String item) {
@@ -54,6 +92,7 @@ class _ServicesNameCleaningState extends State<ServicesNameCleaning> {
           bedroomCount++;
           break;
       }
+      _calculateTotalPrice();
     });
   }
 
@@ -74,6 +113,7 @@ class _ServicesNameCleaningState extends State<ServicesNameCleaning> {
           if (bedroomCount > 0) bedroomCount--;
           break;
       }
+      _calculateTotalPrice();
     });
   }
 
@@ -218,11 +258,35 @@ class _ServicesNameCleaningState extends State<ServicesNameCleaning> {
                     const SizedBox(
                       height: 80.0,
                     ),
-                    ContainerCircle(text: 'Weekly'),
+                    GestureDetector(
+                      onTap: () {
+                        handleFrequencySelection(0);
+                      },
+                      child: ContainerCircle(
+                        text: 'Weekly',
+                        isSelected: selectedFrequencyIndex == 0,
+                      ),
+                    ),
                     const Spacer(),
-                    ContainerCircle(text: 'Monthly'),
+                    GestureDetector(
+                      onTap: () {
+                        handleFrequencySelection(1);
+                      },
+                      child: ContainerCircle(
+                        text: 'Monthly',
+                        isSelected: selectedFrequencyIndex == 1,
+                      ),
+                    ),
                     const Spacer(),
-                    ContainerCircle(text: 'Bi-Weekly'),
+                    GestureDetector(
+                      onTap: () {
+                        handleFrequencySelection(2);
+                      },
+                      child: ContainerCircle(
+                        text: 'Bi-Weekly',
+                        isSelected: selectedFrequencyIndex == 2,
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -240,16 +304,40 @@ class _ServicesNameCleaningState extends State<ServicesNameCleaning> {
                   ),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const SizedBox(
-                      height: 100.0,
+                      height: 80.0,
                     ),
-                    ContainerCircle(text: '7:00'),
+                    GestureDetector(
+                      onTap: () {
+                        handleWorkTimeSelection(0);
+                      },
+                      child: ContainerCircle(
+                        text: '07:00',
+                        isSelected: selectedWorkTimeIndex == 0,
+                      ),
+                    ),
                     const Spacer(),
-                    ContainerCircle(text: '10:00'),
+                    GestureDetector(
+                      onTap: () {
+                        handleWorkTimeSelection(1);
+                      },
+                      child: ContainerCircle(
+                        text: '12:00',
+                        isSelected: selectedWorkTimeIndex == 1,
+                      ),
+                    ),
                     const Spacer(),
-                    ContainerCircle(text: '14:00'),
+                    GestureDetector(
+                      onTap: () {
+                        handleWorkTimeSelection(2);
+                      },
+                      child: ContainerCircle(
+                        text: '17:00',
+                        isSelected: selectedWorkTimeIndex == 2,
+                      ),
+                    ),
                   ],
                 ),
                 Align(
@@ -403,11 +491,17 @@ class _ServicesNameCleaningState extends State<ServicesNameCleaning> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  width: 150.0,
-                  child: ContainerCircle.text1(
-                    text: 'Total Price \n \t\$100.00',
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Spacer(),
+                    Center(
+                      child: ContainerCircle.text1(
+                        text: 'Total Price \n\t\t\t\t$totalPrice\$',
+                      ),
+                    ),
+                    const Spacer(),
+                  ],
                 ),
                 const SizedBox(
                   height: 30.0,

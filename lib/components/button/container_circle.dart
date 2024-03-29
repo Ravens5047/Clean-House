@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class ContainerCircle extends StatelessWidget {
   ContainerCircle({
+    this.isSelected = false,
     super.key,
     Color? color,
     required this.text,
@@ -12,11 +13,13 @@ class ContainerCircle extends StatelessWidget {
     this.height = 48.0,
     this.padding = const EdgeInsets.symmetric(horizontal: 16.0),
     BorderRadius? borderRadius,
+    this.onPressed,
   })  : color = color ?? const Color.fromARGB(255, 74, 180, 241),
         borderColor = borderColor ?? const Color.fromARGB(255, 74, 180, 241),
         borderRadius = borderRadius ?? BorderRadius.circular(10.0);
 
   ContainerCircle.text1({
+    this.isSelected = false,
     super.key,
     Color? color,
     required this.text,
@@ -26,6 +29,7 @@ class ContainerCircle extends StatelessWidget {
     this.height = 80.0,
     this.padding = const EdgeInsets.symmetric(horizontal: 8.0),
     BorderRadius? borderRadius,
+    this.onPressed,
   })  : color = color ?? AppColor.blue.withOpacity(0.98),
         borderColor = borderColor ?? AppColor.blue.withOpacity(0.98),
         borderRadius = borderRadius ?? BorderRadius.circular(10.0);
@@ -38,19 +42,23 @@ class ContainerCircle extends StatelessWidget {
   final double height;
   final EdgeInsetsGeometry padding;
   final BorderRadius borderRadius;
+  final Function()? onPressed;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
+      onTap: onPressed,
       child: Container(
         padding: padding,
         height: height,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: color,
-          border: Border.all(color: borderColor, width: 5),
+          color: isSelected ? Colors.white : color,
+          border: Border.all(
+              color: isSelected ? Colors.white : borderColor, width: 5),
           borderRadius: borderRadius,
           boxShadow: const [
             BoxShadow(
@@ -63,7 +71,7 @@ class ContainerCircle extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            color: textColor,
+            color: isSelected ? Colors.black : textColor,
             fontSize: fontSize,
             fontWeight: FontWeight.w400,
           ),

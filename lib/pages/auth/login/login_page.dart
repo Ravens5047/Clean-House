@@ -33,49 +33,6 @@ class _LoginPageState extends State<LoginPage> {
   APIService authServices = APIService();
   final formKey = GlobalKey<FormState>();
 
-  // Future<void> _submitLogin() async {
-  //   if (formKey.currentState!.validate()) {
-  //     final body = LoginRequestModel(
-  //       username: nameController.text.trim(),
-  //       password: passwordController.text,
-  //       // role: 4,
-  //     );
-  //     await authServices.login1(body).then((response) async {
-  //       if (response.statusCode == 200) {
-  //         final loginResponse = Data.fromJson(jsonDecode(response.body));
-  //         final token = loginResponse.key;
-  //         final user_Id = loginResponse.id;
-  //         print('Token: $token');
-  //         print('User_id: $user_Id');
-  //         if (token != null && user_Id != null) {
-  //           await SharedPrefs.setToken(token);
-  //           SharedPrefs.setUserId(user_Id);
-  //           if (context.mounted) {
-  //             Navigator.of(context).pushAndRemoveUntil(
-  //               MaterialPageRoute(builder: (context) => const MainPage()),
-  //               (Route<dynamic> route) => false,
-  //             );
-  //           }
-  //         } else {
-  //           showTopSnackBar(
-  //             context,
-  //             const TDSnackBar.error(
-  //               message: "Invalid token received",
-  //             ),
-  //           );
-  //         }
-  //       }
-  //     }).catchError((onError) {
-  //       showTopSnackBar(
-  //         context,
-  //         TDSnackBar.error(
-  //           message: "Error: $onError",
-  //         ),
-  //       );
-  //     });
-  //   }
-  // }
-
   Future<void> _submitLogin() async {
     if (formKey.currentState!.validate()) {
       final body = LoginRequestModel(

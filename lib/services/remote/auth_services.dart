@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:capstone2_clean_house/model/request/change_password_request_model.dart';
 import 'package:capstone2_clean_house/model/request/login_request_model.dart';
 import 'package:capstone2_clean_house/model/request/register_request_model.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
@@ -10,6 +11,7 @@ abstract class AuthServices {
   Future<http.Response> register(RegisterRequestModel body);
   Future<http.Response> login(LoginRequestModel body);
   Future<http.Response> login1(LoginRequestModel body);
+  Future<http.Response> changePassword(int user_id, ChangePasswordRequest body);
 }
 
 class APIService implements AuthServices {
@@ -56,6 +58,27 @@ class APIService implements AuthServices {
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
+      },
+      body: jsonEncode(body.toJson()),
+    );
+    return response;
+  }
+
+  @override
+  Future<http.Response> changePassword(
+      int user_id, ChangePasswordRequest body) async {
+    String? endPoint = AppConstant.endPointChangePassword;
+    String url = endPoint.replaceFirstMapped(
+      RegExp(':id'),
+      (match) => user_id.toString(),
+    );
+
+    final response = await _httpClient.put(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ${SharedPrefs.token}',
       },
       body: jsonEncode(body.toJson()),
     );

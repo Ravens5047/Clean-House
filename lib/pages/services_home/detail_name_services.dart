@@ -123,7 +123,7 @@ class _DetailNameServicesState extends State<DetailNameServices> {
                   ),
                   padding: const EdgeInsets.all(17.0),
                   child: Text(
-                    widget.service.unit_price.toString(),
+                    '${widget.service.unit_price.toString()} \$',
                     style: const TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.w400,
