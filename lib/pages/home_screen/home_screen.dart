@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:capstone2_clean_house/components/constants/app_constant.dart';
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/model/services_model.dart';
@@ -185,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 // ),
                                 child: service.image != null
                                     ? Image.network(
-                                        'https://bepchinhhang.com/ckfinder/userfiles/images/bai_viet/Bi-kip-rua-bat-dua-de-bao-toan-suc-khoe-moi-ngay.jpg',
+                                        '${AppConstant.baseAPIimages}${service.image}',
                                         width: 205.0,
                                         height: 205.0,
                                         fit: BoxFit.cover,

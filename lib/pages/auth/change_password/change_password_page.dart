@@ -45,7 +45,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         try {
           final response = await authServices.changePassword(user_id, request);
           final responseData = json.decode(response.body);
-
           if (response.statusCode == 200) {
             final message =
                 responseData['message'] ?? responseData['errMessage'];

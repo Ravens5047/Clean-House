@@ -1,5 +1,5 @@
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
-import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
+import 'package:capstone2_clean_house/components/constants/app_constant.dart';
 import 'package:capstone2_clean_house/model/services_model.dart';
 import 'package:capstone2_clean_house/pages/services_home/services_name_cleaning.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
@@ -55,8 +55,8 @@ class _DetailNameServicesState extends State<DetailNameServices> {
                       Radius.circular(16.0),
                     ),
                   ),
-                  child: Image.asset(
-                    Assets.images.services1.path,
+                  child: Image.network(
+                    '${AppConstant.baseAPIimages}${widget.service.image}',
                     width: 300,
                     height: 300,
                     fit: BoxFit.cover,

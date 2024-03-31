@@ -283,7 +283,7 @@ class _ServicesNameCleaningState extends State<ServicesNameCleaning> {
                         handleFrequencySelection(2);
                       },
                       child: ContainerCircle(
-                        text: 'Bi-Weekly',
+                        text: 'Date',
                         isSelected: selectedFrequencyIndex == 2,
                       ),
                     ),
