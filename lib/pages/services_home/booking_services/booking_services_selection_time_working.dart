@@ -1,6 +1,11 @@
+import 'package:capstone2_clean_house/components/button/td_elevated_button.dart';
+import 'package:capstone2_clean_house/components/text_field/selection_house_text_field.dart';
+import 'package:capstone2_clean_house/pages/payment/confirm_payment.dart';
 import 'package:capstone2_clean_house/pages/widget/Time%20Calendar/easy_date_timeline_widget/easy_date_timeline_widget.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
+import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class BookingServicesSelectionTimeWorking extends StatefulWidget {
   const BookingServicesSelectionTimeWorking({super.key});
@@ -14,6 +19,15 @@ class _BookingServicesSelectionTimeWorkingState
     extends State<BookingServicesSelectionTimeWorking> {
   @override
   Widget build(BuildContext context) {
+    Time time = Time(hour: 0, minute: 0, second: 0);
+    bool iosStyle = true;
+
+    void onTimeChanged(Time newTime) {
+      setState(() {
+        time = newTime;
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -29,7 +43,7 @@ class _BookingServicesSelectionTimeWorkingState
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
             // const SizedBox(
             //   height: 32.0,
             // ),
@@ -38,6 +52,52 @@ class _BookingServicesSelectionTimeWorkingState
             //   height: 32,
             // ),
             _mainExample(),
+            const SizedBox(
+              height: 30.0,
+            ),
+            Text(
+              "Inline Picker Style",
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            SizedBox(
+              width: 400,
+              height: 380,
+              child: showPicker(
+                isInlinePicker: true,
+                elevation: 1,
+                value: time,
+                onChange: onTimeChanged,
+                minuteInterval: TimePickerInterval.FIVE,
+                iosStylePicker: iosStyle,
+                minHour: 0,
+                maxHour: 23,
+                is24HrFormat: true,
+                isOnChangeValueMode: true,
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: SelectionHouseTextField(
+                // controller: typeHouseController,
+                hintText: 'Add Address to House',
+                textInputAction: TextInputAction.done,
+              ),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TdElevatedButton.fullmau(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => const ConfirmPayment()),
+                  );
+                },
+                text: 'Continue',
+              ),
+            ),
           ],
         ),
       ),

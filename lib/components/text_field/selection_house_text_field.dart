@@ -57,7 +57,7 @@ class SelectionHouseTextField extends StatelessWidget {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.6),
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 50.6),
             filled: true,
             fillColor: Colors.white,
             border: outlineInputBorder(AppColor.orange),
