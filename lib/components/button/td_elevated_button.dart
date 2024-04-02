@@ -2,6 +2,25 @@ import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
 
 class TdElevatedButton extends StatelessWidget {
+  TdElevatedButton.fullmau({
+    super.key,
+    this.onPressed,
+    this.height = 48.0,
+    this.color = AppColor.grey,
+    this.borderColor = AppColor.grey,
+    required this.text,
+    this.textColor = AppColor.white,
+    this.fontSize = 16.0,
+    this.icon,
+    BorderRadius? borderRadius,
+    this.padding = const EdgeInsets.symmetric(horizontal: 12.0),
+    this.isDisable = false,
+    Color? splashColor,
+    Color? highlightColor,
+  })  : borderRadius = borderRadius ?? BorderRadius.circular(10.0),
+        splashColor = splashColor ?? AppColor.orange.withOpacity(0.8),
+        highlightColor = highlightColor ?? AppColor.green.withOpacity(0.8);
+
   TdElevatedButton({
     super.key,
     this.onPressed,
@@ -43,9 +62,9 @@ class TdElevatedButton extends StatelessWidget {
   TdElevatedButton.small({
     super.key,
     this.onPressed,
-    this.height = 38.0,
-    this.color = AppColor.red,
-    this.borderColor = AppColor.red,
+    this.height = 100.0,
+    this.color = AppColor.green,
+    this.borderColor = AppColor.white,
     required this.text,
     this.textColor = AppColor.white,
     this.fontSize = 14.6,
@@ -108,7 +127,7 @@ class TdElevatedButton extends StatelessWidget {
           height: height,
           decoration: BoxDecoration(
             color: color,
-            border: Border.all(color: borderColor, width: 1.4),
+            border: Border.all(color: borderColor, width: 1),
             borderRadius: borderRadius,
           ),
           child: Row(
@@ -123,15 +142,18 @@ class TdElevatedButton extends StatelessWidget {
                       child: SizedBox.square(
                         dimension: height - 22.0,
                         child: CircularProgressIndicator(
-                            color: textColor, strokeWidth: 2.2),
+                          color: textColor,
+                          strokeWidth: 2.2,
+                        ),
                       ),
                     )
                   : Text(
                       text,
                       style: TextStyle(
-                          color: textColor,
-                          fontSize: fontSize,
-                          fontWeight: FontWeight.w600),
+                        color: textColor,
+                        fontSize: fontSize,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
             ],
           ),

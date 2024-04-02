@@ -4,6 +4,7 @@ import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/pages/auth/change_password/change_password_page.dart';
 import 'package:capstone2_clean_house/pages/auth/login/login_page.dart';
+import 'package:capstone2_clean_house/pages/google_maps/google_map_screen.dart';
 import 'package:capstone2_clean_house/pages/history_order/history_order.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
@@ -188,6 +189,35 @@ class _DrawerMenuState extends State<DrawerMenu> {
                         ),
                         Text(
                           'Change Password',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const GoogleMapScreen(),
+                      ),
+                    ),
+                    child: const Row(
+                      children: [
+                        SizedBox(
+                          height: 30.0,
+                          width: 30.0,
+                          child: Ikonate(Ikonate.map),
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Text(
+                          'Google Map',
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.w400,

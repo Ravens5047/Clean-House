@@ -1,10 +1,10 @@
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
 
-class AppTextFieldProfile extends StatelessWidget {
-  const AppTextFieldProfile({
+class SelectionHouseTextField extends StatelessWidget {
+  const SelectionHouseTextField({
     super.key,
-    this.controller,
+    // this.controller,
     this.focusNode,
     this.keyboardType,
     this.hintText,
@@ -12,10 +12,10 @@ class AppTextFieldProfile extends StatelessWidget {
     this.onFieldSubmitted,
     this.textInputAction,
     this.validator,
-    this.readOnly = false,
+    this.isSelected = false,
   });
 
-  final TextEditingController? controller;
+  // final TextEditingController? controller;
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
   final String? hintText;
@@ -23,7 +23,7 @@ class AppTextFieldProfile extends StatelessWidget {
   final Function(String)? onFieldSubmitted;
   final TextInputAction? textInputAction;
   final FormFieldValidator<String>? validator;
-  final bool readOnly;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +47,13 @@ class AppTextFieldProfile extends StatelessWidget {
           ),
         ),
         TextFormField(
-          controller: controller,
+          // controller: controller,
           focusNode: focusNode,
           keyboardType: keyboardType,
           onFieldSubmitted: onFieldSubmitted,
           textInputAction: textInputAction,
           validator: validator,
-          readOnly: readOnly,
+          readOnly: isSelected,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
             contentPadding:

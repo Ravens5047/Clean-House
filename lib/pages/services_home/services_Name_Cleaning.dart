@@ -9,9 +9,9 @@ enum SelectedOption { frequency, workTime }
 
 class ServicesNameCleaning extends StatefulWidget {
   const ServicesNameCleaning({
-    Key? key,
+    super.key,
     required this.service,
-  }) : super(key: key);
+  });
 
   final ServicesModel service;
 

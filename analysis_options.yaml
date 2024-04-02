@@ -24,6 +24,7 @@ linter:
     use_build_context_synchronously: false  # Uncomment to disable the `avoid_print` rule
     non_constant_identifier_names: false
     avoid_print: false
+    deprecated_member_use_from_same_package: false
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 
 # Additional information about this file can be found at

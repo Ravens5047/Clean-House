@@ -12,8 +12,8 @@ import 'package:flutter/material.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<ChangePasswordPage> createState() => _ChangePasswordPageState();
@@ -170,14 +170,14 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               AppTextFieldPassword(
                 controller: oldPasswordController,
                 hintext: 'Current Password',
-                validator: Validator.requiredValidator,
+                validator: Validator.requiredValidator.call,
                 textInputAction: TextInputAction.next,
               ),
               const SizedBox(height: 18.0),
               AppTextFieldPassword(
                 controller: newPasswordController,
                 hintext: 'New Password',
-                validator: Validator.passwordValidator,
+                validator: Validator.passwordValidator.call,
                 textInputAction: TextInputAction.next,
               ),
               const SizedBox(height: 18.0),
@@ -186,7 +186,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 onChanged: (_) => setState(() {}),
                 hintext: 'Confirm Password',
                 validator: Validator.confirmPasswordValidator(
-                    newPasswordController.text),
+                        newPasswordController.text)
+                    .call,
                 textInputAction: TextInputAction.done,
               ),
               const SizedBox(height: 90.0),
