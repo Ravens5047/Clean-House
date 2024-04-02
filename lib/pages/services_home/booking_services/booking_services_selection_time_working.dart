@@ -5,7 +5,6 @@ import 'package:capstone2_clean_house/pages/widget/Time%20Calendar/easy_date_tim
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class BookingServicesSelectionTimeWorking extends StatefulWidget {
   const BookingServicesSelectionTimeWorking({super.key});
@@ -19,7 +18,7 @@ class _BookingServicesSelectionTimeWorkingState
     extends State<BookingServicesSelectionTimeWorking> {
   @override
   Widget build(BuildContext context) {
-    Time time = Time(hour: 0, minute: 0, second: 0);
+    Time time = Time(hour: 8, minute: 0, second: 0);
     bool iosStyle = true;
 
     void onTimeChanged(Time newTime) {
@@ -47,7 +46,7 @@ class _BookingServicesSelectionTimeWorkingState
             // const SizedBox(
             //   height: 32.0,
             // ),
-            // // const EasyInfiniteDateTimeLineExample(),
+            // const EasyInfiniteDateTimeLineExample(),
             // const Divider(
             //   height: 32,
             // ),
@@ -69,8 +68,8 @@ class _BookingServicesSelectionTimeWorkingState
                 onChange: onTimeChanged,
                 minuteInterval: TimePickerInterval.FIVE,
                 iosStylePicker: iosStyle,
-                minHour: 0,
-                maxHour: 23,
+                minHour: 8,
+                maxHour: 17,
                 is24HrFormat: true,
                 isOnChangeValueMode: true,
               ),
@@ -121,7 +120,7 @@ class _BookingServicesSelectionTimeWorkingState
 //   State<EasyInfiniteDateTimeLineExample> createState() =>
 //       _EasyInfiniteDateTimeLineExampleState();
 // }
-
+// 
 // class _EasyInfiniteDateTimeLineExampleState
 //     extends State<EasyInfiniteDateTimeLineExample> {
 //   final EasyInfiniteDateTimelineController _controller =

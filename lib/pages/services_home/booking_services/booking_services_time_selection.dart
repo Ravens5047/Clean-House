@@ -4,7 +4,6 @@ import 'package:capstone2_clean_house/components/text_field/selection_time_sized
 import 'package:capstone2_clean_house/model/services_model.dart';
 import 'package:capstone2_clean_house/pages/services_home/booking_services/booking_services_selection_time_working.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TimeSelection extends StatefulWidget {
@@ -161,45 +160,52 @@ class _TimeSelectionState extends State<TimeSelection> {
               const SizedBox(
                 height: 100.0,
               ),
+              //Bottom Sheet Dialog
               TdElevatedButton.fullmau(
                 text: 'Continue',
                 color: AppColor.orange,
                 borderColor: AppColor.orange,
                 onPressed: () {
-                  showModalBottomSheet<void>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Container(
-                        color: AppColor.white,
-                        child: SizedBox(
-                          height: 100,
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 30.0,
-                                  width: 370.0,
-                                  child: TdElevatedButton.small(
-                                    text: '704.000 VND / 4h',
-                                    onPressed: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const BookingServicesSelectionTimeWorking(),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const BookingServicesSelectionTimeWorking(),
+                    ),
                   );
+                  // showModalBottomSheet<void>(
+                  //   context: context,
+                  //   builder: (BuildContext context) {
+                  //     return Container(
+                  //       color: AppColor.white,
+                  //       child: SizedBox(
+                  //         height: 100,
+                  //         child: Center(
+                  //           child: Column(
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             mainAxisSize: MainAxisSize.min,
+                  //             children: <Widget>[
+                  //               SizedBox(
+                  //                 height: 30.0,
+                  //                 width: 370.0,
+                  //                 child: TdElevatedButton.small(
+                  //                   text: '704.000 VND / 4h',
+                  //                   onPressed: () {
+                  //                     Navigator.of(context).push(
+                  //                       MaterialPageRoute(
+                  //                         builder: (context) =>
+                  //                             const BookingServicesSelectionTimeWorking(),
+                  //                       ),
+                  //                     );
+                  //                   },
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  // );
                 },
               ),
             ],

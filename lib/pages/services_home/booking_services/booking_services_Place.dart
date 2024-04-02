@@ -36,18 +36,46 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('A'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            AppTextFieldProfile(
+              controller: typeHouseController,
+              hintText: 'Add Address to House',
+              textInputAction: TextInputAction.done,
+              onFieldSubmitted: (value) {
+                setState(() {
+                  isAddressEntered = value.isNotEmpty;
+                });
+              },
+            ),
+            const SizedBox(
+              height: 10.0,
+            ),
+            AppTextFieldProfile(
+              controller: typeHouseController,
+              hintText: 'Phone Number ',
+              textInputAction: TextInputAction.done,
+              onFieldSubmitted: (value) {
+                setState(() {
+                  isAddressEntered = value.isNotEmpty;
+                });
+              },
+            ),
+            const SizedBox(
+              height: 10.0,
+            ),
             const Align(
               alignment: Alignment.topLeft,
               child: Text(
@@ -81,7 +109,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                 handleFrequencySelection(0);
               },
               child: SelectionHouse(
-                text: 'House',
+                text: 'House / Town House',
                 isSelected: selectedHouse == 0,
               ),
             ),
@@ -122,22 +150,6 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   color: AppColor.black,
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            AppTextFieldProfile(
-              controller: typeHouseController,
-              hintText: 'Add Address to House',
-              textInputAction: TextInputAction.done,
-              onFieldSubmitted: (value) {
-                setState(() {
-                  isAddressEntered = value.isNotEmpty;
-                });
-              },
-            ),
-            const SizedBox(
-              height: 10.0,
             ),
             const Align(
               alignment: Alignment.topLeft,
