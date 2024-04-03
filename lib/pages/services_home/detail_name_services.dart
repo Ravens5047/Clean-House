@@ -36,115 +36,112 @@ class _DetailNameServicesState extends State<DetailNameServices> {
           title: Text(
             widget.service.name_service ?? '-:-',
             style: const TextStyle(
-              color: AppColor.blue,
-              fontSize: 25.0,
+              fontSize: 20.0,
               fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,
           ),
           centerTitle: true,
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16.0),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(16.0),
+                  ),
+                ),
+                child: Image.network(
+                  '${AppConstant.baseAPIimages}${widget.service.image}',
+                  width: 300,
+                  height: 300,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Descriptions Service',
+                  style: TextStyle(
+                    fontSize: 17.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: AppColor.black.withOpacity(0.5),
+                    width: 1.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                padding: const EdgeInsets.all(17.0),
+                child: Text(
+                  widget.service.description ?? '',
+                  style: const TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              // const SizedBox(
+              //   height: 30.0,
+              // ),
+              // const Align(
+              //   alignment: Alignment.centerLeft,
+              //   child: Text(
+              //     'Unit Price Service',
+              //     style: TextStyle(
+              //       fontSize: 20.0,
+              //       color: AppColor.blue,
+              //       fontWeight: FontWeight.w500,
+              //     ),
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 20.0,
+              // ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     border: Border.all(
+              //       color: AppColor.black.withOpacity(0.5),
+              //       width: 1.0,
+              //     ),
+              //     borderRadius: BorderRadius.circular(8.0),
+              //   ),
+              //   padding: const EdgeInsets.all(17.0),
+              //   child: Text(
+              //     '${widget.service.unit_price.toString()} \$',
+              //     style: const TextStyle(
+              //       fontSize: 18.0,
+              //       fontWeight: FontWeight.w400,
+              //     ),
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 30.0,
+              // ),
+              const Spacer(),
+              AppElevatedButton.normal1(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const BookingServicesPlace(),
                     ),
-                  ),
-                  child: Image.network(
-                    '${AppConstant.baseAPIimages}${widget.service.image}',
-                    width: 300,
-                    height: 300,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Descriptions Service',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: AppColor.blue,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: AppColor.black.withOpacity(0.5),
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  padding: const EdgeInsets.all(17.0),
-                  child: Text(
-                    widget.service.description ?? '',
-                    style: const TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30.0,
-                ),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Unit Price Service',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: AppColor.blue,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: AppColor.black.withOpacity(0.5),
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  padding: const EdgeInsets.all(17.0),
-                  child: Text(
-                    '${widget.service.unit_price.toString()} \$',
-                    style: const TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30.0,
-                ),
-                AppElevatedButton.normal1(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const BookingServicesPlace(),
-                      ),
-                    );
-                  },
-                  text: 'Continue',
-                ),
-              ],
-            ),
+                  );
+                },
+                text: 'Continue',
+              ),
+            ],
           ),
         ),
       ),

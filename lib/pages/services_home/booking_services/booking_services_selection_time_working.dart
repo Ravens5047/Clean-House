@@ -31,7 +31,14 @@ class _BookingServicesSelectionTimeWorkingState
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: AppColor.white,
-        title: const Text('Time Working'),
+        title: const Text(
+          'Time Working',
+          style: TextStyle(
+            color: AppColor.black,
+            fontWeight: FontWeight.w500,
+            fontSize: 20.0,
+          ),
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -95,6 +102,7 @@ class _BookingServicesSelectionTimeWorkingState
                   );
                 },
                 text: 'Continue',
+                color: AppColor.blue,
               ),
             ),
           ],

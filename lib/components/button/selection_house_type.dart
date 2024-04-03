@@ -14,7 +14,7 @@ class SelectionHouse extends StatelessWidget {
     BorderRadius? borderRadius,
     this.isSelected = false,
   })  : color = color ?? AppColor.white.withOpacity(0.98),
-        borderColor = borderColor ?? AppColor.orange.withOpacity(0.98),
+        borderColor = borderColor ?? AppColor.blue.withOpacity(0.98),
         borderRadius = borderRadius ?? BorderRadius.circular(8.0);
 
   final Color color;
@@ -39,7 +39,7 @@ class SelectionHouse extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           border: Border.all(
-              color: isSelected ? AppColor.orange : AppColor.grey, width: 1),
+              color: isSelected ? AppColor.blue : AppColor.grey, width: 1),
           borderRadius: borderRadius,
         ),
         child: Align(
@@ -47,7 +47,7 @@ class SelectionHouse extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-              color: isSelected ? AppColor.orange : AppColor.black,
+              color: isSelected ? AppColor.blue : AppColor.black,
               fontSize: fontSize,
               fontWeight: FontWeight.w400,
             ),

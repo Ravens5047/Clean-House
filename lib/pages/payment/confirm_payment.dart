@@ -14,7 +14,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
   String? selectedLocation;
   final List<String> locations = [
     'Cash',
-    'Momo',
+    'VNPAY',
     'Credit, debit card',
   ];
   @override
@@ -39,7 +39,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
               'Working Location',
               style: TextStyle(
                 fontSize: 18.0,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w500,
               ),
             ),
             const SizedBox(
@@ -219,7 +219,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
               height: 55.0,
               padding: const EdgeInsets.all(10.0),
               decoration: BoxDecoration(
-                color: AppColor.blue.withOpacity(0.5),
+                color: AppColor.blue.withOpacity(0.4),
                 border: Border.all(
                   width: 1.0,
                   color: AppColor.black.withOpacity(0.8),
@@ -227,7 +227,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                 borderRadius: BorderRadius.circular(30.0),
               ),
               child: DropdownButton<String>(
-                dropdownColor: AppColor.blue.withOpacity(0.5),
+                dropdownColor: AppColor.blue.withOpacity(0.4),
                 value: selectedLocation,
                 icon: const Icon(
                   Icons.arrow_drop_down,
@@ -280,7 +280,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                 ),
               ],
             ),
-            Spacer(),
+            const Spacer(),
             AppElevatedButton.normal1(
               onPressed: () {
                 Navigator.of(context).pushAndRemoveUntil(

@@ -112,7 +112,7 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
     /// or to the primary color of the current theme if widget.activeColor is null.
     /// This provides a fallback color if no active color is explicitly provided.
     // final activeDayColor = widget.activeColor ?? Theme.of(context).primaryColor;
-    final activeDayColor = widget.activeColor ?? AppColor.orange;
+    final activeDayColor = widget.activeColor ?? AppColor.blue;
 
     /// brightness is initialized to the brightness of the active color or the fallback color,
     /// using the ThemeData.estimateBrightnessForColor method.

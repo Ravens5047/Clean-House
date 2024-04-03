@@ -13,6 +13,7 @@ class AppTextFieldProfile extends StatelessWidget {
     this.textInputAction,
     this.validator,
     this.readOnly = false,
+    this.onTextChanged,
   });
 
   final TextEditingController? controller;
@@ -24,6 +25,7 @@ class AppTextFieldProfile extends StatelessWidget {
   final TextInputAction? textInputAction;
   final FormFieldValidator<String>? validator;
   final bool readOnly;
+  final Function(String)? onTextChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,7 @@ class AppTextFieldProfile extends StatelessWidget {
           textInputAction: textInputAction,
           validator: validator,
           readOnly: readOnly,
+          onChanged: onTextChanged,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
             contentPadding:
@@ -61,7 +64,7 @@ class AppTextFieldProfile extends StatelessWidget {
             filled: true,
             fillColor: Colors.white,
             border: outlineInputBorder(AppColor.orange),
-            focusedBorder: outlineInputBorder(AppColor.orange),
+            focusedBorder: outlineInputBorder(AppColor.blue),
             enabledBorder: outlineInputBorder(AppColor.grey),
             hintText: hintText,
             hintStyle: const TextStyle(color: AppColor.black),

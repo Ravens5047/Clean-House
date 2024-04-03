@@ -38,7 +38,7 @@ class _TimeSelectionState extends State<TimeSelection> {
           'Time Selection',
           style: TextStyle(
             fontSize: 20.0,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
           ),
           textAlign: TextAlign.center,
         ),
@@ -58,7 +58,7 @@ class _TimeSelectionState extends State<TimeSelection> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Estimated Time',
+                'Area',
                 style: TextStyle(
                   fontSize: 17.0,
                   fontWeight: FontWeight.w400,
@@ -69,7 +69,7 @@ class _TimeSelectionState extends State<TimeSelection> {
                 height: 10.0,
               ),
               const Text(
-                'Please estimated exactly sized cleaning',
+                'Please provide an accurate estimate of the area requirement cleanup',
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.w400,
@@ -125,46 +125,14 @@ class _TimeSelectionState extends State<TimeSelection> {
               const SizedBox(
                 height: 10.0,
               ),
-              // Row(
-              //   children: [
-              //     const Text(
-              //       'Generally',
-              //       style: TextStyle(
-              //         fontSize: 15.0,
-              //         fontWeight: FontWeight.w400,
-              //         color: AppColor.black,
-              //       ),
-              //     ),
-              //     const Spacer(),
-              //     GestureDetector(
-              //       onTap: () {
-              //         Navigator.of(context).push(
-              //           MaterialPageRoute(
-              //             builder: (context) => DetailNameServices(
-              //               service: services,
-              //             ),
-              //           ),
-              //         );
-              //       },
-              //       child: const Text(
-              //         'View More',
-              //         style: TextStyle(
-              //           fontSize: 15.0,
-              //           fontWeight: FontWeight.w400,
-              //           color: AppColor.green,
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
               const SizedBox(
                 height: 100.0,
               ),
               //Bottom Sheet Dialog
               TdElevatedButton.fullmau(
                 text: 'Continue',
-                color: AppColor.orange,
-                borderColor: AppColor.orange,
+                color: AppColor.blue,
+                borderColor: AppColor.blue,
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -172,40 +140,6 @@ class _TimeSelectionState extends State<TimeSelection> {
                           const BookingServicesSelectionTimeWorking(),
                     ),
                   );
-                  // showModalBottomSheet<void>(
-                  //   context: context,
-                  //   builder: (BuildContext context) {
-                  //     return Container(
-                  //       color: AppColor.white,
-                  //       child: SizedBox(
-                  //         height: 100,
-                  //         child: Center(
-                  //           child: Column(
-                  //             mainAxisAlignment: MainAxisAlignment.center,
-                  //             mainAxisSize: MainAxisSize.min,
-                  //             children: <Widget>[
-                  //               SizedBox(
-                  //                 height: 30.0,
-                  //                 width: 370.0,
-                  //                 child: TdElevatedButton.small(
-                  //                   text: '704.000 VND / 4h',
-                  //                   onPressed: () {
-                  //                     Navigator.of(context).push(
-                  //                       MaterialPageRoute(
-                  //                         builder: (context) =>
-                  //                             const BookingServicesSelectionTimeWorking(),
-                  //                       ),
-                  //                     );
-                  //                   },
-                  //                 ),
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     );
-                  //   },
-                  // );
                 },
               ),
             ],
