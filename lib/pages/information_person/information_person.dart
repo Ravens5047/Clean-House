@@ -3,15 +3,16 @@ import 'package:capstone2_clean_house/components/button/td_elevated_button.dart'
 import 'package:capstone2_clean_house/components/text_field/app_text_field_profile.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
+import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
 import 'package:flutter/material.dart';
 
 class InformationPerson extends StatefulWidget {
   const InformationPerson({
-    Key? key,
+    super.key,
     required this.user_id,
     required this.appUser,
-  }) : super(key: key);
+  });
 
   final int user_id;
   final AppUsersModel appUser;
@@ -70,6 +71,8 @@ class _InformationPersonState extends State<InformationPerson> {
       last_nameController.text = currentUser.last_name ?? '';
       phoneController.text = currentUser.phone_number ?? '';
       addressController.text = currentUser.address_user ?? '';
+      SharedPrefs.setPhoneNumber(currentUser.phone_number ?? '');
+      SharedPrefs.setAdress_User(currentUser.address_user ?? '');
     });
   }
 
@@ -84,7 +87,6 @@ class _InformationPersonState extends State<InformationPerson> {
         phone_number: phoneController.text.trim(),
         address_user: addressController.text.trim(),
       );
-
       try {
         final response =
             await accountService.UpdateDetailUser(userId, updatedUser.toJson());

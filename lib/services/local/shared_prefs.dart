@@ -5,6 +5,8 @@ class SharedPrefs {
   static const String checkAccessKey = 'checkAccess';
   static const String userIdKey = 'user_id';
   static late SharedPreferences _prefs;
+  static const String phoneNumberKey = 'phone_number';
+  static const String addressKey = 'address_user';
 
   static Future<void> initialise() async {
     _prefs = await SharedPreferences.getInstance();
@@ -46,6 +48,22 @@ class SharedPrefs {
     _prefs.remove(checkAccessKey);
     _prefs.remove(userIdKey);
     print('User session token and user_id removed successfully.');
+  }
+
+  static Future<void> setPhoneNumber(String phoneNumber) async {
+    await _prefs.setString(phoneNumberKey, phoneNumber);
+  }
+
+  static String? get phoneNumber {
+    return _prefs.getString(phoneNumberKey);
+  }
+
+  static Future<void> setAdress_User(String address_user) async {
+    await _prefs.setString(addressKey, address_user);
+  }
+
+  static String? get address_user {
+    return _prefs.getString(addressKey);
   }
 
   static String encrypt(String data) {

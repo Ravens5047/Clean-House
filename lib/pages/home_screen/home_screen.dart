@@ -7,6 +7,7 @@ import 'package:capstone2_clean_house/pages/drawer_menu/drawer_menu.dart';
 import 'package:capstone2_clean_house/pages/services_home/detail_name_services.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/remote/services.dart';
+import 'package:capstone2_clean_house/services/remote/vnpay_services.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ServicesModel servicesModel = ServicesModel();
   ServicesName servicesName = ServicesName();
   List<ServicesModel> servicesList = [];
+  VNPAYServices vnPayService = VNPAYServices();
 
   @override
   void initState() {

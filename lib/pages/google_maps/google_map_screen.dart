@@ -4,7 +4,6 @@ import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/model/google_map_model.dart';
 import 'package:capstone2_clean_house/pages/services_home/booking_services/booking_services_Place.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
