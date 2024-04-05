@@ -11,6 +11,7 @@ import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
 import 'package:flutter/material.dart';
 import 'package:icony/icony_ikonate.dart';
+import 'package:lottie/lottie.dart';
 
 class DrawerMenu extends StatefulWidget {
   const DrawerMenu({
@@ -129,15 +130,42 @@ class _DrawerMenuState extends State<DrawerMenu> {
                   ),
                 ),
               ),
+              // decoration: BoxDecoration(
+              //   image: DecorationImage(
+              //     image: AssetImage(
+              //       Assets.images.backgroundProfile.path,
+              //     ),
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),\
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                    Assets.images.backgroundProfile.path,
-                  ),
-                  fit: BoxFit.cover,
+                  image: AssetImage(Assets.images.backgroundProfile.path),
                 ),
+                color: AppColor.white,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(15.0),
+                ),
+                boxShadow: const [
+                  BoxShadow(
+                    color: AppColor.grey,
+                    blurRadius: 10.0,
+                    spreadRadius: BorderSide.strokeAlignInside,
+                    offset: Offset(10, 15),
+                  ),
+                ],
               ),
+              margin: const EdgeInsets.all(8.0),
+              currentAccountPictureSize: const Size.square(70),
             ),
+            const Divider(
+              height: 10.0,
+              thickness: 3.0,
+              color: AppColor.blue,
+              endIndent: 10.0,
+              indent: 10.0,
+            ),
+            Lottie.asset('assets/clean4.json'),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -227,7 +255,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     ),
                   ),
                   const SizedBox(
-                    height: 450.0,
+                    height: 140.0,
                   ),
                   InkWell(
                     onTap: () => AppDialog.dialog(

@@ -7,8 +7,9 @@ import 'package:capstone2_clean_house/pages/drawer_menu/drawer_menu.dart';
 import 'package:capstone2_clean_house/pages/services_home/detail_name_services.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/remote/services.dart';
-import 'package:capstone2_clean_house/services/remote/vnpay_services.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -27,7 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
   ServicesModel servicesModel = ServicesModel();
   ServicesName servicesName = ServicesName();
   List<ServicesModel> servicesList = [];
-  VNPAYServices vnPayService = VNPAYServices();
 
   @override
   void initState() {
@@ -81,7 +81,9 @@ class _HomeScreenState extends State<HomeScreen> {
     print('servicesList length: ${servicesList.length}');
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 74, 180, 241),
+        shadowColor: AppColor.black,
+        foregroundColor: AppColor.black,
+        backgroundColor: const Color.fromARGB(255, 163, 216, 247),
       ),
       drawer: DrawerMenu(
         appUser: appUser,
@@ -95,12 +97,13 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Provide You \nBetter Clean \nHouse',
-                      style: TextStyle(
+                      style: GoogleFonts.oldenburg(
                         fontSize: 30.0,
+                        fontWeight: FontWeight.w400,
                         color: AppColor.blue,
                       ),
                     ),
@@ -129,16 +132,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(
-                        Assets.images.biaanh2.path,
+                      // Image.asset(
+                      //   Assets.images.biaanh2.path,
+                      //   width: 250.0,
+                      // ),
+                      Lottie.asset(
+                        'assets/clean1.json',
                         width: 250.0,
                       ),
-                      const Text(
+                      Text(
                         'What \nService \nDo You \nNeed ?',
-                        style: TextStyle(
-                          fontSize: 25.0,
-                          color: AppColor.blue,
+                        style: GoogleFonts.dmSerifText(
+                          fontSize: 30.0,
                           fontWeight: FontWeight.w400,
+                          color: AppColor.blue,
                         ),
                       ),
                     ],
@@ -146,11 +153,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 30.0,
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Our Services',
-                      style: TextStyle(
+                      style: GoogleFonts.dmSerifText(
                         fontSize: 20.0,
                         fontWeight: FontWeight.w400,
                         color: AppColor.blue,
@@ -205,9 +212,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Text(
                                 service.name_service ?? 'Unknown service',
-                                style: const TextStyle(
+                                style: GoogleFonts.notoSansPhagsPa(
                                   fontSize: 17.0,
-                                  fontWeight: FontWeight.w400,
+                                  fontWeight: FontWeight.w500,
                                   color: AppColor.blue,
                                 ),
                               ),

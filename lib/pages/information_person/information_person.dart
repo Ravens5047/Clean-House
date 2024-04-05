@@ -6,6 +6,7 @@ import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class InformationPerson extends StatefulWidget {
   const InformationPerson({
@@ -128,12 +129,12 @@ class _InformationPersonState extends State<InformationPerson> {
             padding: const EdgeInsets.symmetric(horizontal: 20.0).copyWith(
                 top: MediaQuery.of(context).padding.top + 38.0, bottom: 16.0),
             children: [
-              const Text(
+              Text(
                 'My Profile',
-                style: TextStyle(
+                style: GoogleFonts.dmSerifText(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.w400,
                   color: AppColor.blue,
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.w500,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -188,6 +189,7 @@ class _InformationPersonState extends State<InformationPerson> {
               ),
               const SizedBox(height: 72.0),
               TdElevatedButton(
+                borderColor: AppColor.grey,
                 onPressed: _updateProfile,
                 text: 'Save',
               ),

@@ -127,14 +127,14 @@ class _LoginPageState extends State<LoginPage> {
             AppTextField(
               controller: nameController,
               hintext: 'Enter User Name',
-              validator: Validator.requiredValidator,
+              validator: Validator.requiredValidator.call,
               textInputAction: TextInputAction.next,
             ),
             const SizedBox(height: 16.0),
             AppTextFieldPassword(
               controller: passwordController,
               hintext: 'Enter Password',
-              validator: Validator.passwordValidator,
+              validator: Validator.passwordValidator.call,
               textInputAction: TextInputAction.done,
             ),
             const SizedBox(height: 12.0),

@@ -8,8 +8,8 @@ import 'package:icony/icony_ikonate.dart';
 
 class MainPageEmployee extends StatefulWidget {
   const MainPageEmployee({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<MainPageEmployee> createState() => _MainPageEmployeeState();

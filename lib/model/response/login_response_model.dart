@@ -19,6 +19,7 @@ class LoginResponseModel {
   }
 
   Map<String, dynamic> toJson() {
+    // ignore: no_leading_underscores_for_local_identifiers
     final _data = <String, dynamic>{};
     _data['message'] = message;
     _data['data'] = data?.toJson();
@@ -43,6 +44,7 @@ class Data {
   }
 
   Map<String, dynamic> toJson() {
+    // ignore: no_leading_underscores_for_local_identifiers
     final _data = <String, dynamic>{};
     _data['key'] = key;
     _data['id'] = id;

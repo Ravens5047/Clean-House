@@ -57,7 +57,7 @@ class _ForgotMailState extends State<ForgotMail> {
                     child: AppTextField(
                       controller: emailController,
                       hintext: 'Enter Email',
-                      validator: Validator.emailValidator,
+                      validator: Validator.emailValidator.call,
                       // onFieldSubmitted: (_) => _sendOtp(),
                       textInputAction: TextInputAction.done,
                     ),

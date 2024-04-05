@@ -76,6 +76,7 @@ class WelcomePage extends StatelessWidget {
                   width: 170.0,
                   height: 70.0,
                   child: AppElevatedButton(
+                    borderRadius: BorderRadius.circular(15.0),
                     onPressed: () {
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
@@ -90,6 +91,7 @@ class WelcomePage extends StatelessWidget {
                   width: 170.0,
                   height: 70.0,
                   child: AppElevatedButton.outline(
+                    borderRadius: BorderRadius.circular(15.0),
                     onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
                             builder: (context) => const RegisterPage()),
