@@ -1,17 +1,14 @@
 import 'dart:convert';
-import 'package:capstone2_clean_house/components/app_dialog.dart';
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
-import 'package:capstone2_clean_house/pages/auth/change_password/change_password_page.dart';
-import 'package:capstone2_clean_house/pages/auth/login/login_page.dart';
 import 'package:capstone2_clean_house/pages/google_maps/google_map_screen.dart';
 import 'package:capstone2_clean_house/pages/history_order/history_order.dart';
+import 'package:capstone2_clean_house/pages/settings/setting_screen.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
 import 'package:flutter/material.dart';
 import 'package:icony/icony_ikonate.dart';
-import 'package:lottie/lottie.dart';
 
 class DrawerMenu extends StatefulWidget {
   const DrawerMenu({
@@ -153,12 +150,15 @@ class _DrawerMenuState extends State<DrawerMenu> {
             ),
             const Divider(
               height: 10.0,
-              thickness: 3.0,
+              thickness: 2.0,
               color: AppColor.blue,
               endIndent: 10.0,
               indent: 10.0,
             ),
-            Lottie.asset('assets/clean4.json'),
+            const SizedBox(
+              height: 10.0,
+            ),
+            // Lottie.asset('assets/clean4.json'),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -189,35 +189,35 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ChangePasswordPage(),
-                      ),
-                    ),
-                    child: const Row(
-                      children: [
-                        SizedBox(
-                          height: 30.0,
-                          width: 30.0,
-                          child: Ikonate(Ikonate.lock),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Text(
-                          'Change Password',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // const SizedBox(
+                  //   height: 10.0,
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () => Navigator.of(context).push(
+                  //     MaterialPageRoute(
+                  //       builder: (context) => const ChangePasswordPage(),
+                  //     ),
+                  //   ),
+                  //   child: const Row(
+                  //     children: [
+                  //       SizedBox(
+                  //         height: 30.0,
+                  //         width: 30.0,
+                  //         child: Ikonate(Ikonate.lock),
+                  //       ),
+                  //       SizedBox(
+                  //         width: 15.0,
+                  //       ),
+                  //       Text(
+                  //         'Change Password',
+                  //         style: TextStyle(
+                  //           fontSize: 20.0,
+                  //           fontWeight: FontWeight.w400,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   const SizedBox(
                     height: 10.0,
                   ),
@@ -248,51 +248,82 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     ),
                   ),
                   const SizedBox(
-                    height: 100.0,
+                    height: 10.0,
                   ),
-                  InkWell(
-                    onTap: () => AppDialog.dialog(
-                      context,
-                      title: 'Sign Out',
-                      content: 'Do you want to logout ?',
-                      action: () async {
-                        SharedPrefs.removeSeason();
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (context) => const LoginPage(),
-                            ),
-                            (Route<dynamic> route) => false,
-                          );
-                        });
-                      },
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => SettingScreen(
+                          user_id: widget.user_id,
+                        ),
+                      ),
                     ),
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
                     child: const Row(
                       children: [
                         SizedBox(
                           height: 30.0,
                           width: 30.0,
-                          child: Ikonate(
-                            Ikonate.exit,
-                            color: AppColor.blue,
-                          ),
+                          child: Ikonate(Ikonate.settings),
                         ),
                         SizedBox(
                           width: 15.0,
                         ),
                         Text(
-                          'Logout',
+                          'Settings',
                           style: TextStyle(
                             fontSize: 20.0,
-                            color: AppColor.blue,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ],
                     ),
                   ),
+                  // const SizedBox(
+                  //   height: 40.0,
+                  // ),
+                  // InkWell(
+                  //   onTap: () => AppDialog.dialog(
+                  //     context,
+                  //     title: 'Sign Out',
+                  //     content: 'Do you want to logout ?',
+                  //     action: () async {
+                  //       SharedPrefs.removeSeason();
+                  //       WidgetsBinding.instance.addPostFrameCallback((_) {
+                  //         Navigator.of(context).pushAndRemoveUntil(
+                  //           MaterialPageRoute(
+                  //             builder: (context) => const LoginPage(),
+                  //           ),
+                  //           (Route<dynamic> route) => false,
+                  //         );
+                  //       });
+                  //     },
+                  //   ),
+                  //   highlightColor: Colors.transparent,
+                  //   splashColor: Colors.transparent,
+                  //   child: const Row(
+                  //     children: [
+                  //       SizedBox(
+                  //         height: 30.0,
+                  //         width: 30.0,
+                  //         child: Ikonate(
+                  //           Ikonate.exit,
+                  //           color: AppColor.blue,
+                  //         ),
+                  //       ),
+                  //       SizedBox(
+                  //         width: 15.0,
+                  //       ),
+                  //       Text(
+                  //         'Logout',
+                  //         style: TextStyle(
+                  //           fontSize: 20.0,
+                  //           color: AppColor.black,
+                  //           fontWeight: FontWeight.w400,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ),

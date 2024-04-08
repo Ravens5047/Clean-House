@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:capstone2_clean_house/components/app_bar/bottom_navigator_bar.dart';
 import 'package:capstone2_clean_house/components/app_bar/bottom_navigator_bar_employee.dart';
@@ -22,6 +23,7 @@ class LoginPage extends StatefulWidget {
   const LoginPage({
     super.key,
   });
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -160,11 +162,6 @@ class _LoginPageState extends State<LoginPage> {
               width: 350.0,
               height: 70.0,
               child: AppElevatedButton(
-                // onPressed: () => Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (context) => const MainPage(),
-                //   ),
-                // ),
                 onPressed: () {
                   _submitLogin();
                 },
