@@ -95,14 +95,16 @@ class _InformationPersonState extends State<InformationPerson> {
           _updateTextControllers(updatedUser);
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Profile updated successfully.'),
+              content: Center(child: Text('Profile updated successfully.')),
               backgroundColor: Colors.green,
             ),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Failed to update profile: ${response.statusCode}'),
+              content: Center(
+                  child:
+                      Text('Failed to update profile: ${response.statusCode}')),
               backgroundColor: Colors.red,
             ),
           );
@@ -110,7 +112,7 @@ class _InformationPersonState extends State<InformationPerson> {
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to update profile: $e'),
+            content: Center(child: Text('Failed to update profile: $e')),
             backgroundColor: Colors.red,
           ),
         );
