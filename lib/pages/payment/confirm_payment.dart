@@ -1,11 +1,30 @@
+import 'package:bottom_picker/resources/time.dart';
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
 import 'package:capstone2_clean_house/pages/payment/successful_payment.dart';
 import 'package:capstone2_clean_house/pages/vnpay/payment_screen_vnpay_local.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
+import 'package:capstone2_clean_house/services/remote/account_services.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmPayment extends StatefulWidget {
-  const ConfirmPayment({super.key});
+  const ConfirmPayment({
+    super.key,
+    required this.selectedTime,
+    required this.selectedDate,
+    this.selectedHouse,
+    this.selectedArea,
+    required this.address,
+    required this.fullname,
+    required this.note,
+  });
+
+  final Time selectedTime;
+  final DateTime selectedDate;
+  final int? selectedHouse;
+  final int? selectedArea;
+  final String address;
+  final String fullname;
+  final String note;
 
   @override
   State<ConfirmPayment> createState() => _ConfirmPaymentState();
@@ -18,6 +37,43 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
     'VNPAY',
   ];
   TextEditingController moneyController = TextEditingController();
+  int? selectedHouse;
+  int? selectedArea;
+  AccountService accountService = AccountService();
+  late int userId;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedHouse = widget.selectedHouse;
+    selectedArea = widget.selectedArea;
+  }
+
+  String getHouseType(int index) {
+    switch (index) {
+      case 0:
+        return 'House / Town House';
+      case 1:
+        return 'Apartment';
+      case 2:
+        return 'Villas';
+      default:
+        return '';
+    }
+  }
+
+  String getArea(int index) {
+    switch (index) {
+      case 0:
+        return 'Max 40m²';
+      case 1:
+        return 'Max 80m²';
+      case 2:
+        return 'Max 100m²';
+      default:
+        return '';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +105,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                 height: 15.0,
               ),
               Container(
+                width: double.infinity,
                 decoration: BoxDecoration(
                   color: AppColor.white,
                   border: Border.all(
@@ -64,28 +121,34 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                     ),
                   ],
                 ),
-                child: const Padding(
-                  padding: EdgeInsets.all(16.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '162/5 Đống Đa, Phường Thuận Phước, Quận Hải Châu, Đà Nẵng',
-                        style: TextStyle(
+                        widget.address,
+                        style: const TextStyle(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500,
                           color: AppColor.black,
                         ),
                       ),
+                      const SizedBox(
+                        height: 2.0,
+                      ),
                       Text(
-                        'Nguyễn Hoàng Hưng',
-                        style: TextStyle(
+                        widget.fullname,
+                        style: const TextStyle(
                           fontSize: 14.0,
                           fontWeight: FontWeight.w500,
                           color: AppColor.black,
                         ),
                       ),
-                      Text(
+                      const SizedBox(
+                        height: 2.0,
+                      ),
+                      const Text(
                         'Phone: 0906436495',
                         style: TextStyle(
                           fontSize: 14.0,
@@ -100,9 +163,9 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
               const SizedBox(
                 height: 30.0,
               ),
-              const Row(
+              Row(
                 children: [
-                  Text(
+                  const Text(
                     'House Type',
                     style: TextStyle(
                       fontSize: 14.0,
@@ -110,10 +173,12 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                       color: AppColor.black,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
-                    'House/Town House',
-                    style: TextStyle(
+                    selectedHouse != null
+                        ? getHouseType(selectedHouse!)
+                        : "Not Selected",
+                    style: const TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
@@ -124,9 +189,9 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
               const SizedBox(
                 height: 20.0,
               ),
-              const Row(
+              Row(
                 children: [
-                  Text(
+                  const Text(
                     'Area: ',
                     style: TextStyle(
                       fontSize: 14.0,
@@ -134,10 +199,12 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                       color: AppColor.black,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
-                    '80m²',
-                    style: TextStyle(
+                    selectedArea != null
+                        ? getArea(selectedArea!)
+                        : "Not Selected",
+                    style: const TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
@@ -148,9 +215,9 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
               const SizedBox(
                 height: 20.0,
               ),
-              const Row(
+              Row(
                 children: [
-                  Text(
+                  const Text(
                     'Work date: ',
                     style: TextStyle(
                       fontSize: 14.0,
@@ -158,10 +225,10 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                       color: AppColor.black,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
-                    '2/4/2024',
-                    style: TextStyle(
+                    '${widget.selectedDate.day}/${widget.selectedDate.month}/${widget.selectedDate.year}',
+                    style: const TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
@@ -172,9 +239,9 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
               const SizedBox(
                 height: 20.0,
               ),
-              const Row(
+              Row(
                 children: [
-                  Text(
+                  const Text(
                     'Start Time: ',
                     style: TextStyle(
                       fontSize: 14.0,
@@ -182,10 +249,10 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                       color: AppColor.black,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
-                    '17:54 PM',
-                    style: TextStyle(
+                    '${widget.selectedTime.hours}:${widget.selectedTime.minutes}',
+                    style: const TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
@@ -197,11 +264,48 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                 height: 25.0,
               ),
               const Text(
-                'Note for the Tasker: ',
+                'Note for the Tasker',
                 style: TextStyle(
                   fontSize: 14.0,
                   fontWeight: FontWeight.w500,
                   color: AppColor.black,
+                ),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: AppColor.white,
+                  border: Border.all(
+                    color: AppColor.black,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(5.0),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppColor.shadow,
+                      offset: Offset(0.0, 3.0),
+                      blurRadius: 6.0,
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.note,
+                        style: const TextStyle(
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w500,
+                          color: AppColor.black,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
