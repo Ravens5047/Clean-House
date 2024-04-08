@@ -53,6 +53,11 @@ class $AssetsImagesGen {
   AssetGenImage get backgroundProfile =>
       const AssetGenImage('assets/images/backgroundProfile.png');
 
+  AssetGenImage get avatar_default =>
+      const AssetGenImage('assets/images/avatar_default.png');
+  AssetGenImage get background_clean =>
+      const AssetGenImage('assets/images/background_clean.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         splash,
@@ -62,6 +67,8 @@ class $AssetsImagesGen {
         services2,
         services3,
         backgroundProfile,
+        avatar_default,
+        background_clean,
       ];
 }
 

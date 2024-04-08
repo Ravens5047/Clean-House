@@ -27,7 +27,7 @@ class _PayScreenState extends State<PayScreen> {
       body: InAppWebView(
         initialUrlRequest: URLRequest(
           url: Uri.parse(
-              "http://172.21.4.86:8888/order/create_payment_url"),
+              "https://vnpay-aiohs.onrender.com/order/create_payment_url"),
           method: 'POST',
           body: Uint8List.fromList(
             utf8.encode(

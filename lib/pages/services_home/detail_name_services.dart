@@ -4,6 +4,7 @@ import 'package:capstone2_clean_house/model/services_model.dart';
 import 'package:capstone2_clean_house/pages/services_home/booking_services/booking_services_Place.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DetailNameServices extends StatefulWidget {
   const DetailNameServices({
@@ -35,9 +36,10 @@ class _DetailNameServicesState extends State<DetailNameServices> {
           ),
           title: Text(
             widget.service.name_service ?? '-:-',
-            style: const TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.w500,
+            style: GoogleFonts.mandali(
+              fontSize: 22.0,
+              fontWeight: FontWeight.w400,
+              // color: AppColor.blue,
             ),
             textAlign: TextAlign.center,
           ),

@@ -1,5 +1,6 @@
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
-import 'package:capstone2_clean_house/pages/vnpay/payment_screen_vnpay.dart';
+import 'package:capstone2_clean_house/pages/payment/successful_payment.dart';
+import 'package:capstone2_clean_house/pages/vnpay/payment_screen_vnpay_local.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -242,7 +243,14 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                     fontSize: 18.0,
                     fontWeight: FontWeight.w500,
                   ),
-                  hint: const Text('Select Payment Method'),
+                  hint: const Text(
+                    'Select Payment Method',
+                    style: TextStyle(
+                      fontSize: 17.0,
+                      fontWeight: FontWeight.w400,
+                      color: AppColor.black,
+                    ),
+                  ),
                   isExpanded: true,
                   onChanged: (String? newValue) {
                     setState(() {
@@ -260,7 +268,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                 ),
               ),
               const SizedBox(
-                height: 40.0,
+                height: 30.0,
               ),
               const Row(
                 children: [
@@ -284,7 +292,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                 ],
               ),
               const SizedBox(
-                height: 10.0,
+                height: 20.0,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -299,45 +307,70 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10.0),
+              const SizedBox(height: 20.0),
               Center(
                 child: AppElevatedButton.normal1(
                   text: 'Payment',
                   onPressed: () {
                     int? money = int.tryParse(moneyController.text);
-                    if (money == null) {
+                    if (selectedLocation == 'VNPAY' && money == null) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        backgroundColor: Colors.red,
-                        content: Text(
-                          "Số tiền không hợp lệ",
-                          style: TextStyle(color: Colors.white),
+                        backgroundColor: Colors.blue,
+                        content: Center(
+                          child: Text(
+                            "Số tiền không hợp lệ",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 15.0),
+                          ),
+                        ),
+                      ));
+                      return;
+                    } else if (selectedLocation == null && money == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        backgroundColor: Colors.blue,
+                        content: Center(
+                          child: Text(
+                            "Vui lòng chọn loại hình thanh toán và nhập số tiền thanh toán",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12.0,
+                            ),
+                          ),
                         ),
                       ));
                       return;
                     }
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            PayScreen(money: moneyController.text),
-                      ),
-                    );
+                    if (selectedLocation == 'VNPAY') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              VnpayScreenPayment1(money: moneyController.text),
+                        ),
+                      );
+                    } else if (selectedLocation == 'Cash' && money == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        backgroundColor: Colors.blue,
+                        content: Center(
+                          child: Text(
+                            "Số tiền không hợp lệ",
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 15.0),
+                          ),
+                        ),
+                      ));
+                    } else {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => const SuccessfulPayment(
+                                  result: '00',
+                                )),
+                        (Route<dynamic> route) => false,
+                      );
+                    }
                   },
                 ),
               ),
-              // const Spacer(),
-              // AppElevatedButton.normal1(
-              //   onPressed: () {
-              //     Navigator.of(context).pushAndRemoveUntil(
-              //       MaterialPageRoute(
-              //           builder: (context) => SuccessfulPayment(
-              //                 result: "0",
-              //               )),
-              //       (Route<dynamic> route) => false,
-              //     );
-              //   },
-              //   text: 'Booking',
-              // ),
             ],
           ),
         ),

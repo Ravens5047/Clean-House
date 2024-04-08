@@ -1,4 +1,6 @@
-//Response VNPAY MODEL
+import 'package:json_annotation/json_annotation.dart';
+
+@JsonSerializable()
 class VnpayReturnModel {
   VnpayReturnModel({
     this.message,
@@ -8,12 +10,13 @@ class VnpayReturnModel {
   String? message;
   Data? data;
 
-  VnpayReturnModel.fromJson(Map<String, dynamic> json) {
-    message = json["message"];
-    data = json["data"] != null ? Data.fromJson(json["data"]) : null;
-  }
+  factory VnpayReturnModel.fromJson(Map<String, dynamic> json) =>
+      _$VnpayReturnModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VnpayReturnModelToJson(this);
 }
 
+@JsonSerializable()
 class Data {
   Data({
     this.amount,
@@ -29,45 +32,73 @@ class Data {
     this.secureHash,
   });
 
+  @JsonKey(name: 'vnp_Amount')
   double? amount;
+  @JsonKey(name: 'vnp_BankCode')
   String? bankCode;
+  @JsonKey(name: 'vnp_CardType')
   String? cardType;
+  @JsonKey(name: 'vnp_OrderInfo')
   String? orderInfo;
+  @JsonKey(name: 'vnp_PayDate')
   String? payDate;
+  @JsonKey(name: 'vnp_ResponseCode')
   String? responseCode;
+  @JsonKey(name: 'vnp_TmnCode')
   String? tmnCode;
+  @JsonKey(name: 'vnp_TransactionNo')
   String? transactionNo;
+  @JsonKey(name: 'vnp_TransactionStatus')
   String? transactionStatus;
+  @JsonKey(name: 'vnp_TxnRef')
   String? txnRef;
+  @JsonKey(name: 'vnp_SecureHash')
   String? secureHash;
 
-  Data.fromJson(Map<String, dynamic> json) {
-    amount = json["vnp_Amount"];
-    bankCode = json["vnp_BankCode"];
-    cardType = json["vnp_CardType"];
-    orderInfo = json["vnp_OrderInfo"];
-    payDate = json["vnp_PayDate"];
-    responseCode = json["vnp_ResponseCode"];
-    tmnCode = json["vnp_TmnCode"];
-    transactionNo = json["vnp_TransactionNo"];
-    transactionStatus = json["vnp_TransactionStatus"];
-    txnRef = json["vnp_TxnRef"];
-    secureHash = json["vnp_SecureHash"];
-  }
+  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    _data['vnp_Amount'] = amount;
-    _data['vnp_BankCode'] = bankCode;
-    _data['vnp_CardType'] = cardType;
-    _data['vnp_OrderInfo'] = orderInfo;
-    _data['vnp_PayDate'] = payDate;
-    _data['vnp_ResponseCode'] = responseCode;
-    _data['vnp_TmnCode'] = tmnCode;
-    _data['vnp_TransactionNo'] = transactionNo;
-    _data['vnp_TransactionStatus'] = transactionStatus;
-    _data['vnp_TxnRef'] = txnRef;
-    _data['vnp_SecureHash'] = secureHash;
-    return _data;
-  }
+  Map<String, dynamic> toJson() => _$DataToJson(this);
 }
+
+VnpayReturnModel _$VnpayReturnModelFromJson(Map<String, dynamic> json) {
+  return VnpayReturnModel(
+    message: json['message'] as String?,
+    data: json['data'] != null ? Data.fromJson(json['data'] as Map<String, dynamic>) : null,
+  );
+}
+
+Data _$DataFromJson(Map<String, dynamic> json) {
+  return Data(
+    amount: (json['vnp_Amount'] as num?)?.toDouble(),
+    bankCode: json['vnp_BankCode'] as String?,
+    cardType: json['vnp_CardType'] as String?,
+    orderInfo: json['vnp_OrderInfo'] as String?,
+    payDate: json['vnp_PayDate'] as String?,
+    responseCode: json['vnp_ResponseCode'] as String?,
+    tmnCode: json['vnp_TmnCode'] as String?,
+    transactionNo: json['vnp_TransactionNo'] as String?,
+    transactionStatus: json['vnp_TransactionStatus'] as String?,
+    txnRef: json['vnp_TxnRef'] as String?,
+    secureHash: json['vnp_SecureHash'] as String?,
+  );
+}
+
+Map<String, dynamic> _$VnpayReturnModelToJson(VnpayReturnModel instance) =>
+    <String, dynamic>{
+      'message': instance.message,
+      'data': instance.data?.toJson(),
+    };
+
+Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
+      'vnp_Amount': instance.amount,
+      'vnp_BankCode': instance.bankCode,
+      'vnp_CardType': instance.cardType,
+      'vnp_OrderInfo': instance.orderInfo,
+      'vnp_PayDate': instance.payDate,
+      'vnp_ResponseCode': instance.responseCode,
+      'vnp_TmnCode': instance.tmnCode,
+      'vnp_TransactionNo': instance.transactionNo,
+      'vnp_TransactionStatus': instance.transactionStatus,
+      'vnp_TxnRef': instance.txnRef,
+      'vnp_SecureHash': instance.secureHash,
+    };

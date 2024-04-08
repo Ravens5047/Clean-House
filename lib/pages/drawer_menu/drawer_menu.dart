@@ -110,37 +110,30 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 full_name,
                 style: const TextStyle(
                   fontSize: 17.0,
-                  color: AppColor.white,
+                  color: AppColor.black,
                 ),
               ),
               accountEmail: Text(
                 email,
                 style: const TextStyle(
                   fontSize: 15.0,
-                  color: AppColor.white,
+                  color: AppColor.black,
                 ),
               ),
               currentAccountPicture: CircleAvatar(
                 child: ClipOval(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: Image.asset(
-                    Assets.images.biaanh1.path,
+                    Assets.images.avatar_default.path,
                     width: 90.0,
                     height: 90.0,
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
-              // decoration: BoxDecoration(
-              //   image: DecorationImage(
-              //     image: AssetImage(
-              //       Assets.images.backgroundProfile.path,
-              //     ),
-              //     fit: BoxFit.cover,
-              //   ),
-              // ),\
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(Assets.images.backgroundProfile.path),
+                  image: AssetImage(Assets.images.background_clean.path),
                 ),
                 color: AppColor.white,
                 borderRadius: const BorderRadius.all(
@@ -255,7 +248,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     ),
                   ),
                   const SizedBox(
-                    height: 140.0,
+                    height: 100.0,
                   ),
                   InkWell(
                     onTap: () => AppDialog.dialog(

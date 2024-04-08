@@ -26,35 +26,36 @@ class _SuccessfulPaymentState extends State<SuccessfulPayment> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Center(
-                child: widget.result == "00"
-                    ? const Column(
-                        children: [
-                          Text(
-                            "Successful Payment",
-                            style: TextStyle(
-                              color: AppColor.blue,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                            ),
+              child: widget.result == "00"
+                  ? const Column(
+                      children: [
+                        Text(
+                          "Successful Payment",
+                          style: TextStyle(
+                            color: AppColor.blue,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
                           ),
-                          Text(
-                            "Thank your for your successful payment",
-                            style: TextStyle(
-                              color: AppColor.blue,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      )
-                    : const Text(
-                        "Fail Payment!!!",
-                        style: TextStyle(
-                          color: AppColor.red,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
                         ),
-                      )),
+                        Text(
+                          "Thank your for your successful payment",
+                          style: TextStyle(
+                            color: AppColor.blue,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    )
+                  : const Text(
+                      "Fail Payment!!!",
+                      style: TextStyle(
+                        color: AppColor.red,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+            ),
             Align(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),

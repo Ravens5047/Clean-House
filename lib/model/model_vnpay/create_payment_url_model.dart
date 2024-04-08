@@ -56,7 +56,7 @@ class CreatePaymentModel {
     return data;
   }
 
-  String getFormattedOrderId() {
+  String? getFormattedOrderId() {
     return DateFormat('ddHHmmss').format(DateTime.now());
   }
 
@@ -65,16 +65,16 @@ class CreatePaymentModel {
       'vnp_Version': '2.1.0',
       'vnp_Command': 'pay',
       'vnp_TmnCode': tmnCode,
-      'vnp_Locale': locale!.isEmpty ? 'vn' : locale,
+      'vnp_Locale': locale ?? 'vn',
       'vnp_CurrCode': currCode,
       'vnp_TxnRef': orderId,
       'vnp_OrderInfo': 'Thanh toan cho ma GD:$orderId',
       'vnp_OrderType': 'other',
-      'vnp_Amount': (amount! * 100).toInt(),
+      'vnp_Amount': (amount! * 100).toDouble(),
       'vnp_ReturnUrl': returnUrl,
       'vnp_IpAddr': ipAddr,
       'vnp_CreateDate': createDate,
-      if (bankCode!.isNotEmpty) 'vnp_BankCode': bankCode,
+      'vnp_BankCode': bankCode = '&language = vn',
     };
   }
 }
