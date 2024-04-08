@@ -22,12 +22,13 @@ class BookingServicesPlace extends StatefulWidget {
 }
 
 class _BookingServicesPlaceState extends State<BookingServicesPlace> {
+  TextEditingController fullnameController = TextEditingController();
   TextEditingController typeHouseController = TextEditingController();
   TextEditingController typeNumberController = TextEditingController();
   String? selectedLocation;
   List<bool> isSelected = [false, false, false];
   int? selectedHouse;
-  int? selectTime;
+  int? selectedArea;
   GoogleMapModel selectedShop = GoogleMapModel();
   bool isAddressEntered = false;
   final formKey = GlobalKey<FormState>();
@@ -74,12 +75,12 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
     });
   }
 
-  void handleFrequencySelectionTime(int index) {
+  void handleFrequencySelectionArea(int index) {
     setState(() {
-      if (selectTime == index) {
-        selectTime = null;
+      if (selectedArea == index) {
+        selectedArea = null;
       } else {
-        selectTime = index;
+        selectedArea = index;
       }
     });
   }
@@ -89,6 +90,13 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
       isAddressEntered = typeHouseController.text.isNotEmpty &&
           typeNumberController.text.isNotEmpty;
     });
+  }
+
+  String? fullnameValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter address';
+    }
+    return null;
   }
 
   String? addressValidator(String? value) {
@@ -139,6 +147,21 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                 ),
                 const SizedBox(
                   height: 20.0,
+                ),
+                AppTextFieldProfile(
+                  controller: fullnameController,
+                  hintText: 'Full Name',
+                  textInputAction: TextInputAction.done,
+                  onFieldSubmitted: (value) {
+                    setState(() {
+                      isAddressEntered = value.isNotEmpty;
+                    });
+                  },
+                  onTextChanged: handleTextFieldsChanged,
+                  validator: fullnameValidator,
+                ),
+                const SizedBox(
+                  height: 10.0,
                 ),
                 AppTextFieldProfile(
                   controller: typeHouseController,
@@ -285,37 +308,37 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    handleFrequencySelectionTime(0);
+                    handleFrequencySelectionArea(0);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SelectionTime(
-                      text: 'Max 80m² \n\nMax 2 people / 4 hours',
-                      isSelected: selectTime == 0,
+                      text: 'Max 40m² \n\nMax 2 people / 4 hours',
+                      isSelected: selectedArea == 0,
                     ),
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
-                    handleFrequencySelectionTime(1);
+                    handleFrequencySelectionArea(1);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SelectionTime(
                       text: 'Max 80m² \n\nMax 2 people / 4 hours',
-                      isSelected: selectTime == 1,
+                      isSelected: selectedArea == 1,
                     ),
                   ),
                 ),
                 GestureDetector(
                   onTap: () {
-                    handleFrequencySelectionTime(2);
+                    handleFrequencySelectionArea(2);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SelectionTime(
-                      text: 'Max 80m² \n\nMax 2 people / 4 hours',
-                      isSelected: selectTime == 2,
+                      text: 'Max 100m² \n\nMax 2 people / 4 hours',
+                      isSelected: selectedArea == 2,
                     ),
                   ),
                 ),
@@ -363,7 +386,12 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) =>
-                              const BookingServicesSelectionTimeWorking(),
+                              BookingServicesSelectionTimeWorking(
+                            selectedHouse: selectedHouse,
+                            selectedArea: selectedArea,
+                            address: typeHouseController.text,
+                            fullname: fullnameController.text,
+                          ),
                         ),
                       );
                     } else {

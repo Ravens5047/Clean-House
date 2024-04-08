@@ -9,7 +9,18 @@ import 'package:flutter/material.dart';
 import 'package:icony/icony_ikonate.dart';
 
 class BookingServicesSelectionTimeWorking extends StatefulWidget {
-  const BookingServicesSelectionTimeWorking({super.key});
+  const BookingServicesSelectionTimeWorking({
+    super.key,
+    this.selectedHouse,
+    this.selectedArea,
+    required this.address,
+    required this.fullname,
+  });
+
+  final int? selectedHouse;
+  final int? selectedArea;
+  final String address;
+  final String fullname;
 
   @override
   State<BookingServicesSelectionTimeWorking> createState() =>
@@ -18,13 +29,31 @@ class BookingServicesSelectionTimeWorking extends StatefulWidget {
 
 class _BookingServicesSelectionTimeWorkingState
     extends State<BookingServicesSelectionTimeWorking> {
+  final NoteController = TextEditingController();
   final buttonWidth = 250.0;
   late Time _selectedTime;
+  late DateTime _selectedDate;
+  int? selectedHouse;
+  int? selectedArea;
 
   @override
   void initState() {
     super.initState();
-    _selectedTime = Time(hours: 0, minutes: 0);
+    _selectedTime = _getCurrentTime();
+    _selectedDate = DateTime.now();
+    selectedHouse = widget.selectedHouse;
+    selectedArea = widget.selectedArea;
+  }
+
+  Time _getCurrentTime() {
+    final now = DateTime.now();
+    return Time(hours: now.hour, minutes: now.minute);
+  }
+
+  void _updateSelectedDate(DateTime newDate) {
+    setState(() {
+      _selectedDate = newDate;
+    });
   }
 
   void _openTimePicker(BuildContext context) {
@@ -155,10 +184,10 @@ class _BookingServicesSelectionTimeWorkingState
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: SelectionHouseTextField(
-                  // controller: typeHouseController,
+                  controller: NoteController,
                   hintText:
                       'Do you have any additional requests? Please \nenter them here',
                   textInputAction: TextInputAction.done,
@@ -173,7 +202,16 @@ class _BookingServicesSelectionTimeWorkingState
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                          builder: (context) => const ConfirmPayment()),
+                        builder: (context) => ConfirmPayment(
+                          selectedTime: _selectedTime,
+                          selectedDate: _selectedDate,
+                          selectedHouse: selectedHouse,
+                          selectedArea: selectedArea,
+                          address: widget.address,
+                          fullname: widget.fullname,
+                          note: NoteController.text,
+                        ),
+                      ),
                     );
                   },
                   text: 'Continue',
@@ -186,13 +224,13 @@ class _BookingServicesSelectionTimeWorkingState
       ),
     );
   }
-}
 
-EasyDateTimeLine _mainExample() {
-  return EasyDateTimeLine(
-    initialDate: DateTime.now(),
-    onDateChange: (selectedDate) {
-      //`selectedDate` the new date selected.
-    },
-  );
+  EasyDateTimeLine _mainExample() {
+    return EasyDateTimeLine(
+      initialDate: DateTime.now(),
+      onDateChange: (selectedDate) {
+        _updateSelectedDate(selectedDate);
+      },
+    );
+  }
 }
