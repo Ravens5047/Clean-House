@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'package:capstone2_clean_house/components/app_dialog.dart';
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
-import 'package:capstone2_clean_house/pages/auth/change_password/change_password_page.dart';
-import 'package:capstone2_clean_house/pages/auth/login/login_page.dart';
 import 'package:capstone2_clean_house/pages/google_maps/google_map_screen.dart';
 import 'package:capstone2_clean_house/pages/history_order/history_order.dart';
+import 'package:capstone2_clean_house/pages/settings/setting_screen.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
@@ -109,20 +107,21 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 full_name,
                 style: const TextStyle(
                   fontSize: 17.0,
-                  color: AppColor.white,
+                  color: AppColor.black,
                 ),
               ),
               accountEmail: Text(
                 email,
                 style: const TextStyle(
                   fontSize: 15.0,
-                  color: AppColor.white,
+                  color: AppColor.black,
                 ),
               ),
               currentAccountPicture: CircleAvatar(
                 child: ClipOval(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: Image.asset(
-                    Assets.images.biaanh1.path,
+                    Assets.images.avatar_default.path,
                     width: 90.0,
                     height: 90.0,
                     fit: BoxFit.cover,
@@ -131,13 +130,35 @@ class _DrawerMenuState extends State<DrawerMenu> {
               ),
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                    Assets.images.backgroundProfile.path,
-                  ),
-                  fit: BoxFit.cover,
+                  image: AssetImage(Assets.images.background_clean.path),
                 ),
+                color: AppColor.white,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(15.0),
+                ),
+                boxShadow: const [
+                  BoxShadow(
+                    color: AppColor.grey,
+                    blurRadius: 10.0,
+                    spreadRadius: BorderSide.strokeAlignInside,
+                    offset: Offset(10, 15),
+                  ),
+                ],
               ),
+              margin: const EdgeInsets.all(8.0),
+              currentAccountPictureSize: const Size.square(70),
             ),
+            const Divider(
+              height: 10.0,
+              thickness: 2.0,
+              color: AppColor.blue,
+              endIndent: 10.0,
+              indent: 10.0,
+            ),
+            const SizedBox(
+              height: 10.0,
+            ),
+            // Lottie.asset('assets/clean4.json'),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -168,35 +189,35 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ChangePasswordPage(),
-                      ),
-                    ),
-                    child: const Row(
-                      children: [
-                        SizedBox(
-                          height: 30.0,
-                          width: 30.0,
-                          child: Ikonate(Ikonate.lock),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Text(
-                          'Change Password',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // const SizedBox(
+                  //   height: 10.0,
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () => Navigator.of(context).push(
+                  //     MaterialPageRoute(
+                  //       builder: (context) => const ChangePasswordPage(),
+                  //     ),
+                  //   ),
+                  //   child: const Row(
+                  //     children: [
+                  //       SizedBox(
+                  //         height: 30.0,
+                  //         width: 30.0,
+                  //         child: Ikonate(Ikonate.lock),
+                  //       ),
+                  //       SizedBox(
+                  //         width: 15.0,
+                  //       ),
+                  //       Text(
+                  //         'Change Password',
+                  //         style: TextStyle(
+                  //           fontSize: 20.0,
+                  //           fontWeight: FontWeight.w400,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                   const SizedBox(
                     height: 10.0,
                   ),
@@ -227,51 +248,82 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     ),
                   ),
                   const SizedBox(
-                    height: 450.0,
+                    height: 10.0,
                   ),
-                  InkWell(
-                    onTap: () => AppDialog.dialog(
-                      context,
-                      title: 'Sign Out',
-                      content: 'Do you want to logout ?',
-                      action: () async {
-                        SharedPrefs.removeSeason();
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (context) => const LoginPage(),
-                            ),
-                            (Route<dynamic> route) => false,
-                          );
-                        });
-                      },
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => SettingScreen(
+                          user_id: widget.user_id,
+                        ),
+                      ),
                     ),
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
                     child: const Row(
                       children: [
                         SizedBox(
                           height: 30.0,
                           width: 30.0,
-                          child: Ikonate(
-                            Ikonate.exit,
-                            color: AppColor.blue,
-                          ),
+                          child: Ikonate(Ikonate.settings),
                         ),
                         SizedBox(
                           width: 15.0,
                         ),
                         Text(
-                          'Logout',
+                          'Settings',
                           style: TextStyle(
                             fontSize: 20.0,
-                            color: AppColor.blue,
-                            fontWeight: FontWeight.w500,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ],
                     ),
                   ),
+                  // const SizedBox(
+                  //   height: 40.0,
+                  // ),
+                  // InkWell(
+                  //   onTap: () => AppDialog.dialog(
+                  //     context,
+                  //     title: 'Sign Out',
+                  //     content: 'Do you want to logout ?',
+                  //     action: () async {
+                  //       SharedPrefs.removeSeason();
+                  //       WidgetsBinding.instance.addPostFrameCallback((_) {
+                  //         Navigator.of(context).pushAndRemoveUntil(
+                  //           MaterialPageRoute(
+                  //             builder: (context) => const LoginPage(),
+                  //           ),
+                  //           (Route<dynamic> route) => false,
+                  //         );
+                  //       });
+                  //     },
+                  //   ),
+                  //   highlightColor: Colors.transparent,
+                  //   splashColor: Colors.transparent,
+                  //   child: const Row(
+                  //     children: [
+                  //       SizedBox(
+                  //         height: 30.0,
+                  //         width: 30.0,
+                  //         child: Ikonate(
+                  //           Ikonate.exit,
+                  //           color: AppColor.blue,
+                  //         ),
+                  //       ),
+                  //       SizedBox(
+                  //         width: 15.0,
+                  //       ),
+                  //       Text(
+                  //         'Logout',
+                  //         style: TextStyle(
+                  //           fontSize: 20.0,
+                  //           color: AppColor.black,
+                  //           fontWeight: FontWeight.w400,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ),

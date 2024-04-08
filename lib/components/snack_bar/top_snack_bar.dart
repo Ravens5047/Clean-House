@@ -115,7 +115,7 @@ class TopSnackBar extends StatefulWidget {
   final DismissDirection dismissDirection;
 
   const TopSnackBar({
-    Key? key,
+    super.key,
     required this.child,
     required this.onDismissed,
     required this.animationDuration,
@@ -130,7 +130,7 @@ class TopSnackBar extends StatefulWidget {
     required this.safeAreaValues,
     this.dismissType = DismissType.onTap,
     this.dismissDirection = DismissDirection.up,
-  }) : super(key: key);
+  });
 
   @override
   State<TopSnackBar> createState() => _TopSnackBarState();

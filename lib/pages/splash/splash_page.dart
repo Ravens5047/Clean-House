@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'package:capstone2_clean_house/components/app_bar/bottom_navigator_bar.dart';
-import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/pages/welcome/welcome_page.dart';
+import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
-// import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
+import 'package:shimmer/shimmer.dart';
 // import 'package:shimmer/shimmer.dart';
 
 class SplashPage extends StatefulWidget {
@@ -34,7 +35,7 @@ class _SplashPageState extends State<SplashPage> {
 
   void onInit() async {
     final isLogin = SharedPrefs.isLogin;
-    await Future.delayed(const Duration(milliseconds: 2000));
+    await Future.delayed(const Duration(milliseconds: 5000));
     if (isLogin) {
       Route route = MaterialPageRoute(builder: (context) => const MainPage());
       Navigator.pushAndRemoveUntil(
@@ -49,17 +50,30 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Stack(
-        children: [
-          Image.asset(
-            Assets.images.splash.path,
-            width: size.width,
-            height: size.height,
-            fit: BoxFit.fill,
-          ),
-        ],
+      backgroundColor: AppColor.bgColor.withOpacity(1.0),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Image.asset(
+            //   Assets.images.icon_cleanhouse.path,
+            //   width: 112.0,
+            //   fit: BoxFit.cover,
+            // ),
+            Lottie.asset('assets/logo_splash_clean.json'),
+            Shimmer.fromColors(
+              baseColor: Colors.blue,
+              highlightColor: Colors.red,
+              child: const Text(
+                'Clean House Services',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

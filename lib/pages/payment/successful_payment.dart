@@ -5,8 +5,11 @@ import 'package:icony/icony_ikonate.dart';
 
 class SuccessfulPayment extends StatefulWidget {
   const SuccessfulPayment({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+    required this.result,
+  });
+
+  final String result;
 
   @override
   State<SuccessfulPayment> createState() => _SuccessfulPaymentState();
@@ -16,61 +19,69 @@ class _SuccessfulPaymentState extends State<SuccessfulPayment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Align(
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Successfully Booking',
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    color: AppColor.blue,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Text(
-                  'Thank you for using our service !',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: AppColor.blue,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 5.0,
-          ),
-          Align(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => const MainPage()),
-                        (Route<dynamic> route) => false,
-                      );
-                    },
-                    child: const Ikonate(
-                      Ikonate.home_alt,
-                      color: AppColor.blue,
-                      height: 40.0,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
+              child: widget.result == "00"
+                  ? const Column(
+                      children: [
+                        Text(
+                          "Successful Payment",
+                          style: TextStyle(
+                            color: AppColor.blue,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Thank your for your successful payment",
+                          style: TextStyle(
+                            color: AppColor.blue,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    )
+                  : const Text(
+                      "Fail Payment!!!",
+                      style: TextStyle(
+                        color: AppColor.red,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
+            ),
+            Align(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => const MainPage()),
+                          (Route<dynamic> route) => false,
+                        );
+                      },
+                      child: const Ikonate(
+                        Ikonate.home_alt,
+                        color: AppColor.blue,
+                        height: 40.0,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

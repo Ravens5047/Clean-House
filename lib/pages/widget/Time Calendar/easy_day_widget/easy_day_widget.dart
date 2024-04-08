@@ -103,14 +103,12 @@ class EasyDayWidget extends StatelessWidget {
   }
 
   BoxDecoration get _inactiveDayDecoration {
-    //TODO: remove `easyDayProps.inactiveDayDecoration` because it is deprecated.
     return _inactiveDayStyle.decoration ??
         easyDayProps.inactiveDayDecoration ??
         _buildDayDefaultDecoration(activeDayColor);
   }
 
   BoxDecoration get _activeDayDecoration {
-    //TODO: remove `easyDayProps.activeDayDecoration` because it is deprecated.
     return _activeDayStyle.decoration ??
         easyDayProps.activeDayDecoration ??
         _buildDayDefaultDecoration(activeDayColor);
@@ -184,10 +182,8 @@ class EasyDayWidget extends StatelessWidget {
   ///
   /// This method returns a `BorderRadius` object with the appropriate radius based on the `isSelected` boolean value and the `easyDayProps` object.
   BorderRadius _dayBorderRadius(bool isToday) {
-    //TODO: remove `easyDayProps.activeBorderRadius` because it is deprecated.
     final activeBorderRadius =
         _activeDayStyle.borderRadius ?? easyDayProps.activeBorderRadius;
-    //TODO: remove `easyDayProps.inactiveBorderRadius` because it is deprecated.
     final inactiveBorderRadius =
         _inactiveDayStyle.borderRadius ?? easyDayProps.inactiveBorderRadius;
     final disabledBorderRadius =
@@ -225,17 +221,14 @@ class EasyDayWidget extends StatelessWidget {
   /// This method returns a `DayInfoText` widget that displays the short name of the month of the current date, in uppercase.
   /// The `textStyle` property of the widget is determined based on the `isSelected` boolean value and the `easyDayProps` object.
   DayInfoText _buildMonth(bool isToday) {
-    //TODO: remove `easyDayProps.activeMothStrStyle` because it is deprecated.
     final activeMothStrStyle = _activeDayStyle.monthStrStyle ??
         easyDayProps.activeMothStrStyle ??
         EasyTextStyles.monthStrStyle.copyWith(
           color: activeTextColor,
         );
-    //TODO: remove `easyDayProps.inactiveMothStrStyle` because it is deprecated.
     final inactiveMothStrStyle = _inactiveDayStyle.monthStrStyle ??
         easyDayProps.inactiveMothStrStyle ??
         EasyTextStyles.monthStrStyle;
-    //TODO: remove `easyDayProps.todayMonthStrStyle` because it is deprecated.
     final todayMonthStrStyle = _todayStyle.monthStrStyle ??
         easyDayProps.todayMonthStrStyle ??
         EasyTextStyles.monthStrStyle;
@@ -263,17 +256,14 @@ class EasyDayWidget extends StatelessWidget {
   /// This method returns a `DayInfoText` widget that displays the day number of the current date.
   /// The `textStyle` property of the widget is determined based on the `isSelected` boolean value and the `easyDayProps` object.
   DayInfoText _buildDayNumber(bool isToday) {
-    //TODO: remove `easyDayProps.activeDayNumStyle` because it is deprecated.
     final activeDayNumStyle = _activeDayStyle.dayNumStyle ??
         easyDayProps.activeDayNumStyle ??
         EasyTextStyles.dayNumStyle.copyWith(
           color: activeTextColor,
         );
-    //TODO: remove `easyDayProps.inactiveDayNumStyle` because it is deprecated.
     final inactiveDayNumStyle = _inactiveDayStyle.dayNumStyle ??
         easyDayProps.inactiveDayNumStyle ??
         EasyTextStyles.dayNumStyle;
-    //TODO: remove `easyDayProps.todayNumStyle` because it is deprecated.
     final todayNumStyle = _todayStyle.dayNumStyle ??
         easyDayProps.todayNumStyle ??
         EasyTextStyles.dayNumStyle;
@@ -301,17 +291,14 @@ class EasyDayWidget extends StatelessWidget {
   /// The `textStyle` property of the widget is determined based on the `isSelected` boolean value and the `easyDayProps` object.
 
   DayInfoText _buildDayString(bool isToday) {
-    //TODO: remove `easyDayProps.activeDayStrStyle` because it is deprecated.
     final activeDayStrStyle = _activeDayStyle.dayStrStyle ??
         easyDayProps.activeDayStrStyle ??
         EasyTextStyles.dayStrStyle.copyWith(
           color: activeTextColor,
         );
-    //TODO: remove `easyDayProps.inactiveDayStrStyle` because it is deprecated.
     final inactiveDayStrStyle = _inactiveDayStyle.dayStrStyle ??
         easyDayProps.inactiveDayStrStyle ??
         EasyTextStyles.dayStrStyle;
-    //TODO: remove `easyDayProps.disabledDayStrStyle` because it is deprecated.
     final todayStrStyle = _todayStyle.dayStrStyle ??
         easyDayProps.todayStrStyle ??
         EasyTextStyles.dayStrStyle;

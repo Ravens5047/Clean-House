@@ -5,11 +5,12 @@ import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:icony/icony_ikonate.dart';
+import 'package:lottie/lottie.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -45,8 +46,13 @@ class _MainPageState extends State<MainPage> {
   List<Widget> _buildPages() {
     return [
       const HomeScreen(),
-      Container(
-        color: AppColor.blue,
+      Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Lottie.asset('assets/logo_splash_clean.json'),
+          ],
+        ),
       ),
       const Padding(
         padding: EdgeInsets.all(8.0),

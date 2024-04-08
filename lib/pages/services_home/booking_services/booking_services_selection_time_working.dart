@@ -1,10 +1,12 @@
+import 'package:bottom_picker/bottom_picker.dart';
+import 'package:bottom_picker/resources/arrays.dart';
 import 'package:capstone2_clean_house/components/button/td_elevated_button.dart';
 import 'package:capstone2_clean_house/components/text_field/selection_house_text_field.dart';
 import 'package:capstone2_clean_house/pages/payment/confirm_payment.dart';
 import 'package:capstone2_clean_house/pages/widget/Time%20Calendar/easy_date_timeline_widget/easy_date_timeline_widget.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
-import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:icony/icony_ikonate.dart';
 
 class BookingServicesSelectionTimeWorking extends StatefulWidget {
   const BookingServicesSelectionTimeWorking({super.key});
@@ -16,17 +18,47 @@ class BookingServicesSelectionTimeWorking extends StatefulWidget {
 
 class _BookingServicesSelectionTimeWorkingState
     extends State<BookingServicesSelectionTimeWorking> {
+  final buttonWidth = 250.0;
+  late Time _selectedTime;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedTime = Time(hours: 0, minutes: 0);
+  }
+
+  void _openTimePicker(BuildContext context) {
+    BottomPicker.time(
+      pickerTitle: const Center(
+        child: Text(
+          'Set your next meeting time',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+            color: Colors.blue,
+          ),
+        ),
+      ),
+      onSubmit: (selectedDateTime) {
+        setState(() {
+          _selectedTime = Time(
+              hours: selectedDateTime.hour, minutes: selectedDateTime.minute);
+        });
+        print(
+            '${_selectedTime.hours} hours : ${_selectedTime.minutes} minutes');
+      },
+      onClose: () {
+        print('Picker closed');
+      },
+      bottomPickerTheme: BottomPickerTheme.blue,
+      use24hFormat: true,
+      initialTime: _selectedTime,
+      maxTime: Time(hours: 17),
+    ).show(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    Time time = Time(hour: 8, minute: 0, second: 0);
-    bool iosStyle = true;
-
-    void onTimeChanged(Time newTime) {
-      setState(() {
-        time = newTime;
-      });
-    }
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -47,136 +79,120 @@ class _BookingServicesSelectionTimeWorkingState
         ),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // const SizedBox(
-            //   height: 32.0,
-            // ),
-            // const EasyInfiniteDateTimeLineExample(),
-            // const Divider(
-            //   height: 32,
-            // ),
-            _mainExample(),
-            const SizedBox(
-              height: 30.0,
-            ),
-            Text(
-              "Inline Picker Style",
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            SizedBox(
-              width: 400,
-              height: 380,
-              child: showPicker(
-                isInlinePicker: true,
-                elevation: 1,
-                value: time,
-                onChange: onTimeChanged,
-                minuteInterval: TimePickerInterval.FIVE,
-                iosStylePicker: iosStyle,
-                minHour: 8,
-                maxHour: 17,
-                is24HrFormat: true,
-                isOnChangeValueMode: true,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              _mainExample(),
+              const SizedBox(
+                height: 30.0,
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: SelectionHouseTextField(
-                // controller: typeHouseController,
-                hintText: 'Add Address to House',
-                textInputAction: TextInputAction.done,
+              Row(
+                children: [
+                  const Ikonate(
+                    Ikonate.timer,
+                    color: AppColor.black,
+                    fit: BoxFit.fill,
+                  ),
+                  const SizedBox(
+                    width: 5.0,
+                  ),
+                  const Text(
+                    'Work Time',
+                    style: TextStyle(
+                      fontSize: 17.0,
+                    ),
+                  ),
+                  const Spacer(),
+                  SizedBox(
+                    width: 220.0,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _openTimePicker(context);
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.white.withOpacity(0.8),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${_selectedTime.hours} hours | ${_selectedTime.minutes} minutes',
+                            style: const TextStyle(
+                              color: AppColor.black,
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: TdElevatedButton.fullmau(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => const ConfirmPayment()),
-                  );
-                },
-                text: 'Continue',
+              const SizedBox(
+                height: 20.0,
+              ),
+              const Divider(
                 color: AppColor.blue,
+                thickness: 1.0,
+                indent: 50.0,
+                endIndent: 50.0,
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 20.0,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'Note for the Tasker',
+                  style: TextStyle(
+                    color: AppColor.black,
+                    fontSize: 17.0,
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: SelectionHouseTextField(
+                  // controller: typeHouseController,
+                  hintText:
+                      'Do you have any additional requests? Please \nenter them here',
+                  textInputAction: TextInputAction.done,
+                ),
+              ),
+              const SizedBox(
+                height: 30.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TdElevatedButton.fullmau(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => const ConfirmPayment()),
+                    );
+                  },
+                  text: 'Continue',
+                  color: AppColor.blue,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-
-  EasyDateTimeLine _mainExample() {
-    return EasyDateTimeLine(
-      initialDate: DateTime.now(),
-      onDateChange: (selectedDate) {
-        //`selectedDate` the new date selected.
-      },
-    );
-  }
 }
 
-// class EasyInfiniteDateTimeLineExample extends StatefulWidget {
-//   const EasyInfiniteDateTimeLineExample({super.key});
-
-//   @override
-//   State<EasyInfiniteDateTimeLineExample> createState() =>
-//       _EasyInfiniteDateTimeLineExampleState();
-// }
-// 
-// class _EasyInfiniteDateTimeLineExampleState
-//     extends State<EasyInfiniteDateTimeLineExample> {
-//   final EasyInfiniteDateTimelineController _controller =
-//       EasyInfiniteDateTimelineController();
-//   DateTime? _focusDate = DateTime.now();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         EasyInfiniteDateTimeLine(
-//           selectionMode: const SelectionMode.autoCenter(),
-//           controller: _controller,
-//           firstDate: DateTime(2024),
-//           focusDate: _focusDate,
-//           lastDate: DateTime(2024, 12, 31),
-//           onDateChange: (selectedDate) {
-//             setState(() {
-//               _focusDate = selectedDate;
-//             });
-//           },
-//         ),
-//         const SizedBox(
-//           height: 16,
-//         ),
-//         Column(
-//           children: [
-//             ElevatedButton(
-//               onPressed: () {
-//                 _controller.animateToFocusDate();
-//               },
-//               child: const Text('Animate To Focus Date'),
-//             ),
-//             ElevatedButton(
-//               onPressed: () {
-//                 _controller.animateToCurrentData();
-//               },
-//               child: const Text('Animate To Current Date'),
-//             ),
-//             ElevatedButton(
-//               onPressed: () {
-//                 _controller.animateToDate(DateTime(2024, 6, 5));
-//               },
-//               child: const Text('Animate To 2024-6-5 '),
-//             ),
-//           ],
-//         ),
-//       ],
-//     );
-//   }
-// }
+EasyDateTimeLine _mainExample() {
+  return EasyDateTimeLine(
+    initialDate: DateTime.now(),
+    onDateChange: (selectedDate) {
+      //`selectedDate` the new date selected.
+    },
+  );
+}

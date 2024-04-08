@@ -13,7 +13,7 @@ abstract class FieldValidator<T> {
 }
 
 abstract class TextFieldValidator extends FieldValidator<String> {
-  TextFieldValidator(String errorText) : super(errorText);
+  TextFieldValidator(super.errorText);
 
   bool get ignoreEmptyValues => true;
 

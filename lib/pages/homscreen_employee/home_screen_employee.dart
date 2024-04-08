@@ -6,6 +6,7 @@ import 'package:capstone2_clean_house/pages/drawer_menu/drawer_menu_employee.dar
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/remote/services.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreenEmployee extends StatefulWidget {
   const HomeScreenEmployee({super.key});
@@ -45,14 +46,13 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Employee Home Screen',
-          style: TextStyle(
+          style: GoogleFonts.alfaSlabOne(
             fontSize: 25.0,
             fontWeight: FontWeight.w400,
             color: AppColor.white,
           ),
-          textAlign: TextAlign.center,
         ),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 74, 180, 241),

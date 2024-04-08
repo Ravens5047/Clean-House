@@ -130,6 +130,7 @@ class _TDSnackBarState extends State<TDSnackBar> {
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 maxLines: widget.maxLines,
+                // ignore: deprecated_member_use
                 textScaleFactor: widget.textScaleFactor,
               ),
             ),
