@@ -95,14 +95,16 @@ class _InformationPersonState extends State<InformationPerson> {
           _updateTextControllers(updatedUser);
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('Profile updated successfully.'),
+              content: Center(child: Text('Profile updated successfully.')),
               backgroundColor: Colors.green,
             ),
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Failed to update profile: ${response.statusCode}'),
+              content: Center(
+                  child:
+                      Text('Failed to update profile: ${response.statusCode}')),
               backgroundColor: Colors.red,
             ),
           );
@@ -110,7 +112,7 @@ class _InformationPersonState extends State<InformationPerson> {
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to update profile: $e'),
+            content: Center(child: Text('Failed to update profile: $e')),
             backgroundColor: Colors.red,
           ),
         );
@@ -123,19 +125,11 @@ class _InformationPersonState extends State<InformationPerson> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ),
         body: Form(
           key: formKey,
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 20.0).copyWith(
-                top: MediaQuery.of(context).padding.top + 38.0, bottom: 16.0),
+                top: MediaQuery.of(context).padding.top + 36.0, bottom: 10.0),
             children: [
               Text(
                 'My Profile',

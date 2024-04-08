@@ -130,7 +130,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
               ),
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(Assets.images.background_clean.path),
+                  image: AssetImage(Assets.images.background_clean2.path),
                 ),
                 color: AppColor.white,
                 borderRadius: const BorderRadius.all(
@@ -251,13 +251,17 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     height: 10.0,
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => SettingScreen(
-                          user_id: widget.user_id,
+                    onTap: () => Navigator.of(context)
+                        .push(
+                          MaterialPageRoute(
+                            builder: (context) => SettingScreen(
+                              user_id: widget.user_id,
+                            ),
+                          ),
+                        )
+                        .then(
+                          (_) => _initData(),
                         ),
-                      ),
-                    ),
                     child: const Row(
                       children: [
                         SizedBox(
