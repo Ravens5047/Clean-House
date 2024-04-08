@@ -120,43 +120,51 @@ class _SettingScreenState extends State<SettingScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  ClipOval(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    child: Image.asset(
-                      Assets.images.avatar_default.path,
-                      width: 90.0,
-                      height: 90.0,
-                      fit: BoxFit.cover,
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(Assets.images.background_clean2.path),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    ClipOval(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: Image.asset(
+                        Assets.images.avatar_default.path,
+                        width: 90.0,
+                        height: 90.0,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 20.0,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        full_name,
-                        style: const TextStyle(
-                          color: AppColor.black,
-                          fontSize: 15.0,
+                    const SizedBox(
+                      width: 20.0,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          full_name,
+                          style: const TextStyle(
+                            color: AppColor.black,
+                            fontSize: 15.0,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 5.0,
-                      ),
-                      Text(
-                        email,
-                        style: const TextStyle(
-                          color: AppColor.black,
-                          fontSize: 15.0,
+                        const SizedBox(
+                          height: 5.0,
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        Text(
+                          email,
+                          style: const TextStyle(
+                            color: AppColor.black,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 20.0,

@@ -30,7 +30,7 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
       ),
       body: InAppWebView(
         initialUrlRequest: URLRequest(
-          url: Uri.parse("http://192.168.1.174:8888/order/create_payment_url"),
+          url: Uri.parse("http://192.168.1.5:8888/order/create_payment_url"),
           method: 'POST',
           body: Uint8List.fromList(
             utf8.encode(

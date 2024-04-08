@@ -125,19 +125,11 @@ class _InformationPersonState extends State<InformationPerson> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ),
         body: Form(
           key: formKey,
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 20.0).copyWith(
-                top: MediaQuery.of(context).padding.top + 38.0, bottom: 16.0),
+                top: MediaQuery.of(context).padding.top + 36.0, bottom: 10.0),
             children: [
               Text(
                 'My Profile',
