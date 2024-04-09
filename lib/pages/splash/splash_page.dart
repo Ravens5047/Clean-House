@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:capstone2_clean_house/components/app_bar/bottom_navigator_bar.dart';
-import 'package:capstone2_clean_house/pages/welcome/welcome_page.dart';
+import 'package:capstone2_clean_house/pages/onboarding/onboading_page.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,7 @@ class _SplashPageState extends State<SplashPage> {
           context, route, (Route<dynamic> route) => false);
     } else {
       Route route =
-          MaterialPageRoute(builder: (context) => const WelcomePage());
+          MaterialPageRoute(builder: (context) => const OnboardingPage());
       Navigator.pushAndRemoveUntil(
           context, route, (Route<dynamic> route) => false);
     }

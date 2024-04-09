@@ -15,6 +15,7 @@ import 'package:capstone2_clean_house/services/remote/auth_services.dart';
 import 'package:capstone2_clean_house/utils/validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({
@@ -107,10 +108,14 @@ class _RegisterPageState extends State<RegisterPage> {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 6.0),
-            Text(
-              'Please enter info to create account',
-              style: AppStyle.h18Normal.copyWith(color: AppColor.grey),
-              textAlign: TextAlign.center,
+            Shimmer.fromColors(
+              baseColor: Colors.blue,
+              highlightColor: Colors.orange,
+              child: Text(
+                'Please enter info to create account',
+                style: AppStyle.h18Normal.copyWith(color: AppColor.grey),
+                textAlign: TextAlign.center,
+              ),
             ),
             const SizedBox(height: 46.0),
             AppTextField(

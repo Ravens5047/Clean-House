@@ -10,6 +10,7 @@ import 'package:capstone2_clean_house/services/remote/services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -99,12 +100,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Provide You \nBetter Clean \nHouse',
-                      style: GoogleFonts.oldenburg(
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.w400,
-                        color: AppColor.blue,
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.blue,
+                      highlightColor: AppColor.pink,
+                      child: Text(
+                        'Provide You \nBetter Clean \nHouse',
+                        style: GoogleFonts.oldenburg(
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.w400,
+                          color: AppColor.blue,
+                        ),
                       ),
                     ),
                   ),

@@ -1,8 +1,10 @@
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
-import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/pages/auth/login/login_page.dart';
 import 'package:capstone2_clean_house/pages/auth/register/register_page.dart';
+import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:shimmer/shimmer.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
@@ -16,15 +18,20 @@ class WelcomePage extends StatelessWidget {
         children: [
           Positioned(
             top: 0.0,
-            child: Image.asset(Assets.images.biaanh1.path, width: size.width),
+            child: Lottie.asset(
+              'assets/house_cloud.json',
+              width: size.width,
+            ),
           ),
-          const Positioned(
+          Positioned(
             left: 20.0,
             top: 510.0,
             right: 20.0,
-            child: Column(
-              children: [
-                Text(
+            child: Center(
+              child: Shimmer.fromColors(
+                baseColor: Colors.blue,
+                highlightColor: Colors.red,
+                child: const Text(
                   'Clean House Services',
                   style: TextStyle(
                     fontSize: 30.0,
@@ -32,35 +39,43 @@ class WelcomePage extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-              ],
+              ),
             ),
           ),
-          const Positioned(
+          Positioned(
             left: 60.0,
             top: 560.0,
             right: 50.0,
             child: Center(
-              child: Text(
-                'Hello Everyone, Welcome to our',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Color.fromARGB(255, 58, 56, 56),
-                  fontWeight: FontWeight.w300,
+              child: Shimmer.fromColors(
+                baseColor: Colors.blue,
+                highlightColor: Colors.orange,
+                child: const Text(
+                  'Hello Everyone, Welcome to our',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    color: Color.fromARGB(255, 58, 56, 56),
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
               ),
             ),
           ),
-          const Positioned(
+          Positioned(
             left: 60.0,
             top: 580.0,
             right: 50.0,
             child: Center(
-              child: Text(
-                'application',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  color: Color.fromARGB(255, 58, 56, 56),
-                  fontWeight: FontWeight.w300,
+              child: Shimmer.fromColors(
+                baseColor: Colors.blue,
+                highlightColor: Colors.orange,
+                child: const Text(
+                  'application',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    color: Color.fromARGB(255, 58, 56, 56),
+                    fontWeight: FontWeight.w300,
+                  ),
                 ),
               ),
             ),
@@ -76,7 +91,10 @@ class WelcomePage extends StatelessWidget {
                   width: 170.0,
                   height: 70.0,
                   child: AppElevatedButton(
-                    borderRadius: BorderRadius.circular(15.0),
+                    splashColor: AppColor.red,
+                    highlightColor: AppColor.blue,
+                    borderColor: AppColor.grey,
+                    borderRadius: BorderRadius.circular(20.0),
                     onPressed: () {
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
@@ -91,7 +109,10 @@ class WelcomePage extends StatelessWidget {
                   width: 170.0,
                   height: 70.0,
                   child: AppElevatedButton.outline(
-                    borderRadius: BorderRadius.circular(15.0),
+                    splashColor: AppColor.red,
+                    highlightColor: AppColor.blue,
+                    borderColor: AppColor.grey,
+                    borderRadius: BorderRadius.circular(20.0),
                     onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
                             builder: (context) => const RegisterPage()),
