@@ -1,11 +1,17 @@
+import 'dart:convert';
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
+import 'package:capstone2_clean_house/components/snack_bar/td_snack_bar.dart';
+import 'package:capstone2_clean_house/components/snack_bar/top_snack_bar.dart';
 import 'package:capstone2_clean_house/components/text_field/app_text_field.dart';
+import 'package:capstone2_clean_house/model/request/forgot_password_request_model.dart';
+import 'package:capstone2_clean_house/pages/auth/forgot_password/otp_screen.dart';
 import 'package:capstone2_clean_house/pages/auth/login/login_page.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/resources/app_style.dart';
 import 'package:capstone2_clean_house/services/remote/auth_services.dart';
 import 'package:capstone2_clean_house/utils/validator.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class ForgotMail extends StatefulWidget {
   const ForgotMail({super.key});
@@ -15,9 +21,65 @@ class ForgotMail extends StatefulWidget {
 }
 
 class _ForgotMailState extends State<ForgotMail> {
-  final authServices = APIService();
+  APIService authServices = APIService();
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
+  String? otp;
+
+  void _send_mail(String otp) async {
+    var Service_id = 'service_ud386dh',
+        Template_id = 'template_nclu1k6',
+        User_id = 'JM1eP-lgC1smnAyVR';
+    await http.post(
+      Uri.parse('https://api.emailjs.com/api/v1.0/email/send'),
+      headers: {
+        'origin': 'http:localhost',
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+      },
+      body: jsonEncode({
+        'service_id': Service_id,
+        'user_id': User_id,
+        'template_id': Template_id,
+        'template_params': {
+          'name': 'clean_house_services',
+          'message': 'You got a new message\nYour OTP is: $otp',
+          'sender_email': 'hungnguyenhoang415@gmail.com',
+        }
+      }),
+    );
+  }
+
+  Future<void> _submitForgotMail() async {
+    if (formKey.currentState!.validate()) {
+      final body = ForgotPasswordRequest(
+        email: emailController.text.trim(),
+        otp: '',
+      );
+      await authServices.forgotPassword(body).then((response) {
+        final data = jsonDecode(response.body);
+        if (response.statusCode >= 200 && response.statusCode < 300) {
+          String otp = data['OTP'];
+          _send_mail(otp);
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => OTPScreen(
+                email: emailController.text.trim(),
+                otp: otp,
+              ),
+            ),
+          );
+        } else {
+          showTopSnackBar(
+            context,
+            TDSnackBar.error(
+              message: data['message'],
+            ),
+          );
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +120,6 @@ class _ForgotMailState extends State<ForgotMail> {
                       controller: emailController,
                       hintext: 'Enter Email',
                       validator: Validator.emailValidator.call,
-                      // onFieldSubmitted: (_) => _sendOtp(),
                       textInputAction: TextInputAction.done,
                     ),
                   ),
@@ -85,7 +146,7 @@ class _ForgotMailState extends State<ForgotMail> {
                     height: 400.0,
                   ),
                   AppElevatedButton(
-                    onPressed: () {},
+                    onPressed: _submitForgotMail,
                     text: 'Continue',
                   ),
                 ],
