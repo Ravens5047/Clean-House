@@ -4,6 +4,7 @@ import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/pages/auth/change_password/change_password_page.dart';
 import 'package:capstone2_clean_house/pages/auth/login/login_page.dart';
+import 'package:capstone2_clean_house/pages/comming_soon/comming_soon_screen.dart';
 import 'package:capstone2_clean_house/pages/information_person/information_person.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
@@ -231,11 +232,13 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     Card(
                       child: ListTile(
-                        onTap: () => AppDialog.dialog(
-                          context,
-                          title: 'Comming Soon',
-                          content: '',
-                        ),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const CommingSoonScreen(),
+                            ),
+                          );
+                        },
                         title: const Text('Terms & Conditions'),
                       ),
                     ),
@@ -263,51 +266,70 @@ class _SettingScreenState extends State<SettingScreen> {
                         title: const Text('Sign Out'),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Divider(
-                            indent: 10.0,
-                            endIndent: 10.0,
-                            thickness: 1.0,
-                            color: AppColor.grey,
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Text(
-                            'Help Center',
-                            style: TextStyle(
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w400,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const CommingSoonScreen(),
                             ),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Text(
-                            'Privacy Policy',
-                            style: TextStyle(
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w400,
+                          );
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 20.0,
                             ),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Text(
-                            'Version: 1.0.0',
-                            style: TextStyle(
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w400,
+                            const Divider(
+                              indent: 30.0,
+                              endIndent: 30.0,
+                              thickness: 2.0,
+                              color: AppColor.blue,
                             ),
-                          ),
-                        ],
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            Text(
+                              'Help Center',
+                              style: GoogleFonts.alatsi(
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            Text(
+                              'Privacy Policy',
+                              style: GoogleFonts.alatsi(
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            Text(
+                              'About Clean House Services',
+                              style: GoogleFonts.alatsi(
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColor.blue),
+                            ),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            Text(
+                              'Version: 1.0.0',
+                              style: GoogleFonts.alatsi(
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

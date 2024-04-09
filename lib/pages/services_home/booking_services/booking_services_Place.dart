@@ -11,6 +11,7 @@ import 'package:capstone2_clean_house/pages/services_home/booking_services/booki
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class BookingServicesPlace extends StatefulWidget {
   const BookingServicesPlace({
@@ -35,6 +36,51 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
   AppUsersModel appUsersModel = AppUsersModel();
   late String? phoneNumber;
   late String? address_user;
+  static const int houseTownhousePrice = 7040;
+  static const int apartmentPrice = 8200;
+  static const int villasPrice = 9000;
+
+  int calculateTotal() {
+    int price = 0;
+    if (selectedHouse != null && selectedArea != null) {
+      int area = 0;
+      switch (selectedArea) {
+        case 0:
+          area = 15;
+          break;
+        case 1:
+          area = 25;
+          break;
+        case 2:
+          area = 40;
+          break;
+        case 3:
+          area = 60;
+          break;
+        case 4:
+          area = 80;
+          break;
+        case 5:
+          area = 100;
+          break;
+      }
+
+      switch (selectedHouse) {
+        case 0:
+          price = houseTownhousePrice * area;
+          break;
+        case 1:
+          price = apartmentPrice * area;
+          break;
+        case 2:
+          price = villasPrice * area;
+          break;
+      }
+    }
+    String formattedPrice = NumberFormat("#,##0", "en_US").format(price);
+    print("Formatted Price: $formattedPrice");
+    return price;
+  }
 
   @override
   void initState() {
@@ -280,6 +326,8 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   ),
                 ),
                 const Divider(
+                  indent: 10.0,
+                  endIndent: 10.0,
                   thickness: 2.0,
                   height: 40.0,
                   color: AppColor.blue,
@@ -313,7 +361,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SelectionTime(
-                      text: 'Max 40m² \n\nMax 2 people / 4 hours',
+                      text: 'Max 15m² \n4 hours',
                       isSelected: selectedArea == 0,
                     ),
                   ),
@@ -325,7 +373,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SelectionTime(
-                      text: 'Max 80m² \n\nMax 2 people / 4 hours',
+                      text: 'Max 25m² \n4 hours',
                       isSelected: selectedArea == 1,
                     ),
                   ),
@@ -337,8 +385,44 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SelectionTime(
-                      text: 'Max 100m² \n\nMax 2 people / 4 hours',
+                      text: 'Max 40m² \n4 hours',
                       isSelected: selectedArea == 2,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    handleFrequencySelectionArea(3);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SelectionTime(
+                      text: 'Max 60m² \n4 hours',
+                      isSelected: selectedArea == 3,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    handleFrequencySelectionArea(4);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SelectionTime(
+                      text: 'Max 80m² \n4 hours',
+                      isSelected: selectedArea == 4,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    handleFrequencySelectionArea(5);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SelectionTime(
+                      text: 'Max 100m² \n4 hours',
+                      isSelected: selectedArea == 5,
                     ),
                   ),
                 ),
@@ -352,9 +436,9 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                 const SizedBox(
                   height: 10.0,
                 ),
-                const Row(
+                Row(
                   children: [
-                    Text(
+                    const Text(
                       'Totals ',
                       style: TextStyle(
                         fontSize: 14.0,
@@ -362,10 +446,10 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                         color: AppColor.black,
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Text(
-                      '880,000 VND ',
-                      style: TextStyle(
+                      '${NumberFormat("#,##0", "en_US").format(calculateTotal())} VND ',
+                      style: const TextStyle(
                         fontSize: 14.0,
                         fontWeight: FontWeight.w500,
                         color: AppColor.black,
@@ -391,6 +475,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                             selectedArea: selectedArea,
                             address: typeHouseController.text,
                             fullname: fullnameController.text,
+                            total_price: calculateTotal(),
                           ),
                         ),
                       );

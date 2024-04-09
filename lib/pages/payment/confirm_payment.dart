@@ -5,6 +5,7 @@ import 'package:capstone2_clean_house/pages/vnpay/payment_screen_vnpay_local.dar
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ConfirmPayment extends StatefulWidget {
   const ConfirmPayment({
@@ -16,6 +17,7 @@ class ConfirmPayment extends StatefulWidget {
     required this.address,
     required this.fullname,
     required this.note,
+    required this.total_price,
   });
 
   final Time selectedTime;
@@ -25,6 +27,7 @@ class ConfirmPayment extends StatefulWidget {
   final String address;
   final String fullname;
   final String note;
+  final int total_price;
 
   @override
   State<ConfirmPayment> createState() => _ConfirmPaymentState();
@@ -65,10 +68,16 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
   String getArea(int index) {
     switch (index) {
       case 0:
-        return 'Max 40m²';
+        return 'Max 15m²';
       case 1:
-        return 'Max 80m²';
+        return 'Max 25m²';
       case 2:
+        return 'Max 40m²';
+      case 3:
+        return 'Max 60m²';
+      case 4:
+        return 'Max 80m²';
+      case 5:
         return 'Max 100m²';
       default:
         return '';
@@ -260,8 +269,11 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 25.0,
+              const Divider(
+                color: AppColor.blue,
+                thickness: 2.0,
+                indent: 50.0,
+                endIndent: 50.0,
               ),
               const Text(
                 'Note for the Tasker',
@@ -275,6 +287,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                 height: 20.0,
               ),
               Container(
+                height: 100.0,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: AppColor.white,
@@ -374,9 +387,9 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
               const SizedBox(
                 height: 30.0,
               ),
-              const Row(
+              Row(
                 children: [
-                  Text(
+                  const Text(
                     'Totals ',
                     style: TextStyle(
                       fontSize: 14.0,
@@ -384,10 +397,10 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                       color: AppColor.black,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
-                    '880,000 VND ',
-                    style: TextStyle(
+                    '${NumberFormat('#,##0', 'en_US').format(widget.total_price)} VND',
+                    style: const TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
@@ -401,69 +414,33 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
+                  textAlign: TextAlign.center,
+                  readOnly: true,
                   controller: moneyController,
                   decoration: InputDecoration(
                     prefixIconColor: AppColor.red,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    hintText: "Enter Cost You Will Payment",
+                    hintText:
+                        '${NumberFormat('#,##0', 'en_US').format(widget.total_price)} VND',
                   ),
                 ),
               ),
               const SizedBox(height: 20.0),
               Center(
                 child: AppElevatedButton.normal1(
-                  text: 'Payment',
+                  text: 'Booking',
                   onPressed: () {
-                    int? money = int.tryParse(moneyController.text);
-                    if (selectedLocation == 'VNPAY' && money == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        backgroundColor: Colors.blue,
-                        content: Center(
-                          child: Text(
-                            "Số tiền không hợp lệ",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 15.0),
-                          ),
-                        ),
-                      ));
-                      return;
-                    } else if (selectedLocation == null && money == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        backgroundColor: Colors.blue,
-                        content: Center(
-                          child: Text(
-                            "Vui lòng chọn loại hình thanh toán và nhập số tiền thanh toán",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12.0,
-                            ),
-                          ),
-                        ),
-                      ));
-                      return;
-                    }
                     if (selectedLocation == 'VNPAY') {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              VnpayScreenPayment1(money: moneyController.text),
+                          builder: (context) => VnpayScreenPayment1(
+                              money: widget.total_price.toString()),
                         ),
                       );
-                    } else if (selectedLocation == 'Cash' && money == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        backgroundColor: Colors.blue,
-                        content: Center(
-                          child: Text(
-                            "Số tiền không hợp lệ",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 15.0),
-                          ),
-                        ),
-                      ));
-                    } else {
+                    } else if (selectedLocation == 'Cash') {
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
                             builder: (context) => const SuccessfulPayment(
@@ -471,6 +448,19 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                                 )),
                         (Route<dynamic> route) => false,
                       );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        backgroundColor: Colors.blue,
+                        content: Center(
+                          child: Text(
+                            "Please Select Payment Method",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12.0,
+                            ),
+                          ),
+                        ),
+                      ));
                     }
                   },
                 ),

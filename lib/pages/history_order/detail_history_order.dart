@@ -1,5 +1,6 @@
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:icony/icony_ikonate.dart';
 
 class DetailHistoryOrder extends StatefulWidget {
@@ -20,12 +21,11 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
             Navigator.of(context).pop();
           },
         ),
-        title: const Text(
+        title: Text(
           'Detail History Order',
-          style: TextStyle(
-            fontSize: 25.0,
-            fontWeight: FontWeight.w500,
-            color: AppColor.blue,
+          style: GoogleFonts.mandali(
+            fontSize: 22.0,
+            fontWeight: FontWeight.w400,
           ),
           textAlign: TextAlign.center,
         ),
