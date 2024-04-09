@@ -1,7 +1,7 @@
 class AppConstant {
   AppConstant._();
 
-  static const baseAPI = 'http://192.168.1.5:3131';
+  static const baseAPI = 'http://192.168.1.171:3131';
   // static const baseAPI = 'http://192.168.1.174:3131'; // Cty Hwgn
   // static const baseAPI = 'http://192.168.1.2:3131/'; //Nhà Đạt
   // static const baseAPI = 'http://192.168.3.41:3131/'; //Cty

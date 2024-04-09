@@ -63,8 +63,12 @@ class $AssetsImagesGen {
 
   AssetGenImage get background_clean1 =>
       const AssetGenImage('assets/images/background_clean1.png');
+
   AssetGenImage get background_clean2 =>
       const AssetGenImage('assets/images/background_clean2.png');
+
+  AssetGenImage get bath_services =>
+      const AssetGenImage('assets/images/bath_services.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [
@@ -80,6 +84,7 @@ class $AssetsImagesGen {
         icon_cleanhouse,
         background_clean1,
         background_clean2,
+        bath_services,
       ];
 }
 
