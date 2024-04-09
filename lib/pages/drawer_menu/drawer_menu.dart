@@ -130,7 +130,9 @@ class _DrawerMenuState extends State<DrawerMenu> {
               ),
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(Assets.images.background_clean2.path),
+                  image: AssetImage(
+                    Assets.images.background_clean2.path,
+                  ),
                 ),
                 color: AppColor.white,
                 borderRadius: const BorderRadius.all(

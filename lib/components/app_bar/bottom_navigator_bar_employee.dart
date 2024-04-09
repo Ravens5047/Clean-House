@@ -104,7 +104,7 @@ class _MainPageEmployeeState extends State<MainPageEmployee> {
             }
           });
         },
-        backgroundColor: AppColor.white,
+        backgroundColor: AppColor.black,
         selectedIndex: currentPageIndex,
         destinations: <Widget>[
           NavigationDestination(

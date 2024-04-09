@@ -18,6 +18,7 @@ import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/auth_services.dart';
 import 'package:capstone2_clean_house/utils/validator.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({
@@ -114,15 +115,23 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 2.0),
             Center(
-              child: Text(
-                'Welcome back you have been',
-                style: AppStyle.h18Normal.copyWith(color: AppColor.grey),
+              child: Shimmer.fromColors(
+                baseColor: Colors.blue,
+                highlightColor: Colors.orange,
+                child: Text(
+                  'Welcome back you have been',
+                  style: AppStyle.h18Normal.copyWith(color: AppColor.grey),
+                ),
               ),
             ),
             Center(
-              child: Text(
-                'missed!',
-                style: AppStyle.h18Normal.copyWith(color: AppColor.grey),
+              child: Shimmer.fromColors(
+                baseColor: Colors.blue,
+                highlightColor: Colors.orange,
+                child: Text(
+                  'missed!',
+                  style: AppStyle.h18Normal.copyWith(color: AppColor.grey),
+                ),
               ),
             ),
             const SizedBox(height: 46.0),

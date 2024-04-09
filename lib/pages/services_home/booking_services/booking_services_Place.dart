@@ -484,7 +484,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                         const SnackBar(
                           content: Center(
                               child: Text(
-                                  'Please enter address and phone number')),
+                                  'Please enter address and phone number and Full Name')),
                         ),
                       );
                     }

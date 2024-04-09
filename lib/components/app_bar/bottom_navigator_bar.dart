@@ -6,6 +6,7 @@ import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:icony/icony_ikonate.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({
@@ -50,7 +51,10 @@ class _MainPageState extends State<MainPage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Lottie.asset('assets/logo_splash_clean.json'),
+            Shimmer.fromColors(
+                baseColor: Colors.black,
+                highlightColor: AppColor.blue,
+                child: Lottie.asset('assets/logo_splash_clean.json')),
           ],
         ),
       ),

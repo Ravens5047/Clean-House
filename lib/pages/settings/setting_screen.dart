@@ -11,6 +11,7 @@ import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({
@@ -311,21 +312,29 @@ class _SettingScreenState extends State<SettingScreen> {
                             const SizedBox(
                               height: 20.0,
                             ),
-                            Text(
-                              'About Clean House Services',
-                              style: GoogleFonts.alatsi(
-                                  fontSize: 17.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColor.blue),
+                            Shimmer.fromColors(
+                              baseColor: Colors.blue,
+                              highlightColor: AppColor.pink,
+                              child: Text(
+                                'About Clean House Services',
+                                style: GoogleFonts.alatsi(
+                                    fontSize: 17.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColor.blue),
+                              ),
                             ),
                             const SizedBox(
                               height: 20.0,
                             ),
-                            Text(
-                              'Version: 1.0.0',
-                              style: GoogleFonts.alatsi(
-                                fontSize: 17.0,
-                                fontWeight: FontWeight.w400,
+                            Shimmer.fromColors(
+                              baseColor: AppColor.black,
+                              highlightColor: AppColor.blue,
+                              child: Text(
+                                'Version: 1.0.0',
+                                style: GoogleFonts.alatsi(
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
                             ),
                           ],
