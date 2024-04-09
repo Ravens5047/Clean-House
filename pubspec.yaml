@@ -53,6 +53,7 @@ dependencies:
   mysql1: ^0.20.0
   mysql_client: ^0.0.27
   pin_code_fields: ^8.0.1
+  pinput: ^4.0.0
   pretty_http_logger: ^1.0.2
   settings_ui: ^2.0.2
   shared_preferences: ^2.2.2
