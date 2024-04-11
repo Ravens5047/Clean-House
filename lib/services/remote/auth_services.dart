@@ -16,6 +16,7 @@ abstract class AuthServices {
   Future<http.Response> changePassword(int user_id, ChangePasswordRequest body);
   Future<http.Response> forgotPassword(ForgotPasswordRequest body);
   Future<http.Response> changePasswordOTP(ChangePasswordOtpRequest body);
+  Future<http.Response> resendOTP(String email);
 }
 
 class APIService implements AuthServices {
@@ -113,6 +114,20 @@ class APIService implements AuthServices {
         'Accept': 'application/json',
       },
       body: jsonEncode(body.toJson()),
+    );
+    return response;
+  }
+
+  @override
+  Future<http.Response> resendOTP(String email) async {
+    const url = AppConstant.endPointResendOTP;
+    final response = await _httpClient.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+      },
+      body: jsonEncode({'email': email}),
     );
     return response;
   }

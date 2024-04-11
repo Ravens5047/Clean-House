@@ -1,3 +1,5 @@
+import 'package:capstone2_clean_house/components/snack_bar/td_snack_bar.dart';
+import 'package:capstone2_clean_house/components/snack_bar/top_snack_bar.dart';
 import 'package:capstone2_clean_house/components/text_field/app_text_field_password.dart';
 import 'package:capstone2_clean_house/model/request/change_password_otp_request_model.dart';
 import 'package:capstone2_clean_house/pages/auth/login/login_page.dart';
@@ -26,7 +28,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
   final confirmPasswordController = TextEditingController();
   final authServices = APIService();
   final formKey = GlobalKey<FormState>();
-  late final String otp;
+  late String otp;
 
   @override
   void initState() {
@@ -50,7 +52,14 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
             context,
             MaterialPageRoute(builder: (context) => const LoginPage()),
           );
-        } else {}
+        } else {
+          showTopSnackBar(
+            context,
+            const TDSnackBar.error(
+              message: "New password and confirmation password do not match.",
+            ),
+          );
+        }
       });
     }
   }

@@ -158,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 child: const Text(
-                  'Forgot Password ?',
+                  'Reset Password ?',
                   style: TextStyle(
                     color: AppColor.grey,
                     fontSize: 15.0,
@@ -236,10 +236,10 @@ class _LoginPageState extends State<LoginPage> {
                     MaterialPageRoute(
                         builder: (context) => const RegisterPage()),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Register Now',
                     style: TextStyle(
-                        color: AppColor.blue,
+                        color: AppColor.blue.withOpacity(0.5),
                         fontSize: 15.0,
                         fontWeight: FontWeight.w700),
                   ),

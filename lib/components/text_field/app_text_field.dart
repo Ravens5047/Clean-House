@@ -44,7 +44,9 @@ class AppTextField extends StatelessWidget {
           focusedBorder: outlineInputBorder(AppColor.blue),
           enabledBorder: outlineInputBorder(AppColor.white),
           hintText: hintext,
-          hintStyle: AppStyle.h16Normal.copyWith(color: AppColor.grey),
+          hintStyle: AppStyle.h16Normal.copyWith(
+            color: AppColor.black.withOpacity(0.5),
+          ),
         ),
       ),
     );
