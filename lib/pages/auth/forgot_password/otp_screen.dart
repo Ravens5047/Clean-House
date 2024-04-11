@@ -1,9 +1,6 @@
-// ignore_for_file: no_logic_in_create_state
-
 import 'dart:convert';
 import 'package:capstone2_clean_house/components/snack_bar/td_snack_bar.dart';
 import 'package:capstone2_clean_house/components/snack_bar/top_snack_bar.dart';
-import 'package:capstone2_clean_house/model/request/forgot_password_request_model.dart';
 import 'package:capstone2_clean_house/pages/auth/forgot_password/forgot_create_password.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/remote/auth_services.dart';
@@ -28,11 +25,10 @@ class OTPScreen extends StatefulWidget {
 class _OTPScreenState extends State<OTPScreen> {
   APIService authServices = APIService();
   final formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
   final OTPController = TextEditingController();
-  String receivedOTP = '';
+  String? receivedOTP;
   final String email;
-  final String? otp;
+  String? otp;
   _OTPScreenState({
     required this.email,
     required this.otp,
@@ -40,11 +36,11 @@ class _OTPScreenState extends State<OTPScreen> {
   @override
   void initState() {
     super.initState();
-    print(widget.email);
+    _send_mail(otp!);
   }
 
   void _send_mail(String otp) async {
-    var Service_id = 'service_ud386dh',
+    var Service_id = 'service_xx7wprk',
         Template_id = 'template_nclu1k6',
         User_id = 'JM1eP-lgC1smnAyVR';
     await http.post(
@@ -68,41 +64,52 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 
   Future<void> _submitResendOTP() async {
-    if (formKey.currentState!.validate()) {
-      final body = ForgotPasswordRequest(
-        email: emailController.text.trim(),
-        otp: '',
-      );
-      await authServices.forgotPassword(body).then((response) {
+    try {
+      final response = await authServices.resendOTP(email);
+      if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        if (response.statusCode >= 200 && response.statusCode < 300) {
-          String otp = data['OTP'];
-          _send_mail(otp);
-          setState(() {
-            receivedOTP = otp;
-          });
-        } else {
-          showTopSnackBar(
-            context,
-            TDSnackBar.error(
-              message: data['message'],
-            ),
-          );
-        }
-      });
+        String newOTP = data['OTP'];
+        _send_mail(newOTP);
+        setState(() {
+          otp = newOTP;
+        });
+        showTopSnackBar(
+          context,
+          const TDSnackBar.success(
+            message: "OTP resent successfully.",
+          ),
+        );
+      } else {
+        showTopSnackBar(
+          context,
+          const TDSnackBar.error(
+            message: "Failed to resend OTP. Please try again later.",
+          ),
+        );
+      }
+    } catch (error) {
+      print("Error resending OTP: $error");
+      showTopSnackBar(
+        context,
+        const TDSnackBar.error(
+          message:
+              "An error occurred while resending OTP. Please try again later.",
+        ),
+      );
     }
   }
 
   Future<void> _submitVerifyOTP() async {
     if (formKey.currentState!.validate()) {
       String enteredOTP = OTPController.text.trim();
-      if (enteredOTP == receivedOTP) {
+      String currentOTP = otp ?? '';
+      if (enteredOTP == currentOTP) {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => CreatePasswordScreen(
               email: email,
-              otp: otp,
+              otp: currentOTP,
             ),
           ),
         );
@@ -114,6 +121,8 @@ class _OTPScreenState extends State<OTPScreen> {
           ),
         );
       }
+      print(enteredOTP);
+      print(currentOTP);
     }
   }
 
@@ -206,6 +215,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       defaultPinTheme: defaultTheme,
                       focusedPinTheme: focusedTheme,
                       submittedPinTheme: focusedTheme,
+                      controller: OTPController,
                     ),
                   ),
                 ],

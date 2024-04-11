@@ -55,7 +55,9 @@ class _AppTextFieldPasswordState extends State<AppTextFieldPassword> {
           focusedBorder: outlineInputBorder(AppColor.blue),
           enabledBorder: outlineInputBorder(AppColor.white),
           hintText: widget.hintext,
-          hintStyle: AppStyle.h16Normal.copyWith(color: AppColor.grey),
+          hintStyle: AppStyle.h16Normal.copyWith(
+            color: AppColor.black.withOpacity(0.5),
+          ),
           suffixIcon: GestureDetector(
             onTap: () => setState(() => showPassword = !showPassword),
             child: Icon(

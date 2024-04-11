@@ -6,6 +6,7 @@ import 'package:capstone2_clean_house/pages/payment/confirm_payment.dart';
 import 'package:capstone2_clean_house/pages/widget/Time%20Calendar/easy_date_timeline_widget/easy_date_timeline_widget.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:icony/icony_ikonate.dart';
 
 class BookingServicesSelectionTimeWorking extends StatefulWidget {
@@ -53,9 +54,47 @@ class _BookingServicesSelectionTimeWorkingState
   }
 
   void _updateSelectedDate(DateTime newDate) {
-    setState(() {
-      _selectedDate = newDate;
-    });
+    final currentDate = DateTime.now();
+    final tomorrowDate = currentDate.add(const Duration(days: 1));
+    if (newDate.isAfter(currentDate.subtract(const Duration(days: 1))) &&
+        newDate.isBefore(tomorrowDate)) {
+      setState(() {
+        _selectedDate = newDate;
+      });
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Center(
+              child: Text(
+                'Invalid Date',
+                style: GoogleFonts.dmSerifText(
+                  color: AppColor.black,
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
+            content:
+                const Text('Please select a date between today and tomorrow.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text(
+                  'OK',
+                  style: TextStyle(
+                    color: AppColor.black,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   void _openTimePicker(BuildContext context) {

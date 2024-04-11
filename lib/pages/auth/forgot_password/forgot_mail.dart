@@ -11,6 +11,7 @@ import 'package:capstone2_clean_house/resources/app_style.dart';
 import 'package:capstone2_clean_house/services/remote/auth_services.dart';
 import 'package:capstone2_clean_house/utils/validator.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 class ForgotMail extends StatefulWidget {
@@ -24,10 +25,9 @@ class _ForgotMailState extends State<ForgotMail> {
   APIService authServices = APIService();
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
-  String? otp;
 
   void _send_mail(String otp) async {
-    var Service_id = 'service_ud386dh',
+    var Service_id = 'service_xx7wprk',
         Template_id = 'template_nclu1k6',
         User_id = 'JM1eP-lgC1smnAyVR';
     await http.post(
@@ -94,9 +94,9 @@ class _ForgotMailState extends State<ForgotMail> {
                   .copyWith(top: MediaQuery.of(context).padding.top + 30.0),
               child: Column(
                 children: [
-                  const Text(
+                  Text(
                     'Forgot Password',
-                    style: TextStyle(
+                    style: GoogleFonts.dmSerifText(
                       color: AppColor.blue,
                       fontSize: 30.0,
                       fontWeight: FontWeight.w500,
@@ -123,19 +123,19 @@ class _ForgotMailState extends State<ForgotMail> {
                       textInputAction: TextInputAction.done,
                     ),
                   ),
-                  const SizedBox(height: 10.0),
+                  const SizedBox(height: 20.0),
                   GestureDetector(
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => const LoginPage(),
                       ),
                     ),
-                    child: const Align(
+                    child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(
                         'Return Sign In',
                         style: TextStyle(
-                          color: AppColor.blue,
+                          color: AppColor.black.withOpacity(0.5),
                           fontSize: 15.0,
                           fontWeight: FontWeight.w500,
                         ),
@@ -146,6 +146,9 @@ class _ForgotMailState extends State<ForgotMail> {
                     height: 400.0,
                   ),
                   AppElevatedButton(
+                    borderColor: AppColor.grey,
+                    splashColor: AppColor.pink,
+                    borderRadius: BorderRadius.circular(20.0),
                     onPressed: _submitForgotMail,
                     text: 'Continue',
                   ),
