@@ -1,3 +1,6 @@
+import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
+import 'package:capstone2_clean_house/components/text_field/selection_house_text_field.dart';
+import 'package:capstone2_clean_house/pages/payment/select_payment.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,200 +34,241 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20.0,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: AppColor.white,
-                border: Border.all(
-                  color: AppColor.black,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.circular(5.0),
-                boxShadow: const [
-                  BoxShadow(
-                    color: AppColor.shadow,
-                    offset: Offset(0.0, 3.0),
-                    blurRadius: 6.0,
-                  ),
-                ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20.0,
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        '#001',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w500,
-                          color: AppColor.black,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Living Room: 1',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '25\$',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Bath Room: 1',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '25\$',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Kitchen Room: 1',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '25\$',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Bed Room: 1',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '25\$',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Total Price: 100.00\$',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w400,
-                          color: AppColor.black,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Method Payment: Cash',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w400,
-                          color: AppColor.black,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Status Payment',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Ikonate(
-                          Ikonate.checkbox,
-                          color: AppColor.green,
-                          width: 30.0,
-                        ),
-                      ],
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColor.white,
+                  border: Border.all(
+                    color: AppColor.black,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(5.0),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppColor.shadow,
+                      offset: Offset(0.0, 3.0),
+                      blurRadius: 6.0,
                     ),
                   ],
                 ),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          '#001',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w400,
+                            color: AppColor.black,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'House Type',
+                            style: TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            'House / Town House',
+                            style: TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Area',
+                            style: TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            'Max 15m²',
+                            style: TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Work Date',
+                            style: TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            '11/04/2024',
+                            style: TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Start Time',
+                            style: TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            '14:22',
+                            style: TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Totals',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w400,
+                                color: AppColor.black,
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            '100,000 VND',
+                            style: TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Status Bill',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w400,
+                                color: AppColor.black,
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Ikonate(
+                            Ikonate.checkbox,
+                            color: AppColor.red,
+                            width: 30.0,
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Status Payment',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w400,
+                                color: AppColor.black,
+                              ),
+                            ),
+                          ),
+                          Spacer(),
+                          Ikonate(
+                            Ikonate.checkbox,
+                            color: AppColor.green,
+                            width: 30.0,
+                          ),
+                        ],
+                      ),
+                      Text(
+                        'Note Tasker',
+                        style: TextStyle(
+                          color: AppColor.black,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: SelectionHouseTextField(
+                          // controller: NoteController,
+                          hintText:
+                              'Do you have any additional requests? Please \nenter them here',
+                          textInputAction: TextInputAction.done,
+                          readOnly: true,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 60.0,
+              ),
+              SizedBox(
+                height: 200.0,
+                width: 400.0,
+                child: Center(
+                  child: AppElevatedButton.normal1(
+                    text: 'Payment',
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SelectPayment(
+                            total_price: 10000,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:capstone2_clean_house/components/app_bar/bottom_navigator_bar.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
-import 'package:icony/icony_ikonate.dart';
+import 'package:lottie/lottie.dart';
 
 class SuccessfulPayment extends StatefulWidget {
   const SuccessfulPayment({
@@ -27,9 +27,12 @@ class _SuccessfulPaymentState extends State<SuccessfulPayment> {
           children: [
             Center(
               child: widget.result == "00"
-                  ? const Column(
+                  ? Column(
                       children: [
-                        Text(
+                        Lottie.asset(
+                          'assets/successfully.json',
+                        ),
+                        const Text(
                           "Successful Payment",
                           style: TextStyle(
                             color: AppColor.blue,
@@ -37,7 +40,7 @@ class _SuccessfulPaymentState extends State<SuccessfulPayment> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
+                        const Text(
                           "Thank your for your successful payment",
                           style: TextStyle(
                             color: AppColor.blue,
@@ -64,16 +67,19 @@ class _SuccessfulPaymentState extends State<SuccessfulPayment> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pushAndRemoveUntil(
+                        Navigator.push(
+                          context,
                           MaterialPageRoute(
-                              builder: (context) => const MainPage()),
-                          (Route<dynamic> route) => false,
+                            builder: (context) => const MainPage(),
+                          ),
                         );
                       },
-                      child: const Ikonate(
-                        Ikonate.home_alt,
-                        color: AppColor.blue,
-                        height: 40.0,
+                      child: SizedBox(
+                        height: 60.0,
+                        width: 60.0,
+                        child: Lottie.asset(
+                          'assets/house_icon.json',
+                        ),
                       ),
                     ),
                   ],

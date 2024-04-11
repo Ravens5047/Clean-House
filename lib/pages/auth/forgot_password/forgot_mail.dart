@@ -95,7 +95,7 @@ class _ForgotMailState extends State<ForgotMail> {
               child: Column(
                 children: [
                   Text(
-                    'Forgot Password',
+                    'Reset Password',
                     style: GoogleFonts.dmSerifText(
                       color: AppColor.blue,
                       fontSize: 30.0,
@@ -108,7 +108,7 @@ class _ForgotMailState extends State<ForgotMail> {
                     style: AppStyle.h18Normal.copyWith(color: AppColor.grey),
                   ),
                   Text(
-                    'We will send 3 digits code to your email.',
+                    'We will send 4 digits code to your email.',
                     style: AppStyle.h18Normal.copyWith(color: AppColor.grey),
                   ),
                   const SizedBox(
