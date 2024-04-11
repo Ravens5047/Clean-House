@@ -82,6 +82,17 @@ class _HistoryOrderState extends State<HistoryOrder> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
+                          'Name Service: Kitchen Cleaning',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w400,
+                            color: AppColor.black,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
                           'Total Price: 100.00\$',
                           style: TextStyle(
                             fontSize: 18.0,

@@ -11,7 +11,6 @@ import 'package:capstone2_clean_house/model/request/login_request_model.dart';
 import 'package:capstone2_clean_house/model/response/login_response_model.dart';
 import 'package:capstone2_clean_house/pages/auth/forgot_password/forgot_mail.dart';
 import 'package:capstone2_clean_house/pages/auth/register/register_page.dart';
-import 'package:capstone2_clean_house/pages/widget/square_title.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/resources/app_style.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
@@ -95,6 +94,26 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  // Future<void> _signInWithGoogle() async {
+  //   try {
+  //     final GoogleSignIn googleSignIn = GoogleSignIn();
+  //     final GoogleSignInAccount? googleSignInAccount =
+  //         await googleSignIn.signIn();
+  //     if (googleSignInAccount != null) {
+  //       final GoogleSignInAuthentication googleSignInAuthentication =
+  //           await googleSignInAccount.authentication;
+  //       final String? accessToken = googleSignInAuthentication.accessToken;
+  //       final String? idToken = googleSignInAuthentication.idToken;
+  //       print('Access Token: $accessToken');
+  //       print('ID Token: $idToken');
+  //     } else {
+  //       print('Sign in aborted');
+  //     }
+  //   } catch (error) {
+  //     print('Error signing in with Google: $error');
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 40.0),
             SizedBox(
               width: 350.0,
               height: 70.0,
@@ -178,52 +197,6 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             const SizedBox(height: 30.0),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Divider(
-                      thickness: 1,
-                      color: AppColor.black,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.0,
-                    ),
-                    child: Text(
-                      'Or Continue With',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: AppColor.black,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Divider(
-                      thickness: 1,
-                      color: AppColor.black,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 30.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  child: const SquareTitle(
-                    imagePath: 'assets/images/google.png',
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 50.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

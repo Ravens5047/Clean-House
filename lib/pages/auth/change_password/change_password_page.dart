@@ -9,6 +9,7 @@ import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/auth_services.dart';
 import 'package:capstone2_clean_house/utils/validator.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({
@@ -141,11 +142,11 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               Navigator.of(context).pop();
             },
           ),
-          title: const Text(
+          title: Text(
             'Change Password',
-            style: TextStyle(
-              color: AppColor.blue,
-              fontSize: 24.0,
+            style: GoogleFonts.dmSerifText(
+              color: AppColor.black,
+              fontSize: 22.0,
               fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,

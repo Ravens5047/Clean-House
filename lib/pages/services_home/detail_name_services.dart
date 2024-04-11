@@ -1,7 +1,7 @@
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
 import 'package:capstone2_clean_house/components/constants/app_constant.dart';
 import 'package:capstone2_clean_house/model/services_model.dart';
-import 'package:capstone2_clean_house/pages/payment/booking_services/booking_services_Place.dart';
+import 'package:capstone2_clean_house/pages/booking_services/booking_services_Place.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -99,7 +99,9 @@ class _DetailNameServicesState extends State<DetailNameServices> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const BookingServicesPlace(),
+                      builder: (context) => BookingServicesPlace(
+                        name_service: widget.service.name_service ?? '',
+                      ),
                     ),
                   );
                 },
