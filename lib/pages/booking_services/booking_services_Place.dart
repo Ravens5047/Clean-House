@@ -7,7 +7,7 @@ import 'package:capstone2_clean_house/components/text_field/note_text_field.dart
 import 'package:capstone2_clean_house/components/text_field/selection_time_sized.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/model/google_map_model.dart';
-import 'package:capstone2_clean_house/pages/payment/booking_services/booking_services_selection_time_working.dart';
+import 'package:capstone2_clean_house/pages/booking_services/booking_services_selection_time_working.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,10 @@ import 'package:intl/intl.dart';
 class BookingServicesPlace extends StatefulWidget {
   const BookingServicesPlace({
     super.key,
+    required this.name_service,
   });
+
+  final String name_service;
 
   @override
   State<BookingServicesPlace> createState() => _BookingServicesPlaceState();
@@ -24,6 +27,7 @@ class BookingServicesPlace extends StatefulWidget {
 
 class _BookingServicesPlaceState extends State<BookingServicesPlace> {
   TextEditingController fullnameController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
   TextEditingController typeHouseController = TextEditingController();
   TextEditingController typeNumberController = TextEditingController();
   String? selectedLocation;
@@ -36,6 +40,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
   AppUsersModel appUsersModel = AppUsersModel();
   late String? phoneNumber;
   late String? address_user;
+  late String? name_services;
   static const int houseTownhousePrice = 7040;
   static const int apartmentPrice = 8200;
   static const int villasPrice = 9000;
@@ -475,6 +480,8 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                             selectedArea: selectedArea,
                             address: typeHouseController.text,
                             fullname: fullnameController.text,
+                            phone_number: phoneNumberController.text,
+                            name_service: widget.name_service,
                             total_price: calculateTotal(),
                           ),
                         ),

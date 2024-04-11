@@ -1,6 +1,6 @@
 import 'package:bottom_picker/resources/time.dart';
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
-import 'package:capstone2_clean_house/pages/payment/booking_services/booking_services_successfull.dart';
+import 'package:capstone2_clean_house/pages/booking_services/booking_services_successfull.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +17,8 @@ class ConfirmPayment extends StatefulWidget {
     required this.fullname,
     required this.note,
     required this.total_price,
+    required this.phone_number,
+    required this.name_service,
   });
 
   final Time selectedTime;
@@ -25,6 +27,8 @@ class ConfirmPayment extends StatefulWidget {
   final int? selectedArea;
   final String address;
   final String fullname;
+  final String phone_number;
+  final String name_service;
   final String note;
   final int total_price;
 
@@ -102,6 +106,30 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Row(
+                children: [
+                  const Text(
+                    'Type Service:',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10.0,
+                  ),
+                  Text(
+                    widget.name_service,
+                    style: const TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
               const Text(
                 'Working Location',
                 style: TextStyle(
@@ -135,9 +163,9 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.address,
+                        'Full Name: ${widget.fullname}',
                         style: const TextStyle(
-                          fontSize: 14.0,
+                          fontSize: 16.0,
                           fontWeight: FontWeight.w500,
                           color: AppColor.black,
                         ),
@@ -146,9 +174,9 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                         height: 2.0,
                       ),
                       Text(
-                        widget.fullname,
+                        'Address: ${widget.address}',
                         style: const TextStyle(
-                          fontSize: 14.0,
+                          fontSize: 16.0,
                           fontWeight: FontWeight.w500,
                           color: AppColor.black,
                         ),
@@ -159,7 +187,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                       const Text(
                         'Phone: 0906436495',
                         style: TextStyle(
-                          fontSize: 14.0,
+                          fontSize: 16.0,
                           fontWeight: FontWeight.w500,
                           color: AppColor.black,
                         ),
@@ -176,7 +204,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   const Text(
                     'House Type',
                     style: TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
                     ),
@@ -187,7 +215,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                         ? getHouseType(selectedHouse!)
                         : "Not Selected",
                     style: const TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
                     ),
@@ -202,7 +230,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   const Text(
                     'Area: ',
                     style: TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
                     ),
@@ -213,7 +241,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                         ? getArea(selectedArea!)
                         : "Not Selected",
                     style: const TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
                     ),
@@ -228,7 +256,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   const Text(
                     'Work date: ',
                     style: TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
                     ),
@@ -237,7 +265,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   Text(
                     '${widget.selectedDate.day}/${widget.selectedDate.month}/${widget.selectedDate.year}',
                     style: const TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
                     ),
@@ -252,7 +280,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   const Text(
                     'Start Time: ',
                     style: TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
                     ),
@@ -261,7 +289,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   Text(
                     '${widget.selectedTime.hours.toString().padLeft(2, '0')}:${widget.selectedTime.minutes.toString().padLeft(2, '0')}',
                     style: const TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
                     ),
@@ -282,7 +310,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   const Text(
                     'Totals ',
                     style: TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
                     ),
@@ -291,7 +319,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   Text(
                     '${NumberFormat('#,##0', 'en_US').format(widget.total_price)} VND',
                     style: const TextStyle(
-                      fontSize: 14.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.black,
                     ),
@@ -304,7 +332,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
               const Text(
                 'Note for the Tasker',
                 style: TextStyle(
-                  fontSize: 14.0,
+                  fontSize: 16.0,
                   fontWeight: FontWeight.w500,
                   color: AppColor.black,
                 ),

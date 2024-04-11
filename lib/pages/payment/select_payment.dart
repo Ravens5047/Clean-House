@@ -32,7 +32,7 @@ class _SelectPaymentState extends State<SelectPayment> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'VNPAY Screen',
+          'Payment Method',
           style: GoogleFonts.podkova(
             color: AppColor.black,
             fontSize: 25.0,

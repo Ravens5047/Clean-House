@@ -45,6 +45,7 @@ dependencies:
   geolocator: ^11.0.0
   google_fonts: ^6.2.1
   google_maps_flutter: ^2.6.0
+  # google_sign_in: ^6.2.1
   http: ^1.2.0
   icony: ^1.0.5
   image_picker: ^1.0.7

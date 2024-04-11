@@ -76,6 +76,69 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
                       Row(
                         children: [
                           Text(
+                            'Name',
+                            style: TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            'Nguyen Hoang Hung',
+                            style: TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Address',
+                            style: TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            '162/5 Dong Da',
+                            style: TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Phone',
+                            style: TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            '0906436495',
+                            style: TextStyle(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
                             'House Type',
                             style: TextStyle(
                               color: AppColor.black,

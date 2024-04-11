@@ -19,12 +19,16 @@ class BookingServicesSelectionTimeWorking extends StatefulWidget {
     required this.address,
     required this.fullname,
     required this.total_price,
+    required this.phone_number,
+    required this.name_service,
   });
 
   final int? selectedHouse;
   final int? selectedArea;
   final String address;
   final String fullname;
+  final String phone_number;
+  final String name_service;
   final int total_price;
 
   @override
@@ -140,7 +144,7 @@ class _BookingServicesSelectionTimeWorkingState
           showTopSnackBar(
             context,
             const TDSnackBar.error(
-              message: "Please choose a time between 8:00 and 17:00",
+              message: "Please choose a time between 8:00 am and 17:00 pm",
             ),
           );
         }
@@ -151,8 +155,8 @@ class _BookingServicesSelectionTimeWorkingState
       bottomPickerTheme: BottomPickerTheme.blue,
       use24hFormat: true,
       initialTime: _selectedTime,
-      minTime: Time(hours: 8, minutes: 00),
-      maxTime: Time(hours: 17, minutes: 00),
+      // minTime: Time(hours: 8, minutes: 00),
+      // maxTime: Time(hours: 17, minutes: 00),
     ).show(context);
   }
 
@@ -279,6 +283,8 @@ class _BookingServicesSelectionTimeWorkingState
                           selectedArea: selectedArea,
                           address: widget.address,
                           fullname: widget.fullname,
+                          phone_number: widget.phone_number,
+                          name_service: widget.name_service,
                           note: NoteController.text,
                           total_price: widget.total_price,
                         ),
