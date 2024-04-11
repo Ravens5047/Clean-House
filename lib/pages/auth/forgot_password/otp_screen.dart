@@ -19,6 +19,7 @@ class OTPScreen extends StatefulWidget {
   final String email;
   final String? otp;
   @override
+  // ignore: no_logic_in_create_state
   State<OTPScreen> createState() => _OTPScreenState(email: email, otp: otp);
 }
 

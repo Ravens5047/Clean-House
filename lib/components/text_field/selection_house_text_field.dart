@@ -14,6 +14,7 @@ class SelectionHouseTextField extends StatelessWidget {
     this.validator,
     this.isSelected = false,
     this.controller,
+    this.readOnly = false,
   });
 
   // final TextEditingController? controller;
@@ -26,6 +27,7 @@ class SelectionHouseTextField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final bool isSelected;
   final TextEditingController? controller;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,7 @@ class SelectionHouseTextField extends StatelessWidget {
           onFieldSubmitted: onFieldSubmitted,
           textInputAction: textInputAction,
           validator: validator,
-          readOnly: isSelected,
+          readOnly: readOnly,
           controller: controller,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(

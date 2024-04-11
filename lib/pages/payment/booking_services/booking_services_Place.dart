@@ -7,7 +7,7 @@ import 'package:capstone2_clean_house/components/text_field/note_text_field.dart
 import 'package:capstone2_clean_house/components/text_field/selection_time_sized.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/model/google_map_model.dart';
-import 'package:capstone2_clean_house/pages/services_home/booking_services/booking_services_selection_time_working.dart';
+import 'package:capstone2_clean_house/pages/payment/booking_services/booking_services_selection_time_working.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:flutter/material.dart';

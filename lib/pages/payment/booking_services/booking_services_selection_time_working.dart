@@ -1,6 +1,8 @@
 import 'package:bottom_picker/bottom_picker.dart';
 import 'package:bottom_picker/resources/arrays.dart';
 import 'package:capstone2_clean_house/components/button/td_elevated_button.dart';
+import 'package:capstone2_clean_house/components/snack_bar/td_snack_bar.dart';
+import 'package:capstone2_clean_house/components/snack_bar/top_snack_bar.dart';
 import 'package:capstone2_clean_house/components/text_field/selection_house_text_field.dart';
 import 'package:capstone2_clean_house/pages/payment/confirm_payment.dart';
 import 'package:capstone2_clean_house/pages/widget/Time%20Calendar/easy_date_timeline_widget/easy_date_timeline_widget.dart';
@@ -49,15 +51,32 @@ class _BookingServicesSelectionTimeWorkingState
   }
 
   Time _getCurrentTime() {
-    final now = DateTime.now();
-    return Time(hours: now.hour, minutes: now.minute);
+    // final now = DateTime.now();
+    // final minHours = Time(hours: 8, minutes: 00);
+    // final maxHours = Time(hours: 17, minutes: 00);
+    return Time(
+      hours: 8,
+      minutes: 00,
+    );
   }
 
   void _updateSelectedDate(DateTime newDate) {
     final currentDate = DateTime.now();
-    final tomorrowDate = currentDate.add(const Duration(days: 1));
-    if (newDate.isAfter(currentDate.subtract(const Duration(days: 1))) &&
-        newDate.isBefore(tomorrowDate)) {
+    // Chỉ chọn được trong hôm nay và ngày mai chứ không thể chọn ngày trước và ngày mốt
+    //----------------------------------------------------------------
+    // final tomorrowDate = currentDate.add(const Duration(days: 7));
+    // if (newDate.isAfter(currentDate.subtract(const Duration(days: 1))) &&
+    //     newDate.isBefore(tomorrowDate)) {
+    //   setState(() {
+    //     _selectedDate = newDate;
+    //   });
+    //----------------------------------------------------------------
+    // Có thể selection date hôm nay và bất kì ngày nào miễn không phải ngày âm
+    if (newDate.isAfter(
+      currentDate.subtract(
+        const Duration(days: 1),
+      ),
+    )) {
       setState(() {
         _selectedDate = newDate;
       });
@@ -75,8 +94,8 @@ class _BookingServicesSelectionTimeWorkingState
                 ),
               ),
             ),
-            content:
-                const Text('Please select a date between today and tomorrow.'),
+            content: const Text(
+                'It is not possible to select negative and past dates from current dates\n\nPlease select a date between today and tomorrow.'),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
@@ -86,7 +105,7 @@ class _BookingServicesSelectionTimeWorkingState
                   'OK',
                   style: TextStyle(
                     color: AppColor.black,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -110,12 +129,21 @@ class _BookingServicesSelectionTimeWorkingState
         ),
       ),
       onSubmit: (selectedDateTime) {
-        setState(() {
-          _selectedTime = Time(
-              hours: selectedDateTime.hour, minutes: selectedDateTime.minute);
-        });
-        print(
-            '${_selectedTime.hours} hours : ${_selectedTime.minutes} minutes');
+        if (selectedDateTime.hour >= 8 && selectedDateTime.hour <= 17) {
+          setState(() {
+            _selectedTime = Time(
+                hours: selectedDateTime.hour, minutes: selectedDateTime.minute);
+          });
+          print(
+              '${_selectedTime.hours} hours : ${_selectedTime.minutes} minutes');
+        } else {
+          showTopSnackBar(
+            context,
+            const TDSnackBar.error(
+              message: "Please choose a time between 8:00 and 17:00",
+            ),
+          );
+        }
       },
       onClose: () {
         print('Picker closed');
@@ -123,7 +151,8 @@ class _BookingServicesSelectionTimeWorkingState
       bottomPickerTheme: BottomPickerTheme.blue,
       use24hFormat: true,
       initialTime: _selectedTime,
-      maxTime: Time(hours: 17),
+      minTime: Time(hours: 8, minutes: 00),
+      maxTime: Time(hours: 17, minutes: 00),
     ).show(context);
   }
 
@@ -191,7 +220,7 @@ class _BookingServicesSelectionTimeWorkingState
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '${_selectedTime.hours} hours | ${_selectedTime.minutes} minutes',
+                            '${_selectedTime.hours.toString().padLeft(2, '0')} hours | ${_selectedTime.minutes.toString().padLeft(2, '0')} minutes',
                             style: const TextStyle(
                               color: AppColor.black,
                               fontSize: 15.0,
