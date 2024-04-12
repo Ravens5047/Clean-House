@@ -70,7 +70,7 @@ class _MainPageState extends State<MainPage> {
               style: TextStyle(
                 fontSize: 28.0,
                 fontWeight: FontWeight.w500,
-                color: AppColor.blue,
+                color: Colors.blue,
               ),
             ),
             SizedBox(
@@ -119,7 +119,7 @@ class _MainPageState extends State<MainPage> {
           NavigationDestination(
             icon: Ikonate(
               Ikonate.home_alt,
-              color: isSelected[0] ? AppColor.blue : Colors.black,
+              color: isSelected[0] ? Colors.blue : Colors.black,
               height: 40.0,
             ),
             label: 'Home',
@@ -127,7 +127,7 @@ class _MainPageState extends State<MainPage> {
           NavigationDestination(
             icon: Ikonate(
               Ikonate.calendar_event,
-              color: isSelected[1] ? AppColor.blue : Colors.black,
+              color: isSelected[1] ? Colors.blue : Colors.black,
               height: 40.0,
             ),
             label: 'Schedule',
@@ -135,7 +135,7 @@ class _MainPageState extends State<MainPage> {
           NavigationDestination(
             icon: Ikonate(
               Ikonate.bell,
-              color: isSelected[2] ? AppColor.blue : Colors.black,
+              color: isSelected[2] ? Colors.blue : Colors.black,
               height: 40.0,
             ),
             label: 'Notifications',
@@ -143,7 +143,7 @@ class _MainPageState extends State<MainPage> {
           NavigationDestination(
             icon: Ikonate(
               Ikonate.user,
-              color: isSelected[3] ? AppColor.blue : Colors.black,
+              color: isSelected[3] ? Colors.blue : Colors.black,
               height: 40.0,
             ),
             label: 'Informations',

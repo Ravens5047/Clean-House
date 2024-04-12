@@ -48,14 +48,14 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
       appBar: AppBar(
         title: Text(
           'Employee Home Screen',
-          style: GoogleFonts.alfaSlabOne(
-            fontSize: 25.0,
-            fontWeight: FontWeight.w400,
-            color: AppColor.white,
+          style: GoogleFonts.dmSerifText(
+            fontSize: 22.0,
+            fontWeight: FontWeight.w200,
+            color: AppColor.black,
           ),
         ),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 74, 180, 241),
+        // backgroundColor: const Color.fromARGB(255, 74, 180, 241),
       ),
       drawer: DrawerMenuEmployee(
         appUser: appUser,

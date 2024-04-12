@@ -6,6 +6,8 @@ import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icony/icony_ikonate.dart';
+import 'package:lottie/lottie.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MainPageEmployee extends StatefulWidget {
   const MainPageEmployee({
@@ -46,8 +48,16 @@ class _MainPageEmployeeState extends State<MainPageEmployee> {
   List<Widget> _buildPages() {
     return [
       const HomeScreenEmployee(),
-      Container(
-        color: AppColor.blue,
+      Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Shimmer.fromColors(
+                baseColor: Colors.black,
+                highlightColor: AppColor.blue,
+                child: Lottie.asset('assets/logo_splash_clean.json')),
+          ],
+        ),
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
@@ -61,7 +71,7 @@ class _MainPageEmployeeState extends State<MainPageEmployee> {
               style: GoogleFonts.dmSerifText(
                 fontSize: 30.0,
                 fontWeight: FontWeight.w400,
-                color: AppColor.blue,
+                color: Colors.blue,
               ),
             ),
             const SizedBox(
@@ -104,13 +114,12 @@ class _MainPageEmployeeState extends State<MainPageEmployee> {
             }
           });
         },
-        backgroundColor: AppColor.black,
         selectedIndex: currentPageIndex,
         destinations: <Widget>[
           NavigationDestination(
             icon: Ikonate(
               Ikonate.home_alt,
-              color: isSelected[0] ? AppColor.blue : Colors.black,
+              color: isSelected[0] ? Colors.blue : Colors.black,
               height: 40.0,
             ),
             label: 'Home',
@@ -118,7 +127,7 @@ class _MainPageEmployeeState extends State<MainPageEmployee> {
           NavigationDestination(
             icon: Ikonate(
               Ikonate.calendar_event,
-              color: isSelected[1] ? AppColor.blue : Colors.black,
+              color: isSelected[1] ? Colors.blue : Colors.black,
               height: 40.0,
             ),
             label: 'Schedule',
@@ -126,7 +135,7 @@ class _MainPageEmployeeState extends State<MainPageEmployee> {
           NavigationDestination(
             icon: Ikonate(
               Ikonate.bell,
-              color: isSelected[2] ? AppColor.blue : Colors.black,
+              color: isSelected[2] ? Colors.blue : Colors.black,
               height: 40.0,
             ),
             label: 'Notifications',
@@ -134,7 +143,7 @@ class _MainPageEmployeeState extends State<MainPageEmployee> {
           NavigationDestination(
             icon: Ikonate(
               Ikonate.user,
-              color: isSelected[3] ? AppColor.blue : Colors.black,
+              color: isSelected[3] ? Colors.blue : Colors.black,
               height: 40.0,
             ),
             label: 'Informations',

@@ -101,6 +101,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
         ),
       ),
       body: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -122,7 +123,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                     widget.name_service,
                     style: const TextStyle(
                       fontSize: 18.0,
-                      fontWeight: FontWeight.w400,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
@@ -296,8 +297,11 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   ),
                 ],
               ),
+              const SizedBox(
+                height: 10.0,
+              ),
               const Divider(
-                color: AppColor.blue,
+                color: Colors.blue,
                 thickness: 2.0,
                 indent: 50.0,
                 endIndent: 50.0,
@@ -338,7 +342,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                 ),
               ),
               const SizedBox(
-                height: 20.0,
+                height: 25.0,
               ),
               Container(
                 height: 100.0,
@@ -376,7 +380,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                 ),
               ),
               const SizedBox(
-                height: 100.0,
+                height: 45.0,
               ),
               AppElevatedButton.normal1(
                 onPressed: () {
@@ -387,9 +391,10 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                     ),
                   );
                 },
+                color: Colors.blue,
                 borderColor: AppColor.grey,
                 borderRadius: const BorderRadius.all(
-                  Radius.circular(20.0),
+                  Radius.circular(30.0),
                 ),
                 text: 'Booking',
               ),

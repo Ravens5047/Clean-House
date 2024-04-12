@@ -1,5 +1,4 @@
 import 'package:capstone2_clean_house/model/easy_month.dart';
-import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/utils/easy_colors.dart';
 import 'package:capstone2_clean_house/utils/easy_constants.dart';
 import 'package:capstone2_clean_house/utils/easy_date_utils.dart';
@@ -112,7 +111,7 @@ class _EasyDateTimeLineState extends State<EasyDateTimeLine> {
     /// or to the primary color of the current theme if widget.activeColor is null.
     /// This provides a fallback color if no active color is explicitly provided.
     // final activeDayColor = widget.activeColor ?? Theme.of(context).primaryColor;
-    final activeDayColor = widget.activeColor ?? AppColor.blue;
+    final activeDayColor = widget.activeColor ?? Colors.blue;
 
     /// brightness is initialized to the brightness of the active color or the fallback color,
     /// using the ThemeData.estimateBrightnessForColor method.

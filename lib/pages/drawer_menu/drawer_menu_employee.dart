@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'package:capstone2_clean_house/components/app_dialog.dart';
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
-import 'package:capstone2_clean_house/pages/auth/change_password/change_password_page.dart';
-import 'package:capstone2_clean_house/pages/auth/login/login_page.dart';
-import 'package:capstone2_clean_house/pages/task_view/task_view_employee.dart';
+import 'package:capstone2_clean_house/pages/settings/setting_screen.dart';
+import 'package:capstone2_clean_house/pages/task_view_employee/task_view_employee.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
@@ -108,20 +106,21 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
                 full_name,
                 style: const TextStyle(
                   fontSize: 17.0,
-                  color: AppColor.white,
+                  color: AppColor.black,
                 ),
               ),
               accountEmail: Text(
                 email,
                 style: const TextStyle(
                   fontSize: 15.0,
-                  color: AppColor.white,
+                  color: AppColor.black,
                 ),
               ),
               currentAccountPicture: CircleAvatar(
                 child: ClipOval(
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: Image.asset(
-                    Assets.images.biaanh1.path,
+                    Assets.images.avatar_default.path,
                     width: 90.0,
                     height: 90.0,
                     fit: BoxFit.cover,
@@ -131,11 +130,34 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                    Assets.images.backgroundProfile.path,
+                    Assets.images.background_clean2.path,
                   ),
-                  fit: BoxFit.cover,
                 ),
+                color: AppColor.white,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(15.0),
+                ),
+                boxShadow: const [
+                  BoxShadow(
+                    color: AppColor.grey,
+                    blurRadius: 10.0,
+                    spreadRadius: BorderSide.strokeAlignInside,
+                    offset: Offset(10, 15),
+                  ),
+                ],
               ),
+              margin: const EdgeInsets.all(8.0),
+              currentAccountPictureSize: const Size.square(70),
+            ),
+            const Divider(
+              height: 10.0,
+              thickness: 2.0,
+              color: AppColor.blue,
+              endIndent: 10.0,
+              indent: 10.0,
+            ),
+            const SizedBox(
+              height: 10.0,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -168,76 +190,35 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
                     ),
                   ),
                   const SizedBox(
-                    height: 10.0,
+                    height: 20.0,
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ChangePasswordPage(
+                    onTap: () => Navigator.of(context)
+                        .push(
+                          MaterialPageRoute(
+                            builder: (context) => SettingScreen(
+                              user_id: widget.user_id,
+                            ),
+                          ),
+                        )
+                        .then(
+                          (_) => _initData(),
                         ),
-                      ),
-                    ),
                     child: const Row(
                       children: [
                         SizedBox(
                           height: 30.0,
                           width: 30.0,
-                          child: Ikonate(Ikonate.lock),
+                          child: Ikonate(Ikonate.settings),
                         ),
                         SizedBox(
                           width: 15.0,
                         ),
                         Text(
-                          'Change Password',
+                          'Settings',
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 450.0,
-                  ),
-                  InkWell(
-                    onTap: () => AppDialog.dialog(
-                      context,
-                      title: 'Sign Out',
-                      content: 'Do you want to logout ?',
-                      action: () async {
-                        SharedPrefs.removeSeason();
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (context) => const LoginPage(),
-                            ),
-                            (Route<dynamic> route) => false,
-                          );
-                        });
-                      },
-                    ),
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    child: const Row(
-                      children: [
-                        SizedBox(
-                          height: 30.0,
-                          width: 30.0,
-                          child: Ikonate(
-                            Ikonate.exit,
-                            color: AppColor.blue,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Text(
-                          'Logout',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: AppColor.blue,
-                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],

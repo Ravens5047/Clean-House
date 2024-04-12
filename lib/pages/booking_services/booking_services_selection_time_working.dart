@@ -240,7 +240,7 @@ class _BookingServicesSelectionTimeWorkingState
                 height: 20.0,
               ),
               const Divider(
-                color: AppColor.blue,
+                color: Colors.blue,
                 thickness: 1.0,
                 indent: 50.0,
                 endIndent: 50.0,
@@ -291,8 +291,9 @@ class _BookingServicesSelectionTimeWorkingState
                       ),
                     );
                   },
+                  highlightColor: Colors.orange,
                   text: 'Continue',
-                  color: AppColor.blue,
+                  color: Colors.blue,
                 ),
               ),
             ],

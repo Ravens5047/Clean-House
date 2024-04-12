@@ -17,6 +17,7 @@ import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/auth_services.dart';
 import 'package:capstone2_clean_house/utils/validator.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
 class LoginPage extends StatefulWidget {
@@ -94,132 +95,119 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  // Future<void> _signInWithGoogle() async {
-  //   try {
-  //     final GoogleSignIn googleSignIn = GoogleSignIn();
-  //     final GoogleSignInAccount? googleSignInAccount =
-  //         await googleSignIn.signIn();
-  //     if (googleSignInAccount != null) {
-  //       final GoogleSignInAuthentication googleSignInAuthentication =
-  //           await googleSignInAccount.authentication;
-  //       final String? accessToken = googleSignInAuthentication.accessToken;
-  //       final String? idToken = googleSignInAuthentication.idToken;
-  //       print('Access Token: $accessToken');
-  //       print('ID Token: $idToken');
-  //     } else {
-  //       print('Sign in aborted');
-  //     }
-  //   } catch (error) {
-  //     print('Error signing in with Google: $error');
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
         key: formKey,
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0).copyWith(
-              top: MediaQuery.of(context).padding.top + 38.0, bottom: 16.0),
-          children: [
-            const Center(
-              child: Text(
-                'Hello Again!',
-                style: TextStyle(
-                    color: AppColor.blue,
-                    fontSize: 40.0,
-                    fontWeight: FontWeight.w500),
-              ),
-            ),
-            const SizedBox(height: 2.0),
-            Center(
-              child: Shimmer.fromColors(
-                baseColor: Colors.blue,
-                highlightColor: Colors.orange,
-                child: Text(
-                  'Welcome back you have been',
-                  style: AppStyle.h18Normal.copyWith(color: AppColor.grey),
-                ),
-              ),
-            ),
-            Center(
-              child: Shimmer.fromColors(
-                baseColor: Colors.blue,
-                highlightColor: Colors.orange,
-                child: Text(
-                  'missed!',
-                  style: AppStyle.h18Normal.copyWith(color: AppColor.grey),
-                ),
-              ),
-            ),
-            const SizedBox(height: 46.0),
-            AppTextField(
-              controller: nameController,
-              hintext: 'Enter User Name',
-              validator: Validator.requiredValidator.call,
-              textInputAction: TextInputAction.next,
-            ),
-            const SizedBox(height: 16.0),
-            AppTextFieldPassword(
-              controller: passwordController,
-              hintext: 'Enter Password',
-              validator: Validator.passwordValidator.call,
-              textInputAction: TextInputAction.done,
-            ),
-            const SizedBox(height: 12.0),
-            Align(
-              alignment: Alignment.centerRight,
-              child: GestureDetector(
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ForgotMail(),
-                  ),
-                ),
-                child: const Text(
-                  'Reset Password ?',
-                  style: TextStyle(
-                    color: AppColor.grey,
-                    fontSize: 15.0,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 40.0),
-            SizedBox(
-              width: 350.0,
-              height: 70.0,
-              child: AppElevatedButton(
-                onPressed: () {
-                  _submitLogin();
-                },
-                text: 'Sign In',
-              ),
-            ),
-            const SizedBox(height: 30.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0).copyWith(
+                top: MediaQuery.of(context).padding.top + 100.0, bottom: 16.0),
+            child: Column(
               children: [
-                Text(
-                  'Not a member? ',
-                  style: AppStyle.h16Normal.copyWith(color: AppColor.grey),
-                ),
-                GestureDetector(
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) => const RegisterPage()),
-                  ),
+                const Center(
                   child: Text(
-                    'Register Now',
+                    'Hello Again!',
                     style: TextStyle(
-                        color: AppColor.blue.withOpacity(0.5),
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.w700),
+                        color: AppColor.blue,
+                        fontSize: 40.0,
+                        fontWeight: FontWeight.w500),
                   ),
+                ),
+                const SizedBox(height: 2.0),
+                Center(
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.blue,
+                    highlightColor: Colors.orange,
+                    child: Text(
+                      'Welcome back you have been',
+                      style: AppStyle.h18Normal.copyWith(color: AppColor.grey),
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Shimmer.fromColors(
+                    baseColor: Colors.blue,
+                    highlightColor: Colors.orange,
+                    child: Text(
+                      'missed!',
+                      style: AppStyle.h18Normal.copyWith(color: AppColor.grey),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 46.0),
+                AppTextField(
+                  controller: nameController,
+                  hintext: 'Enter User Name',
+                  validator: Validator.requiredValidator.call,
+                  textInputAction: TextInputAction.next,
+                ),
+                const SizedBox(height: 20.0),
+                AppTextFieldPassword(
+                  controller: passwordController,
+                  hintext: 'Enter Password',
+                  validator: Validator.passwordValidator.call,
+                  textInputAction: TextInputAction.done,
+                ),
+                const SizedBox(height: 12.0),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ForgotMail(),
+                      ),
+                    ),
+                    child: const Text(
+                      'Reset Password ?',
+                      style: TextStyle(
+                        color: AppColor.grey,
+                        fontSize: 15.0,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20.0),
+                SizedBox(
+                  width: 350.0,
+                  height: 70.0,
+                  child: AppElevatedButton(
+                    onPressed: () {
+                      _submitLogin();
+                    },
+                    text: 'Sign In',
+                  ),
+                ),
+                const SizedBox(height: 30.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Not a member? ',
+                      style: AppStyle.h16Normal.copyWith(color: AppColor.grey),
+                    ),
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterPage()),
+                      ),
+                      child: Text(
+                        'Register Now',
+                        style: TextStyle(
+                            color: AppColor.blue.withOpacity(0.5),
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ],
+                ),
+                Lottie.asset(
+                  'assets/background_fish.json',
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

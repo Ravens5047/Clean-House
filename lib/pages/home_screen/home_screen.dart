@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         shadowColor: AppColor.black,
         foregroundColor: AppColor.black,
-        backgroundColor: const Color.fromARGB(255, 163, 216, 247),
+        backgroundColor: const Color.fromARGB(255, 165, 221, 255),
       ),
       drawer: DrawerMenu(
         appUser: appUser,
@@ -150,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         style: GoogleFonts.dmSerifText(
                           fontSize: 30.0,
                           fontWeight: FontWeight.w400,
-                          color: AppColor.blue,
+                          color: Colors.blue,
                         ),
                       ),
                     ],
@@ -165,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: GoogleFonts.dmSerifText(
                         fontSize: 20.0,
                         fontWeight: FontWeight.w400,
-                        color: AppColor.blue,
+                        color: Colors.blue,
                       ),
                     ),
                   ),
@@ -218,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Text(
                                 service.name_service ?? 'Unknown service',
                                 style: const TextStyle(
-                                  color: AppColor.blue,
+                                  color: Colors.blue,
                                   fontSize: 17.0,
                                   fontWeight: FontWeight.w400,
                                 ),

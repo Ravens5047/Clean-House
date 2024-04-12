@@ -335,7 +335,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   endIndent: 10.0,
                   thickness: 2.0,
                   height: 40.0,
-                  color: AppColor.blue,
+                  color: Colors.blue,
                 ),
                 const Text(
                   'Area',
@@ -498,9 +498,8 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   },
                   child: TdElevatedButton.fullmau(
                     text: 'Continue',
-                    color: isAddressEntered ? AppColor.blue : AppColor.grey,
-                    borderColor:
-                        isAddressEntered ? AppColor.blue : AppColor.grey,
+                    color: isAddressEntered ? Colors.blue : AppColor.grey,
+                    borderColor: isAddressEntered ? Colors.blue : AppColor.grey,
                   ),
                 )
               ],

@@ -117,18 +117,18 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
       body: Form(
         key: formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(Assets.images.background_clean2.path),
-                    fit: BoxFit.fill,
-                  ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(Assets.images.background_clean2.path),
+                  fit: BoxFit.fill,
                 ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
                 child: Row(
                   children: [
                     ClipOval(
@@ -168,184 +168,184 @@ class _SettingScreenState extends State<SettingScreen> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () => Navigator.of(context)
-                          .push(
-                        MaterialPageRoute(
-                          builder: (context) => InformationPerson(
-                            user_id: userId,
-                            appUser: appUser,
-                          ),
-                        ),
-                      )
-                          .then((_) {
-                        _initData();
-                      }),
-                      child: const Card(
-                        child: ListTile(
-                          title: Row(
-                            children: [
-                              Text('Edit Information Person'),
-                              Spacer(),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                size: 20.0,
-                              ),
-                            ],
-                          ),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.of(context)
+                        .push(
+                      MaterialPageRoute(
+                        builder: (context) => InformationPerson(
+                          user_id: userId,
+                          appUser: appUser,
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 30.0,
-                    ),
-                    GestureDetector(
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const ChangePasswordPage(),
-                        ),
-                      ),
-                      child: const Card(
-                        child: ListTile(
-                          title: Row(
-                            children: [
-                              Text('Change Password'),
-                              Spacer(),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                size: 20.0,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30.0,
-                    ),
-                    Card(
+                    )
+                        .then((_) {
+                      _initData();
+                    }),
+                    child: const Card(
                       child: ListTile(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const CommingSoonScreen(),
-                            ),
-                          );
-                        },
-                        title: const Text('Terms & Conditions'),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30.0,
-                    ),
-                    Card(
-                      child: ListTile(
-                        onTap: () => AppDialog.dialog(
-                          context,
-                          title: 'Sign Out',
-                          content: 'Do you want to logout ?',
-                          action: () async {
-                            SharedPrefs.removeSeason();
-                            WidgetsBinding.instance.addPostFrameCallback((_) {
-                              Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                  builder: (context) => const LoginPage(),
-                                ),
-                                (Route<dynamic> route) => false,
-                              );
-                            });
-                          },
-                        ),
-                        title: const Text('Sign Out'),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const CommingSoonScreen(),
-                            ),
-                          );
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        title: Row(
                           children: [
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            const Divider(
-                              indent: 30.0,
-                              endIndent: 30.0,
-                              thickness: 2.0,
-                              color: AppColor.blue,
-                            ),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            Text(
-                              'Help Center',
-                              style: GoogleFonts.alatsi(
-                                fontSize: 17.0,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            Text(
-                              'Privacy Policy',
-                              style: GoogleFonts.alatsi(
-                                fontSize: 17.0,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            Shimmer.fromColors(
-                              baseColor: Colors.blue,
-                              highlightColor: AppColor.pink,
-                              child: Text(
-                                'About Clean House Services',
-                                style: GoogleFonts.alatsi(
-                                    fontSize: 17.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColor.blue),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 20.0,
-                            ),
-                            Shimmer.fromColors(
-                              baseColor: AppColor.black,
-                              highlightColor: AppColor.blue,
-                              child: Text(
-                                'Version: 1.0.0',
-                                style: GoogleFonts.alatsi(
-                                  fontSize: 17.0,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
+                            Text('Edit Information Person'),
+                            Spacer(),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 20.0,
                             ),
                           ],
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(
+                    height: 30.0,
+                  ),
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ChangePasswordPage(),
+                      ),
+                    ),
+                    child: const Card(
+                      child: ListTile(
+                        title: Row(
+                          children: [
+                            Text('Change Password'),
+                            Spacer(),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 20.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30.0,
+                  ),
+                  Card(
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const CommingSoonScreen(),
+                          ),
+                        );
+                      },
+                      title: const Text('Terms & Conditions'),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30.0,
+                  ),
+                  Card(
+                    child: ListTile(
+                      onTap: () => AppDialog.dialog(
+                        context,
+                        title: 'Sign Out',
+                        content: 'Do you want to logout ?',
+                        action: () async {
+                          SharedPrefs.removeSeason();
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (context) => const LoginPage(),
+                              ),
+                              (Route<dynamic> route) => false,
+                            );
+                          });
+                        },
+                      ),
+                      title: const Text('Sign Out'),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const CommingSoonScreen(),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          const Divider(
+                            indent: 30.0,
+                            endIndent: 30.0,
+                            thickness: 2.0,
+                            color: Colors.blue,
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          Text(
+                            'Help Center',
+                            style: GoogleFonts.alatsi(
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          Text(
+                            'Privacy Policy',
+                            style: GoogleFonts.alatsi(
+                              fontSize: 17.0,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          Shimmer.fromColors(
+                            baseColor: Colors.blue,
+                            highlightColor: AppColor.orange,
+                            child: Text(
+                              'About Clean House Services',
+                              style: GoogleFonts.alatsi(
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColor.blue),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          Shimmer.fromColors(
+                            baseColor: AppColor.black,
+                            highlightColor: AppColor.blue,
+                            child: Text(
+                              'Version: 1.0.0',
+                              style: GoogleFonts.alatsi(
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

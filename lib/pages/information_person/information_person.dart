@@ -128,6 +128,7 @@ class _InformationPersonState extends State<InformationPerson> {
         body: Form(
           key: formKey,
           child: ListView(
+            physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 20.0).copyWith(
                 top: MediaQuery.of(context).padding.top + 36.0, bottom: 10.0),
             children: [
@@ -136,7 +137,7 @@ class _InformationPersonState extends State<InformationPerson> {
                 style: GoogleFonts.dmSerifText(
                   fontSize: 30.0,
                   fontWeight: FontWeight.w400,
-                  color: AppColor.blue,
+                  color: Colors.blue,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -191,6 +192,7 @@ class _InformationPersonState extends State<InformationPerson> {
               ),
               const SizedBox(height: 72.0),
               TdElevatedButton(
+                color: Colors.blue,
                 borderColor: AppColor.grey,
                 onPressed: _updateProfile,
                 text: 'Save',

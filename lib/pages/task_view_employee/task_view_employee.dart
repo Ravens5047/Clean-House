@@ -1,5 +1,5 @@
 import 'package:capstone2_clean_house/model/app_users_model.dart';
-import 'package:capstone2_clean_house/pages/task_view/task_view_employee_detail.dart';
+import 'package:capstone2_clean_house/pages/task_view_employee/task_view_employee_detail.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
 

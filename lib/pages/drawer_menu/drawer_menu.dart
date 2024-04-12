@@ -99,7 +99,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
       child: Form(
         key: formKey,
         child: ListView(
-          padding: EdgeInsets.zero,
+          padding: const EdgeInsets.all(8.0).copyWith(top: 10.0, bottom: 10.0),
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             UserAccountsDrawerHeader(
               accountName: Text(
@@ -175,7 +176,10 @@ class _DrawerMenuState extends State<DrawerMenu> {
                         SizedBox(
                           height: 30.0,
                           width: 30.0,
-                          child: Ikonate(Ikonate.history),
+                          child: Ikonate(
+                            Ikonate.history,
+                            color: Colors.blue,
+                          ),
                         ),
                         SizedBox(
                           width: 15.0,
@@ -268,7 +272,10 @@ class _DrawerMenuState extends State<DrawerMenu> {
                         SizedBox(
                           height: 30.0,
                           width: 30.0,
-                          child: Ikonate(Ikonate.settings),
+                          child: Ikonate(
+                            Ikonate.settings,
+                            color: Colors.blue,
+                          ),
                         ),
                         SizedBox(
                           width: 15.0,

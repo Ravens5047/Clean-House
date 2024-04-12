@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
-import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/components/text_field/app_text_field_password.dart';
 import 'package:capstone2_clean_house/model/request/change_password_request_model.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
@@ -10,6 +9,7 @@ import 'package:capstone2_clean_house/services/remote/auth_services.dart';
 import 'package:capstone2_clean_house/utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({
@@ -51,8 +51,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 responseData['message'] ?? responseData['errMessage'];
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(message ?? 'Password changed successfully'),
-                backgroundColor: Colors.green,
+                content: Center(
+                    child: Text(message ?? 'Password changed successfully')),
+                backgroundColor: Colors.blue,
               ),
             );
             setState(() {
@@ -156,16 +157,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         body: Form(
           key: formKey,
           child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0).copyWith(
-                top: MediaQuery.of(context).padding.top + 38.0, bottom: 16.0),
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             children: [
-              ClipOval(
-                child: Image.asset(
-                  Assets.images.biaanh1.path,
-                  width: 100.0,
-                  height: 200.0,
-                  fit: BoxFit.scaleDown,
-                ),
+              Lottie.asset(
+                'assets/change_password.json',
+                width: 100.0,
+                height: 300.0,
               ),
               const SizedBox(height: 46.0),
               AppTextFieldPassword(
@@ -193,9 +191,14 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               ),
               const SizedBox(height: 90.0),
               AppElevatedButton.outline(
+                textColor: Colors.white,
+                highlightColor: AppColor.orange,
+                color: Colors.blue,
                 text: 'Done',
                 isDisable: isLoading,
                 onPressed: _changePassword,
+                borderColor: AppColor.grey,
+                borderRadius: BorderRadius.circular(20.0),
               ),
             ],
           ),
