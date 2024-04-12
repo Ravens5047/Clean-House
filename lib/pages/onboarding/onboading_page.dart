@@ -71,7 +71,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   child: Text(
                     onboardings[currentIndex].text ?? '',
                     style: const TextStyle(
-                        color: AppColor.blue,
+                        color: Colors.blue,
                         fontSize: 20.0,
                         fontWeight: FontWeight.w500),
                     textAlign: TextAlign.center,
@@ -122,6 +122,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                               borderColor: AppColor.grey.withOpacity(0.6),
                             ),
                       TdElevatedButton(
+                        color: Colors.blue,
+                        borderColor: AppColor.grey,
                         onPressed: () {
                           if (currentIndex < onboardings.length - 1) {
                             currentIndex++;

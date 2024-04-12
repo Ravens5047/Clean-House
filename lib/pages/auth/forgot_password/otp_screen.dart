@@ -231,7 +231,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   children: [
                     Expanded(
                       child: MaterialButton(
-                        color: AppColor.blue,
+                        color: Colors.blue,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),

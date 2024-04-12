@@ -3,7 +3,6 @@ import 'package:capstone2_clean_house/components/snack_bar/top_snack_bar.dart';
 import 'package:capstone2_clean_house/components/text_field/app_text_field_password.dart';
 import 'package:capstone2_clean_house/model/request/change_password_otp_request_model.dart';
 import 'package:capstone2_clean_house/pages/auth/login/login_page.dart';
-import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/remote/auth_services.dart';
 import 'package:capstone2_clean_house/utils/validator.dart';
 import 'package:flutter/material.dart';
@@ -149,7 +148,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                   children: [
                     Expanded(
                       child: MaterialButton(
-                        color: AppColor.blue,
+                        color: Colors.blue,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
