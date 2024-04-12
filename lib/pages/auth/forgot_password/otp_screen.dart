@@ -152,7 +152,7 @@ class _OTPScreenState extends State<OTPScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(
-          color: AppColor.orange,
+          color: Colors.blue,
         ),
         borderRadius: BorderRadius.circular(8),
       ),

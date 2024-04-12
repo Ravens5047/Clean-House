@@ -91,10 +91,11 @@ class WelcomePage extends StatelessWidget {
                   width: 170.0,
                   height: 70.0,
                   child: AppElevatedButton(
+                    color: Colors.blue,
                     splashColor: AppColor.red,
-                    highlightColor: AppColor.blue,
+                    highlightColor: Colors.orange,
                     borderColor: AppColor.grey,
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(15.0),
                     onPressed: () {
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
@@ -110,9 +111,9 @@ class WelcomePage extends StatelessWidget {
                   height: 70.0,
                   child: AppElevatedButton.outline(
                     splashColor: AppColor.red,
-                    highlightColor: AppColor.blue,
+                    highlightColor: Colors.blue,
                     borderColor: AppColor.grey,
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(15.0),
                     onPressed: () => Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
                             builder: (context) => const RegisterPage()),
