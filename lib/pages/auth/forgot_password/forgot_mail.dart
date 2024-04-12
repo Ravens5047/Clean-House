@@ -97,7 +97,7 @@ class _ForgotMailState extends State<ForgotMail> {
                   Text(
                     'Reset Password',
                     style: GoogleFonts.dmSerifText(
-                      color: AppColor.blue,
+                      color: Colors.blue,
                       fontSize: 30.0,
                       fontWeight: FontWeight.w500,
                     ),
@@ -146,6 +146,7 @@ class _ForgotMailState extends State<ForgotMail> {
                     height: 400.0,
                   ),
                   AppElevatedButton(
+                    color: Colors.blue,
                     borderColor: AppColor.grey,
                     splashColor: AppColor.pink,
                     borderRadius: BorderRadius.circular(20.0),
