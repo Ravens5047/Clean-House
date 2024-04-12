@@ -177,6 +177,9 @@ class _LoginPageState extends State<LoginPage> {
                       _submitLogin();
                     },
                     text: 'Sign In',
+                    color: Colors.blue,
+                    borderColor: AppColor.grey,
+                    highlightColor: AppColor.pink,
                   ),
                 ),
                 const SizedBox(height: 30.0),
@@ -195,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text(
                         'Register Now',
                         style: TextStyle(
-                            color: AppColor.blue.withOpacity(0.5),
+                            color: Colors.blue.withOpacity(1.0),
                             fontSize: 15.0,
                             fontWeight: FontWeight.w700),
                       ),
