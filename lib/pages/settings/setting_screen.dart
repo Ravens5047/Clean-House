@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:capstone2_clean_house/components/app_dialog.dart';
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
+import 'package:capstone2_clean_house/components/snack_bar/td_snack_bar.dart';
+import 'package:capstone2_clean_house/components/snack_bar/top_snack_bar.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/pages/auth/change_password/change_password_page.dart';
 import 'package:capstone2_clean_house/pages/auth/login/login_page.dart';
@@ -11,15 +14,20 @@ import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shimmer/shimmer.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({
     super.key,
     required this.user_id,
+    this.avatarImage,
+    required this.updateAvatar,
   });
 
   final int user_id;
+  final File? avatarImage;
+  final Function(File?) updateAvatar;
 
   @override
   State<SettingScreen> createState() => _SettingScreenState();
@@ -35,6 +43,44 @@ class _SettingScreenState extends State<SettingScreen> {
   late int userId;
   final formKey = GlobalKey<FormState>();
   AppUsersModel appUser = AppUsersModel();
+  File? _avatarImage;
+
+  void _changeAvatar() {
+    _openGallery();
+  }
+
+  void _openGallery() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _avatarImage = File(pickedFile.path);
+        SharedPrefs.setAvatarImagePath(widget.user_id, pickedFile.path);
+      });
+      showTopSnackBar(
+        context,
+        const TDSnackBar.success(
+          message: 'Successfully upload avatar.',
+        ),
+      );
+    } else {
+      showTopSnackBar(
+        context,
+        const TDSnackBar.error(
+          message: 'Failed to pick image',
+        ),
+      );
+    }
+  }
+
+  void _checkAvatarImage() async {
+    final imagePath = SharedPrefs.getAvatarImagePath(widget.user_id);
+    if (imagePath != null) {
+      setState(() {
+        _avatarImage = File(imagePath);
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -42,6 +88,7 @@ class _SettingScreenState extends State<SettingScreen> {
     userId = widget.user_id;
     _fetchUserId();
     _initData();
+    _checkAvatarImage();
   }
 
   Future<void> _fetchUserId() async {
@@ -111,7 +158,7 @@ class _SettingScreenState extends State<SettingScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pop(_avatarImage);
           },
         ),
       ),
@@ -131,14 +178,47 @@ class _SettingScreenState extends State<SettingScreen> {
                 padding: const EdgeInsets.all(12.0),
                 child: Row(
                   children: [
-                    ClipOval(
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      child: Image.asset(
-                        Assets.images.avatar_default.path,
-                        width: 90.0,
-                        height: 90.0,
-                        fit: BoxFit.cover,
-                      ),
+                    Stack(
+                      children: [
+                        GestureDetector(
+                          onTap: _changeAvatar,
+                          child: ClipOval(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            child: _avatarImage != null
+                                ? Image.file(
+                                    _avatarImage!,
+                                    width: 90.0,
+                                    height: 90.0,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.asset(
+                                    Assets.images.avatar_default.path,
+                                    width: 90.0,
+                                    height: 90.0,
+                                    fit: BoxFit.cover,
+                                  ),
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: GestureDetector(
+                            onTap: _changeAvatar,
+                            child: Container(
+                              padding: const EdgeInsets.all(4.0),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey.withOpacity(1.0),
+                              ),
+                              child: const Icon(
+                                Icons.camera_alt,
+                                color: Colors.white,
+                                size: 20.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       width: 20.0,

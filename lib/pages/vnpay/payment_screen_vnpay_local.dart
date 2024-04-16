@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:capstone2_clean_house/components/constants/app_constant.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:capstone2_clean_house/pages/payment/successful_payment.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
       ),
       body: InAppWebView(
         initialUrlRequest: URLRequest(
-          url: Uri.parse("http://192.168.1.170:8888/order/create_payment_url"),
+          url: Uri.parse(AppConstant.endPointCreatePaymentURL),
           method: 'POST',
           body: Uint8List.fromList(
             utf8.encode(

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/pages/history_order/history_order.dart';
@@ -14,10 +15,11 @@ class DrawerMenu extends StatefulWidget {
     super.key,
     required this.appUser,
     required this.user_id,
+    this.avatarImage,
   });
   final int user_id;
-
   final AppUsersModel appUser;
+  final File? avatarImage;
 
   @override
   State<DrawerMenu> createState() => _DrawerMenuState();
@@ -32,6 +34,29 @@ class _DrawerMenuState extends State<DrawerMenu> {
   AccountService accountService = AccountService();
   late int userId;
   final formKey = GlobalKey<FormState>();
+  File? _avatarImage;
+
+  void _updateAvatarImage(File? newAvatarImage) {
+    setState(() {
+      _avatarImage = newAvatarImage;
+    });
+  }
+
+  void updateAvatar(File? newAvatarImage) {
+    setState(() {
+      _avatarImage = newAvatarImage;
+    });
+  }
+
+  void _checkAvatarImage() async {
+    final imagePath = SharedPrefs.getAvatarImagePath(
+        widget.user_id); 
+    if (imagePath != null) {
+      setState(() {
+        _avatarImage = File(imagePath);
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -39,6 +64,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
     userId = widget.user_id;
     _fetchUserId();
     _initData();
+    _checkAvatarImage();
+    _updateAvatarImage(_avatarImage);
   }
 
   Future<void> _fetchUserId() async {
@@ -120,12 +147,19 @@ class _DrawerMenuState extends State<DrawerMenu> {
               currentAccountPicture: CircleAvatar(
                 child: ClipOval(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: Image.asset(
-                    Assets.images.avatar_default.path,
-                    width: 90.0,
-                    height: 90.0,
-                    fit: BoxFit.cover,
-                  ),
+                  child: _avatarImage != null
+                      ? Image.file(
+                          _avatarImage!,
+                          width: 90.0,
+                          height: 90.0,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          Assets.images.avatar_default.path,
+                          width: 90.0,
+                          height: 90.0,
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
               decoration: BoxDecoration(
@@ -160,7 +194,6 @@ class _DrawerMenuState extends State<DrawerMenu> {
             const SizedBox(
               height: 10.0,
             ),
-            // Lottie.asset('assets/clean4.json'),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -194,79 +227,27 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       ],
                     ),
                   ),
-                  // const SizedBox(
-                  //   height: 10.0,
-                  // ),
-                  // GestureDetector(
-                  //   onTap: () => Navigator.of(context).push(
-                  //     MaterialPageRoute(
-                  //       builder: (context) => const ChangePasswordPage(),
-                  //     ),
-                  //   ),
-                  //   child: const Row(
-                  //     children: [
-                  //       SizedBox(
-                  //         height: 30.0,
-                  //         width: 30.0,
-                  //         child: Ikonate(Ikonate.lock),
-                  //       ),
-                  //       SizedBox(
-                  //         width: 15.0,
-                  //       ),
-                  //       Text(
-                  //         'Change Password',
-                  //         style: TextStyle(
-                  //           fontSize: 20.0,
-                  //           fontWeight: FontWeight.w400,
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // const SizedBox(
-                  //   height: 10.0,
-                  // ),
-                  // GestureDetector(
-                  //   onTap: () => Navigator.of(context).push(
-                  //     MaterialPageRoute(
-                  //       builder: (context) => const GoogleMapScreen(),
-                  //     ),
-                  //   ),
-                  //   child: const Row(
-                  //     children: [
-                  //       SizedBox(
-                  //         height: 30.0,
-                  //         width: 30.0,
-                  //         child: Ikonate(Ikonate.map),
-                  //       ),
-                  //       SizedBox(
-                  //         width: 15.0,
-                  //       ),
-                  //       Text(
-                  //         'Google Map',
-                  //         style: TextStyle(
-                  //           fontSize: 20.0,
-                  //           fontWeight: FontWeight.w400,
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
                   const SizedBox(
                     height: 10.0,
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.of(context)
-                        .push(
-                          MaterialPageRoute(
-                            builder: (context) => SettingScreen(
-                              user_id: widget.user_id,
-                            ),
+                    onTap: () async {
+                      final File? newAvatarImage =
+                          await Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SettingScreen(
+                            user_id: widget.user_id,
+                            avatarImage: widget.avatarImage,
+                            updateAvatar: updateAvatar,
                           ),
-                        )
-                        .then(
-                          (_) => _initData(),
                         ),
+                      );
+                      if (newAvatarImage != null) {
+                        setState(() {
+                          _avatarImage = newAvatarImage;
+                        });
+                      }
+                    },
                     child: const Row(
                       children: [
                         SizedBox(
@@ -290,52 +271,6 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       ],
                     ),
                   ),
-                  // const SizedBox(
-                  //   height: 40.0,
-                  // ),
-                  // InkWell(
-                  //   onTap: () => AppDialog.dialog(
-                  //     context,
-                  //     title: 'Sign Out',
-                  //     content: 'Do you want to logout ?',
-                  //     action: () async {
-                  //       SharedPrefs.removeSeason();
-                  //       WidgetsBinding.instance.addPostFrameCallback((_) {
-                  //         Navigator.of(context).pushAndRemoveUntil(
-                  //           MaterialPageRoute(
-                  //             builder: (context) => const LoginPage(),
-                  //           ),
-                  //           (Route<dynamic> route) => false,
-                  //         );
-                  //       });
-                  //     },
-                  //   ),
-                  //   highlightColor: Colors.transparent,
-                  //   splashColor: Colors.transparent,
-                  //   child: const Row(
-                  //     children: [
-                  //       SizedBox(
-                  //         height: 30.0,
-                  //         width: 30.0,
-                  //         child: Ikonate(
-                  //           Ikonate.exit,
-                  //           color: AppColor.blue,
-                  //         ),
-                  //       ),
-                  //       SizedBox(
-                  //         width: 15.0,
-                  //       ),
-                  //       Text(
-                  //         'Logout',
-                  //         style: TextStyle(
-                  //           fontSize: 20.0,
-                  //           color: AppColor.black,
-                  //           fontWeight: FontWeight.w400,
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
                 ],
               ),
             ),

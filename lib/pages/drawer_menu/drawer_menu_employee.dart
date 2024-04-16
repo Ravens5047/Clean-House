@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/pages/settings/setting_screen.dart';
@@ -32,6 +33,14 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
   AccountService accountService = AccountService();
   late int userId;
   final formKey = GlobalKey<FormState>();
+  // ignore: unused_field
+  File? _avatarImage;
+
+  void updateAvatar(File? newAvatarImage) {
+    setState(() {
+      _avatarImage = newAvatarImage;
+    });
+  }
 
   @override
   void initState() {
@@ -198,6 +207,7 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
                           MaterialPageRoute(
                             builder: (context) => SettingScreen(
                               user_id: widget.user_id,
+                              updateAvatar: updateAvatar,
                             ),
                           ),
                         )
