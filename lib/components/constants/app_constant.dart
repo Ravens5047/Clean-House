@@ -22,7 +22,7 @@ class AppConstant {
   static const endPointGetListOrderDetails = '$baseAPI/order';
 
   //API VNPAY PAYMENTS
-  static const endPointVNPAY = 'http://192.168.1.170:8888/order';
+  static const endPointVNPAY = 'http://192.168.1.164:8888/order';
   static const endPointCreatePaymentURL = '$endPointVNPAY/create_payment_url';
   static const endPointQueryDr = '$endPointVNPAY/querydr';
   static const endPointRefund = '$endPointVNPAY/refund';

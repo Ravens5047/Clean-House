@@ -34,11 +34,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
-              top: MediaQuery.of(context).padding.top + 38.0, bottom: 16.0),
+              top: MediaQuery.of(context).padding.top + 130.0, bottom: 16.0),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Shimmer.fromColors(
                   baseColor: Colors.blue,

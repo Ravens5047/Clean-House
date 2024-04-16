@@ -7,6 +7,7 @@ class SharedPrefs {
   static late SharedPreferences _prefs;
   static const String phoneNumberKey = 'phone_number';
   static const String addressKey = 'address_user';
+  static const String avatarImagePathKey = 'avatarImagePath';
 
   static Future<void> initialise() async {
     _prefs = await SharedPreferences.getInstance();
@@ -44,9 +45,11 @@ class SharedPrefs {
   static void removeSeason() {
     print('Removing user session token: $token');
     print('Removing user session user_id: $user_id');
+    // print('Removing user session avatar: $avatarImagePath');
     _prefs.remove(accessTokenKey);
     _prefs.remove(checkAccessKey);
     _prefs.remove(userIdKey);
+    // _prefs.remove(avatarImagePathKey);
     print('User session token and user_id removed successfully.');
   }
 
@@ -74,5 +77,23 @@ class SharedPrefs {
   static String decrypt(String encryptedData) {
     // Implement actual decryption logic here
     return encryptedData;
+  }
+
+  // // Thêm hàm setAvatarImagePath để lưu đường dẫn ảnh vào SharedPreferences
+  // static Future<void> setAvatarImagePath(String imagePath) async {
+  //   await _prefs.setString(avatarImagePathKey, imagePath);
+  // }
+
+  // // Thêm hàm avatarImagePath để lấy đường dẫn ảnh từ SharedPreferences
+  // static String? get avatarImagePath {
+  //   return _prefs.getString(avatarImagePathKey);
+  // }
+
+  static Future<void> setAvatarImagePath(int user_id, String imagePath) async {
+    await _prefs.setString('$avatarImagePathKey$user_id', imagePath);
+  }
+
+  static String? getAvatarImagePath(int user_id) {
+    return _prefs.getString('$avatarImagePathKey$user_id');
   }
 }
