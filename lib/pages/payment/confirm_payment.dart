@@ -3,6 +3,7 @@ import 'package:capstone2_clean_house/components/button/app_elevated_button.dart
 import 'package:capstone2_clean_house/model/request/order_details_request_model.dart';
 import 'package:capstone2_clean_house/pages/booking_services/booking_services_successfull.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
+import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
 import 'package:capstone2_clean_house/services/remote/order_booking_services.dart';
 import 'package:flutter/material.dart';
@@ -96,6 +97,13 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
 
   Future<void> _bookOrderDetails() async {
     try {
+      int? userId = SharedPrefs.user_id;
+      if (userId == null) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('User not logged in.'),
+        ));
+        return;
+      }
       OrderDetailsRequest orderDetails = OrderDetailsRequest(
         name_service: widget.name_service,
         status_id: 1,
@@ -111,6 +119,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
         work_date: DateFormat('yyyy-MM-dd').format(widget.selectedDate),
         start_time:
             '${widget.selectedTime.hours.toString().padLeft(2, '0')}:${widget.selectedTime.minutes.toString().padLeft(2, '0')}',
+        user_id: userId,
       );
       final response =
           await OrderBookingServices().orderBookingDetails(orderDetails);
