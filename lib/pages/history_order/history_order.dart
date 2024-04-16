@@ -7,6 +7,7 @@ import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/remote/order_booking_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:icony/icony_ikonate.dart';
 import 'package:intl/intl.dart';
 
 class HistoryOrder extends StatefulWidget {
@@ -90,14 +91,11 @@ class _HistoryOrderState extends State<HistoryOrder> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                    vertical: 5.0,
-                    horizontal: 10.0,
-                  ).copyWith(
-                    bottom: 10.0,
-                    top: 10.0,
+                    vertical: 10.0,
+                    horizontal: 5.0,
                   ),
                   child: Container(
-                    height: 170.0,
+                    height: 200.0,
                     decoration: BoxDecoration(
                       color: AppColor.white,
                       border: Border.all(
@@ -159,6 +157,35 @@ class _HistoryOrderState extends State<HistoryOrder> {
                               fontWeight: FontWeight.w400,
                               color: AppColor.black,
                             ),
+                          ),
+                          Row(
+                            children: [
+                              const Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Status Bill',
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColor.black,
+                                  ),
+                                ),
+                              ),
+                              const Spacer(),
+                              orderDetails.status_id == 1
+                                  ? const Ikonate(
+                                      Ikonate.checkbox,
+                                      color: AppColor.red,
+                                      width: 30.0,
+                                    )
+                                  : orderDetails.status_id == 2
+                                      ? const Ikonate(
+                                          Ikonate.checkbox,
+                                          color: AppColor.green,
+                                          width: 30.0,
+                                        )
+                                      : const SizedBox(),
+                            ],
                           ),
                         ],
                       ),

@@ -48,7 +48,7 @@ class _SelectPaymentState extends State<SelectPayment> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
               child: SizedBox(
@@ -59,7 +59,7 @@ class _SelectPaymentState extends State<SelectPayment> {
             const Text(
               'Payment Method ',
               style: TextStyle(
-                fontSize: 14.0,
+                fontSize: 15.0,
                 fontWeight: FontWeight.w500,
                 color: AppColor.black,
               ),
@@ -69,9 +69,10 @@ class _SelectPaymentState extends State<SelectPayment> {
             ),
             Container(
               height: 55.0,
-              padding: const EdgeInsets.all(10.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               decoration: BoxDecoration(
-                color: AppColor.blue.withOpacity(0.4),
+                color: Colors.blue.withOpacity(0.5),
                 border: Border.all(
                   width: 1.0,
                   color: AppColor.black.withOpacity(0.8),
@@ -79,7 +80,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                 borderRadius: BorderRadius.circular(30.0),
               ),
               child: DropdownButton<String>(
-                dropdownColor: AppColor.blue.withOpacity(0.4),
+                dropdownColor: Colors.blue.withOpacity(0.4),
                 value: selectedLocation,
                 icon: const Icon(
                   Icons.arrow_drop_down,
@@ -87,8 +88,8 @@ class _SelectPaymentState extends State<SelectPayment> {
                   size: 30.0,
                 ),
                 elevation: 16,
-                style: const TextStyle(
-                  color: AppColor.white,
+                style: TextStyle(
+                  color: Colors.white.withOpacity(1.0),
                   fontSize: 18.0,
                   fontWeight: FontWeight.w500,
                 ),
@@ -158,9 +159,11 @@ class _SelectPaymentState extends State<SelectPayment> {
                 ),
               ),
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 50.0),
             Center(
               child: AppElevatedButton.normal1(
+                color: Colors.blue,
+                borderColor: AppColor.grey,
                 text: 'Booking',
                 onPressed: () {
                   if (selectedLocation == 'VNPAY') {

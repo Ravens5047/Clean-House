@@ -19,8 +19,8 @@ import 'package:shimmer/shimmer.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();

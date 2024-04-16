@@ -330,9 +330,11 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
                 ),
                 SizedBox(
                   height: 200.0,
-                  width: 400.0,
+                  width: 370.0,
                   child: Center(
                     child: AppElevatedButton.normal1(
+                      color: Colors.blue,
+                      borderColor: AppColor.grey,
                       text: 'Payment',
                       onPressed: () {
                         Navigator.push(
