@@ -1,19 +1,3 @@
-// {
-//     "status_id": 1,
-//     "total_price": 130000,
-//     "phone_number": "09011111111",
-//     "note": "đây là lần test đầu thứ 10",
-//     "unit_price": 120000,
-//     "subTotalPrice": 240000,
-//     "address_order": "đà nẵng 567",
-//     "area": "60",
-//     "housetype": "Apartment",
-//     "work_date": "15/04/2024",
-//     "start_time": "8:00",
-//     "full_name": "Hung Nguyen Hoang",
-//     "service_id": 4
-// }
-
 class OrderDetailsRequest {
   final int? status_id;
   final int? total_price;
@@ -31,6 +15,7 @@ class OrderDetailsRequest {
   final String? work_date;
   final String? start_time;
   final String? name_service;
+  final int? user_id;
 
   OrderDetailsRequest({
     this.order_detail_id,
@@ -49,6 +34,7 @@ class OrderDetailsRequest {
     this.status_id = 1,
     this.total_price,
     this.name_service,
+    this.user_id,
   });
 
   factory OrderDetailsRequest.fromJson(Map<String, dynamic> json) {
@@ -73,6 +59,7 @@ class OrderDetailsRequest {
       status_id: json['status_id'] as int?,
       total_price: json['total_price'] as int?,
       name_service: json['name_service'] as String?,
+      user_id: json['user_id'] as int?,
     );
   }
 
@@ -94,6 +81,7 @@ class OrderDetailsRequest {
       "status_id": status_id,
       "total_price": total_price,
       "name_service": name_service,
+      "user_id": user_id,
     };
   }
 }

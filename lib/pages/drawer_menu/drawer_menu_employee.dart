@@ -15,10 +15,11 @@ class DrawerMenuEmployee extends StatefulWidget {
     super.key,
     required this.appUser,
     required this.user_id,
+    this.avatarImage,
   });
   final int user_id;
-
   final AppUsersModel appUser;
+  final File? avatarImage;
 
   @override
   State<DrawerMenuEmployee> createState() => _DrawerMenuEmployeeState();
@@ -36,10 +37,25 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
   // ignore: unused_field
   File? _avatarImage;
 
+  void _updateAvatarImage(File? newAvatarImage) {
+    setState(() {
+      _avatarImage = newAvatarImage;
+    });
+  }
+
   void updateAvatar(File? newAvatarImage) {
     setState(() {
       _avatarImage = newAvatarImage;
     });
+  }
+
+  void _checkAvatarImage() async {
+    final imagePath = SharedPrefs.getAvatarImagePath(widget.user_id);
+    if (imagePath != null) {
+      setState(() {
+        _avatarImage = File(imagePath);
+      });
+    }
   }
 
   @override
@@ -48,6 +64,8 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
     userId = widget.user_id;
     _fetchUserId();
     _initData();
+    _checkAvatarImage();
+    _updateAvatarImage(_avatarImage);
   }
 
   Future<void> _fetchUserId() async {
@@ -108,7 +126,8 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
       child: Form(
         key: formKey,
         child: ListView(
-          padding: EdgeInsets.zero,
+          padding: const EdgeInsets.all(5.0).copyWith(top: 5.0),
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             UserAccountsDrawerHeader(
               accountName: Text(
@@ -128,12 +147,19 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
               currentAccountPicture: CircleAvatar(
                 child: ClipOval(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: Image.asset(
-                    Assets.images.avatar_default.path,
-                    width: 90.0,
-                    height: 90.0,
-                    fit: BoxFit.cover,
-                  ),
+                  child: _avatarImage != null
+                      ? Image.file(
+                          _avatarImage!,
+                          width: 100.0,
+                          height: 100.0,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          Assets.images.avatar_default.path,
+                          width: 90.0,
+                          height: 90.0,
+                          fit: BoxFit.cover,
+                        ),
                 ),
               ),
               decoration: BoxDecoration(
@@ -202,24 +228,32 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
                     height: 20.0,
                   ),
                   GestureDetector(
-                    onTap: () => Navigator.of(context)
-                        .push(
-                          MaterialPageRoute(
-                            builder: (context) => SettingScreen(
-                              user_id: widget.user_id,
-                              updateAvatar: updateAvatar,
-                            ),
+                    onTap: () async {
+                      final File? newAvatarImage =
+                          await Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SettingScreen(
+                            user_id: widget.user_id,
+                            avatarImage: widget.avatarImage,
+                            updateAvatar: updateAvatar,
                           ),
-                        )
-                        .then(
-                          (_) => _initData(),
                         ),
+                      );
+                      if (newAvatarImage != null) {
+                        setState(() {
+                          _avatarImage = newAvatarImage;
+                        });
+                      }
+                    },
                     child: const Row(
                       children: [
                         SizedBox(
                           height: 30.0,
                           width: 30.0,
-                          child: Ikonate(Ikonate.settings),
+                          child: Ikonate(
+                            Ikonate.settings,
+                            color: Colors.blue,
+                          ),
                         ),
                         SizedBox(
                           width: 15.0,
