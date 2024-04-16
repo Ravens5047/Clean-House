@@ -187,8 +187,8 @@ class _SettingScreenState extends State<SettingScreen> {
                             child: _avatarImage != null
                                 ? Image.file(
                                     _avatarImage!,
-                                    width: 90.0,
-                                    height: 90.0,
+                                    width: 100.0,
+                                    height: 100.0,
                                     fit: BoxFit.cover,
                                   )
                                 : Image.asset(
@@ -205,7 +205,7 @@ class _SettingScreenState extends State<SettingScreen> {
                           child: GestureDetector(
                             onTap: _changeAvatar,
                             child: Container(
-                              padding: const EdgeInsets.all(4.0),
+                              padding: const EdgeInsets.all(5.0),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.grey.withOpacity(1.0),
@@ -228,9 +228,10 @@ class _SettingScreenState extends State<SettingScreen> {
                       children: [
                         Text(
                           full_name,
-                          style: const TextStyle(
+                          style: GoogleFonts.almendra(
+                            fontSize: 17.0,
                             color: AppColor.black,
-                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(
@@ -238,9 +239,9 @@ class _SettingScreenState extends State<SettingScreen> {
                         ),
                         Text(
                           email,
-                          style: const TextStyle(
-                            color: AppColor.black,
+                          style: GoogleFonts.notoSansOlChiki(
                             fontSize: 15.0,
+                            color: AppColor.black,
                           ),
                         ),
                       ],

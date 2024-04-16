@@ -8,6 +8,7 @@ import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:icony/icony_ikonate.dart';
 
 class DrawerMenu extends StatefulWidget {
@@ -49,8 +50,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
   }
 
   void _checkAvatarImage() async {
-    final imagePath = SharedPrefs.getAvatarImagePath(
-        widget.user_id); 
+    final imagePath = SharedPrefs.getAvatarImagePath(widget.user_id);
     if (imagePath != null) {
       setState(() {
         _avatarImage = File(imagePath);
@@ -126,20 +126,21 @@ class _DrawerMenuState extends State<DrawerMenu> {
       child: Form(
         key: formKey,
         child: ListView(
-          padding: const EdgeInsets.all(8.0).copyWith(top: 10.0, bottom: 10.0),
+          padding: const EdgeInsets.all(5.0).copyWith(top: 5.0),
           physics: const NeverScrollableScrollPhysics(),
           children: [
             UserAccountsDrawerHeader(
               accountName: Text(
                 full_name,
-                style: const TextStyle(
+                style: GoogleFonts.almendra(
                   fontSize: 17.0,
                   color: AppColor.black,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               accountEmail: Text(
                 email,
-                style: const TextStyle(
+                style: GoogleFonts.notoSansOlChiki(
                   fontSize: 15.0,
                   color: AppColor.black,
                 ),
@@ -150,8 +151,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                   child: _avatarImage != null
                       ? Image.file(
                           _avatarImage!,
-                          width: 90.0,
-                          height: 90.0,
+                          width: 100.0,
+                          height: 100.0,
                           fit: BoxFit.cover,
                         )
                       : Image.asset(
