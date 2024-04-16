@@ -20,4 +20,9 @@ class Validator {
         RequiredValidator(errorText: 'This field is required'),
         MatchValidator(password, errorText: 'Confirm password is not match'),
       ]);
+
+  static final usernameValidator = MultiValidator([
+    RequiredValidator(errorText: 'This field is required'),
+    UsernameValidator(errorText: 'Invalid username'),
+  ]);
 }

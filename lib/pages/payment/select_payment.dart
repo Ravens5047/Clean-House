@@ -13,7 +13,7 @@ class SelectPayment extends StatefulWidget {
     required this.total_price,
   });
 
-  final int total_price;
+  final double? total_price;
 
   @override
   State<SelectPayment> createState() => _SelectPaymentState();
@@ -168,7 +168,8 @@ class _SelectPaymentState extends State<SelectPayment> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => VnpayScreenPayment1(
-                            money: widget.total_price.toString()),
+                          money: widget.total_price.toString(),
+                        ),
                       ),
                     );
                   } else if (selectedLocation == 'Cash') {

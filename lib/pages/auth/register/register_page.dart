@@ -19,8 +19,8 @@ import 'package:shimmer/shimmer.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -35,6 +35,8 @@ class _RegisterPageState extends State<RegisterPage> {
   late bool isCheck;
   APIService authServices = APIService();
   GlobalKey<FormState> formKey = GlobalKey();
+  String errorMessage = '';
+  bool isAgreed = false;
 
   @override
   void initState() {
@@ -43,6 +45,16 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future<void> _submitRegister() async {
+    if (!isAgreed) {
+      showTopSnackBar(
+        context,
+        const TDSnackBar.error(
+          message: 'Please agree to terms and conditions.',
+        ),
+      );
+      return;
+    }
+
     if (formKey.currentState!.validate()) {
       final body = RegisterRequestModel(
         username: nameController.text.trim(),
@@ -52,8 +64,8 @@ class _RegisterPageState extends State<RegisterPage> {
         role: 4,
       );
       await authServices.register(body).then((response) {
-        final data = jsonDecode(response.body);
         if (response.statusCode >= 200 && response.statusCode < 300) {
+          final data = jsonDecode(response.body);
           final registerResponse = RegisterResponseModel.fromJson(data);
           SharedPrefs.token = registerResponse.data?.token;
           showTopSnackBar(
@@ -69,10 +81,12 @@ class _RegisterPageState extends State<RegisterPage> {
             (route) => false,
           );
         } else {
+          final data = jsonDecode(response.body);
+          final errorMessage = data['error'];
           showTopSnackBar(
             context,
             TDSnackBar.error(
-              message: data['message'],
+              message: errorMessage,
             ),
           );
         }
@@ -99,9 +113,9 @@ class _RegisterPageState extends State<RegisterPage> {
               top: MediaQuery.of(context).padding.top + 64.0, bottom: 72.0),
           children: [
             const Text(
-              'Creater Your Account',
+              'Create Your Account',
               style: TextStyle(
-                color: AppColor.blue,
+                color: Colors.blue,
                 fontWeight: FontWeight.w500,
                 fontSize: 30.0,
               ),
@@ -121,7 +135,7 @@ class _RegisterPageState extends State<RegisterPage> {
             AppTextField(
               controller: nameController,
               hintext: 'User Name',
-              validator: Validator.requiredValidator.call,
+              validator: Validator.usernameValidator.call,
               textInputAction: TextInputAction.next,
             ),
             const SizedBox(height: 16.0),
@@ -165,6 +179,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     if (formKey.currentState!.validate()) {
                       setState(() {
                         isCheck = !isCheck;
+                        isAgreed = isCheck;
                       });
                     }
                   },
@@ -224,6 +239,8 @@ class _RegisterPageState extends State<RegisterPage> {
             SizedBox(
               height: 70.0,
               child: AppElevatedButton(
+                color: Colors.blue,
+                borderColor: AppColor.grey,
                 onPressed: () {
                   _submitRegister();
                 },
@@ -235,7 +252,7 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Already an account,',
+                  'Already have an account?',
                   style: textStyle.copyWith(color: AppColor.grey),
                 ),
                 GestureDetector(
@@ -244,7 +261,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: const Text(
                     ' Sign In',
                     style: TextStyle(
-                      color: AppColor.blue,
+                      color: Colors.blue,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

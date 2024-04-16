@@ -21,6 +21,7 @@ class BookingServicesSelectionTimeWorking extends StatefulWidget {
     required this.total_price,
     required this.phone_number,
     required this.name_service,
+    required this.service_id,
   });
 
   final int? selectedHouse;
@@ -30,6 +31,7 @@ class BookingServicesSelectionTimeWorking extends StatefulWidget {
   final String phone_number;
   final String name_service;
   final int total_price;
+  final int service_id;
 
   @override
   State<BookingServicesSelectionTimeWorking> createState() =>
@@ -287,6 +289,8 @@ class _BookingServicesSelectionTimeWorkingState
                           name_service: widget.name_service,
                           note: NoteController.text,
                           total_price: widget.total_price,
+                          service_id: widget.service_id,
+                          static_id: 1,
                         ),
                       ),
                     );

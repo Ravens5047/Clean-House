@@ -17,9 +17,11 @@ class BookingServicesPlace extends StatefulWidget {
   const BookingServicesPlace({
     super.key,
     required this.name_service,
+    required this.service_id,
   });
 
   final String name_service;
+  final int service_id;
 
   @override
   State<BookingServicesPlace> createState() => _BookingServicesPlaceState();
@@ -40,7 +42,6 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
   AppUsersModel appUsersModel = AppUsersModel();
   late String? phoneNumber;
   late String? address_user;
-  late String? name_services;
   static const int houseTownhousePrice = 7040;
   static const int apartmentPrice = 8200;
   static const int villasPrice = 9000;
@@ -230,7 +231,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   height: 10.0,
                 ),
                 AppTextFieldProfile(
-                  controller: typeNumberController,
+                  controller: phoneNumberController,
                   hintText: 'Phone Number',
                   textInputAction: TextInputAction.done,
                   onFieldSubmitted: (value) {
@@ -483,6 +484,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                             phone_number: phoneNumberController.text,
                             name_service: widget.name_service,
                             total_price: calculateTotal(),
+                            service_id: widget.service_id,
                           ),
                         ),
                       );
