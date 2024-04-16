@@ -114,6 +114,7 @@ class _DetailNameServicesState extends State<DetailNameServices> {
                         MaterialPageRoute(
                           builder: (context) => BookingServicesPlace(
                             name_service: widget.service.name_service ?? '',
+                            service_id: widget.service.service_id ?? 0,
                           ),
                         ),
                       );

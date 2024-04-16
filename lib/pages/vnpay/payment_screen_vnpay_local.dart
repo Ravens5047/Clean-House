@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 class VnpayScreenPayment1 extends StatefulWidget {
   const VnpayScreenPayment1({
     super.key,
-    required this.money,
+    this.money,
   });
 
-  final String money;
+  final String? money;
 
   @override
   State<VnpayScreenPayment1> createState() => _VnpayScreenPayment1State();
@@ -30,7 +30,7 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
       ),
       body: InAppWebView(
         initialUrlRequest: URLRequest(
-          url: Uri.parse("http://192.168.1.180:8888/order/create_payment_url"),
+          url: Uri.parse("http://192.168.1.170:8888/order/create_payment_url"),
           method: 'POST',
           body: Uint8List.fromList(
             utf8.encode(

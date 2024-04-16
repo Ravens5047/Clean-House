@@ -114,3 +114,19 @@ class MultiValidator extends FieldValidator<String> {
     return isValid(value) ? null : _errorText;
   }
 }
+
+class UsernameValidator extends TextFieldValidator {
+  UsernameValidator({required String errorText}) : super(errorText);
+
+  @override
+  bool isValid(String? value) {
+    if (value == null) return false;
+    for (int i = 0; i < value.length; i++) {
+      if (!(value[i].toLowerCase() != value[i].toUpperCase() ||
+          value[i].trim().isNotEmpty)) {
+        return false;
+      }
+    }
+    return true;
+  }
+}
