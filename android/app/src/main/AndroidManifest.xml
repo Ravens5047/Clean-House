@@ -9,7 +9,7 @@
     <application
         android:label="capstone2_clean_house"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
         android:networkSecurityConfig="@xml/network_security_config"> <!-- Add Open Network Security -->
         <activity
             android:name=".MainActivity"
