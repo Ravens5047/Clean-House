@@ -146,7 +146,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
 
   String? fullnameValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter address';
+      return 'Please enter full name';
     }
     return null;
   }
