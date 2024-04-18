@@ -1,9 +1,18 @@
+import 'package:capstone2_clean_house/components/text_field/selection_house_text_field.dart';
+import 'package:capstone2_clean_house/model/order_details_model.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:icony/icony_ikonate.dart';
+import 'package:intl/intl.dart';
 
 class TaskViewEmployeeDetail extends StatefulWidget {
-  const TaskViewEmployeeDetail({super.key});
+  const TaskViewEmployeeDetail({
+    super.key,
+    required this.orderDetails,
+  });
+
+  final OrderDetailsModel orderDetails;
 
   @override
   State<TaskViewEmployeeDetail> createState() => _TaskViewEmployeeDetailState();
@@ -20,211 +29,301 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
             Navigator.of(context).pop();
           },
         ),
-        title: const Text(
+        title: Text(
           'Task View Detail',
-          style: TextStyle(
-            fontSize: 25.0,
-            fontWeight: FontWeight.w500,
-            color: AppColor.blue,
+          style: GoogleFonts.mandali(
+            fontSize: 22.0,
+            fontWeight: FontWeight.w400,
           ),
           textAlign: TextAlign.center,
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20.0,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: AppColor.white,
-                border: Border.all(
-                  color: AppColor.black,
-                  width: 2,
+      body: Form(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 20.0,
                 ),
-                borderRadius: BorderRadius.circular(5.0),
-                boxShadow: const [
-                  BoxShadow(
-                    color: AppColor.shadow,
-                    offset: Offset(0.0, 3.0),
-                    blurRadius: 6.0,
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColor.white,
+                    border: Border.all(
+                      color: AppColor.black,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(5.0),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: AppColor.shadow,
+                        offset: Offset(0.0, 3.0),
+                        blurRadius: 6.0,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        '#001',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w500,
-                          color: AppColor.black,
-                        ),
-                      ),
-                    ),
-                    Row(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
                       children: [
                         Align(
-                          alignment: Alignment.centerLeft,
+                          alignment: Alignment.center,
                           child: Text(
-                            'Living Room: 1',
-                            style: TextStyle(
-                              fontSize: 18.0,
+                            '#${widget.orderDetails.order_detail_id.toString()}',
+                            style: const TextStyle(
+                              fontSize: 20.0,
                               fontWeight: FontWeight.w400,
                               color: AppColor.black,
                             ),
                           ),
                         ),
-                        Spacer(),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '25\$',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
+                        Row(
+                          children: [
+                            const Text(
+                              'Name',
+                              style: TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
                             ),
+                            const Spacer(),
+                            Text(
+                              widget.orderDetails.full_name ?? '',
+                              style: const TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Address',
+                              style: TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              widget.orderDetails.address_order ?? '',
+                              style: const TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Phone',
+                              style: TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              widget.orderDetails.phone_number ?? '',
+                              style: const TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'House Type',
+                              style: TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              widget.orderDetails.houseType ?? '',
+                              style: const TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Area',
+                              style: TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              widget.orderDetails.area ?? '',
+                              style: const TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Work Date',
+                              style: TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              widget.orderDetails.work_date ?? '',
+                              style: const TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Start Time',
+                              style: TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              widget.orderDetails.start_time ?? '',
+                              style: const TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Totals',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColor.black,
+                                ),
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              '${NumberFormat('#,##0', 'en_US').format(widget.orderDetails.sub_total_price)} VND',
+                              style: const TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Status Bill',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColor.black,
+                                ),
+                              ),
+                            ),
+                            const Spacer(),
+                            widget.orderDetails.status_id == 1
+                                ? const Ikonate(
+                                    Ikonate.checkbox,
+                                    color: AppColor.red,
+                                    width: 30.0,
+                                  )
+                                : widget.orderDetails.status_id == 2
+                                    ? const Ikonate(
+                                        Ikonate.checkbox,
+                                        color: AppColor.green,
+                                        width: 30.0,
+                                      )
+                                    : const SizedBox(),
+                          ],
+                        ),
+                        const Row(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Status Payment',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColor.black,
+                                ),
+                              ),
+                            ),
+                            Spacer(),
+                            Ikonate(
+                              Ikonate.checkbox,
+                              color: AppColor.green,
+                              width: 30.0,
+                            ),
+                          ],
+                        ),
+                        const Text(
+                          'Note Tasker',
+                          style: TextStyle(
+                            color: AppColor.black,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16.0,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SelectionHouseTextField(
+                            // controller: NoteController,
+                            hintText: widget.orderDetails.note ?? '',
+                            textInputAction: TextInputAction.done,
+                            readOnly: true,
                           ),
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Bath Room: 1',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '25\$',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Kitchen Room: 1',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '25\$',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Bed Room: 1',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '25\$',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Total Price: 100.00\$',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w400,
-                          color: AppColor.black,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Method Payment: Cash',
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w400,
-                          color: AppColor.black,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Status Payment',
-                            style: TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                        ),
-                        Spacer(),
-                        Ikonate(
-                          Ikonate.checkbox,
-                          color: AppColor.green,
-                          width: 30.0,
-                        ),
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

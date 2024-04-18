@@ -17,6 +17,7 @@ class OrderDetailsModel {
   final String? work_date;
   final String? start_time;
   final String? name_service;
+  final int? user_id;
 
   OrderDetailsModel({
     this.order_detail_id,
@@ -35,6 +36,7 @@ class OrderDetailsModel {
     this.status_id = 1,
     this.total_price,
     this.name_service,
+    this.user_id,
   });
 
   factory OrderDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -64,6 +66,7 @@ class OrderDetailsModel {
       status_id: json['status_id'] as int?,
       total_price: json['total_price'] as int?,
       name_service: json['name_service'] as String?,
+      user_id: json['user_id'] as int?,
     );
   }
 
@@ -85,6 +88,7 @@ class OrderDetailsModel {
       "status_id": status_id,
       "total_price": total_price,
       "name_service": name_service,
+      "user_id": user_id,
     };
   }
 }
