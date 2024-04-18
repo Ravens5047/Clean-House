@@ -25,11 +25,11 @@ class _TaskViewEmployeeState extends State<TaskViewEmployee> {
 
   @override
   void initState() {
-    _getListOrderDetails();
+    _getListOrderDetailsEmp();
     super.initState();
   }
 
-  void _getListOrderDetails() {
+  void _getListOrderDetailsEmp() {
     orderBookingServices.getListOrderDetails().then((response) {
       if (response.statusCode == 200) {
         List<OrderDetailsModel> tempListOrderDetails = [];
