@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 abstract class ImlOrderBooking {
   Future<http.Response> orderBookingDetails(OrderDetailsRequest body);
+  Future<http.Response> getListOrderDetailsByUserID(int userId);
   Future<http.Response> getListOrderDetails();
 }
 
@@ -19,7 +20,6 @@ class OrderBookingServices implements ImlOrderBooking {
   @override
   Future<http.Response> orderBookingDetails(OrderDetailsRequest body) async {
     const url = AppConstant.endPointBookingOrderDetails;
-
     final response = await _httpClient.post(
       Uri.parse(url),
       headers: {
@@ -32,14 +32,28 @@ class OrderBookingServices implements ImlOrderBooking {
   }
 
   @override
+  Future<http.Response> getListOrderDetailsByUserID(int userId) async {
+    final url = AppConstant.endPointGetListOrderDetailsByUserID.replaceAll(
+      ':id',
+      userId.toString(),
+    );
+    final response = await http.get(Uri.parse(url), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
+    });
+    return response;
+  }
+
+  @override
   Future<http.Response> getListOrderDetails() async {
     const url = AppConstant.endPointGetListOrderDetails;
-    return await _httpClient.get(
+    final response = await _httpClient.get(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
       },
     );
+    return response;
   }
 }

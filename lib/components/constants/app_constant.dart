@@ -20,6 +20,7 @@ class AppConstant {
   static const endPointResendOTP = '$baseAPI/resendOTP';
   static const endPointBookingOrderDetails = '$baseAPI/order/addOrder';
   static const endPointGetListOrderDetails = '$baseAPI/order';
+  static const endPointGetListOrderDetailsByUserID = '$baseAPI/order_id/:id';
 
   //API VNPAY PAYMENTS
   static const endPointVNPAY = 'http://192.168.1.4:8888/order';

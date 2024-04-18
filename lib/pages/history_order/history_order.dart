@@ -4,6 +4,7 @@ import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/model/order_details_model.dart';
 import 'package:capstone2_clean_house/pages/history_order/detail_history_order.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
+import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/order_booking_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,29 +29,35 @@ class _HistoryOrderState extends State<HistoryOrder> {
 
   @override
   void initState() {
-    _getListOrderDetails();
+    _getListOrderDetailsByUser_ID();
     super.initState();
   }
 
-  void _getListOrderDetails() {
-    orderBookingServices.getListOrderDetails().then((response) {
-      if (response.statusCode == 200) {
-        List<OrderDetailsModel> tempListOrderDetails = [];
-        List<dynamic> responseData = jsonDecode(response.body);
-        for (var data in responseData) {
-          OrderDetailsModel orderDetails = OrderDetailsModel.fromJson(data);
-          tempListOrderDetails.add(orderDetails);
+  void _getListOrderDetailsByUser_ID() {
+    int? userId = SharedPrefs.user_id;
+    if (userId != null) {
+      orderBookingServices.getListOrderDetailsByUserID(userId).then((response) {
+        if (response.statusCode == 200) {
+          List<OrderDetailsModel> tempListOrderDetails = [];
+          List<dynamic> responseData = jsonDecode(response.body);
+          for (var data in responseData) {
+            OrderDetailsModel orderDetails = OrderDetailsModel.fromJson(data);
+            tempListOrderDetails.add(orderDetails);
+          }
+          print(userId);
+          print('Connection Successfully Call API');
+          setState(() {
+            orderDetailsList = tempListOrderDetails;
+          });
+        } else {
+          print('Failed to load data from API');
         }
-        print('Connection Successfully Call API');
-        setState(() {
-          orderDetailsList = tempListOrderDetails;
-        });
-      } else {
-        print('Failed to load data from API');
-      }
-    }).catchError((onError) {
-      print('Error occurred: $onError');
-    });
+      }).catchError((onError) {
+        print('Error occurred: $onError');
+      });
+    } else {
+      print('User_id not found in SharedPreferences');
+    }
   }
 
   @override
