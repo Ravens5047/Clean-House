@@ -209,7 +209,10 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
                         SizedBox(
                           height: 30.0,
                           width: 30.0,
-                          child: Ikonate(Ikonate.history),
+                          child: Ikonate(
+                            Ikonate.history,
+                            color: Colors.blue,
+                          ),
                         ),
                         SizedBox(
                           width: 15.0,

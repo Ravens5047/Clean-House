@@ -51,6 +51,12 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
             context,
             MaterialPageRoute(builder: (context) => const LoginPage()),
           );
+          // showTopSnackBar(
+          //   context,
+          //   const TDSnackBar.error(
+          //     message: "New password and confirmation password do not match.",
+          //   ),
+          // );
         } else {
           showTopSnackBar(
             context,

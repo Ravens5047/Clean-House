@@ -1,7 +1,11 @@
+import 'package:bottom_picker/resources/time.dart';
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
+import 'package:capstone2_clean_house/model/request/order_details_request_model.dart';
 import 'package:capstone2_clean_house/pages/payment/successful_payment.dart';
 import 'package:capstone2_clean_house/pages/vnpay/payment_screen_vnpay_local.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
+import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
+import 'package:capstone2_clean_house/services/remote/order_booking_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -10,10 +14,34 @@ import 'package:lottie/lottie.dart';
 class SelectPayment extends StatefulWidget {
   const SelectPayment({
     super.key,
-    required this.total_price,
+    this.total_price,
+    this.selectedTime,
+    this.selectedDate,
+    this.selectedHouse,
+    this.selectedArea,
+    this.address,
+    this.fullname,
+    this.note,
+    this.phone_number,
+    this.name_service,
+    this.service_id,
+    this.static_id,
+    this.estimated_time,
   });
 
   final double? total_price;
+  final Time? selectedTime;
+  final DateTime? selectedDate;
+  final int? selectedHouse;
+  final int? selectedArea;
+  final String? address;
+  final String? fullname;
+  final String? phone_number;
+  final String? name_service;
+  final String? note;
+  final int? service_id;
+  final int? static_id;
+  final String? estimated_time;
 
   @override
   State<SelectPayment> createState() => _SelectPaymentState();
@@ -22,10 +50,96 @@ class SelectPayment extends StatefulWidget {
 class _SelectPaymentState extends State<SelectPayment> {
   TextEditingController moneyController = TextEditingController();
   String? selectedLocation;
+  int? selectedHouse;
+  int? selectedArea;
   final List<String> locations = [
     'Cash',
     'VNPAY',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    selectedHouse = widget.selectedHouse;
+    selectedArea = widget.selectedArea;
+  }
+
+  String getHouseType(int index) {
+    switch (index) {
+      case 0:
+        return 'House / Town House';
+      case 1:
+        return 'Apartment';
+      case 2:
+        return 'Villas';
+      default:
+        return '';
+    }
+  }
+
+  String getArea(int index) {
+    switch (index) {
+      case 0:
+        return 'Max 15m²';
+      case 1:
+        return 'Max 25m²';
+      case 2:
+        return 'Max 40m²';
+      case 3:
+        return 'Max 60m²';
+      case 4:
+        return 'Max 80m²';
+      case 5:
+        return 'Max 100m²';
+      default:
+        return '';
+    }
+  }
+
+  Future<void> _bookOrderDetails() async {
+    try {
+      int? userId = SharedPrefs.user_id;
+      if (userId == null) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('User not logged in.'),
+        ));
+        return;
+      }
+      OrderDetailsRequest orderDetails = OrderDetailsRequest(
+        name_service: widget.name_service,
+        status_id: 1,
+        sub_total_price: widget.total_price?.toDouble(),
+        service_id: widget.service_id,
+        note: widget.note,
+        unit_price: widget.total_price?.toDouble(),
+        address_order: widget.address,
+        full_name: widget.fullname,
+        phone_number: widget.phone_number,
+        houseType: getHouseType(widget.selectedHouse!),
+        area: getArea(widget.selectedArea!),
+        work_date: DateFormat('yyyy-MM-dd').format(widget.selectedDate!),
+        start_time:
+            '${widget.selectedTime!.hours.toString().padLeft(2, '0')}:${widget.selectedTime!.minutes.toString().padLeft(2, '0')}',
+        estimated_time: widget.estimated_time,
+        user_id: userId,
+      );
+      final response =
+          await OrderBookingServices().orderBookingDetails(orderDetails);
+      if (response.statusCode == 200) {
+        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //   content: Text('Booking successful!'),
+        // ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Error: ${response.statusCode}'),
+        ));
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Error: $e'),
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +162,6 @@ class _SelectPaymentState extends State<SelectPayment> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
               child: SizedBox(
@@ -164,7 +277,7 @@ class _SelectPaymentState extends State<SelectPayment> {
               child: AppElevatedButton.normal1(
                 color: Colors.blue,
                 borderColor: AppColor.grey,
-                text: 'Booking',
+                text: 'Payment',
                 onPressed: () {
                   if (selectedLocation == 'VNPAY') {
                     Navigator.push(
@@ -172,10 +285,24 @@ class _SelectPaymentState extends State<SelectPayment> {
                       MaterialPageRoute(
                         builder: (context) => VnpayScreenPayment1(
                           money: widget.total_price.toString(),
+                          selectedTime: widget.selectedTime,
+                          selectedDate: widget.selectedDate,
+                          selectedHouse: widget.selectedHouse,
+                          selectedArea: widget.selectedArea,
+                          address: widget.address,
+                          fullname: widget.fullname,
+                          phone_number: widget.phone_number,
+                          name_service: widget.name_service,
+                          note: widget.note,
+                          total_price: widget.total_price,
+                          service_id: widget.service_id,
+                          static_id: widget.static_id,
+                          estimated_time: widget.estimated_time,
                         ),
                       ),
                     );
                   } else if (selectedLocation == 'Cash') {
+                    _bookOrderDetails();
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                           builder: (context) => const SuccessfulPayment(
