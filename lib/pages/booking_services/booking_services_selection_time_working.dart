@@ -120,6 +120,15 @@ class _BookingServicesSelectionTimeWorkingState
   }
 
   void _openTimePicker(BuildContext context) {
+    Time startTime;
+    Time endTime;
+    if (selectedArea == 0 || selectedArea == 1 || selectedArea == 2) {
+      startTime = Time(hours: 8, minutes: 0);
+      endTime = Time(hours: 16, minutes: 0);
+    } else {
+      startTime = Time(hours: 8, minutes: 0);
+      endTime = Time(hours: 14, minutes: 0);
+    }
     BottomPicker.time(
       pickerTitle: const Center(
         child: Text(
@@ -132,18 +141,37 @@ class _BookingServicesSelectionTimeWorkingState
         ),
       ),
       onSubmit: (selectedDateTime) {
-        if (selectedDateTime.hour >= 8 && selectedDateTime.hour <= 17) {
+        if (selectedDateTime.hour >= startTime.hours &&
+            selectedDateTime.hour < endTime.hours) {
           setState(() {
             _selectedTime = Time(
                 hours: selectedDateTime.hour, minutes: selectedDateTime.minute);
           });
           print(
               '${_selectedTime.hours} hours : ${_selectedTime.minutes} minutes');
+        } else if (selectedArea == 0 ||
+            selectedArea == 1 ||
+            selectedArea == 2) {
+          showTopSnackBar(
+            context,
+            const TDSnackBar.error(
+              message: "Please choose time 8:00 to 15:00.",
+            ),
+          );
+        } else if (selectedArea == 3 ||
+            selectedArea == 4 ||
+            selectedArea == 5) {
+          showTopSnackBar(
+            context,
+            const TDSnackBar.error(
+              message: "Please choose time 8:00 to 13:00.",
+            ),
+          );
         } else {
           showTopSnackBar(
             context,
             const TDSnackBar.error(
-              message: "Please choose a time between 8:00 am and 17:00 pm",
+              message: "Please choose a time invalid",
             ),
           );
         }
@@ -154,16 +182,16 @@ class _BookingServicesSelectionTimeWorkingState
       bottomPickerTheme: BottomPickerTheme.blue,
       use24hFormat: true,
       initialTime: _selectedTime,
-      // minTime: Time(hours: 8, minutes: 00),
-      // maxTime: Time(hours: 17, minutes: 00),
+      minTime: startTime,
+      maxTime: endTime,
     ).show(context);
   }
 
   String calculateEstimatedCompletionTime(int selectedArea, Time selectedTime) {
     if (selectedArea == 0 || selectedArea == 1 || selectedArea == 2) {
-      return '${selectedTime.hours + 2}:${selectedTime.minutes.toString().padLeft(2, '0')}';
+      return '${selectedTime.hours + 2}:${selectedTime.minutes.toString().padLeft(1, '0')}';
     } else {
-      return '${selectedTime.hours + 4}:${selectedTime.minutes.toString().padLeft(2, '0')}';
+      return '${selectedTime.hours + 4}:${selectedTime.minutes.toString().padLeft(1, '0')}';
     }
   }
 

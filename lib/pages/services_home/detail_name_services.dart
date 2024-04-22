@@ -48,98 +48,120 @@ class _DetailNameServicesState extends State<DetailNameServices> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(30.0),
-                  ),
-                ),
-                child: Image.network(
-                  '${AppConstant.baseAPIimages}${widget.service.image}',
-                  width: 300.0,
-                  height: 300.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Unit Price Services',
-                  style: TextStyle(
-                    fontSize: 17.0,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              const Row(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Min Price: 105,600 VND',
-                      style: TextStyle(
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.w400,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.75,
+                child: ListView(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30.0),
+                        ),
+                      ),
+                      child: Image.network(
+                        '${AppConstant.baseAPIimages}${widget.service.image}',
+                        width: 320.0,
+                        height: 320.0,
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  ),
-                  Spacer(),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Max Price: 900,000 VND',
-                      style: TextStyle(
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.w400,
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Unit Price Services',
+                        style: TextStyle(
+                          fontSize: 17.0,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 15.0,
-              ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Descriptions Service',
-                  style: TextStyle(
-                    fontSize: 17.0,
-                    fontWeight: FontWeight.w500,
-                  ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    const Row(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Price: 105,600 VND',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5.0,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            '~',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5.0,
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            '900,000 VND',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 15.0,
+                    ),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Descriptions Service',
+                        style: TextStyle(
+                          fontSize: 17.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10.0,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: AppColor.black.withOpacity(0.5),
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      padding: const EdgeInsets.all(17.0),
+                      child: Text(
+                        widget.service.description ?? '',
+                        style: const TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(
-                height: 10.0,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppColor.black.withOpacity(0.5),
-                    width: 1.0,
-                  ),
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                padding: const EdgeInsets.all(17.0),
-                child: Text(
-                  widget.service.description ?? '',
-                  style: const TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 10.0,
+                height: 5.0,
               ),
               const Spacer(),
               AppElevatedButton.normal1(
