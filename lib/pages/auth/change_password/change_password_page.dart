@@ -38,6 +38,19 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       final newPassword = newPasswordController.text;
       final user_id = SharedPrefs.user_id;
       if (user_id != null) {
+        if (oldPassword == newPassword) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content:
+                  Text('New password must be different from the old password.'),
+              backgroundColor: Colors.blue,
+            ),
+          );
+          setState(() {
+            isLoading = false;
+          });
+          return;
+        }
         final request = ChangePasswordRequest(
           user_id: user_id,
           oldPassword: oldPassword,
