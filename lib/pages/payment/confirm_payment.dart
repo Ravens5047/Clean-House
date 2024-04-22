@@ -1,11 +1,8 @@
 import 'package:bottom_picker/resources/time.dart';
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
-import 'package:capstone2_clean_house/model/request/order_details_request_model.dart';
-import 'package:capstone2_clean_house/pages/booking_services/booking_services_successfull.dart';
+import 'package:capstone2_clean_house/pages/payment/select_payment.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
-import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
-import 'package:capstone2_clean_house/services/remote/order_booking_services.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -24,6 +21,7 @@ class ConfirmPayment extends StatefulWidget {
     required this.name_service,
     required this.service_id,
     required this.static_id,
+    required this.estimated_time,
   });
 
   final Time selectedTime;
@@ -35,10 +33,10 @@ class ConfirmPayment extends StatefulWidget {
   final String phone_number;
   final String name_service;
   final String note;
-  final int total_price;
+  final double total_price;
   final int service_id;
   final int static_id;
-
+  final String estimated_time;
   @override
   State<ConfirmPayment> createState() => _ConfirmPaymentState();
 }
@@ -95,52 +93,52 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
     }
   }
 
-  Future<void> _bookOrderDetails() async {
-    try {
-      int? userId = SharedPrefs.user_id;
-      if (userId == null) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('User not logged in.'),
-        ));
-        return;
-      }
-      OrderDetailsRequest orderDetails = OrderDetailsRequest(
-        name_service: widget.name_service,
-        status_id: 1,
-        sub_total_price: widget.total_price.toDouble(),
-        service_id: widget.service_id,
-        note: widget.note,
-        unit_price: widget.total_price.toDouble(),
-        address_order: widget.address,
-        full_name: widget.fullname,
-        phone_number: widget.phone_number,
-        houseType: getHouseType(selectedHouse!),
-        area: getArea(selectedArea!),
-        work_date: DateFormat('yyyy-MM-dd').format(widget.selectedDate),
-        start_time:
-            '${widget.selectedTime.hours.toString().padLeft(2, '0')}:${widget.selectedTime.minutes.toString().padLeft(2, '0')}',
-        user_id: userId,
-      );
-      final response =
-          await OrderBookingServices().orderBookingDetails(orderDetails);
-      if (response.statusCode == 200) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const BookingServicesSuccessful(),
-          ),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Error: ${response.statusCode}'),
-        ));
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Error: $e'),
-      ));
-    }
-  }
+  // Future<void> _bookOrderDetails() async {
+  //   try {
+  //     int? userId = SharedPrefs.user_id;
+  //     if (userId == null) {
+  //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+  //         content: Text('User not logged in.'),
+  //       ));
+  //       return;
+  //     }
+  //     OrderDetailsRequest orderDetails = OrderDetailsRequest(
+  //       name_service: widget.name_service,
+  //       status_id: 1,
+  //       sub_total_price: widget.total_price.toDouble(),
+  //       service_id: widget.service_id,
+  //       note: widget.note,
+  //       unit_price: widget.total_price.toDouble(),
+  //       address_order: widget.address,
+  //       full_name: widget.fullname,
+  //       phone_number: widget.phone_number,
+  //       houseType: getHouseType(selectedHouse!),
+  //       area: getArea(selectedArea!),
+  //       work_date: DateFormat('yyyy-MM-dd').format(widget.selectedDate),
+  //       start_time:
+  //           '${widget.selectedTime.hours.toString().padLeft(2, '0')}:${widget.selectedTime.minutes.toString().padLeft(2, '0')}',
+  //       user_id: userId,
+  //     );
+  //     final response =
+  //         await OrderBookingServices().orderBookingDetails(orderDetails);
+  //     if (response.statusCode == 200) {
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => const BookingServicesSuccessful(),
+  //         ),
+  //       );
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //         content: Text('Error: ${response.statusCode}'),
+  //       ));
+  //     }
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //       content: Text('Error: $e'),
+  //     ));
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -357,6 +355,30 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                 const SizedBox(
                   height: 10.0,
                 ),
+                Row(
+                  children: [
+                    const Text(
+                      'Esitmated Time: ',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.black,
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      widget.estimated_time.toString().padLeft(2, '0'),
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.black,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
                 const Divider(
                   color: Colors.blue,
                   thickness: 2.0,
@@ -440,7 +462,28 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   height: 45.0,
                 ),
                 AppElevatedButton.normal1(
-                  onPressed: _bookOrderDetails,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SelectPayment(
+                          total_price: widget.total_price,
+                          selectedTime: widget.selectedTime,
+                          selectedDate: widget.selectedDate,
+                          selectedHouse: widget.selectedHouse,
+                          selectedArea: widget.selectedArea,
+                          address: widget.address,
+                          fullname: widget.fullname,
+                          phone_number: widget.phone_number,
+                          name_service: widget.name_service,
+                          note: widget.note,
+                          service_id: widget.service_id,
+                          static_id: widget.static_id,
+                          estimated_time: widget.estimated_time,
+                        ),
+                      ),
+                    );
+                  },
                   color: Colors.blue,
                   borderColor: AppColor.grey,
                   borderRadius: const BorderRadius.all(

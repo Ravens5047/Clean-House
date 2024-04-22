@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 
 class OrderDetailsModel {
   final int? status_id;
-  final int? total_price;
+  final double? total_price;
   final int? order_detail_id;
   final int? order_id;
   final double? sub_total_price;
@@ -18,6 +18,7 @@ class OrderDetailsModel {
   final String? start_time;
   final String? name_service;
   final int? user_id;
+  final String? estimated_time;
 
   OrderDetailsModel({
     this.order_detail_id,
@@ -37,6 +38,7 @@ class OrderDetailsModel {
     this.total_price,
     this.name_service,
     this.user_id,
+    this.estimated_time,
   });
 
   factory OrderDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -64,9 +66,10 @@ class OrderDetailsModel {
       houseType: json['housetype'] as String?,
       area: json['area'] as String?,
       status_id: json['status_id'] as int?,
-      total_price: json['total_price'] as int?,
+      total_price: json['total_price'] as double?,
       name_service: json['name_service'] as String?,
       user_id: json['user_id'] as int?,
+      estimated_time: json['estimated_time'] as String?,
     );
   }
 
@@ -89,6 +92,7 @@ class OrderDetailsModel {
       "total_price": total_price,
       "name_service": name_service,
       "user_id": user_id,
+      "estimated_time": estimated_time,
     };
   }
 }

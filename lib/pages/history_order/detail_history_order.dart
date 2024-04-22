@@ -1,7 +1,5 @@
-import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
 import 'package:capstone2_clean_house/components/text_field/selection_house_text_field.dart';
 import 'package:capstone2_clean_house/model/order_details_model.dart';
-import 'package:capstone2_clean_house/pages/payment/select_payment.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -232,6 +230,27 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
                         ),
                         Row(
                           children: [
+                            const Text(
+                              'Estimated Time',
+                              style: TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              widget.orderDetails.estimated_time ?? '',
+                              style: const TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
                             const Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
@@ -322,30 +341,6 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 60.0,
-                ),
-                SizedBox(
-                  height: 200.0,
-                  width: 370.0,
-                  child: Center(
-                    child: AppElevatedButton.normal1(
-                      color: Colors.blue,
-                      borderColor: AppColor.grey,
-                      text: 'Payment',
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SelectPayment(
-                              total_price: widget.orderDetails.sub_total_price,
-                            ),
-                          ),
-                        );
-                      },
                     ),
                   ),
                 ),

@@ -30,7 +30,7 @@ class BookingServicesSelectionTimeWorking extends StatefulWidget {
   final String fullname;
   final String phone_number;
   final String name_service;
-  final int total_price;
+  final double total_price;
   final int service_id;
 
   @override
@@ -57,9 +57,6 @@ class _BookingServicesSelectionTimeWorkingState
   }
 
   Time _getCurrentTime() {
-    // final now = DateTime.now();
-    // final minHours = Time(hours: 8, minutes: 00);
-    // final maxHours = Time(hours: 17, minutes: 00);
     return Time(
       hours: 8,
       minutes: 00,
@@ -162,8 +159,20 @@ class _BookingServicesSelectionTimeWorkingState
     ).show(context);
   }
 
+  String calculateEstimatedCompletionTime(int selectedArea, Time selectedTime) {
+    if (selectedArea == 0 || selectedArea == 1 || selectedArea == 2) {
+      return '${selectedTime.hours + 2}:${selectedTime.minutes.toString().padLeft(2, '0')}';
+    } else {
+      return '${selectedTime.hours + 4}:${selectedTime.minutes.toString().padLeft(2, '0')}';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    int selectedArea = widget.selectedArea ?? 0;
+    Time selectedTime = _selectedTime;
+    String estimatedCompletionTime =
+        calculateEstimatedCompletionTime(selectedArea, selectedTime);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -241,6 +250,25 @@ class _BookingServicesSelectionTimeWorkingState
               const SizedBox(
                 height: 20.0,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const Text(
+                    'Estimated time to complete',
+                    style: TextStyle(
+                      fontSize: 17.0,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  Text(
+                    estimatedCompletionTime,
+                    style: const TextStyle(
+                      fontSize: 17.0,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
               const Divider(
                 color: Colors.blue,
                 thickness: 1.0,
@@ -291,6 +319,7 @@ class _BookingServicesSelectionTimeWorkingState
                           total_price: widget.total_price,
                           service_id: widget.service_id,
                           static_id: 1,
+                          estimated_time: estimatedCompletionTime,
                         ),
                       ),
                     );

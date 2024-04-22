@@ -14,6 +14,7 @@ class AppTextFieldProfile extends StatelessWidget {
     this.validator,
     this.readOnly = false,
     this.onTextChanged,
+    this.errorText,
   });
 
   final TextEditingController? controller;
@@ -26,6 +27,7 @@ class AppTextFieldProfile extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final bool readOnly;
   final Function(String)? onTextChanged;
+  final String? errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +72,7 @@ class AppTextFieldProfile extends StatelessWidget {
             hintStyle: const TextStyle(color: AppColor.black),
             labelText: hintText,
             prefixIcon: prefixIcon,
+            errorText: errorText,
           ),
         ),
       ],

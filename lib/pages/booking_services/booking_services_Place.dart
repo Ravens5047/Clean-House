@@ -42,32 +42,33 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
   AppUsersModel appUsersModel = AppUsersModel();
   late String? phoneNumber;
   late String? address_user;
+  bool _isFormSubmitted = false;
   static const int houseTownhousePrice = 7040;
   static const int apartmentPrice = 8200;
   static const int villasPrice = 9000;
 
-  int calculateTotal() {
-    int price = 0;
+  double calculateTotal() {
+    double price = 0.0;
     if (selectedHouse != null && selectedArea != null) {
-      int area = 0;
+      double area = 0.0;
       switch (selectedArea) {
         case 0:
-          area = 15;
+          area = 15.0;
           break;
         case 1:
-          area = 25;
+          area = 25.0;
           break;
         case 2:
-          area = 40;
+          area = 40.0;
           break;
         case 3:
-          area = 60;
+          area = 60.0;
           break;
         case 4:
-          area = 80;
+          area = 80.0;
           break;
         case 5:
-          area = 100;
+          area = 100.0;
           break;
       }
 
@@ -139,8 +140,9 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
 
   void handleTextFieldsChanged(String value) {
     setState(() {
-      isAddressEntered = typeHouseController.text.isNotEmpty &&
-          typeNumberController.text.isNotEmpty;
+      isAddressEntered = fullnameController.text.isNotEmpty &&
+          typeHouseController.text.isNotEmpty &&
+          phoneNumberController.text.length == 10;
     });
   }
 
@@ -161,8 +163,32 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
   String? phoneNumberValidator(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter phone number';
+    } else if (value.length != 10) {
+      return 'Phone number must be 10 digits';
     }
     return null;
+  }
+
+  void _validateAndSubmitForm() {
+    setState(() {
+      _isFormSubmitted = true;
+    });
+    if (formKey.currentState!.validate()) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => BookingServicesSelectionTimeWorking(
+            selectedHouse: selectedHouse,
+            selectedArea: selectedArea,
+            address: typeHouseController.text,
+            fullname: fullnameController.text,
+            phone_number: phoneNumberController.text,
+            name_service: widget.name_service,
+            total_price: calculateTotal(),
+            service_id: widget.service_id,
+          ),
+        ),
+      );
+    }
   }
 
   @override
@@ -211,6 +237,9 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   },
                   onTextChanged: handleTextFieldsChanged,
                   validator: fullnameValidator,
+                  errorText: _isFormSubmitted
+                      ? fullnameValidator(fullnameController.text)
+                      : null,
                 ),
                 const SizedBox(
                   height: 10.0,
@@ -226,6 +255,9 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   },
                   onTextChanged: handleTextFieldsChanged,
                   validator: addressValidator,
+                  errorText: _isFormSubmitted
+                      ? addressValidator(typeHouseController.text)
+                      : null,
                 ),
                 const SizedBox(
                   height: 10.0,
@@ -234,6 +266,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   controller: phoneNumberController,
                   hintText: 'Phone Number',
                   textInputAction: TextInputAction.done,
+                  keyboardType: TextInputType.phone,
                   onFieldSubmitted: (value) {
                     setState(() {
                       isAddressEntered = value.isNotEmpty;
@@ -241,6 +274,9 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   },
                   onTextChanged: handleTextFieldsChanged,
                   validator: phoneNumberValidator,
+                  errorText: _isFormSubmitted
+                      ? phoneNumberValidator(phoneNumberController.text)
+                      : null,
                 ),
                 const SizedBox(
                   height: 10.0,
@@ -367,7 +403,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SelectionTime(
-                      text: 'Max 15m² \n4 hours',
+                      text: 'Max 15m² \n2 hours',
                       isSelected: selectedArea == 0,
                     ),
                   ),
@@ -379,7 +415,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SelectionTime(
-                      text: 'Max 25m² \n4 hours',
+                      text: 'Max 25m² \n2 hours',
                       isSelected: selectedArea == 1,
                     ),
                   ),
@@ -391,7 +427,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SelectionTime(
-                      text: 'Max 40m² \n4 hours',
+                      text: 'Max 40m² \n2 hours',
                       isSelected: selectedArea == 2,
                     ),
                   ),
@@ -467,43 +503,13 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   height: 10.0,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    if (isAddressEntered &&
-                        typeNumberController.text.isNotEmpty &&
-                        addressValidator(typeHouseController.text) == null &&
-                        phoneNumberValidator(typeNumberController.text) ==
-                            null) {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              BookingServicesSelectionTimeWorking(
-                            selectedHouse: selectedHouse,
-                            selectedArea: selectedArea,
-                            address: typeHouseController.text,
-                            fullname: fullnameController.text,
-                            phone_number: phoneNumberController.text,
-                            name_service: widget.name_service,
-                            total_price: calculateTotal(),
-                            service_id: widget.service_id,
-                          ),
-                        ),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Center(
-                              child: Text(
-                                  'Please enter address and phone number and Full Name')),
-                        ),
-                      );
-                    }
-                  },
+                  onTap: _validateAndSubmitForm,
                   child: TdElevatedButton.fullmau(
                     text: 'Continue',
                     color: isAddressEntered ? Colors.blue : AppColor.grey,
                     borderColor: isAddressEntered ? Colors.blue : AppColor.grey,
                   ),
-                )
+                ),
               ],
             ),
           ),
