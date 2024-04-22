@@ -228,6 +228,27 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
                         ),
                         Row(
                           children: [
+                            const Text(
+                              'Estimated Time',
+                              style: TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              widget.orderDetails.estimated_time ?? '',
+                              style: const TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
                             const Align(
                               alignment: Alignment.centerLeft,
                               child: Text(

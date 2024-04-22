@@ -367,7 +367,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                     ),
                     const Spacer(),
                     Text(
-                      widget.estimated_time.toString().padLeft(2, '0'),
+                      widget.estimated_time,
                       style: const TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
