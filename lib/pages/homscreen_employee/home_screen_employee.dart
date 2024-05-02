@@ -15,6 +15,8 @@ import 'package:intl/intl.dart';
 enum FilterCriteria {
   ByDate,
   ByService,
+  ByTotal,
+  ByWorkDate,
 }
 
 class HomeScreenEmployee extends StatefulWidget {
@@ -34,6 +36,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
   OrderDetailsModel orderDetailsModel = OrderDetailsModel();
   List<OrderDetailsModel> orderDetailsList = [];
   FilterCriteria? currentFilter;
+  bool isAscending = true;
 
   @override
   void initState() {
@@ -106,6 +109,18 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                   Navigator.pop(context, FilterCriteria.ByService);
                 },
               ),
+              ListTile(
+                title: const Text('By Total'),
+                onTap: () {
+                  Navigator.pop(context, FilterCriteria.ByTotal);
+                },
+              ),
+              ListTile(
+                title: const Text('By Work Date'),
+                onTap: () {
+                  Navigator.pop(context, FilterCriteria.ByWorkDate);
+                },
+              ),
             ],
           ),
         );
@@ -121,8 +136,17 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
 
   void _handleSort() {
     setState(() {
-      orderDetailsList
-          .sort((a, b) => a.name_service!.compareTo(b.name_service!));
+      if (currentFilter != FilterCriteria.ByService) {
+        isAscending = !isAscending;
+        orderDetailsList
+            .sort((a, b) => a.name_service!.compareTo(b.name_service!));
+        currentFilter = FilterCriteria.ByService;
+      } else {
+        isAscending = !isAscending;
+        orderDetailsList
+            .sort((a, b) => b.name_service!.compareTo(a.name_service!));
+        currentFilter = null;
+      }
     });
   }
 
@@ -147,7 +171,10 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.sort),
+            icon: Ikonate(
+              color: AppColor.black,
+              isAscending ? Ikonate.sort_down : Ikonate.sort_up,
+            ),
             onPressed: () {
               _handleSort();
             },
@@ -193,7 +220,18 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                   itemCount: orderDetailsList.length,
                   itemBuilder: (context, index) {
                     final orderDetails = orderDetailsList[index];
-                    if (currentFilter != null) {}
+                    if (currentFilter == FilterCriteria.ByService) {
+                      // Logic lọc theo name_service
+                      // Đảm bảo rằng orderDetails có name_service trước khi so sánh
+                    } else if (currentFilter == FilterCriteria.ByTotal) {
+                      // Logic lọc theo total
+                      // Đảm bảo rằng orderDetails có total trước khi so sánh
+                    } else if (currentFilter == FilterCriteria.ByWorkDate) {
+                      // Logic lọc theo work_date
+                      // Đảm bảo rằng orderDetails có work_date trước khi so sánh
+                    } else {
+                      // Không có bộ lọc được chọn, hiển thị tất cả các dữ liệu
+                    }
                     return GestureDetector(
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
