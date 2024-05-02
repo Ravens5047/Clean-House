@@ -20,8 +20,11 @@ abstract class AuthServices {
 }
 
 class APIService implements AuthServices {
-  static final HttpWithMiddleware _httpClient = HttpWithMiddleware.build(
-      middlewares: [HttpLogger(logLevel: LogLevel.BODY)]);
+  static final HttpWithMiddleware _httpClient =
+      HttpWithMiddleware.build(middlewares: [
+    HttpLogger(logLevel: LogLevel.BODY),
+  ]);
+  
 
   @override
   Future<http.Response> login(LoginRequestModel body) async {

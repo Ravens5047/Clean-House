@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:capstone2_clean_house/model/app_users_model.dart';
-import 'package:capstone2_clean_house/model/order_details_model.dart';
+import 'package:capstone2_clean_house/model/order_details_response_model.dart';
 import 'package:capstone2_clean_house/pages/history_order/detail_history_order.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';

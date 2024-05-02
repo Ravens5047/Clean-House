@@ -28,6 +28,7 @@ class VnpayScreenPayment1 extends StatefulWidget {
     this.service_id,
     this.static_id,
     this.estimated_time,
+    this.vnp_ResponseCode,
   });
 
   final String? money;
@@ -44,6 +45,7 @@ class VnpayScreenPayment1 extends StatefulWidget {
   final int? service_id;
   final int? static_id;
   final String? estimated_time;
+  final String? vnp_ResponseCode;
 
   @override
   State<VnpayScreenPayment1> createState() => _VnpayScreenPayment1State();
@@ -56,12 +58,14 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
   AccountService accountService = AccountService();
   late int userId;
   final formKey = GlobalKey<FormState>();
+  late String responseCode;
 
   @override
   void initState() {
     super.initState();
     selectedHouse = widget.selectedHouse;
     selectedArea = widget.selectedArea;
+    responseCode = widget.vnp_ResponseCode ?? '';
   }
 
   String getHouseType(int index) {
@@ -122,13 +126,15 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
             '${widget.selectedTime!.hours.toString().padLeft(2, '0')}:${widget.selectedTime!.minutes.toString().padLeft(2, '0')}',
         user_id: userId,
         estimated_time: widget.estimated_time,
+        vnp_ResponseCode: responseCode,
       );
       final response =
           await OrderBookingServices().orderBookingDetails(orderDetails);
       if (response.statusCode == 200) {
-        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        //   content: Text('Booking successful!'),
-        // ));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Booking successful!'),
+          backgroundColor: Colors.blue,
+        ));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Error: ${response.statusCode}'),
@@ -180,6 +186,7 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
                   String responseCode =
                       uri.queryParameters['vnp_ResponseCode'] ?? '';
                   if (responseCode == '00') {
+                    this.responseCode = responseCode;
                     await _bookOrderDetails();
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Booking successful!'),
@@ -192,7 +199,8 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
                         ),
                       ),
                     );
-                    debugPrint('Payment successful!');
+                    print(responseCode);
+                    debugPrint('Payment successfull!');
                   } else {
                     print('Payment failed: $responseCode');
                   }

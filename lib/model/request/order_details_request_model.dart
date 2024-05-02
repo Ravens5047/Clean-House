@@ -17,6 +17,11 @@ class OrderDetailsRequest {
   final String? name_service;
   final int? user_id;
   final String? estimated_time;
+  final String? txn_ref;
+  final String? amount;
+  final String? order_infor;
+  final String? status;
+  final String? vnp_ResponseCode;
 
   OrderDetailsRequest({
     this.order_detail_id,
@@ -37,6 +42,11 @@ class OrderDetailsRequest {
     this.name_service,
     this.user_id,
     this.estimated_time,
+    this.txn_ref,
+    this.amount,
+    this.order_infor,
+    this.status,
+    this.vnp_ResponseCode,
   });
 
   factory OrderDetailsRequest.fromJson(Map<String, dynamic> json) {
@@ -63,6 +73,11 @@ class OrderDetailsRequest {
       name_service: json['name_service'] as String?,
       user_id: json['user_id'] as int?,
       estimated_time: json['estimated_time'] as String?,
+      txn_ref: json['txn_ref'] as String?,
+      amount: json['amount'] as String?,
+      order_infor: json['order_infor'] as String?,
+      status: json['status'] as String?,
+      vnp_ResponseCode: json['vnp_ResponseCode'] as String?,
     );
   }
 
@@ -86,6 +101,11 @@ class OrderDetailsRequest {
       "name_service": name_service,
       "user_id": user_id,
       "estimated_time": estimated_time,
+      "txn_ref": txn_ref,
+      "amount": amount,
+      "order_infor": order_infor,
+      "status": status,
+      "vnp_ResponseCode": vnp_ResponseCode,
     };
   }
 }
