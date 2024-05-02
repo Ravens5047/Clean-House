@@ -2,8 +2,8 @@ class AppConstant {
   AppConstant._();
 
   // static const baseAPI = 'http://172.25.228.101:3131'; // DT
-  // static const baseAPI = 'http://192.168.1.9:3131'; // Home
-  static const baseAPI = 'http://192.168.1.169:3131'; // Cty Hwgn
+  static const baseAPI = 'http://192.168.1.4:3131'; // Home
+  // static const baseAPI = 'http://192.168.88.248:3131'; // Cty Hwgn
   // static const baseAPI = 'http://192.168.1.2:3131/'; //Nhà Đạt
   // static const baseAPI = 'http://192.168.3.41:3131/'; //Cty
   // static const baseAPI = 'http://localhost:3131';
@@ -22,9 +22,11 @@ class AppConstant {
   static const endPointBookingOrderDetails = '$baseAPI/order/addOrder';
   static const endPointGetListOrderDetails = '$baseAPI/order';
   static const endPointGetListOrderDetailsByUserID = '$baseAPI/order_id/:id';
+  static const endPointSeachServicesBooking =
+      '$baseAPI/services/search_booking';
 
   //API VNPAY PAYMENTS
-  static const endPointVNPAY = 'http://192.168.1.169:8888/order';
+  static const endPointVNPAY = 'http://192.168.1.4:8888/order';
   static const endPointCreatePaymentURL = '$endPointVNPAY/create_payment_url';
   static const endPointQueryDr = '$endPointVNPAY/querydr';
   static const endPointRefund = '$endPointVNPAY/refund';

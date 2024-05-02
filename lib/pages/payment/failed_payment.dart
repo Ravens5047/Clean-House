@@ -3,8 +3,8 @@ import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class SuccessfulPayment extends StatefulWidget {
-  const SuccessfulPayment({
+class FailedPayment extends StatefulWidget {
+  const FailedPayment({
     super.key,
     required this.result,
   });
@@ -12,10 +12,10 @@ class SuccessfulPayment extends StatefulWidget {
   final String result;
 
   @override
-  State<SuccessfulPayment> createState() => _SuccessfulPaymentState();
+  State<FailedPayment> createState() => _FailedPaymentState();
 }
 
-class _SuccessfulPaymentState extends State<SuccessfulPayment> {
+class _FailedPaymentState extends State<FailedPayment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

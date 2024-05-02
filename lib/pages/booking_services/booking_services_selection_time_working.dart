@@ -189,9 +189,9 @@ class _BookingServicesSelectionTimeWorkingState
 
   String calculateEstimatedCompletionTime(int selectedArea, Time selectedTime) {
     if (selectedArea == 0 || selectedArea == 1 || selectedArea == 2) {
-      return '${selectedTime.hours + 2}:${selectedTime.minutes.toString().padLeft(1, '0')}';
+      return '${selectedTime.hours + 2}:${selectedTime.minutes.toString().padLeft(2, '0')}';
     } else {
-      return '${selectedTime.hours + 4}:${selectedTime.minutes.toString().padLeft(1, '0')}';
+      return '${selectedTime.hours + 4}:${selectedTime.minutes.toString().padLeft(2, '0')}';
     }
   }
 

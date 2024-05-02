@@ -105,6 +105,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.18.0"
+  color_logging:
+    dependency: "direct main"
+    description:
+      name: color_logging
+      sha256: "1fa930d1db71e0d278d3a2effea4527a35e08de595c27926ce9732658e6cb4a7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.10"
   convert:
     dependency: transitive
     description:
@@ -625,7 +633,7 @@ packages:
     source: hosted
     version: "3.0.0"
   logging:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: logging
       sha256: "623a88c9594aa774443aa3eb2d41807a48486b5613e67599fb4c41c0ad47c340"

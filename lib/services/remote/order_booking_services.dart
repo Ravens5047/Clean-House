@@ -8,6 +8,7 @@ abstract class ImlOrderBooking {
   Future<http.Response> orderBookingDetails(OrderDetailsRequest body);
   Future<http.Response> getListOrderDetailsByUserID(int userId);
   Future<http.Response> getListOrderDetails();
+  Future<http.Response> searchServicesBooking(String name_service);
 }
 
 class OrderBookingServices implements ImlOrderBooking {
@@ -55,5 +56,18 @@ class OrderBookingServices implements ImlOrderBooking {
       },
     );
     return response;
+  }
+
+  @override
+  Future<http.Response> searchServicesBooking(String name_service) async {
+    String url =
+        '${AppConstant.endPointSeachServicesBooking}?keyword=$name_service';
+    return await _httpClient.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+      },
+    );
   }
 }

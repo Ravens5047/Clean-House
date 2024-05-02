@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
-import 'package:capstone2_clean_house/model/order_details_model.dart';
+import 'package:capstone2_clean_house/model/order_details_response_model.dart';
 import 'package:capstone2_clean_house/pages/task_view_employee/task_view_employee_detail.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/remote/order_booking_services.dart';
