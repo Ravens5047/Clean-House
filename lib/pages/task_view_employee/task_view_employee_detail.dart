@@ -1,6 +1,8 @@
+import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
 import 'package:capstone2_clean_house/components/text_field/selection_house_text_field.dart';
 import 'package:capstone2_clean_house/model/order_details_response_model.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
+import 'package:capstone2_clean_house/services/remote/order_booking_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -18,6 +20,30 @@ class TaskViewEmployeeDetail extends StatefulWidget {
 }
 
 class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
+  final OrderBookingServices _orderBookingServices = OrderBookingServices();
+  OrderDetailsModel orderDetailsModel = OrderDetailsModel();
+  bool _isProcessing = false;
+  late int currentStatusId = orderDetailsModel.status_id ?? 0;
+
+  Future<void> _handleDoneTaskButton() async {
+    setState(() {
+      _isProcessing = true;
+    });
+    final response = await _orderBookingServices
+        .updateOrderStatus(widget.orderDetails.order_id ?? 0);
+    setState(() {
+      _isProcessing = false;
+    });
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Center(child: Text('Update Successful Task!')),
+        backgroundColor: Colors.blue,
+      ));
+    } else {
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +56,7 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
         ),
         title: Text(
           'Task View Detail',
-          style: GoogleFonts.mandali(
+          style: GoogleFonts.dmSerifText(
             fontSize: 22.0,
             fontWeight: FontWeight.w400,
           ),
@@ -361,11 +387,51 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 100.0,
+                ),
+                // _isProcessing
+                //     ? const CircularProgressIndicator()
+                //     : AppElevatedButton(
+                //         text: 'Done Task',
+                //         color: Colors.blue,
+                //         highlightColor: Colors.amber,
+                //         splashColor: Colors.pink,
+                //         borderColor: Colors.black.withOpacity(0.5),
+                //         onPressed: _isProcessing ? null : _handleDoneTaskButton,
+                //       ),
+                // const SizedBox(
+                //   height: 10.0,
+                // ),
+                // Text(
+                //   _updateStatusMessage,
+                //   style: TextStyle(
+                //     color: _updateStatusMessage.contains('Failed')
+                //         ? Colors.red
+                //         : Colors.green,
+                //   ),
+                // ),
+                _appElevatedButton(),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  _appElevatedButton() {
+    if (widget.orderDetails.status_id != 2) {
+      return AppElevatedButton(
+        text: 'Done Task',
+        color: Colors.blue,
+        highlightColor: Colors.amber,
+        splashColor: Colors.pink,
+        borderColor: Colors.black.withOpacity(0.5),
+        onPressed: _isProcessing ? null : _handleDoneTaskButton,
+      );
+    } else {
+      return const SizedBox();
+    }
   }
 }

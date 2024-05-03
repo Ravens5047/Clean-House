@@ -9,6 +9,7 @@ abstract class ImlOrderBooking {
   Future<http.Response> getListOrderDetailsByUserID(int userId);
   Future<http.Response> getListOrderDetails();
   Future<http.Response> searchServicesBooking(String name_service);
+  Future<http.Response> updateOrderStatus(int orderId);
 }
 
 class OrderBookingServices implements ImlOrderBooking {
@@ -69,5 +70,19 @@ class OrderBookingServices implements ImlOrderBooking {
         'Accept': 'application/json',
       },
     );
+  }
+
+  @override
+  Future<http.Response> updateOrderStatus(int orderId) async {
+    final url = AppConstant.endPointUpdateStatusIDOrder
+        .replaceAll(':order_id', orderId.toString());
+    final response = await _httpClient.put(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+      },
+    );
+    return response;
   }
 }

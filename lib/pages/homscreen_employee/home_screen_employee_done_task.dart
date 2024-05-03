@@ -1,11 +1,9 @@
-// ignore_for_file: constant_identifier_names
-
 import 'dart:convert';
+
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/model/order_details_response_model.dart';
 import 'package:capstone2_clean_house/model/services_model.dart';
-import 'package:capstone2_clean_house/pages/drawer_menu/drawer_menu_employee.dart';
-import 'package:capstone2_clean_house/pages/homscreen_employee/home_screen_employee_done_task.dart';
+import 'package:capstone2_clean_house/pages/homscreen_employee/home_screen_employee.dart';
 import 'package:capstone2_clean_house/pages/task_view_employee/task_view_employee_detail.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/remote/order_booking_services.dart';
@@ -15,21 +13,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:icony/icony_ikonate.dart';
 import 'package:intl/intl.dart';
 
-enum FilterCriteria {
-  ByDate,
-  ByService,
-  ByTotal,
-  ByWorkDate,
-}
-
-class HomeScreenEmployee extends StatefulWidget {
-  const HomeScreenEmployee({super.key});
+class HomeEmployeeDoneTask extends StatefulWidget {
+  const HomeEmployeeDoneTask({super.key});
 
   @override
-  State<HomeScreenEmployee> createState() => _HomeScreenEmployeeState();
+  State<HomeEmployeeDoneTask> createState() => _HomeEmployeeDoneTaskState();
 }
 
-class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
+class _HomeEmployeeDoneTaskState extends State<HomeEmployeeDoneTask> {
   final searchController = TextEditingController();
   AppUsersModel appUser = AppUsersModel();
   final formKey = GlobalKey<FormState>();
@@ -45,101 +36,6 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
   void initState() {
     _getListOrderDetailsEmp();
     super.initState();
-  }
-
-  void _getListOrderDetailsEmp() {
-    orderBookingServices.getListOrderDetails().then((response) {
-      if (response.statusCode == 200) {
-        List<OrderDetailsModel> tempListOrderDetails = [];
-        List<dynamic> responseData = jsonDecode(response.body);
-        for (var data in responseData) {
-          OrderDetailsModel orderDetails = OrderDetailsModel.fromJson(data);
-          if (orderDetails.status_id == 1) {
-            tempListOrderDetails.add(orderDetails);
-          }
-        }
-        setState(() {
-          orderDetailsList = tempListOrderDetails;
-        });
-      } else {
-        print('Failed to load data from API');
-      }
-    }).catchError((onError) {
-      print('Error occurred: $onError');
-    });
-  }
-
-  void _searchServices(String name_service) {
-    orderBookingServices.searchServicesBooking(name_service).then((response) {
-      if (response.statusCode == 200) {
-        List<OrderDetailsModel> tempList = [];
-        List<dynamic> responseData = jsonDecode(response.body);
-        for (var data in responseData) {
-          OrderDetailsModel service = OrderDetailsModel.fromJson(data);
-          tempList.add(service);
-        }
-        setState(() {
-          orderDetailsList = tempList;
-        });
-      } else {
-        print('Failed to search services booking');
-      }
-      if (orderDetailsList.isEmpty) {
-        _reloadUI();
-      }
-    }).catchError((onError) {
-      print('Error occurred: $onError');
-    });
-  }
-
-  void _reloadUI() {
-    _getListOrderDetailsEmp();
-  }
-
-  void _handleFilter() async {
-    final FilterCriteria? result = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Center(child: Text('Filter Options')),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                title: const Text('By Date'),
-                onTap: () {
-                  Navigator.pop(context, FilterCriteria.ByDate);
-                },
-              ),
-              ListTile(
-                title: const Text('By Service'),
-                onTap: () {
-                  Navigator.pop(context, FilterCriteria.ByService);
-                },
-              ),
-              ListTile(
-                title: const Text('By Total'),
-                onTap: () {
-                  Navigator.pop(context, FilterCriteria.ByTotal);
-                },
-              ),
-              ListTile(
-                title: const Text('By Work Date'),
-                onTap: () {
-                  Navigator.pop(context, FilterCriteria.ByWorkDate);
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-
-    if (result != null) {
-      setState(() {
-        currentFilter = result;
-      });
-    }
   }
 
   void _handleSort() {
@@ -158,29 +54,52 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
     });
   }
 
+  void _reloadUI() {
+    _getListOrderDetailsEmp();
+  }
+
+  void _getListOrderDetailsEmp() {
+    orderBookingServices.getListOrderDetails().then((response) {
+      if (response.statusCode == 200) {
+        List<OrderDetailsModel> tempListOrderDetails = [];
+        List<dynamic> responseData = jsonDecode(response.body);
+        for (var data in responseData) {
+          OrderDetailsModel orderDetails = OrderDetailsModel.fromJson(data);
+          if (orderDetails.status_id == 2) {
+            tempListOrderDetails.add(orderDetails);
+          }
+        }
+        setState(() {
+          orderDetailsList = tempListOrderDetails;
+        });
+      } else {
+        print('Failed to load data from API');
+      }
+    }).catchError((onError) {
+      print('Error occurred: $onError');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Align(
-          alignment: Alignment.center,
-          child: Text(
-            'Home Employee',
-            style: GoogleFonts.dmSerifText(
-              fontSize: 18.0,
-              fontWeight: FontWeight.w200,
-              color: AppColor.black,
-            ),
+        title: Text(
+          'Task Done History',
+          style: GoogleFonts.dmSerifText(
+            fontSize: 22.0,
+            fontWeight: FontWeight.w200,
+            color: AppColor.black,
           ),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.arrow_back_ios),
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.filter_list),
-            onPressed: () {
-              _handleFilter();
-            },
-          ),
           IconButton(
             icon: Ikonate(
               color: AppColor.black,
@@ -196,49 +115,14 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
               _reloadUI();
             },
           ),
-          IconButton(
-            icon: const Ikonate(
-              Ikonate.forward,
-              color: AppColor.black,
-            ),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const HomeEmployeeDoneTask(),
-                ),
-              );
-            },
-          ),
         ],
-      ),
-      drawer: DrawerMenuEmployee(
-        appUser: appUser,
-        user_id: appUser.user_id ?? 0,
       ),
       body: Form(
         key: formKey,
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(7.0),
-                child: TextField(
-                  controller: searchController,
-                  decoration: InputDecoration(
-                    hintText: 'Search services...',
-                    prefixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.grey),
-                    ),
-                    hintStyle: const TextStyle(color: Colors.grey),
-                  ),
-                  onChanged: (value) {
-                    _searchServices(value);
-                  },
-                ),
-              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: orderDetailsList.length,
