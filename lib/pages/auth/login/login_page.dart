@@ -54,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
           if (token != null && user_Id != null && role != null) {
             await SharedPrefs.setToken(token);
             SharedPrefs.setUserId(user_Id);
+            SharedPrefs.setRoleID(role);
             if (context.mounted) {
               if (role == 3) {
                 Navigator.of(context).pushAndRemoveUntil(

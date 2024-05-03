@@ -77,7 +77,10 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
           orderDetailsList = tempList;
         });
       } else {
-        print('Failed to search services');
+        print('Failed to search services booking');
+      }
+      if (orderDetailsList.isEmpty) {
+        _reloadUI();
       }
     }).catchError((onError) {
       print('Error occurred: $onError');
@@ -155,7 +158,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Employee Home Screen',
+          'Employee Home',
           style: GoogleFonts.dmSerifText(
             fontSize: 22.0,
             fontWeight: FontWeight.w200,
@@ -324,16 +327,22 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                                     ),
                                     const Spacer(),
                                     orderDetails.status_id == 1
-                                        ? const Ikonate(
-                                            Ikonate.checkbox,
-                                            color: AppColor.red,
-                                            width: 30.0,
+                                        ? const Text(
+                                            'Processing',
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColor.black,
+                                            ),
                                           )
                                         : orderDetails.status_id == 2
-                                            ? const Ikonate(
-                                                Ikonate.checkbox,
-                                                color: AppColor.green,
-                                                width: 30.0,
+                                            ? const Text(
+                                                'Success Payment',
+                                                style: TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: AppColor.green,
+                                                ),
                                               )
                                             : const SizedBox(),
                                   ],

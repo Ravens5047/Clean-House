@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/model/order_details_response_model.dart';
 import 'package:capstone2_clean_house/pages/history_order/detail_history_order.dart';
@@ -8,7 +7,6 @@ import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/order_booking_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:icony/icony_ikonate.dart';
 import 'package:intl/intl.dart';
 
 class HistoryOrder extends StatefulWidget {
@@ -180,16 +178,22 @@ class _HistoryOrderState extends State<HistoryOrder> {
                               ),
                               const Spacer(),
                               orderDetails.status_id == 1
-                                  ? const Ikonate(
-                                      Ikonate.checkbox,
-                                      color: AppColor.red,
-                                      width: 30.0,
+                                  ? const Text(
+                                      'Processing',
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColor.black,
+                                      ),
                                     )
                                   : orderDetails.status_id == 2
-                                      ? const Ikonate(
-                                          Ikonate.checkbox,
-                                          color: AppColor.green,
-                                          width: 30.0,
+                                      ? const Text(
+                                          'Success Payment',
+                                          style: TextStyle(
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColor.green,
+                                          ),
                                         )
                                       : const SizedBox(),
                             ],

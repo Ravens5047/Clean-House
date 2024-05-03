@@ -8,6 +8,7 @@ class SharedPrefs {
   static const String phoneNumberKey = 'phone_number';
   static const String addressKey = 'address_user';
   static const String avatarImagePathKey = 'avatarImagePath';
+  static const String roleIDKey = 'role_id';
 
   static Future<void> initialise() async {
     _prefs = await SharedPreferences.getInstance();
@@ -34,6 +35,14 @@ class SharedPrefs {
 
   static int? get user_id {
     return _prefs.getInt(userIdKey);
+  }
+
+  static void setRoleID(int roleID) {
+    _prefs.setInt(roleIDKey, roleID);
+  }
+
+  static int? get roleID {
+    return _prefs.getInt(roleIDKey);
   }
 
   static bool get isLogin => token?.isNotEmpty ?? false;
