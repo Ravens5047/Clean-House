@@ -29,6 +29,8 @@ class VnpayScreenPayment1 extends StatefulWidget {
     this.static_id,
     this.estimated_time,
     this.vnp_ResponseCode,
+    this.payment,
+    this.status_payment,
   });
 
   final String? money;
@@ -46,6 +48,8 @@ class VnpayScreenPayment1 extends StatefulWidget {
   final int? static_id;
   final String? estimated_time;
   final String? vnp_ResponseCode;
+  final String? payment;
+  final String? status_payment;
 
   @override
   State<VnpayScreenPayment1> createState() => _VnpayScreenPayment1State();
@@ -127,6 +131,8 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
         user_id: userId,
         estimated_time: widget.estimated_time,
         vnp_ResponseCode: responseCode,
+        payment: widget.payment,
+        status_payment: widget.status_payment,
       );
       final response =
           await OrderBookingServices().orderBookingDetails(orderDetails);

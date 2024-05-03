@@ -24,6 +24,9 @@ class OrderDetailsModel {
   final String? order_infor;
   final String? status;
   final String? vnp_ResponseCode;
+  final String? payment;
+  final int? statusPaymentId;
+  final String? status_payment;
 
   OrderDetailsModel({
     this.order_detail_id,
@@ -49,6 +52,9 @@ class OrderDetailsModel {
     this.order_infor,
     this.status,
     this.vnp_ResponseCode,
+    this.payment,
+    this.statusPaymentId,
+    this.status_payment,
   });
 
   factory OrderDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -85,6 +91,9 @@ class OrderDetailsModel {
       order_infor: json['order_infor'] as String?,
       status: json['status'] as String?,
       vnp_ResponseCode: json['vnp_ResponseCode'] as String?,
+      payment: json['payment'] as String?,
+      statusPaymentId: json['status_payment_id'] as int?,
+      status_payment: json['status_payment'] as String?,
     );
   }
 
@@ -113,6 +122,9 @@ class OrderDetailsModel {
       "order_infor": order_infor,
       "status": status,
       "vnp_ResponseCode": vnp_ResponseCode,
+      "payment": payment,
+      "status_payment_id": statusPaymentId,
+      "status_payment": status_payment,
     };
   }
 }

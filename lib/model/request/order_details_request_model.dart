@@ -22,6 +22,8 @@ class OrderDetailsRequest {
   final String? order_infor;
   final String? status;
   final String? vnp_ResponseCode;
+  final String? payment;
+  final String? status_payment;
 
   OrderDetailsRequest({
     this.order_detail_id,
@@ -47,6 +49,8 @@ class OrderDetailsRequest {
     this.order_infor,
     this.status,
     this.vnp_ResponseCode,
+    this.payment,
+    this.status_payment,
   });
 
   factory OrderDetailsRequest.fromJson(Map<String, dynamic> json) {
@@ -78,6 +82,8 @@ class OrderDetailsRequest {
       order_infor: json['order_infor'] as String?,
       status: json['status'] as String?,
       vnp_ResponseCode: json['vnp_ResponseCode'] as String?,
+      payment: json['payment'] as String?,
+      status_payment: json['status_payment'] as String?,
     );
   }
 
@@ -106,6 +112,8 @@ class OrderDetailsRequest {
       "order_infor": order_infor,
       "status": status,
       "vnp_ResponseCode": vnp_ResponseCode,
+      "payment": payment,
+      "status_payment": status_payment,
     };
   }
 }

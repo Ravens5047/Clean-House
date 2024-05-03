@@ -7,9 +7,13 @@ class SuccessfulPayment extends StatefulWidget {
   const SuccessfulPayment({
     super.key,
     required this.result,
+    this.payment,
+    this.status_payment,
   });
 
   final String result;
+  final String? payment;
+  final String? status_payment;
 
   @override
   State<SuccessfulPayment> createState() => _SuccessfulPaymentState();
