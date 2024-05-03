@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/pages/settings/setting_screen.dart';
-import 'package:capstone2_clean_house/pages/task_view_employee/task_view_employee.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
@@ -198,38 +197,38 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const TaskViewEmployee(),
-                      ),
-                    ),
-                    child: const Row(
-                      children: [
-                        SizedBox(
-                          height: 30.0,
-                          width: 30.0,
-                          child: Ikonate(
-                            Ikonate.history,
-                            color: Colors.blue,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Text(
-                          'Task Employee',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
+                  // GestureDetector(
+                  //   onTap: () => Navigator.of(context).push(
+                  //     MaterialPageRoute(
+                  //       builder: (context) => const TaskViewEmployee(),
+                  //     ),
+                  //   ),
+                  //   child: const Row(
+                  //     children: [
+                  //       SizedBox(
+                  //         height: 30.0,
+                  //         width: 30.0,
+                  //         child: Ikonate(
+                  //           Ikonate.history,
+                  //           color: Colors.blue,
+                  //         ),
+                  //       ),
+                  //       SizedBox(
+                  //         width: 15.0,
+                  //       ),
+                  //       Text(
+                  //         'Task Employee',
+                  //         style: TextStyle(
+                  //           fontSize: 20.0,
+                  //           fontWeight: FontWeight.w400,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // const SizedBox(
+                  //   height: 20.0,
+                  // ),
                   GestureDetector(
                     onTap: () async {
                       final File? newAvatarImage =

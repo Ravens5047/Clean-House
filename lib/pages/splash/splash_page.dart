@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:capstone2_clean_house/components/app_bar/bottom_navigator_bar.dart';
+import 'package:capstone2_clean_house/components/app_bar/bottom_navigator_bar_employee.dart';
 import 'package:capstone2_clean_house/pages/onboarding/onboading_page.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
@@ -35,11 +36,25 @@ class _SplashPageState extends State<SplashPage> {
 
   void onInit() async {
     final isLogin = SharedPrefs.isLogin;
+    final role = SharedPrefs.roleID;
     await Future.delayed(const Duration(milliseconds: 5000));
     if (isLogin) {
-      Route route = MaterialPageRoute(builder: (context) => const MainPage());
-      Navigator.pushAndRemoveUntil(
-          context, route, (Route<dynamic> route) => false);
+      if (role == 3) {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const MainPageEmployee()),
+          (Route<dynamic> route) => false,
+        );
+      } else if (role == 4) {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const MainPage()),
+          (Route<dynamic> route) => false,
+        );
+      } else {
+        Route route =
+            MaterialPageRoute(builder: (context) => const OnboardingPage());
+        Navigator.pushAndRemoveUntil(
+            context, route, (Route<dynamic> route) => false);
+      }
     } else {
       Route route =
           MaterialPageRoute(builder: (context) => const OnboardingPage());
