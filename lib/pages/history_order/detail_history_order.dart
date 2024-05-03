@@ -309,37 +309,47 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
                         ),
                         Row(
                           children: [
-                            const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Status Payment',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColor.black,
-                                ),
+                            const Text(
+                              'Status Payment',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w400,
+                                color: AppColor.black,
                               ),
                             ),
                             const Spacer(),
-                            widget.orderDetails.vnp_ResponseCode == '00'
-                                ? const Text(
-                                    'Success Payment',
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColor.green,
-                                    ),
-                                  )
-                                : widget.orderDetails.vnp_ResponseCode != '00'
-                                    ? const Text(
-                                        'Processing',
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColor.black,
-                                        ),
-                                      )
-                                    : const SizedBox(),
+                            Text(
+                              widget.orderDetails.status_payment ?? '',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                                color: widget.orderDetails.status_payment ==
+                                        'Processing'
+                                    ? Colors.black
+                                    : Colors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Method Payment',
+                              style: TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              widget.orderDetails.payment ?? '',
+                              style: const TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
                           ],
                         ),
                         const Text(

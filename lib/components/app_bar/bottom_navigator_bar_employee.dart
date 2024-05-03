@@ -1,13 +1,11 @@
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/pages/homscreen_employee/home_screen_employee.dart';
 import 'package:capstone2_clean_house/pages/information_person/information_person.dart';
-import 'package:capstone2_clean_house/resources/app_color.dart';
+import 'package:capstone2_clean_house/pages/schudle/schudle_mainpage.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icony/icony_ikonate.dart';
-import 'package:lottie/lottie.dart';
-import 'package:shimmer/shimmer.dart';
 
 class MainPageEmployee extends StatefulWidget {
   const MainPageEmployee({
@@ -48,17 +46,7 @@ class _MainPageEmployeeState extends State<MainPageEmployee> {
   List<Widget> _buildPages() {
     return [
       const HomeScreenEmployee(),
-      Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Shimmer.fromColors(
-                baseColor: Colors.black,
-                highlightColor: AppColor.blue,
-                child: Lottie.asset('assets/logo_splash_clean.json')),
-          ],
-        ),
-      ),
+      const SchudleMainPage(),
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

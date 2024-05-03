@@ -27,6 +27,7 @@ class SelectPayment extends StatefulWidget {
     this.service_id,
     this.static_id,
     this.estimated_time,
+    this.payment,
   });
 
   final double? total_price;
@@ -42,6 +43,7 @@ class SelectPayment extends StatefulWidget {
   final int? service_id;
   final int? static_id;
   final String? estimated_time;
+  final String? payment;
 
   @override
   State<SelectPayment> createState() => _SelectPaymentState();
@@ -122,6 +124,9 @@ class _SelectPaymentState extends State<SelectPayment> {
             '${widget.selectedTime!.hours.toString().padLeft(2, '0')}:${widget.selectedTime!.minutes.toString().padLeft(2, '0')}',
         estimated_time: widget.estimated_time,
         user_id: userId,
+        payment: selectedLocation,
+        status_payment:
+            selectedLocation == 'VNPAY' ? 'Successfull Payment' : 'Processing',
       );
       final response =
           await OrderBookingServices().orderBookingDetails(orderDetails);
@@ -298,6 +303,10 @@ class _SelectPaymentState extends State<SelectPayment> {
                           service_id: widget.service_id,
                           static_id: widget.static_id,
                           estimated_time: widget.estimated_time,
+                          payment: selectedLocation,
+                          status_payment: selectedLocation == 'VNPAY'
+                              ? 'Successfull Payment'
+                              : 'Processing',
                         ),
                       ),
                     );
@@ -307,6 +316,8 @@ class _SelectPaymentState extends State<SelectPayment> {
                       MaterialPageRoute(
                           builder: (context) => const SuccessfulPayment(
                                 result: '00',
+                                payment: 'Cash',
+                                status_payment: 'Processing',
                               )),
                       (Route<dynamic> route) => false,
                     );

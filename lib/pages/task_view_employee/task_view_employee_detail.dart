@@ -1,4 +1,4 @@
-import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
+import 'package:capstone2_clean_house/components/button/td_elevated_button.dart';
 import 'package:capstone2_clean_house/components/text_field/selection_house_text_field.dart';
 import 'package:capstone2_clean_house/model/order_details_response_model.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
@@ -26,21 +26,27 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
   late int currentStatusId = orderDetailsModel.status_id ?? 0;
 
   Future<void> _handleDoneTaskButton() async {
-    setState(() {
-      _isProcessing = true;
-    });
-    final response = await _orderBookingServices
-        .updateOrderStatus(widget.orderDetails.order_id ?? 0);
-    setState(() {
-      _isProcessing = false;
-    });
-    if (response.statusCode == 200) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Center(child: Text('Update Successful Task!')),
-        backgroundColor: Colors.blue,
-      ));
-    } else {
-      setState(() {});
+    if (widget.orderDetails.status_id != 2) {
+      setState(() {
+        _isProcessing = true;
+      });
+      final response = await _orderBookingServices
+          .updateOrderStatus(widget.orderDetails.order_id ?? 0);
+      setState(() {
+        _isProcessing = false;
+      });
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Center(child: Text('Update Successful Task!')),
+          backgroundColor: Colors.blue,
+        ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Center(child: Text('Update Failed Task!')),
+          backgroundColor: Colors.red,
+        ));
+        setState(() {});
+      }
     }
   }
 
@@ -333,37 +339,47 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
                         ),
                         Row(
                           children: [
-                            const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Status Payment',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColor.black,
-                                ),
+                            const Text(
+                              'Status Payment',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w400,
+                                color: AppColor.black,
                               ),
                             ),
                             const Spacer(),
-                            widget.orderDetails.vnp_ResponseCode == '00'
-                                ? const Text(
-                                    'Success Payment',
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColor.green,
-                                    ),
-                                  )
-                                : widget.orderDetails.vnp_ResponseCode != '00'
-                                    ? const Text(
-                                        'Processing',
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColor.black,
-                                        ),
-                                      )
-                                    : const SizedBox(),
+                            Text(
+                              widget.orderDetails.status_payment ?? '',
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                                color: widget.orderDetails.status_payment ==
+                                        'Processing'
+                                    ? Colors.black
+                                    : Colors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text(
+                              'Method Payment',
+                              style: TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              widget.orderDetails.payment ?? '',
+                              style: const TextStyle(
+                                color: AppColor.black,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16.0,
+                              ),
+                            ),
                           ],
                         ),
                         const Text(
@@ -390,27 +406,6 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
                 const SizedBox(
                   height: 100.0,
                 ),
-                // _isProcessing
-                //     ? const CircularProgressIndicator()
-                //     : AppElevatedButton(
-                //         text: 'Done Task',
-                //         color: Colors.blue,
-                //         highlightColor: Colors.amber,
-                //         splashColor: Colors.pink,
-                //         borderColor: Colors.black.withOpacity(0.5),
-                //         onPressed: _isProcessing ? null : _handleDoneTaskButton,
-                //       ),
-                // const SizedBox(
-                //   height: 10.0,
-                // ),
-                // Text(
-                //   _updateStatusMessage,
-                //   style: TextStyle(
-                //     color: _updateStatusMessage.contains('Failed')
-                //         ? Colors.red
-                //         : Colors.green,
-                //   ),
-                // ),
                 _appElevatedButton(),
               ],
             ),
@@ -422,13 +417,18 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
 
   _appElevatedButton() {
     if (widget.orderDetails.status_id != 2) {
-      return AppElevatedButton(
-        text: 'Done Task',
-        color: Colors.blue,
-        highlightColor: Colors.amber,
-        splashColor: Colors.pink,
-        borderColor: Colors.black.withOpacity(0.5),
-        onPressed: _isProcessing ? null : _handleDoneTaskButton,
+      return SizedBox(
+        height: 60.0,
+        width: 300.0,
+        child: TdElevatedButton.fullmau(
+          text: 'Done Task Order',
+          fontSize: 17.0,
+          color: Colors.blue,
+          highlightColor: Colors.amber,
+          splashColor: Colors.pink,
+          borderColor: Colors.black.withOpacity(0.3),
+          onPressed: _isProcessing ? null : _handleDoneTaskButton,
+        ),
       );
     } else {
       return const SizedBox();
