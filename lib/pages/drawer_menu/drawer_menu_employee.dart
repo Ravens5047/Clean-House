@@ -33,7 +33,6 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
   AccountService accountService = AccountService();
   late int userId;
   final formKey = GlobalKey<FormState>();
-  // ignore: unused_field
   File? _avatarImage;
 
   void _updateAvatarImage(File? newAvatarImage) {
