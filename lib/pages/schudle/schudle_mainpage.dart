@@ -93,8 +93,8 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: 10.0,
-              horizontal: 5.0,
+              vertical: 20.0,
+              horizontal: 15.0,
             ),
             child: Container(
               height: 200.0,

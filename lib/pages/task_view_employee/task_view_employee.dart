@@ -76,13 +76,19 @@ class _TaskViewEmployeeState extends State<TaskViewEmployee> {
             itemBuilder: (context, index) {
               final orderDetails = orderDetailsList[index];
               return GestureDetector(
-                onTap: () => Navigator.of(context).push(
+                onTap: () => Navigator.of(context)
+                    .push(
                   MaterialPageRoute(
                     builder: (context) => TaskViewEmployeeDetail(
                       orderDetails: orderDetails,
                     ),
                   ),
-                ),
+                )
+                    .then((value) {
+                  if (value != null && value == true) {
+                    _getListOrderDetailsEmp();
+                  }
+                }),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 10.0,
