@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:capstone2_clean_house/model/order_details_response_model.dart';
-import 'package:capstone2_clean_house/pages/task_view_employee/task_view_employee_detail.dart';
+import 'package:capstone2_clean_house/pages/history_order/detail_history_order.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/remote/order_booking_services.dart';
 import 'package:flutter/material.dart';
@@ -8,14 +8,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class SchudleMainPage extends StatefulWidget {
-  const SchudleMainPage({super.key});
+class SchudleMainPageCustomer extends StatefulWidget {
+  const SchudleMainPageCustomer({super.key});
 
   @override
-  State<SchudleMainPage> createState() => _SchudleMainPageState();
+  State<SchudleMainPageCustomer> createState() =>
+      _SchudleMainPageCustomerState();
 }
 
-class _SchudleMainPageState extends State<SchudleMainPage> {
+class _SchudleMainPageCustomerState extends State<SchudleMainPageCustomer> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -86,7 +87,7 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
         return GestureDetector(
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => TaskViewEmployeeDetail(
+              builder: (context) => DetailHistoryOrder(
                 orderDetails: orderDetails,
               ),
             ),

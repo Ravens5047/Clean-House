@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/model/order_details_response_model.dart';
 import 'package:capstone2_clean_house/model/services_model.dart';
@@ -131,7 +130,7 @@ class _HomeEmployeeDoneTaskState extends State<HomeEmployeeDoneTask> {
                     if (currentFilter == FilterCriteria.ByService) {
                       // Logic lọc theo name_service
                       // Đảm bảo rằng orderDetails có name_service trước khi so sánh
-                    } else if (currentFilter == FilterCriteria.ByTotal) {
+
                       // Logic lọc theo total
                       // Đảm bảo rằng orderDetails có total trước khi so sánh
                     } else if (currentFilter == FilterCriteria.ByWorkDate) {

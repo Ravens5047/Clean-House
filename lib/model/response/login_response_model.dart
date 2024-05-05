@@ -11,11 +11,13 @@ class LoginResponseModel {
   String? message;
   Data? data;
   int? role;
+  int? employee_code;
 
   LoginResponseModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     data = Data.fromJson(json['data']);
     role = json['role'];
+    employee_code = json['employee_code'];
   }
 
   Map<String, dynamic> toJson() {
@@ -24,6 +26,7 @@ class LoginResponseModel {
     _data['message'] = message;
     _data['data'] = data?.toJson();
     _data['role'] = role;
+    _data['employee_code'] = employee_code;
     return _data;
   }
 }
@@ -36,11 +39,13 @@ class Data {
   String? key;
   int? id;
   int? role;
+  int? employee_code;
 
   Data.fromJson(Map<String, dynamic> json) {
     key = json['key'];
     id = json['id'];
     role = json['role'];
+    employee_code = json['employee_code'];
   }
 
   Map<String, dynamic> toJson() {
@@ -49,6 +54,7 @@ class Data {
     _data['key'] = key;
     _data['id'] = id;
     _data['role'] = role;
+    _data['employee_code'] = employee_code;
     return _data;
   }
 }
