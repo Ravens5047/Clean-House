@@ -1,7 +1,6 @@
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/pages/home_screen/home_screen.dart';
 import 'package:capstone2_clean_house/pages/information_person/information_person.dart';
-import 'package:capstone2_clean_house/pages/schudle/schudle_mainpage_customer.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +45,7 @@ class _MainPageState extends State<MainPage> {
   List<Widget> _buildPages() {
     return [
       const HomeScreen(),
-      const SchudleMainPageCustomer(),
+      // const SchudleMainPageCustomer(),
       const Padding(
         padding: EdgeInsets.all(8.0),
         child: Column(
@@ -113,14 +112,14 @@ class _MainPageState extends State<MainPage> {
             ),
             label: 'Home',
           ),
-          NavigationDestination(
-            icon: Ikonate(
-              Ikonate.calendar_event,
-              color: isSelected[1] ? Colors.blue : Colors.black,
-              height: 40.0,
-            ),
-            label: 'Schedule',
-          ),
+          // NavigationDestination(
+          //   icon: Ikonate(
+          //     Ikonate.calendar_event,
+          //     color: isSelected[1] ? Colors.blue : Colors.black,
+          //     height: 40.0,
+          //   ),
+          //   label: 'Schedule',
+          // ),
           NavigationDestination(
             icon: Ikonate(
               Ikonate.bell,

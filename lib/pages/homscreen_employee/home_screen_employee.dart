@@ -17,7 +17,6 @@ import 'package:icony/icony_ikonate.dart';
 import 'package:intl/intl.dart';
 
 enum FilterCriteria {
-  ByDate,
   ByService,
   ByWorkDate,
 }
@@ -118,12 +117,6 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                title: const Text('By Date'),
-                onTap: () {
-                  Navigator.pop(context, FilterCriteria.ByDate);
-                },
-              ),
-              ListTile(
                 title: const Text('By Service'),
                 onTap: () {
                   Navigator.pop(context, FilterCriteria.ByService);
@@ -199,12 +192,12 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.filter_list),
-            onPressed: () {
-              _handleFilter();
-            },
-          ),
+          // IconButton(
+          //   icon: const Icon(Icons.filter_list),
+          //   onPressed: () {
+          //     _handleFilter();
+          //   },
+          // ),
           IconButton(
             icon: Ikonate(
               color: AppColor.black,
