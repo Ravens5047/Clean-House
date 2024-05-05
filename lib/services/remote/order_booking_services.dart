@@ -10,6 +10,8 @@ abstract class ImlOrderBooking {
   Future<http.Response> getListOrderDetails();
   Future<http.Response> searchServicesBooking(String name_service);
   Future<http.Response> updateOrderStatus(int orderId);
+  Future<http.Response> getListOrderDetailsByEmployeeCode(int employeeCode);
+  Future<http.Response> getListOrderDetailsByWorkDate(String workDate);
 }
 
 class OrderBookingServices implements ImlOrderBooking {
@@ -77,6 +79,34 @@ class OrderBookingServices implements ImlOrderBooking {
     final url = AppConstant.endPointUpdateStatusIDOrder
         .replaceAll(':order_id', orderId.toString());
     final response = await _httpClient.put(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+      },
+    );
+    return response;
+  }
+
+  @override
+  Future<http.Response> getListOrderDetailsByEmployeeCode(
+      int employeeCode) async {
+    String url =
+        AppConstant.endPointGetListOrderDetailsByEmployeeCode(employeeCode);
+    final response = await _httpClient.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+      },
+    );
+    return response;
+  }
+
+  @override
+  Future<http.Response> getListOrderDetailsByWorkDate(String workDate) async {
+    final url = AppConstant.endPointSchudleWorkDateOrdersTasks(workDate);
+    final response = await _httpClient.get(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',

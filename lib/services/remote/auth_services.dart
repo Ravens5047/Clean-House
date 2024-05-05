@@ -45,7 +45,6 @@ class APIService implements AuthServices {
   @override
   Future<http.Response> login1(LoginRequestModel body) async {
     const url = AppConstant.endPointLogin1;
-
     final response = await _httpClient.post(
       Uri.parse(url),
       headers: {

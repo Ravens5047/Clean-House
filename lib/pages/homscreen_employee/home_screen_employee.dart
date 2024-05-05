@@ -8,6 +8,7 @@ import 'package:capstone2_clean_house/pages/drawer_menu/drawer_menu_employee.dar
 import 'package:capstone2_clean_house/pages/homscreen_employee/home_screen_employee_done_task.dart';
 import 'package:capstone2_clean_house/pages/task_view_employee/task_view_employee_detail.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
+import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/order_booking_services.dart';
 import 'package:capstone2_clean_house/services/remote/services.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +19,16 @@ import 'package:intl/intl.dart';
 enum FilterCriteria {
   ByDate,
   ByService,
-  ByTotal,
   ByWorkDate,
 }
 
 class HomeScreenEmployee extends StatefulWidget {
-  const HomeScreenEmployee({super.key});
+  const HomeScreenEmployee({
+    super.key,
+    this.employeeCode,
+  });
 
+  final int? employeeCode;
   @override
   State<HomeScreenEmployee> createState() => _HomeScreenEmployeeState();
 }
@@ -48,25 +52,33 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
   }
 
   void _getListOrderDetailsEmp() {
-    orderBookingServices.getListOrderDetails().then((response) {
-      if (response.statusCode == 200) {
-        List<OrderDetailsModel> tempListOrderDetails = [];
-        List<dynamic> responseData = jsonDecode(response.body);
-        for (var data in responseData) {
-          OrderDetailsModel orderDetails = OrderDetailsModel.fromJson(data);
-          if (orderDetails.status_id == 1) {
-            tempListOrderDetails.add(orderDetails);
+    int? employeeCode = SharedPrefs.employeeCode;
+    if (employeeCode != null) {
+      orderBookingServices
+          .getListOrderDetailsByEmployeeCode(employeeCode)
+          .then((response) {
+        print(employeeCode);
+        if (response.statusCode == 200) {
+          List<OrderDetailsModel> tempListOrderDetails = [];
+          List<dynamic> responseData = jsonDecode(response.body);
+          for (var data in responseData) {
+            OrderDetailsModel orderDetails = OrderDetailsModel.fromJson(data);
+            if (orderDetails.status_id == 1) {
+              tempListOrderDetails.add(orderDetails);
+            }
           }
+          setState(() {
+            orderDetailsList = tempListOrderDetails;
+          });
+        } else {
+          print('Failed to load data from API');
         }
-        setState(() {
-          orderDetailsList = tempListOrderDetails;
-        });
-      } else {
-        print('Failed to load data from API');
-      }
-    }).catchError((onError) {
-      print('Error occurred: $onError');
-    });
+      }).catchError((onError) {
+        print('Error occurred: $onError');
+      });
+    } else {
+      print('Employee code is null');
+    }
   }
 
   void _searchServices(String name_service) {
@@ -118,12 +130,6 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                 },
               ),
               ListTile(
-                title: const Text('By Total'),
-                onTap: () {
-                  Navigator.pop(context, FilterCriteria.ByTotal);
-                },
-              ),
-              ListTile(
                 title: const Text('By Work Date'),
                 onTap: () {
                   Navigator.pop(context, FilterCriteria.ByWorkDate);
@@ -142,20 +148,38 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
     }
   }
 
+  //Sap Xep lai theo date work
   void _handleSort() {
     setState(() {
-      if (currentFilter != FilterCriteria.ByService) {
-        isAscending = !isAscending;
-        orderDetailsList
-            .sort((a, b) => a.name_service!.compareTo(b.name_service!));
-        currentFilter = FilterCriteria.ByService;
+      if (currentFilter != FilterCriteria.ByWorkDate) {
+        isAscending = true;
+        orderDetailsList.sort((a, b) {
+          final DateTime? dateA = parseDate(a.work_date);
+          final DateTime? dateB = parseDate(b.work_date);
+          return dateA!.compareTo(dateB!);
+        });
+        currentFilter = FilterCriteria.ByWorkDate;
       } else {
         isAscending = !isAscending;
-        orderDetailsList
-            .sort((a, b) => b.name_service!.compareTo(a.name_service!));
+        orderDetailsList.sort((a, b) {
+          final DateTime? dateA = parseDate(a.work_date);
+          final DateTime? dateB = parseDate(b.work_date);
+          return dateB!.compareTo(dateA!);
+        });
         currentFilter = null;
       }
     });
+  }
+
+  DateTime? parseDate(String? dateStr) {
+    try {
+      if (dateStr != null) {
+        return DateFormat('yyyy-MM-dd').parse(dateStr);
+      }
+    } catch (e) {
+      print('Invalid date format: $dateStr');
+    }
+    return null;
   }
 
   @override
@@ -247,7 +271,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                     if (currentFilter == FilterCriteria.ByService) {
                       // Logic lọc theo name_service
                       // Đảm bảo rằng orderDetails có name_service trước khi so sánh
-                    } else if (currentFilter == FilterCriteria.ByTotal) {
+
                       // Logic lọc theo total
                       // Đảm bảo rằng orderDetails có total trước khi so sánh
                     } else if (currentFilter == FilterCriteria.ByWorkDate) {

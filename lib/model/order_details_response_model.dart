@@ -58,7 +58,7 @@ class OrderDetailsModel {
   });
 
   factory OrderDetailsModel.fromJson(Map<String, dynamic> json) {
-    final dateFormat = DateFormat('dd-MM-yyyy');
+    final dateFormat = DateFormat('yyyy-MM-dd');
     final String formattedWorkDate = json['work_date'] != null
         ? dateFormat.format(DateTime.parse(json['work_date'].toString()))
         : '';

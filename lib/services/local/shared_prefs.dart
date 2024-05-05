@@ -9,6 +9,7 @@ class SharedPrefs {
   static const String addressKey = 'address_user';
   static const String avatarImagePathKey = 'avatarImagePath';
   static const String roleIDKey = 'role_id';
+  static const String employeeCodeKey = 'employee_code';
 
   static Future<void> initialise() async {
     _prefs = await SharedPreferences.getInstance();
@@ -45,6 +46,14 @@ class SharedPrefs {
     return _prefs.getInt(roleIDKey);
   }
 
+  static int? get employeeCode {
+    return _prefs.getInt(employeeCodeKey);
+  }
+
+  static void setEmployeeCode(int employeeCode) {
+    _prefs.setInt(employeeCodeKey, employeeCode);
+  }
+
   static bool get isLogin => token?.isNotEmpty ?? false;
 
   static bool get isAccessed => _prefs.getBool(checkAccessKey) ?? false;
@@ -58,6 +67,7 @@ class SharedPrefs {
     _prefs.remove(accessTokenKey);
     _prefs.remove(checkAccessKey);
     _prefs.remove(userIdKey);
+    _prefs.remove(employeeCodeKey);
     // _prefs.remove(avatarImagePathKey);
     print('User session token and user_id removed successfully.');
   }

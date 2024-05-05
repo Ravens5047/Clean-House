@@ -48,21 +48,27 @@ class _LoginPageState extends State<LoginPage> {
           final token = loginResponse.key;
           final user_Id = loginResponse.id;
           final role = loginResponse.role;
+          final employeeCode = loginResponse.employee_code;
           print('Token: $token');
           print('User_id: $user_Id');
           print('Role: $role');
+          print('Employee code: $employeeCode');
           if (token != null && user_Id != null && role != null) {
             await SharedPrefs.setToken(token);
             SharedPrefs.setUserId(user_Id);
             SharedPrefs.setRoleID(role);
             if (context.mounted) {
-              if (role == 3) {
+              if (role == 3 && employeeCode != null) {
+                // User is employee
+                SharedPrefs.setEmployeeCode(employeeCode);
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
-                      builder: (context) => const MainPageEmployee()),
+                      builder: (context) =>
+                          MainPageEmployee(employee_code: employeeCode)),
                   (Route<dynamic> route) => false,
                 );
               } else if (role == 4) {
+                // User is regular user
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) => const MainPage()),
                   (Route<dynamic> route) => false,

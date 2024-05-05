@@ -10,7 +10,10 @@ import 'package:icony/icony_ikonate.dart';
 class MainPageEmployee extends StatefulWidget {
   const MainPageEmployee({
     super.key,
+    this.employee_code,
   });
+
+  final int? employee_code;
 
   @override
   State<MainPageEmployee> createState() => _MainPageEmployeeState();
@@ -21,11 +24,13 @@ class _MainPageEmployeeState extends State<MainPageEmployee> {
   late int userId;
   int currentPageIndex = 0;
   List<bool> isSelected = [true, false, false, false];
+  late int? _employeeCode;
 
   @override
   void initState() {
     super.initState();
     _fetchUserId();
+    _employeeCode = widget.employee_code;
   }
 
   Future<void> _fetchUserId() async {
@@ -45,7 +50,7 @@ class _MainPageEmployeeState extends State<MainPageEmployee> {
 
   List<Widget> _buildPages() {
     return [
-      const HomeScreenEmployee(),
+      HomeScreenEmployee(employeeCode: _employeeCode),
       const SchudleMainPage(),
       Padding(
         padding: const EdgeInsets.all(8.0),
