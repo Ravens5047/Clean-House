@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:capstone2_clean_house/model/order_details_response_model.dart';
 import 'package:capstone2_clean_house/pages/history_order/detail_history_order.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
+import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/order_booking_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -208,9 +209,10 @@ class _SchudleMainPageCustomerState extends State<SchudleMainPageCustomer> {
 
   void _fetchTasksForSelectedDay(DateTime selectedDay) async {
     try {
+      int? employeeCode = SharedPrefs.employeeCode;
       String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDay);
-      final response = await orderBookingServices
-          .getListOrderDetailsByWorkDate(formattedDate);
+      final response = await orderBookingServices.getListOrderDetailsByWorkDate(
+          formattedDate, employeeCode!);
       if (response.statusCode == 200) {
         setState(() {
           orderDetailsList = parseOrderDetailsList(response.body);
