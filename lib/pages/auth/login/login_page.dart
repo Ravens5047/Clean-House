@@ -183,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    Timer(const Duration(milliseconds: 500), () {
+    Timer(const Duration(milliseconds: 200), () {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
     });
   }

@@ -168,7 +168,7 @@ class _HistoryOrderState extends State<HistoryOrder> {
                     horizontal: 5.0,
                   ),
                   child: Container(
-                    height: 200.0,
+                    height: 220.0,
                     decoration: BoxDecoration(
                       color: AppColor.white,
                       border: Border.all(
@@ -236,7 +236,7 @@ class _HistoryOrderState extends State<HistoryOrder> {
                               const Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'Status Bill',
+                                  'Status:',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.w400,
@@ -251,7 +251,7 @@ class _HistoryOrderState extends State<HistoryOrder> {
                                       style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w400,
-                                        color: AppColor.black,
+                                        color: AppColor.orange,
                                       ),
                                     )
                                   : orderDetails.status_id == 2
@@ -264,6 +264,27 @@ class _HistoryOrderState extends State<HistoryOrder> {
                                           ),
                                         )
                                       : const SizedBox(),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const Text(
+                                'Payment Method:',
+                                style: TextStyle(
+                                  color: AppColor.black,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 18.0,
+                                ),
+                              ),
+                              const Spacer(),
+                              Text(
+                                orderDetails.payment ?? '',
+                                style: const TextStyle(
+                                  color: AppColor.black,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16.0,
+                                ),
+                              ),
                             ],
                           ),
                         ],

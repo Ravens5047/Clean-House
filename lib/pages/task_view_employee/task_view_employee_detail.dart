@@ -331,7 +331,7 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
                             const Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Status Bill',
+                                'Status Bill:',
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w400,
@@ -346,7 +346,7 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
                                     style: TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.w400,
-                                      color: AppColor.black,
+                                      color: AppColor.orange,
                                     ),
                                   )
                                 : widget.orderDetails.status_id == 2
@@ -355,7 +355,7 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
                                         style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500,
-                                          color: AppColor.blue,
+                                          color: AppColor.green,
                                         ),
                                       )
                                     : const SizedBox(),
@@ -388,7 +388,7 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
                         Row(
                           children: [
                             const Text(
-                              'Method Payment',
+                              'Payment Method:',
                               style: TextStyle(
                                 color: AppColor.black,
                                 fontWeight: FontWeight.w400,
