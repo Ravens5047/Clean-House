@@ -2,11 +2,13 @@ import 'dart:convert';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/model/order_details_response_model.dart';
 import 'package:capstone2_clean_house/pages/history_order/detail_history_order.dart';
+import 'package:capstone2_clean_house/pages/homscreen_employee/home_screen_employee.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/order_booking_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:icony/icony_ikonate.dart';
 import 'package:intl/intl.dart';
 
 class HistoryOrder extends StatefulWidget {
@@ -24,6 +26,8 @@ class _HistoryOrderState extends State<HistoryOrder> {
   OrderBookingServices orderBookingServices = OrderBookingServices();
   OrderDetailsModel orderDetailsModel = OrderDetailsModel();
   List<OrderDetailsModel> orderDetailsList = [];
+  FilterCriteria? currentFilter;
+  bool isAscending = true;
 
   @override
   void initState() {
@@ -58,6 +62,43 @@ class _HistoryOrderState extends State<HistoryOrder> {
     }
   }
 
+  void _handleSort() {
+    setState(() {
+      if (currentFilter != FilterCriteria.ByWorkDate) {
+        isAscending = true;
+        orderDetailsList.sort((a, b) {
+          final DateTime? dateA = parseDate(a.work_date);
+          final DateTime? dateB = parseDate(b.work_date);
+          return dateA!.compareTo(dateB!);
+        });
+        currentFilter = FilterCriteria.ByWorkDate;
+      } else {
+        isAscending = !isAscending;
+        orderDetailsList.sort((a, b) {
+          final DateTime? dateA = parseDate(a.work_date);
+          final DateTime? dateB = parseDate(b.work_date);
+          return dateB!.compareTo(dateA!);
+        });
+        currentFilter = null;
+      }
+    });
+  }
+
+  DateTime? parseDate(String? dateStr) {
+    try {
+      if (dateStr != null) {
+        return DateFormat('yyyy-MM-dd').parse(dateStr);
+      }
+    } catch (e) {
+      print('Invalid date format: $dateStr');
+    }
+    return null;
+  }
+
+  void _reloadUI() {
+    _getListOrderDetailsByUser_ID();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,6 +109,29 @@ class _HistoryOrderState extends State<HistoryOrder> {
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),
+        actions: [
+          // IconButton(
+          //   icon: const Icon(Icons.filter_list),
+          //   onPressed: () {
+          //     _handleFilter();
+          //   },
+          // ),
+          IconButton(
+            icon: Ikonate(
+              color: AppColor.black,
+              isAscending ? Ikonate.sort_down : Ikonate.sort_up,
+            ),
+            onPressed: () {
+              _handleSort();
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              _reloadUI();
+            },
+          ),
+        ],
         title: Text(
           'History Order',
           style: GoogleFonts.mandali(

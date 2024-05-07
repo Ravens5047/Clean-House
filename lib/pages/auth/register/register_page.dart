@@ -149,7 +149,7 @@ class _RegisterPageState extends State<RegisterPage> {
             AppTextField(
               controller: phoneController,
               hintext: 'Number Phone',
-              validator: Validator.requiredValidator.call,
+              validator: Validator.phoneNumberValidator,
               textInputAction: TextInputAction.next,
             ),
             const SizedBox(height: 16.0),
@@ -211,7 +211,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             },
                           text: ' privacy policy',
                           style: TextStyle(
-                            color: isCheck ? AppColor.blue : AppColor.grey,
+                            color: isCheck ? Colors.blue : AppColor.grey,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -225,7 +225,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             },
                           text: ' term & conditions',
                           style: TextStyle(
-                            color: isCheck ? AppColor.blue : AppColor.grey,
+                            color: isCheck ? Colors.blue : AppColor.grey,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
