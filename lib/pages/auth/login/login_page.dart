@@ -59,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
             SharedPrefs.setRoleID(role);
             if (context.mounted) {
               if (role == 3 && employeeCode != null) {
+                showCustomSnackBarLoginSuccessful(context);
                 SharedPrefs.setEmployeeCode(employeeCode);
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
@@ -67,6 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                   (Route<dynamic> route) => false,
                 );
               } else if (role == 4) {
+                showCustomSnackBarLoginSuccessful(context);
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) => const MainPage()),
                   (Route<dynamic> route) => false,
@@ -88,6 +90,14 @@ class _LoginPageState extends State<LoginPage> {
               ),
             );
           }
+        } else if (response.statusCode == 500) {
+          final errorBody = jsonDecode(response.body);
+          final errorMessage = errorBody['errMessage'] as String?;
+          if (errorMessage == "Tên đăng nhập bị sai") {
+            showCustomSnackBarWrongUsername(context);
+          } else {
+            showCustomSnackBarWrongPassword(context);
+          }
         }
       }).catchError((onError) {
         showTopSnackBar(
@@ -98,6 +108,84 @@ class _LoginPageState extends State<LoginPage> {
         );
       });
     }
+  }
+
+  void showCustomSnackBarLoginSuccessful(BuildContext context) {
+    final snackBar = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      backgroundColor: Colors.blue,
+      content: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        child: Center(
+          child: Text(
+            "Login Successfully",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 17.0,
+            ),
+          ),
+        ),
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    Timer(const Duration(seconds: 1), () {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    });
+  }
+
+  void showCustomSnackBarWrongPassword(BuildContext context) {
+    final snackBar = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      backgroundColor: Colors.blue,
+      content: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        child: Center(
+          child: Text(
+            "Wrong password",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 17.0,
+            ),
+          ),
+        ),
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    Timer(const Duration(seconds: 1), () {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    });
+  }
+
+  void showCustomSnackBarWrongUsername(BuildContext context) {
+    final snackBar = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      backgroundColor: Colors.blue,
+      content: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        child: Center(
+          child: Text(
+            "Login name is incorrect",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 17.0,
+            ),
+          ),
+        ),
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    Timer(const Duration(seconds: 1), () {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    });
   }
 
   @override

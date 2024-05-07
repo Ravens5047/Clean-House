@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:capstone2_clean_house/components/app_dialog.dart';
@@ -141,6 +142,32 @@ class _SettingScreenState extends State<SettingScreen> {
       } else {
         full_name = '$first_name $last_name';
       }
+    });
+  }
+
+  void showCustomSnackBarLogoutUI(BuildContext context) {
+    final snackBar = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      backgroundColor: Colors.blue,
+      content: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        child: Center(
+          child: Text(
+            "Log out successfully",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 17.0,
+            ),
+          ),
+        ),
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    Timer(const Duration(seconds: 1), () {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
     });
   }
 
@@ -336,6 +363,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         title: 'Sign Out',
                         content: 'Do you want to logout ?',
                         action: () async {
+                          showCustomSnackBarLogoutUI(context);
                           SharedPrefs.removeSeason();
                           WidgetsBinding.instance.addPostFrameCallback((_) {
                             Navigator.of(context).pushAndRemoveUntil(
