@@ -1,12 +1,10 @@
-// ignore_for_file: constant_identifier_names
-
 import 'dart:convert';
+
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/model/order_details_response_model.dart';
 import 'package:capstone2_clean_house/model/services_model.dart';
-import 'package:capstone2_clean_house/pages/drawer_menu/drawer_menu_employee.dart';
-import 'package:capstone2_clean_house/pages/homscreen_employee/home_screen_employee_done_task.dart';
-import 'package:capstone2_clean_house/pages/task_view_employee/task_view_employee_detail.dart';
+import 'package:capstone2_clean_house/pages/history_order/detail_history_order.dart';
+import 'package:capstone2_clean_house/pages/homscreen_employee/home_screen_employee.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/order_booking_services.dart';
@@ -16,23 +14,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:icony/icony_ikonate.dart';
 import 'package:intl/intl.dart';
 
-enum FilterCriteria {
-  ByService,
-  ByWorkDate,
-}
+class HistoryOrderSuccessfully extends StatefulWidget {
+  const HistoryOrderSuccessfully({super.key});
 
-class HomeScreenEmployee extends StatefulWidget {
-  const HomeScreenEmployee({
-    super.key,
-    this.employeeCode,
-  });
-
-  final int? employeeCode;
   @override
-  State<HomeScreenEmployee> createState() => _HomeScreenEmployeeState();
+  State<HistoryOrderSuccessfully> createState() =>
+      _HistoryOrderSuccessfullyState();
 }
 
-class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
+class _HistoryOrderSuccessfullyState extends State<HistoryOrderSuccessfully> {
   final searchController = TextEditingController();
   AppUsersModel appUser = AppUsersModel();
   final formKey = GlobalKey<FormState>();
@@ -46,26 +36,45 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
 
   @override
   void initState() {
-    _getListOrderDetailsEmp();
+    _getListOrderDetailsByUser_ID();
     super.initState();
   }
 
-  void _getListOrderDetailsEmp() {
-    int? employeeCode = SharedPrefs.employeeCode;
-    if (employeeCode != null) {
-      orderBookingServices
-          .getListOrderDetailsByEmployeeCode(employeeCode)
-          .then((response) {
-        print(employeeCode);
+  void _handleSort() {
+    setState(() {
+      if (currentFilter != FilterCriteria.ByService) {
+        isAscending = !isAscending;
+        orderDetailsList
+            .sort((a, b) => a.name_service!.compareTo(b.name_service!));
+        currentFilter = FilterCriteria.ByService;
+      } else {
+        isAscending = !isAscending;
+        orderDetailsList
+            .sort((a, b) => b.name_service!.compareTo(a.name_service!));
+        currentFilter = null;
+      }
+    });
+  }
+
+  void _reloadUI() {
+    _getListOrderDetailsByUser_ID();
+  }
+
+  void _getListOrderDetailsByUser_ID() {
+    int? userId = SharedPrefs.user_id;
+    if (userId != null) {
+      orderBookingServices.getListOrderDetailsByUserID(userId).then((response) {
         if (response.statusCode == 200) {
           List<OrderDetailsModel> tempListOrderDetails = [];
           List<dynamic> responseData = jsonDecode(response.body);
           for (var data in responseData) {
             OrderDetailsModel orderDetails = OrderDetailsModel.fromJson(data);
-            if (orderDetails.status_id == 1) {
+            if (orderDetails.status_id == 2) {
               tempListOrderDetails.add(orderDetails);
             }
           }
+          print(userId);
+          print('Connection Successfully Call API');
           setState(() {
             orderDetailsList = tempListOrderDetails;
           });
@@ -76,93 +85,15 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
         print('Error occurred: $onError');
       });
     } else {
-      print('Employee code is null');
+      print('User_id not found in SharedPreferences');
     }
   }
 
-  void _searchServices(String name_service) {
-    orderBookingServices.searchServicesBooking(name_service).then((response) {
-      if (response.statusCode == 200) {
-        List<OrderDetailsModel> tempList = [];
-        List<dynamic> responseData = jsonDecode(response.body);
-        for (var data in responseData) {
-          OrderDetailsModel service = OrderDetailsModel.fromJson(data);
-          tempList.add(service);
-        }
-        setState(() {
-          orderDetailsList = tempList;
-        });
-      } else {
-        print('Failed to search services booking');
-      }
-      if (orderDetailsList.isEmpty) {
-        _reloadUI();
-      }
-    }).catchError((onError) {
-      print('Error occurred: $onError');
-    });
-  }
-
-  void _reloadUI() {
-    _getListOrderDetailsEmp();
-  }
-
-  // ignore: unused_element
-  void _handleFilter() async {
-    final FilterCriteria? result = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Center(child: Text('Filter Options')),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                title: const Text('By Service'),
-                onTap: () {
-                  Navigator.pop(context, FilterCriteria.ByService);
-                },
-              ),
-              ListTile(
-                title: const Text('By Work Date'),
-                onTap: () {
-                  Navigator.pop(context, FilterCriteria.ByWorkDate);
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-
-    if (result != null) {
-      setState(() {
-        currentFilter = result;
-      });
+  DateTime? addOneDay(DateTime? date) {
+    if (date != null) {
+      return date.add(const Duration(days: 1));
     }
-  }
-
-  //Sap Xep lai theo date work
-  void _handleSort() {
-    setState(() {
-      if (currentFilter != FilterCriteria.ByWorkDate) {
-        isAscending = true;
-        orderDetailsList.sort((a, b) {
-          final DateTime? dateA = parseDate(a.work_date);
-          final DateTime? dateB = parseDate(b.work_date);
-          return dateA!.compareTo(dateB!);
-        });
-        currentFilter = FilterCriteria.ByWorkDate;
-      } else {
-        isAscending = !isAscending;
-        orderDetailsList.sort((a, b) {
-          final DateTime? dateA = parseDate(a.work_date);
-          final DateTime? dateB = parseDate(b.work_date);
-          return dateB!.compareTo(dateA!);
-        });
-        currentFilter = null;
-      }
-    });
+    return null;
   }
 
   DateTime? parseDate(String? dateStr) {
@@ -172,13 +103,6 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
       }
     } catch (e) {
       print('Invalid date format: $dateStr');
-    }
-    return null;
-  }
-
-  DateTime? addOneDay(DateTime? date) {
-    if (date != null) {
-      return date.add(const Duration(days: 1));
     }
     return null;
   }
@@ -198,16 +122,19 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
     double totalAmount = calculateTotalPrice();
     return Scaffold(
       appBar: AppBar(
-        title: Align(
-          alignment: Alignment.center,
-          child: Text(
-            'Home Employee',
-            style: GoogleFonts.dmSerifText(
-              fontSize: 18.0,
-              fontWeight: FontWeight.w200,
-              color: AppColor.black,
-            ),
+        title: Text(
+          'Task Done History',
+          style: GoogleFonts.dmSerifText(
+            fontSize: 22.0,
+            fontWeight: FontWeight.w200,
+            color: AppColor.black,
           ),
+        ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.arrow_back_ios),
         ),
         centerTitle: true,
         actions: [
@@ -226,55 +153,20 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
               _reloadUI();
             },
           ),
-          IconButton(
-            icon: const Ikonate(
-              Ikonate.forward,
-              color: AppColor.black,
-            ),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const HomeEmployeeDoneTask(),
-                ),
-              );
-            },
-          ),
         ],
-      ),
-      drawer: DrawerMenuEmployee(
-        appUser: appUser,
-        user_id: appUser.user_id ?? 0,
       ),
       body: Form(
         key: formKey,
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(7.0),
-                child: TextField(
-                  controller: searchController,
-                  decoration: InputDecoration(
-                    hintText: 'Search services...',
-                    prefixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: const BorderSide(color: Colors.grey),
-                    ),
-                    hintStyle: const TextStyle(color: Colors.grey),
-                  ),
-                  onChanged: (value) {
-                    _searchServices(value);
-                  },
-                ),
-              ),
               Text(
-                'Total of The Task: ${NumberFormat('#,##0', 'en_US').format(totalAmount)} VND',
+                'Total of The Bill Order: ${NumberFormat('#,##0', 'en_US').format(totalAmount)} VND',
                 style: const TextStyle(
                   fontSize: 18.0,
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.black,
+                  fontWeight: FontWeight.w600,
+                  color: AppColor.green,
                 ),
               ),
               Expanded(
@@ -299,7 +191,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                     return GestureDetector(
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => TaskViewEmployeeDetail(
+                          builder: (context) => DetailHistoryOrder(
                             orderDetails: orderDetails,
                           ),
                         ),
@@ -350,7 +242,6 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                                   ),
                                 ),
                                 Text(
-                                  // 'Work Date: ${orderDetails.work_date} ',
                                   'Work Date: ${workDateWithOneDay != null ? DateFormat('yyyy-MM-dd').format(workDateWithOneDay) : 'N/A'}',
                                   style: const TextStyle(
                                     fontSize: 18.0,

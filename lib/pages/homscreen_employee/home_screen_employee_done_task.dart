@@ -97,8 +97,19 @@ class _HomeEmployeeDoneTaskState extends State<HomeEmployeeDoneTask> {
     return null;
   }
 
+  double calculateTotalPrice() {
+    double total = 0.0;
+    for (var orderDetails in orderDetailsList) {
+      if (orderDetails.sub_total_price != null) {
+        total += orderDetails.sub_total_price!;
+      }
+    }
+    return total;
+  }
+
   @override
   Widget build(BuildContext context) {
+    double totalAmount = calculateTotalPrice();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -140,6 +151,14 @@ class _HomeEmployeeDoneTaskState extends State<HomeEmployeeDoneTask> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
+              Text(
+                'Total of The Bill Order: ${NumberFormat('#,##0', 'en_US').format(totalAmount)} VND',
+                style: const TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                  color: AppColor.green,
+                ),
+              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: orderDetailsList.length,

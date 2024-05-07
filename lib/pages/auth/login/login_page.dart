@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    Timer(const Duration(seconds: 1), () {
+    Timer(const Duration(milliseconds: 500), () {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
     });
   }
@@ -157,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    Timer(const Duration(seconds: 1), () {
+    Timer(const Duration(milliseconds: 500), () {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
     });
   }
@@ -183,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    Timer(const Duration(seconds: 1), () {
+    Timer(const Duration(milliseconds: 500), () {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
     });
   }

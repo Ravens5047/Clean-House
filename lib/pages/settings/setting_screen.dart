@@ -166,7 +166,7 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    Timer(const Duration(seconds: 1), () {
+    Timer(const Duration(milliseconds: 500), () {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
     });
   }
