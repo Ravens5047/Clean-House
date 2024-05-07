@@ -63,6 +63,7 @@ class SharedPrefs {
   static void removeSeason() {
     print('Removing user session token: $token');
     print('Removing user session user_id: $user_id');
+    print('Removing user session user_id: $employeeCode');
     // print('Removing user session avatar: $avatarImagePath');
     _prefs.remove(accessTokenKey);
     _prefs.remove(checkAccessKey);
