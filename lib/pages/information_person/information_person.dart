@@ -5,6 +5,7 @@ import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
+import 'package:capstone2_clean_house/utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -187,6 +188,7 @@ class _InformationPersonState extends State<InformationPerson> {
               AppTextFieldProfile(
                 controller: phoneController,
                 hintText: "Phone",
+                validator: Validator.phoneNumberValidator,
                 prefixIcon: const Icon(Icons.phone, color: AppColor.grey),
                 // validator: Validator.requiredValidator,
                 textInputAction: TextInputAction.done,

@@ -4,6 +4,7 @@ import 'package:capstone2_clean_house/pages/information_person/information_perso
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:icony/icony_ikonate.dart';
 
 class MainPage extends StatefulWidget {
@@ -46,36 +47,63 @@ class _MainPageState extends State<MainPage> {
     return [
       const HomeScreen(),
       // const SchudleMainPageCustomer(),
-      const Padding(
-        padding: EdgeInsets.all(8.0),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               height: 30.0,
             ),
             Text(
               'Notifications',
-              style: TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.w500,
+              style: GoogleFonts.dmSerifText(
+                fontSize: 30.0,
+                fontWeight: FontWeight.w400,
                 color: Colors.blue,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
-            Card(
+            const Card(
               child: ListTile(
                 leading: Icon(Icons.notifications_sharp),
                 title: Text('Notification 1'),
-                subtitle: Text('This is a notification'),
+                subtitle:
+                    Text('This is a notification from Clean House Services'),
               ),
             ),
-            Card(
+            const SizedBox(
+              height: 5.0,
+            ),
+            const Card(
               child: ListTile(
                 leading: Icon(Icons.notifications_sharp),
                 title: Text('Notification 2'),
-                subtitle: Text('This is a notification'),
+                subtitle:
+                    Text('This is a notification from Clean House Services'),
+              ),
+            ),
+            const SizedBox(
+              height: 5.0,
+            ),
+            const Card(
+              child: ListTile(
+                leading: Icon(Icons.notifications_sharp),
+                title: Text('Notification 3'),
+                subtitle:
+                    Text('This is a notification from Clean House Services'),
+              ),
+            ),
+            const SizedBox(
+              height: 5.0,
+            ),
+            const Card(
+              child: ListTile(
+                leading: Icon(Icons.notifications_sharp),
+                title: Text('Notification 4'),
+                subtitle:
+                    Text('This is a notification from Clean House Services'),
               ),
             ),
           ],

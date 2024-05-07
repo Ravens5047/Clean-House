@@ -7,6 +7,7 @@ import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:icony/icony_ikonate.dart';
 
 class DrawerMenuEmployee extends StatefulWidget {
@@ -130,15 +131,15 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
             UserAccountsDrawerHeader(
               accountName: Text(
                 full_name,
-                style: const TextStyle(
+                style: GoogleFonts.dmSerifText(
                   fontSize: 17.0,
                   color: AppColor.black,
                 ),
               ),
               accountEmail: Text(
                 email,
-                style: const TextStyle(
-                  fontSize: 15.0,
+                style: GoogleFonts.nuosuSil(
+                  fontSize: 17.0,
                   color: AppColor.black,
                 ),
               ),
@@ -185,7 +186,7 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
             const Divider(
               height: 10.0,
               thickness: 2.0,
-              color: AppColor.blue,
+              color: Colors.blue,
               endIndent: 10.0,
               indent: 10.0,
             ),
@@ -196,38 +197,6 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  // GestureDetector(
-                  //   onTap: () => Navigator.of(context).push(
-                  //     MaterialPageRoute(
-                  //       builder: (context) => const TaskViewEmployee(),
-                  //     ),
-                  //   ),
-                  //   child: const Row(
-                  //     children: [
-                  //       SizedBox(
-                  //         height: 30.0,
-                  //         width: 30.0,
-                  //         child: Ikonate(
-                  //           Ikonate.history,
-                  //           color: Colors.blue,
-                  //         ),
-                  //       ),
-                  //       SizedBox(
-                  //         width: 15.0,
-                  //       ),
-                  //       Text(
-                  //         'Task Employee',
-                  //         style: TextStyle(
-                  //           fontSize: 20.0,
-                  //           fontWeight: FontWeight.w400,
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // const SizedBox(
-                  //   height: 20.0,
-                  // ),
                   GestureDetector(
                     onTap: () async {
                       final File? newAvatarImage =

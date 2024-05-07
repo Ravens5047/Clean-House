@@ -77,6 +77,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _reloadUI() {
+    _getListServices();
+  }
+
   @override
   Widget build(BuildContext context) {
     print('servicesList length: ${servicesList.length}');
@@ -85,6 +89,14 @@ class _HomeScreenState extends State<HomeScreen> {
         shadowColor: AppColor.black,
         foregroundColor: AppColor.black,
         backgroundColor: const Color.fromARGB(255, 165, 221, 255),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              _reloadUI();
+            },
+          ),
+        ],
       ),
       drawer: DrawerMenu(
         appUser: appUser,

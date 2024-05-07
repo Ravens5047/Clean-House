@@ -30,18 +30,50 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
         title: Center(
           child: Text(
             'Table Calendar',
-            style: GoogleFonts.dmSerifText(
-              fontSize: 22.0,
-              fontWeight: FontWeight.w400,
+            style: GoogleFonts.merriweather(
+              fontSize: 25.0,
+              fontWeight: FontWeight.w300,
             ),
           ),
         ),
+        centerTitle: true,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             TableCalendar(
+              headerStyle: HeaderStyle(
+                titleTextStyle: GoogleFonts.tiroTamil(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w400,
+                  color: AppColor.black,
+                ),
+                formatButtonVisible: false,
+                titleCentered: true,
+              ),
+              daysOfWeekStyle: const DaysOfWeekStyle(
+                weekdayStyle: TextStyle(
+                  color: AppColor.black,
+                  fontWeight: FontWeight.bold,
+                ),
+                weekendStyle: TextStyle(
+                  color: AppColor.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              calendarStyle: const CalendarStyle(
+                todayDecoration: BoxDecoration(
+                  color: AppColor.blue,
+                  shape: BoxShape.circle,
+                ),
+                selectedDecoration: BoxDecoration(
+                  color: AppColor.grey,
+                  shape: BoxShape.circle,
+                ),
+                selectedTextStyle: TextStyle(color: AppColor.white),
+                todayTextStyle: TextStyle(color: AppColor.white),
+              ),
               firstDay: DateTime(2020),
               lastDay: DateTime.now().add(const Duration(days: 365)),
               focusedDay: _focusedDay,
@@ -102,7 +134,7 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
               decoration: BoxDecoration(
                 color: AppColor.white,
                 border: Border.all(
-                  color: AppColor.black,
+                  color: AppColor.grey,
                   width: 1,
                 ),
                 borderRadius: BorderRadius.circular(10.0),
@@ -190,7 +222,7 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
                                     style: TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.w500,
-                                      color: AppColor.green,
+                                      color: Colors.blue,
                                     ),
                                   )
                                 : const SizedBox(),

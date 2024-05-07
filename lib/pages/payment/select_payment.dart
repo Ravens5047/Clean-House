@@ -146,6 +146,29 @@ class _SelectPaymentState extends State<SelectPayment> {
     }
   }
 
+  void showCustomSnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      backgroundColor: Colors.blue,
+      content: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        child: Center(
+          child: Text(
+            "Please Select Payment Method",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 17.0,
+            ),
+          ),
+        ),
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -190,10 +213,10 @@ class _SelectPaymentState extends State<SelectPayment> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.5),
+                color: Colors.blue.withOpacity(0.7),
                 border: Border.all(
                   width: 1.0,
-                  color: AppColor.black.withOpacity(0.8),
+                  color: AppColor.black.withOpacity(0.4),
                 ),
                 borderRadius: BorderRadius.circular(30.0),
               ),
@@ -322,18 +345,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                       (Route<dynamic> route) => false,
                     );
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      backgroundColor: Colors.blue,
-                      content: Center(
-                        child: Text(
-                          "Please Select Payment Method",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12.0,
-                          ),
-                        ),
-                      ),
-                    ));
+                    showCustomSnackBar(context);
                   }
                 },
               ),

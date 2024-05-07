@@ -74,14 +74,41 @@ class _MainPageEmployeeState extends State<MainPageEmployee> {
               child: ListTile(
                 leading: Icon(Icons.notifications_sharp),
                 title: Text('Notification 1'),
-                subtitle: Text('This is a notification'),
+                subtitle:
+                    Text('This is a notification from Clean House Services'),
               ),
+            ),
+            const SizedBox(
+              height: 5.0,
             ),
             const Card(
               child: ListTile(
                 leading: Icon(Icons.notifications_sharp),
                 title: Text('Notification 2'),
-                subtitle: Text('This is a notification'),
+                subtitle:
+                    Text('This is a notification from Clean House Services'),
+              ),
+            ),
+            const SizedBox(
+              height: 5.0,
+            ),
+            const Card(
+              child: ListTile(
+                leading: Icon(Icons.notifications_sharp),
+                title: Text('Notification 3'),
+                subtitle:
+                    Text('This is a notification from Clean House Services'),
+              ),
+            ),
+            const SizedBox(
+              height: 5.0,
+            ),
+            const Card(
+              child: ListTile(
+                leading: Icon(Icons.notifications_sharp),
+                title: Text('Notification 4'),
+                subtitle:
+                    Text('This is a notification from Clean House Services'),
               ),
             ),
           ],
