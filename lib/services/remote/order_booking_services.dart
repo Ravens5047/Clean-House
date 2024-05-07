@@ -11,7 +11,7 @@ abstract class ImlOrderBooking {
   Future<http.Response> searchServicesBooking(String name_service);
   Future<http.Response> updateOrderStatus(int orderId);
   Future<http.Response> getListOrderDetailsByEmployeeCode(int employeeCode);
-  Future<http.Response> getListOrderDetailsByWorkDate(String workDate);
+  Future<http.Response> getListOrderDetailsByWorkDate(String workDate, int employeeCode);
 }
 
 class OrderBookingServices implements ImlOrderBooking {
@@ -104,8 +104,8 @@ class OrderBookingServices implements ImlOrderBooking {
   }
 
   @override
-  Future<http.Response> getListOrderDetailsByWorkDate(String workDate) async {
-    final url = AppConstant.endPointSchudleWorkDateOrdersTasks(workDate);
+  Future<http.Response> getListOrderDetailsByWorkDate(String workDate, int employeeCode) async {
+    final url = AppConstant.endPointSchudleWorkDateOrdersTasks(workDate, employeeCode);
     final response = await _httpClient.get(
       Uri.parse(url),
       headers: {

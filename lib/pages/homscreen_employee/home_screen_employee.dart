@@ -107,6 +107,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
     _getListOrderDetailsEmp();
   }
 
+  // ignore: unused_element
   void _handleFilter() async {
     final FilterCriteria? result = await showDialog(
       context: context,

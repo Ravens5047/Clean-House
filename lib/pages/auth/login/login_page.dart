@@ -59,7 +59,6 @@ class _LoginPageState extends State<LoginPage> {
             SharedPrefs.setRoleID(role);
             if (context.mounted) {
               if (role == 3 && employeeCode != null) {
-                // User is employee
                 SharedPrefs.setEmployeeCode(employeeCode);
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
@@ -68,7 +67,6 @@ class _LoginPageState extends State<LoginPage> {
                   (Route<dynamic> route) => false,
                 );
               } else if (role == 4) {
-                // User is regular user
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) => const MainPage()),
                   (Route<dynamic> route) => false,
