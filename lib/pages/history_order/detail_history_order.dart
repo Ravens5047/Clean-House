@@ -20,6 +20,25 @@ class DetailHistoryOrder extends StatefulWidget {
 class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
   final formKey = GlobalKey<FormState>();
   OrderDetailsModel orderDetailsModel = OrderDetailsModel();
+
+  DateTime? addOneDay(DateTime? date) {
+    if (date != null) {
+      return date.add(const Duration(days: 1));
+    }
+    return null;
+  }
+
+  DateTime? parseDate(String? dateStr) {
+    try {
+      if (dateStr != null) {
+        return DateFormat('yyyy-MM-dd').parse(dateStr);
+      }
+    } catch (e) {
+      print('Invalid date format: $dateStr');
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -197,7 +216,13 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
                             ),
                             const Spacer(),
                             Text(
-                              widget.orderDetails.work_date ?? '',
+                              addOneDay(parseDate(
+                                          widget.orderDetails.work_date)) !=
+                                      null
+                                  ? DateFormat('yyyy-MM-dd').format(addOneDay(
+                                      parseDate(
+                                          widget.orderDetails.work_date))!)
+                                  : '',
                               style: const TextStyle(
                                 color: AppColor.black,
                                 fontWeight: FontWeight.w400,

@@ -45,6 +45,7 @@ class _HistoryOrderState extends State<HistoryOrder> {
           for (var data in responseData) {
             OrderDetailsModel orderDetails = OrderDetailsModel.fromJson(data);
             tempListOrderDetails.add(orderDetails);
+            print(orderDetails.work_date);
           }
           print(userId);
           print('Connection Successfully Call API');
@@ -99,6 +100,13 @@ class _HistoryOrderState extends State<HistoryOrder> {
     _getListOrderDetailsByUser_ID();
   }
 
+  DateTime? addOneDay(DateTime? date) {
+    if (date != null) {
+      return date.add(const Duration(days: 1));
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -110,12 +118,6 @@ class _HistoryOrderState extends State<HistoryOrder> {
           icon: const Icon(Icons.arrow_back_ios),
         ),
         actions: [
-          // IconButton(
-          //   icon: const Icon(Icons.filter_list),
-          //   onPressed: () {
-          //     _handleFilter();
-          //   },
-          // ),
           IconButton(
             icon: Ikonate(
               color: AppColor.black,
@@ -150,6 +152,8 @@ class _HistoryOrderState extends State<HistoryOrder> {
             itemCount: orderDetailsList.length,
             itemBuilder: (context, index) {
               final orderDetails = orderDetailsList[index];
+              final DateTime? workDateWithOneDay =
+                  addOneDay(parseDate(orderDetails.work_date));
               return GestureDetector(
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
@@ -204,7 +208,7 @@ class _HistoryOrderState extends State<HistoryOrder> {
                             ),
                           ),
                           Text(
-                            'Work Date: ${orderDetails.work_date}',
+                            'Work Date: ${workDateWithOneDay != null ? DateFormat('yyyy-MM-dd').format(workDateWithOneDay) : 'N/A'}',
                             style: const TextStyle(
                               fontSize: 18.0,
                               fontWeight: FontWeight.w400,

@@ -176,6 +176,13 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
     return null;
   }
 
+  DateTime? addOneDay(DateTime? date) {
+    if (date != null) {
+      return date.add(const Duration(days: 1));
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -262,6 +269,8 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                   itemCount: orderDetailsList.length,
                   itemBuilder: (context, index) {
                     final orderDetails = orderDetailsList[index];
+                    final DateTime? workDateWithOneDay =
+                        addOneDay(parseDate(orderDetails.work_date));
                     if (currentFilter == FilterCriteria.ByService) {
                       // Logic lọc theo name_service
                       // Đảm bảo rằng orderDetails có name_service trước khi so sánh
@@ -328,7 +337,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                                   ),
                                 ),
                                 Text(
-                                  'Work Date: ${orderDetails.work_date}',
+                                  'Work Date: ${workDateWithOneDay != null ? DateFormat('yyyy-MM-dd').format(workDateWithOneDay) : 'N/A'}',
                                   style: const TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.w400,
