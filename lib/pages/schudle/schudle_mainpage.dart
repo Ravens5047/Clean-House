@@ -23,6 +23,31 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
   List<OrderDetailsModel> orderDetailsList = [];
   final orderBookingServices = OrderBookingServices();
 
+  void _reloadUI() {
+    setState(() {
+      _selectedDay = null;
+      _fetchTasksForSelectedDay(_focusedDay);
+    });
+  }
+
+  DateTime? addOneDay(DateTime? date) {
+    if (date != null) {
+      return date.add(const Duration(days: 1));
+    }
+    return null;
+  }
+
+  DateTime? parseDate(String? dateStr) {
+    try {
+      if (dateStr != null) {
+        return DateFormat('yyyy-MM-dd').parse(dateStr);
+      }
+    } catch (e) {
+      print('Invalid date format: $dateStr');
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +61,14 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
             ),
           ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              _reloadUI();
+            },
+          ),
+        ],
         centerTitle: true,
       ),
       body: Center(
@@ -83,9 +116,11 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
               },
               onDaySelected: (selectedDay, focusedDay) {
                 setState(() {
-                  _selectedDay = selectedDay;
+                  final selectedDate = DateTime.utc(
+                      selectedDay.year, selectedDay.month, selectedDay.day);
+                  _selectedDay = selectedDate;
                   _focusedDay = focusedDay;
-                  _fetchTasksForSelectedDay(selectedDay);
+                  _fetchTasksForSelectedDay(selectedDate);
                 });
               },
               onFormatChanged: (format) {
@@ -116,6 +151,8 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
       itemCount: orderDetailsList.length,
       itemBuilder: (context, index) {
         final orderDetails = orderDetailsList[index];
+        final DateTime? workDateWithOneDay =
+            addOneDay(parseDate(orderDetails.work_date));
         return GestureDetector(
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
@@ -170,7 +207,7 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
                       ),
                     ),
                     Text(
-                      'Work Date: ${orderDetails.work_date}',
+                      'Work Date: ${workDateWithOneDay != null ? DateFormat('yyyy-MM-dd').format(workDateWithOneDay) : 'N/A'}',
                       style: const TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.w400,
@@ -241,7 +278,8 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
   void _fetchTasksForSelectedDay(DateTime selectedDay) async {
     try {
       int? employeeCode = SharedPrefs.employeeCode;
-      String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDay);
+      String formattedDate =
+          DateFormat('yyyy-MM-dd').format(selectedDay.toLocal());
       final response = await orderBookingServices.getListOrderDetailsByWorkDate(
           formattedDate, employeeCode!);
       if (response.statusCode == 200) {

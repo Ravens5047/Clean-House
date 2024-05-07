@@ -79,6 +79,24 @@ class _HomeEmployeeDoneTaskState extends State<HomeEmployeeDoneTask> {
     });
   }
 
+  DateTime? addOneDay(DateTime? date) {
+    if (date != null) {
+      return date.add(const Duration(days: 1));
+    }
+    return null;
+  }
+
+  DateTime? parseDate(String? dateStr) {
+    try {
+      if (dateStr != null) {
+        return DateFormat('yyyy-MM-dd').parse(dateStr);
+      }
+    } catch (e) {
+      print('Invalid date format: $dateStr');
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,6 +145,8 @@ class _HomeEmployeeDoneTaskState extends State<HomeEmployeeDoneTask> {
                   itemCount: orderDetailsList.length,
                   itemBuilder: (context, index) {
                     final orderDetails = orderDetailsList[index];
+                    final DateTime? workDateWithOneDay =
+                        addOneDay(parseDate(orderDetails.work_date));
                     if (currentFilter == FilterCriteria.ByService) {
                       // Logic lọc theo name_service
                       // Đảm bảo rằng orderDetails có name_service trước khi so sánh
@@ -193,7 +213,7 @@ class _HomeEmployeeDoneTaskState extends State<HomeEmployeeDoneTask> {
                                   ),
                                 ),
                                 Text(
-                                  'Work Date: ${orderDetails.work_date}',
+                                  'Work Date: ${workDateWithOneDay != null ? DateFormat('yyyy-MM-dd').format(workDateWithOneDay) : 'N/A'}',
                                   style: const TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.w400,

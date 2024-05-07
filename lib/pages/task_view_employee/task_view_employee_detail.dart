@@ -50,6 +50,24 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
     }
   }
 
+  DateTime? addOneDay(DateTime? date) {
+    if (date != null) {
+      return date.add(const Duration(days: 1));
+    }
+    return null;
+  }
+
+  DateTime? parseDate(String? dateStr) {
+    try {
+      if (dateStr != null) {
+        return DateFormat('yyyy-MM-dd').parse(dateStr);
+      }
+    } catch (e) {
+      print('Invalid date format: $dateStr');
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -227,7 +245,13 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
                             ),
                             const Spacer(),
                             Text(
-                              widget.orderDetails.work_date ?? '',
+                              addOneDay(parseDate(
+                                          widget.orderDetails.work_date)) !=
+                                      null
+                                  ? DateFormat('yyyy-MM-dd').format(addOneDay(
+                                      parseDate(
+                                          widget.orderDetails.work_date))!)
+                                  : '',
                               style: const TextStyle(
                                 color: AppColor.black,
                                 fontWeight: FontWeight.w400,
@@ -331,7 +355,7 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
                                         style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500,
-                                          color: Colors.blue,
+                                          color: AppColor.blue,
                                         ),
                                       )
                                     : const SizedBox(),
