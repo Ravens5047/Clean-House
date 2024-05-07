@@ -9,6 +9,7 @@ import 'package:capstone2_clean_house/pages/auth/change_password/change_password
 import 'package:capstone2_clean_house/pages/auth/login/login_page.dart';
 import 'package:capstone2_clean_house/pages/comming_soon/comming_soon_screen.dart';
 import 'package:capstone2_clean_house/pages/information_person/information_person.dart';
+import 'package:capstone2_clean_house/pages/terms%20and%20conditions/terms_and_conditions.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
@@ -318,7 +319,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => const CommingSoonScreen(),
+                            builder: (context) => const TermsAndConditions(),
                           ),
                         );
                       },
@@ -412,7 +413,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             baseColor: AppColor.black,
                             highlightColor: AppColor.blue,
                             child: Text(
-                              'Version: 1.0.0',
+                              'Version: 1.7.8',
                               style: GoogleFonts.alatsi(
                                 fontSize: 17.0,
                                 fontWeight: FontWeight.w400,
