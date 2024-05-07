@@ -302,7 +302,7 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
                             const Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Status Bill',
+                                'Status: ',
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w400,
@@ -317,7 +317,7 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
                                     style: TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.w400,
-                                      color: AppColor.black,
+                                      color: AppColor.orange,
                                     ),
                                   )
                                 : widget.orderDetails.status_id == 2
@@ -335,7 +335,7 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
                         Row(
                           children: [
                             const Text(
-                              'Status Payment',
+                              'Status Payment:',
                               style: TextStyle(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.w400,
@@ -359,7 +359,7 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
                         Row(
                           children: [
                             const Text(
-                              'Method Payment',
+                              'Method Payment:',
                               style: TextStyle(
                                 color: AppColor.black,
                                 fontWeight: FontWeight.w400,

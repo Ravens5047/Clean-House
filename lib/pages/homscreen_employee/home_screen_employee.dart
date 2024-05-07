@@ -186,8 +186,10 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
   double calculateTotalPrice() {
     double total = 0.0;
     for (var orderDetails in orderDetailsList) {
-      if (orderDetails.sub_total_price != null) {
-        total += orderDetails.sub_total_price!;
+      if (orderDetails.payment == 'Cash') {
+        if (orderDetails.sub_total_price != null) {
+          total += orderDetails.sub_total_price!;
+        }
       }
     }
     return total;
@@ -270,7 +272,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                 ),
               ),
               Text(
-                'Total of The Task: ${NumberFormat('#,##0', 'en_US').format(totalAmount)} VND',
+                'Total of The Task - Cash: ${NumberFormat('#,##0', 'en_US').format(totalAmount)} VND',
                 style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w500,
@@ -310,7 +312,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                           horizontal: 5.0,
                         ),
                         child: Container(
-                          height: 200.0,
+                          height: 220.0,
                           decoration: BoxDecoration(
                             color: AppColor.white,
                             border: Border.all(
@@ -379,7 +381,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                                     const Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        'Status Bill',
+                                        'Status:',
                                         style: TextStyle(
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.w400,
@@ -394,7 +396,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                                             style: TextStyle(
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.w400,
-                                              color: AppColor.black,
+                                              color: AppColor.orange,
                                             ),
                                           )
                                         : orderDetails.status_id == 2
@@ -407,6 +409,27 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                                                 ),
                                               )
                                             : const SizedBox(),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    const Text(
+                                      'Payment Method:',
+                                      style: TextStyle(
+                                        color: AppColor.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18.0,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      orderDetails.payment ?? '',
+                                      style: const TextStyle(
+                                        color: AppColor.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],

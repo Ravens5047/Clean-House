@@ -152,7 +152,7 @@ class _HomeEmployeeDoneTaskState extends State<HomeEmployeeDoneTask> {
           child: Column(
             children: [
               Text(
-                'Total of The Bill Order: ${NumberFormat('#,##0', 'en_US').format(totalAmount)} VND',
+                'You owe The Agency: ${NumberFormat('#,##0', 'en_US').format(totalAmount)} VND',
                 style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w600,
@@ -192,7 +192,7 @@ class _HomeEmployeeDoneTaskState extends State<HomeEmployeeDoneTask> {
                           horizontal: 5.0,
                         ),
                         child: Container(
-                          height: 200.0,
+                          height: 220.0,
                           decoration: BoxDecoration(
                             color: AppColor.white,
                             border: Border.all(
@@ -260,7 +260,7 @@ class _HomeEmployeeDoneTaskState extends State<HomeEmployeeDoneTask> {
                                     const Align(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                        'Status Bill',
+                                        'Status:',
                                         style: TextStyle(
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.w400,
@@ -288,6 +288,27 @@ class _HomeEmployeeDoneTaskState extends State<HomeEmployeeDoneTask> {
                                                 ),
                                               )
                                             : const SizedBox(),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    const Text(
+                                      'Payment Method:',
+                                      style: TextStyle(
+                                        color: AppColor.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18.0,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      orderDetails.payment ?? '',
+                                      style: const TextStyle(
+                                        color: AppColor.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ],
