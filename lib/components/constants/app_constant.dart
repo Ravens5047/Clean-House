@@ -39,7 +39,7 @@ class AppConstant {
   }
 
   //API VNPAY PAYMENTS
-  static const endPointVNPAY = 'http://192.168.1.152:8888/order';
+  static const endPointVNPAY = 'http://192.168.1.8:8888/order';
   static const endPointCreatePaymentURL = '$endPointVNPAY/create_payment_url';
   static const endPointQueryDr = '$endPointVNPAY/querydr';
   static const endPointRefund = '$endPointVNPAY/refund';
