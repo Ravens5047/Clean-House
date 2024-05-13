@@ -27,25 +27,29 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
 
   Future<void> _handleDoneTaskButton() async {
     if (widget.orderDetails.status_id != 2) {
-      setState(() {
-        _isProcessing = true;
-      });
-      final response = await _orderBookingServices
-          .updateOrderStatus(widget.orderDetails.order_id ?? 0);
-      setState(() {
-        _isProcessing = false;
-      });
-      if (response.statusCode == 200) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Center(child: Text('Update Successful Task!')),
-          backgroundColor: Colors.blue,
-        ));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Center(child: Text('Update Failed Task!')),
-          backgroundColor: Colors.red,
-        ));
-        setState(() {});
+      bool confirmUpdate = await _confirmUpdateTaskDialog();
+      if (confirmUpdate) {
+        setState(() {
+          _isProcessing = true;
+        });
+        final response = await _orderBookingServices
+            .updateOrderStatus(widget.orderDetails.order_id ?? 0);
+
+        setState(() {
+          _isProcessing = false;
+        });
+        if (response.statusCode == 200) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Center(child: Text('Update Successful Task!')),
+            backgroundColor: Colors.blue,
+          ));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Center(child: Text('Update Failed Task!')),
+            backgroundColor: Colors.red,
+          ));
+          setState(() {});
+        }
       }
     }
   }
@@ -457,5 +461,56 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
     } else {
       return const SizedBox();
     }
+  }
+
+  _confirmUpdateTaskDialog() async {
+    return await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Center(
+              child: Text(
+            "Confirm",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 23.0,
+            ),
+          )),
+          content:
+              const Text("Are you sure you want to update the task as done?"),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                  child: const Text(
+                    "Yes",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  child: const Text(
+                    "No",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
   }
 }

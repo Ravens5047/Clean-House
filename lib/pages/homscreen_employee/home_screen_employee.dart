@@ -17,7 +17,7 @@ import 'package:icony/icony_ikonate.dart';
 import 'package:intl/intl.dart';
 
 enum FilterCriteria {
-  ByService,
+  ByStatus,
   ByWorkDate,
 }
 
@@ -43,6 +43,8 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
   List<OrderDetailsModel> orderDetailsList = [];
   FilterCriteria? currentFilter;
   bool isAscending = true;
+  bool filterByStatus = false;
+  bool filterByProcessing = true;
 
   @override
   void initState() {
@@ -62,7 +64,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
           List<dynamic> responseData = jsonDecode(response.body);
           for (var data in responseData) {
             OrderDetailsModel orderDetails = OrderDetailsModel.fromJson(data);
-            if (orderDetails.status_id == 1) {
+            if (orderDetails.status_id != null) {
               tempListOrderDetails.add(orderDetails);
             }
           }
@@ -104,10 +106,15 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
   }
 
   void _reloadUI() {
+    setState(() {
+      currentFilter = null;
+      filterByStatus = false;
+      filterByProcessing = true;
+      orderDetailsList = [];
+    });
     _getListOrderDetailsEmp();
   }
 
-  // ignore: unused_element
   void _handleFilter() async {
     final FilterCriteria? result = await showDialog(
       context: context,
@@ -118,15 +125,17 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                title: const Text('By Service'),
+                title: const Text('Status: Processing'),
                 onTap: () {
-                  Navigator.pop(context, FilterCriteria.ByService);
+                  Navigator.pop(context, FilterCriteria.ByStatus);
+                  toggleStatusFilter(true);
                 },
               ),
               ListTile(
-                title: const Text('By Work Date'),
+                title: const Text('Status: Success Payment'),
                 onTap: () {
-                  Navigator.pop(context, FilterCriteria.ByWorkDate);
+                  Navigator.pop(context, FilterCriteria.ByStatus);
+                  toggleStatusFilter(false);
                 },
               ),
             ],
@@ -137,12 +146,11 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
 
     if (result != null) {
       setState(() {
-        currentFilter = result;
+        currentFilter = FilterCriteria.ByStatus;
       });
     }
   }
 
-  //Sap Xep lai theo date work
   void _handleSort() {
     setState(() {
       if (currentFilter != FilterCriteria.ByWorkDate) {
@@ -195,6 +203,13 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
     return total;
   }
 
+  void toggleStatusFilter(bool bool) {
+    setState(() {
+      filterByStatus = !filterByStatus;
+      filterByProcessing = bool; // Update filter by Processing status
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double totalAmount = calculateTotalPrice();
@@ -213,6 +228,12 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
         ),
         centerTitle: true,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.filter_list),
+            onPressed: () {
+              _handleFilter();
+            },
+          ),
           IconButton(
             icon: Ikonate(
               color: AppColor.black,
@@ -286,158 +307,295 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                     final orderDetails = orderDetailsList[index];
                     final DateTime? workDateWithOneDay =
                         addOneDay(parseDate(orderDetails.work_date));
-                    if (currentFilter == FilterCriteria.ByService) {
-                      // Logic lọc theo name_service
-                      // Đảm bảo rằng orderDetails có name_service trước khi so sánh
-
-                      // Logic lọc theo total
-                      // Đảm bảo rằng orderDetails có total trước khi so sánh
-                    } else if (currentFilter == FilterCriteria.ByWorkDate) {
-                      // Logic lọc theo work_date
-                      // Đảm bảo rằng orderDetails có work_date trước khi so sánh
-                    } else {
-                      // Không có bộ lọc được chọn, hiển thị tất cả các dữ liệu
-                    }
-                    return GestureDetector(
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => TaskViewEmployeeDetail(
-                            orderDetails: orderDetails,
-                          ),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 10.0,
-                          horizontal: 5.0,
-                        ),
-                        child: Container(
-                          height: 220.0,
-                          decoration: BoxDecoration(
-                            color: AppColor.white,
-                            border: Border.all(
-                              color: AppColor.black,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(10.0),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: AppColor.shadow,
-                                offset: Offset(0.0, 3.0),
-                                blurRadius: 6.0,
+                    if (filterByStatus) {
+                      if ((orderDetails.status_id == 1 && filterByProcessing) ||
+                          (orderDetails.status_id == 2 &&
+                              !filterByProcessing)) {
+                        return GestureDetector(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => TaskViewEmployeeDetail(
+                                orderDetails: orderDetails,
                               ),
-                            ],
+                            ),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Center(
-                                  child: Text(
-                                    '#${orderDetails.order_detail_id.toString()}',
-                                    style: const TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColor.black,
-                                    ),
-                                  ),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 10.0,
+                              horizontal: 5.0,
+                            ),
+                            child: Container(
+                              height: 220.0,
+                              decoration: BoxDecoration(
+                                color: AppColor.white,
+                                border: Border.all(
+                                  color: AppColor.black,
+                                  width: 1,
                                 ),
-                                Text(
-                                  'Name Service: ${orderDetails.name_service ?? ''}',
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColor.black,
+                                borderRadius: BorderRadius.circular(10.0),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: AppColor.shadow,
+                                    offset: Offset(0.0, 3.0),
+                                    blurRadius: 6.0,
                                   ),
-                                ),
-                                Text(
-                                  // 'Work Date: ${orderDetails.work_date} ',
-                                  'Work Date: ${workDateWithOneDay != null ? DateFormat('yyyy-MM-dd').format(workDateWithOneDay) : 'N/A'}',
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColor.black,
-                                  ),
-                                ),
-                                Text(
-                                  'Time: ${orderDetails.start_time}',
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColor.black,
-                                  ),
-                                ),
-                                Text(
-                                  'Total: ${orderDetails.sub_total_price != null ? NumberFormat('#,##0', 'en_US').format(orderDetails.sub_total_price) : 'N/A'} VND',
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColor.black,
-                                  ),
-                                ),
-                                Row(
+                                ],
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Align(
-                                      alignment: Alignment.centerLeft,
+                                    Center(
                                       child: Text(
-                                        'Status:',
-                                        style: TextStyle(
+                                        '#${orderDetails.order_detail_id.toString()}',
+                                        style: const TextStyle(
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.w400,
                                           color: AppColor.black,
                                         ),
                                       ),
                                     ),
-                                    const Spacer(),
-                                    orderDetails.status_id == 1
-                                        ? const Text(
-                                            'Processing',
+                                    Text(
+                                      'Name Service: ${orderDetails.name_service ?? ''}',
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColor.black,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Work Date: ${workDateWithOneDay != null ? DateFormat('yyyy-MM-dd').format(workDateWithOneDay) : 'N/A'}',
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColor.black,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Time: ${orderDetails.start_time}',
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColor.black,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Total: ${orderDetails.sub_total_price != null ? NumberFormat('#,##0', 'en_US').format(orderDetails.sub_total_price) : 'N/A'} VND',
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColor.black,
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            'Status:',
                                             style: TextStyle(
-                                              fontSize: 16.0,
+                                              fontSize: 18.0,
                                               fontWeight: FontWeight.w400,
-                                              color: AppColor.orange,
+                                              color: AppColor.black,
                                             ),
-                                          )
-                                        : orderDetails.status_id == 2
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        orderDetails.status_id == 1
                                             ? const Text(
-                                                'Success Payment',
+                                                'Processing',
                                                 style: TextStyle(
                                                   fontSize: 16.0,
-                                                  fontWeight: FontWeight.w500,
-                                                  color: AppColor.green,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: AppColor.orange,
                                                 ),
                                               )
-                                            : const SizedBox(),
+                                            : orderDetails.status_id == 2
+                                                ? const Text(
+                                                    'Success Payment',
+                                                    style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: AppColor.green,
+                                                    ),
+                                                  )
+                                                : const SizedBox(),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          'Payment Method:',
+                                          style: TextStyle(
+                                            color: AppColor.black,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 18.0,
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          orderDetails.payment ?? '',
+                                          style: const TextStyle(
+                                            color: AppColor.black,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 16.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
-                                Row(
-                                  children: [
-                                    const Text(
-                                      'Payment Method:',
-                                      style: TextStyle(
-                                        color: AppColor.black,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 18.0,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Text(
-                                      orderDetails.payment ?? '',
-                                      style: const TextStyle(
-                                        color: AppColor.black,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 16.0,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              ),
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Container(); // Hide task if status does not match filter
+                      }
+                    } else {
+                      // If not filtering by status, show all tasks
+                      return GestureDetector(
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => TaskViewEmployeeDetail(
+                              orderDetails: orderDetails,
                             ),
                           ),
                         ),
-                      ),
-                    );
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10.0,
+                            horizontal: 5.0,
+                          ),
+                          child: Container(
+                            height: 220.0,
+                            decoration: BoxDecoration(
+                              color: AppColor.white,
+                              border: Border.all(
+                                color: AppColor.black,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(10.0),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: AppColor.shadow,
+                                  offset: Offset(0.0, 3.0),
+                                  blurRadius: 6.0,
+                                ),
+                              ],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: Text(
+                                      '#${orderDetails.order_detail_id.toString()}',
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColor.black,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Name Service: ${orderDetails.name_service ?? ''}',
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColor.black,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Work Date: ${workDateWithOneDay != null ? DateFormat('yyyy-MM-dd').format(workDateWithOneDay) : 'N/A'}',
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColor.black,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Time: ${orderDetails.start_time}',
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColor.black,
+                                    ),
+                                  ),
+                                  Text(
+                                    'Total: ${orderDetails.sub_total_price != null ? NumberFormat('#,##0', 'en_US').format(orderDetails.sub_total_price) : 'N/A'} VND',
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColor.black,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Status:',
+                                          style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w400,
+                                            color: AppColor.black,
+                                          ),
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      orderDetails.status_id == 1
+                                          ? const Text(
+                                              'Processing',
+                                              style: TextStyle(
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColor.orange,
+                                              ),
+                                            )
+                                          : orderDetails.status_id == 2
+                                              ? const Text(
+                                                  'Success Payment',
+                                                  style: TextStyle(
+                                                    fontSize: 16.0,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: AppColor.green,
+                                                  ),
+                                                )
+                                              : const SizedBox(),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Text(
+                                        'Payment Method:',
+                                        style: TextStyle(
+                                          color: AppColor.black,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 18.0,
+                                        ),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        orderDetails.payment ?? '',
+                                        style: const TextStyle(
+                                          color: AppColor.black,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }
                   },
                 ),
               ),

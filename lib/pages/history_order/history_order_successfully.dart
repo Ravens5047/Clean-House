@@ -42,15 +42,21 @@ class _HistoryOrderSuccessfullyState extends State<HistoryOrderSuccessfully> {
 
   void _handleSort() {
     setState(() {
-      if (currentFilter != FilterCriteria.ByService) {
-        isAscending = !isAscending;
-        orderDetailsList
-            .sort((a, b) => a.name_service!.compareTo(b.name_service!));
-        currentFilter = FilterCriteria.ByService;
+      if (currentFilter != FilterCriteria.ByWorkDate) {
+        isAscending = true;
+        orderDetailsList.sort((a, b) {
+          final DateTime? dateA = parseDate(a.work_date);
+          final DateTime? dateB = parseDate(b.work_date);
+          return dateA!.compareTo(dateB!);
+        });
+        currentFilter = FilterCriteria.ByWorkDate;
       } else {
         isAscending = !isAscending;
-        orderDetailsList
-            .sort((a, b) => b.name_service!.compareTo(a.name_service!));
+        orderDetailsList.sort((a, b) {
+          final DateTime? dateA = parseDate(a.work_date);
+          final DateTime? dateB = parseDate(b.work_date);
+          return dateB!.compareTo(dateA!);
+        });
         currentFilter = null;
       }
     });
@@ -176,18 +182,6 @@ class _HistoryOrderSuccessfullyState extends State<HistoryOrderSuccessfully> {
                     final orderDetails = orderDetailsList[index];
                     final DateTime? workDateWithOneDay =
                         addOneDay(parseDate(orderDetails.work_date));
-                    if (currentFilter == FilterCriteria.ByService) {
-                      // Logic lọc theo name_service
-                      // Đảm bảo rằng orderDetails có name_service trước khi so sánh
-
-                      // Logic lọc theo total
-                      // Đảm bảo rằng orderDetails có total trước khi so sánh
-                    } else if (currentFilter == FilterCriteria.ByWorkDate) {
-                      // Logic lọc theo work_date
-                      // Đảm bảo rằng orderDetails có work_date trước khi so sánh
-                    } else {
-                      // Không có bộ lọc được chọn, hiển thị tất cả các dữ liệu
-                    }
                     return GestureDetector(
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(

@@ -11,7 +11,10 @@ abstract class ImlOrderBooking {
   Future<http.Response> searchServicesBooking(String name_service);
   Future<http.Response> updateOrderStatus(int orderId);
   Future<http.Response> getListOrderDetailsByEmployeeCode(int employeeCode);
-  Future<http.Response> getListOrderDetailsByWorkDate(String workDate, int employeeCode);
+  Future<http.Response> getListOrderDetailsByWorkDate(
+      String workDate, int employeeCode);
+  // Future<http.Response> addCashPaymentToDatabase(
+  //     int orderDetailId, double sumTotal);
 }
 
 class OrderBookingServices implements ImlOrderBooking {
@@ -104,14 +107,34 @@ class OrderBookingServices implements ImlOrderBooking {
   }
 
   @override
-  Future<http.Response> getListOrderDetailsByWorkDate(String workDate, int employeeCode) async {
-    final url = AppConstant.endPointSchudleWorkDateOrdersTasks(workDate, employeeCode);
+  Future<http.Response> getListOrderDetailsByWorkDate(
+      String workDate, int employeeCode) async {
+    final url =
+        AppConstant.endPointSchudleWorkDateOrdersTasks(workDate, employeeCode);
     final response = await _httpClient.get(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Accept': 'application/json',
       },
+    );
+    return response;
+  }
+
+  // @override
+  Future<http.Response> addCashPaymentToDatabase(
+      {required int orderDetailId, required double sumTotal}) async {
+    const url = AppConstant.endPointBookingOrderDetails;
+    final response = await _httpClient.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+      },
+      body: jsonEncode({
+        'order_detail_id': orderDetailId,
+        'sum_total': sumTotal,
+      }),
     );
     return response;
   }

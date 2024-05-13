@@ -127,12 +127,12 @@ class _InformationPersonState extends State<InformationPerson> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
+          // leading: IconButton(
+          //   icon: const Icon(Icons.arrow_back_ios),
+          //   onPressed: () {
+          //     Navigator.of(context).pop();
+          //   },
+          // ),
           centerTitle: true,
         ),
         body: Form(
