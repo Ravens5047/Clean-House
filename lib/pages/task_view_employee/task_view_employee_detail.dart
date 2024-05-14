@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:capstone2_clean_house/components/button/td_elevated_button.dart';
 import 'package:capstone2_clean_house/components/text_field/selection_house_text_field.dart';
 import 'package:capstone2_clean_house/model/order_details_response_model.dart';
@@ -39,16 +41,18 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
           _isProcessing = false;
         });
         if (response.statusCode == 200) {
+          setState(() {
+            widget.orderDetails.status_id = 2;
+          });
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Center(child: Text('Update Successful Task!')),
+            content: Text('Update Task Successfullu'),
             backgroundColor: Colors.blue,
           ));
         } else {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Center(child: Text('Update Failed Task!')),
+            content: Text('Update Task Failed'),
             backgroundColor: Colors.red,
           ));
-          setState(() {});
         }
       }
     }
@@ -70,6 +74,52 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
       print('Invalid date format: $dateStr');
     }
     return null;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _updateOverdueTasks();
+  }
+
+  Future<void> _updateOverdueTasks() async {
+    await _checkAndUpdateTaskStatus();
+    await Future.delayed(const Duration(days: 2));
+    _updateOverdueTasks();
+  }
+
+  Future<void> _checkAndUpdateTaskStatus() async {
+    DateTime today = getDateWithoutTime(DateTime.now());
+    DateTime? workDate = parseDate(widget.orderDetails.work_date);
+    if (workDate != null) {
+      workDate = getDateWithoutTime(workDate);
+      if (workDate.isBefore(today) &&
+          workDate.isBefore(today.subtract(const Duration(days: 2))) &&
+          widget.orderDetails.status_id != 2) {
+        final response = await _orderBookingServices
+            .updateOrderStatus(widget.orderDetails.order_id ?? 0);
+
+        if (response.statusCode == 200) {
+          setState(() {
+            widget.orderDetails.status_id = 2;
+          });
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Center(
+                child: Text('The overdue task has been updated to "done"!')),
+            backgroundColor: Colors.blue,
+          ));
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Center(child: Text('Updating overdue tasks failed!')),
+            backgroundColor: Colors.red,
+          ));
+        }
+      }
+    }
+  }
+
+  DateTime getDateWithoutTime(DateTime dateTime) {
+    return DateTime(dateTime.year, dateTime.month, dateTime.day);
   }
 
   @override
@@ -470,14 +520,13 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
         return AlertDialog(
           title: const Center(
               child: Text(
-            "Confirm",
+            "Confirm Task Order",
             style: TextStyle(
               color: Colors.black,
               fontSize: 23.0,
             ),
           )),
-          content:
-              const Text("Are you sure you want to update the task as done?"),
+          content: const Text("Are you sure to update the task as done ?"),
           actions: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -493,6 +542,9 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
                       fontSize: 16.0,
                     ),
                   ),
+                ),
+                const SizedBox(
+                  width: 30.0,
                 ),
                 TextButton(
                   onPressed: () {

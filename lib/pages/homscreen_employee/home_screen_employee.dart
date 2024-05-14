@@ -251,8 +251,9 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
           ),
           IconButton(
             icon: const Ikonate(
-              Ikonate.forward,
+              Ikonate.chevron_right,
               color: AppColor.black,
+              height: 30.0,
             ),
             onPressed: () {
               Navigator.of(context).push(

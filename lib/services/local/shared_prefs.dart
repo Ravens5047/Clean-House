@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
@@ -13,6 +15,25 @@ class SharedPrefs {
 
   static Future<void> initialise() async {
     _prefs = await SharedPreferences.getInstance();
+  }
+
+  static Future<void> saveNotifications(
+      List<Map<String, String>> notifications) async {
+    final List<String> encodedNotifications = notifications.map((notification) {
+      return jsonEncode(notification);
+    }).toList();
+    await _prefs.setStringList('notifications', encodedNotifications);
+  }
+
+  static Future<List<Map<String, String>>> loadNotifications() async {
+    final List<String>? encodedNotifications =
+        _prefs.getStringList('notifications');
+    if (encodedNotifications != null) {
+      return encodedNotifications.map((encodedNotification) {
+        return jsonDecode(encodedNotification) as Map<String, String>;
+      }).toList();
+    }
+    return [];
   }
 
   static Future<void> setToken(String token) async {
