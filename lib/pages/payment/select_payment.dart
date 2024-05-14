@@ -28,6 +28,7 @@ class SelectPayment extends StatefulWidget {
     this.static_id,
     this.estimated_time,
     this.payment,
+    this.notifications,
   });
 
   final double? total_price;
@@ -44,6 +45,7 @@ class SelectPayment extends StatefulWidget {
   final int? static_id;
   final String? estimated_time;
   final String? payment;
+  final List<Map<String, String>>? notifications;
 
   @override
   State<SelectPayment> createState() => _SelectPaymentState();
@@ -58,6 +60,7 @@ class _SelectPaymentState extends State<SelectPayment> {
     'Cash',
     'VNPAY',
   ];
+  final List<Map<String, String>> notifications = [];
 
   @override
   void initState() {
@@ -98,6 +101,54 @@ class _SelectPaymentState extends State<SelectPayment> {
     }
   }
 
+  // Future<void> _bookOrderDetails() async {
+  //   try {
+  //     int? userId = SharedPrefs.user_id;
+  //     if (userId == null) {
+  //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+  //         content: Text('User not logged in.'),
+  //       ));
+  //       return;
+  //     }
+  //     OrderDetailsRequest orderDetails = OrderDetailsRequest(
+  //       name_service: widget.name_service,
+  //       status_id: 1,
+  //       sub_total_price: widget.total_price?.toDouble(),
+  //       service_id: widget.service_id,
+  //       note: widget.note,
+  //       unit_price: widget.total_price?.toDouble(),
+  //       address_order: widget.address,
+  //       full_name: widget.fullname,
+  //       phone_number: widget.phone_number,
+  //       houseType: getHouseType(widget.selectedHouse!),
+  //       area: getArea(widget.selectedArea!),
+  //       work_date: DateFormat('yyyy-MM-dd').format(widget.selectedDate!),
+  //       start_time:
+  //           '${widget.selectedTime!.hours.toString().padLeft(2, '0')}:${widget.selectedTime!.minutes.toString().padLeft(2, '0')}',
+  //       estimated_time: widget.estimated_time,
+  //       user_id: userId,
+  //       payment: selectedLocation,
+  //       status_payment:
+  //           selectedLocation == 'VNPAY' ? 'Successfull Payment' : 'Processing',
+  //     );
+  //     final response =
+  //         await OrderBookingServices().orderBookingDetails(orderDetails);
+  //     if (response.statusCode == 200) {
+  //       // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+  //       //   content: Text('Booking successful!'),
+  //       // ));
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //         content: Text('Error: ${response.statusCode}'),
+  //       ));
+  //     }
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //       content: Text('Error: $e'),
+  //     ));
+  //   }
+  // }
+
   Future<void> _bookOrderDetails() async {
     try {
       int? userId = SharedPrefs.user_id;
@@ -126,14 +177,14 @@ class _SelectPaymentState extends State<SelectPayment> {
         user_id: userId,
         payment: selectedLocation,
         status_payment:
-            selectedLocation == 'VNPAY' ? 'Successfull Payment' : 'Processing',
+            selectedLocation == 'VNPAY' ? 'Successful Payment' : 'Processing',
+        notification: notifications.toString(),
       );
       final response =
           await OrderBookingServices().orderBookingDetails(orderDetails);
       if (response.statusCode == 200) {
-        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        //   content: Text('Booking successful!'),
-        // ));
+        addNotification('Order placed successfully',
+            'Your order has been placed successfully.');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Error: ${response.statusCode}'),
@@ -167,6 +218,15 @@ class _SelectPaymentState extends State<SelectPayment> {
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void addNotification(String title, String message) {
+    setState(() {
+      notifications.add({
+        'title': title,
+        'message': message,
+      });
+    });
   }
 
   @override
@@ -330,6 +390,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                           status_payment: selectedLocation == 'VNPAY'
                               ? 'Successfull Payment'
                               : 'Processing',
+                          notifications: notifications,
                         ),
                       ),
                     );
@@ -337,10 +398,11 @@ class _SelectPaymentState extends State<SelectPayment> {
                     _bookOrderDetails();
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
-                          builder: (context) => const SuccessfulPayment(
+                          builder: (context) => SuccessfulPayment(
                                 result: '00',
                                 payment: 'Cash',
                                 status_payment: 'Processing',
+                                notifications: notifications,
                               )),
                       (Route<dynamic> route) => false,
                     );

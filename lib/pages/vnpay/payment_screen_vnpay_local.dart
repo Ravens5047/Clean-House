@@ -31,6 +31,7 @@ class VnpayScreenPayment1 extends StatefulWidget {
     this.vnp_ResponseCode,
     this.payment,
     this.status_payment,
+    this.notifications,
   });
 
   final String? money;
@@ -50,6 +51,7 @@ class VnpayScreenPayment1 extends StatefulWidget {
   final String? vnp_ResponseCode;
   final String? payment;
   final String? status_payment;
+  final List<Map<String, String>>? notifications;
 
   @override
   State<VnpayScreenPayment1> createState() => _VnpayScreenPayment1State();
@@ -63,6 +65,7 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
   late int userId;
   final formKey = GlobalKey<FormState>();
   late String responseCode;
+  final List<Map<String, String>> notifications = [];
 
   @override
   void initState() {
@@ -133,6 +136,7 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
         vnp_ResponseCode: responseCode,
         payment: widget.payment,
         status_payment: widget.status_payment,
+        notification: notifications.toString(),
       );
       final response =
           await OrderBookingServices().orderBookingDetails(orderDetails);
@@ -202,6 +206,7 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
                       MaterialPageRoute(
                         builder: (context) => SuccessfulPayment(
                           result: responseCode,
+                          notifications: notifications,
                         ),
                       ),
                     );

@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 class OrderDetailsModel {
-  final int? status_id;
+  int? status_id;
   final double? total_price;
   final int? order_detail_id;
   final int? order_id;
@@ -27,6 +27,7 @@ class OrderDetailsModel {
   final String? payment;
   final int? statusPaymentId;
   final String? status_payment;
+  final String? notification;
 
   OrderDetailsModel({
     this.order_detail_id,
@@ -55,6 +56,7 @@ class OrderDetailsModel {
     this.payment,
     this.statusPaymentId,
     this.status_payment,
+    this.notification,
   });
 
   factory OrderDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -94,6 +96,7 @@ class OrderDetailsModel {
       payment: json['payment'] as String?,
       statusPaymentId: json['status_payment_id'] as int?,
       status_payment: json['status_payment'] as String?,
+      notification: json['notification'] as String?,
     );
   }
 
@@ -125,6 +128,7 @@ class OrderDetailsModel {
       "payment": payment,
       "status_payment_id": statusPaymentId,
       "status_payment": status_payment,
+      "notification": notification,
     };
   }
 }

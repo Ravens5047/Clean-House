@@ -17,6 +17,7 @@ class PayScreen extends StatefulWidget {
 }
 
 class _PayScreenState extends State<PayScreen> {
+  final List<Map<String, String>> notifications = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +54,10 @@ class _PayScreenState extends State<PayScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => SuccessfulPayment(result: code)));
+                    builder: (context) => SuccessfulPayment(
+                          result: code,
+                          notifications: notifications,
+                        )));
             debugPrint(code);
           }
         },

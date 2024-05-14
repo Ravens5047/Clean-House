@@ -23,13 +23,6 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
   List<OrderDetailsModel> orderDetailsList = [];
   final orderBookingServices = OrderBookingServices();
 
-  void _reloadUI() {
-    setState(() {
-      _selectedDay = null;
-      _fetchTasksForSelectedDay(_focusedDay);
-    });
-  }
-
   DateTime? addOneDay(DateTime? date) {
     if (date != null) {
       return date.add(const Duration(days: 1));
@@ -61,14 +54,6 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
             ),
           ),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {
-              _reloadUI();
-            },
-          ),
-        ],
         centerTitle: true,
       ),
       body: Center(
@@ -76,6 +61,36 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             TableCalendar(
+              calendarBuilders: CalendarBuilders(
+                selectedBuilder: (context, date, _) {
+                  return Container(
+                    margin: const EdgeInsets.all(4.0),
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      color: Colors.green,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Text(
+                      '${date.day}',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  );
+                },
+                todayBuilder: (context, date, events) {
+                  return Container(
+                    margin: const EdgeInsets.all(4.0),
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      color: Colors.blue,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Text(
+                      '${date.day}',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  );
+                },
+              ),
               headerStyle: HeaderStyle(
                 titleTextStyle: GoogleFonts.tiroTamil(
                   fontSize: 20.0,
@@ -309,6 +324,36 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
     } catch (error) {
       print('Error fetching tasks: $error');
     }
+  }
+
+  Future<Map<DateTime, List<dynamic>>> _fetchEvents(DateTime day) async {
+    Map<DateTime, List<dynamic>> events = {};
+    try {
+      int? employeeCode = SharedPrefs.employeeCode;
+      String formattedDate = DateFormat('yyyy-MM-dd').format(day.toLocal());
+      final response = await orderBookingServices.getListOrderDetailsByWorkDate(
+          formattedDate, employeeCode!);
+      if (response.statusCode == 200) {
+        List<OrderDetailsModel> orders = parseOrderDetailsList(response.body);
+        if (orders.isNotEmpty) {
+          events[day] = orders;
+        }
+      } else {
+        // Xử lý lỗi nếu có
+      }
+    } catch (error) {
+      print('Error fetching tasks: $error');
+    }
+    return events;
+  }
+
+  bool _hasTasksOnDate(DateTime date) {
+    final selectedDate = DateTime.utc(date.year, date.month, date.day);
+    final foundTasks = orderDetailsList.any((task) {
+      final taskDate = parseDate(task.work_date);
+      return isSameDay(taskDate, selectedDate);
+    });
+    return foundTasks;
   }
 
   List<OrderDetailsModel> parseOrderDetailsList(String responseBody) {
