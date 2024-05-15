@@ -94,7 +94,7 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
     if (workDate != null) {
       workDate = getDateWithoutTime(workDate);
       if (workDate.isBefore(today) &&
-          workDate.isBefore(today.subtract(const Duration(days: 2))) &&
+          workDate.isBefore(today.subtract(const Duration(days: 1))) &&
           widget.orderDetails.status_id != 2) {
         final response = await _orderBookingServices
             .updateOrderStatus(widget.orderDetails.order_id ?? 0);

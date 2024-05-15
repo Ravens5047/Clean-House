@@ -175,8 +175,12 @@ class SuccessfulPayment extends StatelessWidget {
                         Card(
                           child: ListTile(
                             leading: const Icon(Icons.notifications_sharp),
-                            title: Text(notification['title'] ?? ''),
-                            subtitle: Text(notification['message'] ?? ''),
+                            title: Center(
+                              child: Text(notification['title'] ?? ''),
+                            ),
+                            subtitle: Center(
+                              child: Text(notification['message'] ?? ''),
+                            ),
                           ),
                         ),
                         const SizedBox(
