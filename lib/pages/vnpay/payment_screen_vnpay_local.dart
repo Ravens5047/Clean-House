@@ -205,6 +205,8 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => SuccessfulPayment(
+                          payment: widget.payment,
+                          status_payment: widget.status_payment,
                           result: responseCode,
                           notifications: notifications,
                         ),
