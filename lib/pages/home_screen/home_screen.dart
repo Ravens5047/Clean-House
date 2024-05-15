@@ -86,9 +86,13 @@ class _HomeScreenState extends State<HomeScreen> {
     print('servicesList length: ${servicesList.length}');
     return Scaffold(
       appBar: AppBar(
+        title: Text('Home Screen',
+            style: GoogleFonts.dmSerifText(
+              fontSize: 27.0,
+              color: Colors.blue,
+            )),
         shadowColor: AppColor.black,
         foregroundColor: AppColor.black,
-        backgroundColor: const Color.fromARGB(255, 165, 221, 255),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -97,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
         ],
+        centerTitle: true,
       ),
       drawer: DrawerMenu(
         appUser: appUser,
