@@ -12,6 +12,7 @@ class AppTextField extends StatelessWidget {
     this.validator,
     this.onFieldSubmitted,
     this.readOnly = false,
+    this.height = 100.0,
   });
 
   final TextEditingController? controller;
@@ -21,6 +22,7 @@ class AppTextField extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   final Function(String)? onFieldSubmitted;
   final bool readOnly;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,8 @@ class AppTextField extends StatelessWidget {
         validator: validator,
         style: AppStyle.h16Normal.copyWith(color: AppColor.brown),
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 16.0, vertical: height / 6),
           border: outlineInputBorder(AppColor.red),
           focusedBorder: outlineInputBorder(AppColor.blue),
           enabledBorder: outlineInputBorder(AppColor.white),

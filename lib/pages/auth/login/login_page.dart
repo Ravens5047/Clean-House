@@ -203,7 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text(
                     'Hello Again!',
                     style: TextStyle(
-                        color: AppColor.blue,
+                        color: Colors.blue,
                         fontSize: 40.0,
                         fontWeight: FontWeight.w500),
                   ),
