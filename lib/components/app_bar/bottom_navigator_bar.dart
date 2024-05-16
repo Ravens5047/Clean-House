@@ -49,7 +49,9 @@ class _MainPageState extends State<MainPage> {
   List<Widget> _buildPages() {
     return [
       const HomeScreen(),
-      const NotificationsScreen(),
+      NotificationTask(
+        initialNotifications: widget.initialNotifications ?? [],
+      ),
       InformationPerson(
         user_id: userId,
         appUser: appUser,

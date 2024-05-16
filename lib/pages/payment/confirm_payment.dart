@@ -93,53 +93,6 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
     }
   }
 
-  // Future<void> _bookOrderDetails() async {
-  //   try {
-  //     int? userId = SharedPrefs.user_id;
-  //     if (userId == null) {
-  //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-  //         content: Text('User not logged in.'),
-  //       ));
-  //       return;
-  //     }
-  //     OrderDetailsRequest orderDetails = OrderDetailsRequest(
-  //       name_service: widget.name_service,
-  //       status_id: 1,
-  //       sub_total_price: widget.total_price.toDouble(),
-  //       service_id: widget.service_id,
-  //       note: widget.note,
-  //       unit_price: widget.total_price.toDouble(),
-  //       address_order: widget.address,
-  //       full_name: widget.fullname,
-  //       phone_number: widget.phone_number,
-  //       houseType: getHouseType(selectedHouse!),
-  //       area: getArea(selectedArea!),
-  //       work_date: DateFormat('yyyy-MM-dd').format(widget.selectedDate),
-  //       start_time:
-  //           '${widget.selectedTime.hours.toString().padLeft(2, '0')}:${widget.selectedTime.minutes.toString().padLeft(2, '0')}',
-  //       user_id: userId,
-  //     );
-  //     final response =
-  //         await OrderBookingServices().orderBookingDetails(orderDetails);
-  //     if (response.statusCode == 200) {
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => const BookingServicesSuccessful(),
-  //         ),
-  //       );
-  //     } else {
-  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //         content: Text('Error: ${response.statusCode}'),
-  //       ));
-  //     }
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //       content: Text('Error: $e'),
-  //     ));
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
