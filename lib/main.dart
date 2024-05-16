@@ -1,3 +1,4 @@
+import 'package:capstone2_clean_house/pages/notifications/notification_service.dart';
 import 'package:capstone2_clean_house/pages/splash/splash_page.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(useMaterial3: true),
       home: const SplashPage(),
+      builder: (context, child) {
+        WidgetsBinding.instance.addPostFrameCallback((_) async {
+          await NotificationServices.initializeNotification();
+        });
+        return child!;
+      },
     );
   }
 }

@@ -36,6 +36,17 @@ class SharedPrefs {
     return [];
   }
 
+  static Future<List<Map<String, String>>> getNotifications() async {
+    final List<String>? encodedNotifications =
+        _prefs.getStringList('notifications');
+    if (encodedNotifications != null) {
+      return encodedNotifications.map((encodedNotification) {
+        return jsonDecode(encodedNotification) as Map<String, String>;
+      }).toList();
+    }
+    return [];
+  }
+
   static Future<void> setToken(String token) async {
     final encryptedToken = encrypt(token);
     await _prefs.setString(accessTokenKey, encryptedToken);

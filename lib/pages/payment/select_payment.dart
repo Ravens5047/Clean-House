@@ -1,6 +1,7 @@
 import 'package:bottom_picker/resources/time.dart';
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
 import 'package:capstone2_clean_house/model/request/order_details_request_model.dart';
+import 'package:capstone2_clean_house/pages/notifications/notification_service.dart';
 import 'package:capstone2_clean_house/pages/payment/successful_payment.dart';
 import 'package:capstone2_clean_house/pages/vnpay/payment_screen_vnpay_local.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
@@ -101,54 +102,6 @@ class _SelectPaymentState extends State<SelectPayment> {
     }
   }
 
-  // Future<void> _bookOrderDetails() async {
-  //   try {
-  //     int? userId = SharedPrefs.user_id;
-  //     if (userId == null) {
-  //       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-  //         content: Text('User not logged in.'),
-  //       ));
-  //       return;
-  //     }
-  //     OrderDetailsRequest orderDetails = OrderDetailsRequest(
-  //       name_service: widget.name_service,
-  //       status_id: 1,
-  //       sub_total_price: widget.total_price?.toDouble(),
-  //       service_id: widget.service_id,
-  //       note: widget.note,
-  //       unit_price: widget.total_price?.toDouble(),
-  //       address_order: widget.address,
-  //       full_name: widget.fullname,
-  //       phone_number: widget.phone_number,
-  //       houseType: getHouseType(widget.selectedHouse!),
-  //       area: getArea(widget.selectedArea!),
-  //       work_date: DateFormat('yyyy-MM-dd').format(widget.selectedDate!),
-  //       start_time:
-  //           '${widget.selectedTime!.hours.toString().padLeft(2, '0')}:${widget.selectedTime!.minutes.toString().padLeft(2, '0')}',
-  //       estimated_time: widget.estimated_time,
-  //       user_id: userId,
-  //       payment: selectedLocation,
-  //       status_payment:
-  //           selectedLocation == 'VNPAY' ? 'Successfull Payment' : 'Processing',
-  //     );
-  //     final response =
-  //         await OrderBookingServices().orderBookingDetails(orderDetails);
-  //     if (response.statusCode == 200) {
-  //       // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-  //       //   content: Text('Booking successful!'),
-  //       // ));
-  //     } else {
-  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //         content: Text('Error: ${response.statusCode}'),
-  //       ));
-  //     }
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //       content: Text('Error: $e'),
-  //     ));
-  //   }
-  // }
-
   Future<void> _bookOrderDetails() async {
     try {
       int? userId = SharedPrefs.user_id;
@@ -183,8 +136,8 @@ class _SelectPaymentState extends State<SelectPayment> {
       final response =
           await OrderBookingServices().orderBookingDetails(orderDetails);
       if (response.statusCode == 200) {
-        addNotification('Order placed successfully',
-            'Your order has been placed successfully.');
+        addNotification(
+            'Booking successful!', 'We will confirm your booking shortly.');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Error: ${response.statusCode}'),
@@ -366,8 +319,12 @@ class _SelectPaymentState extends State<SelectPayment> {
                 color: Colors.blue,
                 borderColor: AppColor.grey,
                 text: 'Payment',
-                onPressed: () {
+                onPressed: () async {
                   if (selectedLocation == 'VNPAY') {
+                    await NotificationServices.showNotification(
+                      title: 'Booking successful!',
+                      body: 'We will confirm your booking shortly.',
+                    );
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -396,6 +353,10 @@ class _SelectPaymentState extends State<SelectPayment> {
                     );
                   } else if (selectedLocation == 'Cash') {
                     _bookOrderDetails();
+                    await NotificationServices.showNotification(
+                      title: 'Booking successful!',
+                      body: 'We will confirm your booking shortly.',
+                    );
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                           builder: (context) => SuccessfulPayment(
