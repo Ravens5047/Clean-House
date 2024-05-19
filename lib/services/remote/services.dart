@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 abstract class ImlServicesName {
   Future<http.Response> getListServices();
-  Future<http.Response> searchServices(String name_service);
+  Future<http.Response> searchServices(String service_name);
 }
 
 class ServicesName implements ImlServicesName {
@@ -25,8 +25,8 @@ class ServicesName implements ImlServicesName {
   }
 
   @override
-  Future<http.Response> searchServices(String name_service) async {
-    String url = '${AppConstant.endPointSeachServices}?keyword=$name_service';
+  Future<http.Response> searchServices(String service_name) async {
+    String url = '${AppConstant.endPointSeachServices}?keyword=$service_name';
     return await httpLog.get(
       Uri.parse(url),
       headers: {

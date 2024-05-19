@@ -285,37 +285,6 @@ class _SettingScreenState extends State<SettingScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // GestureDetector(
-                  //   onTap: () => Navigator.of(context)
-                  //       .push(
-                  //     MaterialPageRoute(
-                  //       builder: (context) => InformationPerson(
-                  //         user_id: userId,
-                  //         appUser: appUser,
-                  //       ),
-                  //     ),
-                  //   )
-                  //       .then((_) {
-                  //     _initData();
-                  //   }),
-                  //   child: const Card(
-                  //     child: ListTile(
-                  //       title: Row(
-                  //         children: [
-                  //           Text('Edit Information Person'),
-                  //           Spacer(),
-                  //           Icon(
-                  //             Icons.arrow_forward_ios,
-                  //             size: 20.0,
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // const SizedBox(
-                  //   height: 30.0,
-                  // ),
                   GestureDetector(
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(

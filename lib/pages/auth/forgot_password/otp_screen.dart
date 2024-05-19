@@ -260,7 +260,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   const Text(
                     "Didn't received code? ",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: AppColor.grey,
                     ),
@@ -271,7 +271,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       "Resend",
                       style: TextStyle(
                         color: AppColor.black,
-                        fontSize: 16,
+                        fontSize: 16.0,
                         fontWeight: FontWeight.w700,
                       ),
                     ),

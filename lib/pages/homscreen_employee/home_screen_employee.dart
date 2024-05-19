@@ -82,8 +82,8 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
     }
   }
 
-  void _searchServices(String name_service) {
-    orderBookingServices.searchServicesBooking(name_service).then((response) {
+  void _searchServices(String service_name) {
+    orderBookingServices.searchServicesBooking(service_name).then((response) {
       if (response.statusCode == 200) {
         List<OrderDetailsModel> tempList = [];
         List<dynamic> responseData = jsonDecode(response.body);
@@ -132,7 +132,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                 },
               ),
               ListTile(
-                title: const Text('Status: Success Payment'),
+                title: const Text('Status: Completed'),
                 onTap: () {
                   Navigator.pop(context, FilterCriteria.ByStatus);
                   toggleStatusFilter(false);
@@ -358,7 +358,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                                       ),
                                     ),
                                     Text(
-                                      'Name Service: ${orderDetails.name_service ?? ''}',
+                                      'Service Name: ${orderDetails.service_name ?? ''}',
                                       style: const TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.w400,
@@ -405,7 +405,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                                         const Spacer(),
                                         orderDetails.status_id == 1
                                             ? const Text(
-                                                'Processing',
+                                                'Pending confirmation',
                                                 style: TextStyle(
                                                   fontSize: 16.0,
                                                   fontWeight: FontWeight.w400,
@@ -414,7 +414,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                                               )
                                             : orderDetails.status_id == 2
                                                 ? const Text(
-                                                    'Success Payment',
+                                                    'In Progress',
                                                     style: TextStyle(
                                                       fontSize: 16.0,
                                                       fontWeight:
@@ -422,7 +422,17 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                                                       color: AppColor.green,
                                                     ),
                                                   )
-                                                : const SizedBox(),
+                                                : orderDetails.status_id == 3
+                                                    ? const Text(
+                                                        'Completed',
+                                                        style: TextStyle(
+                                                          fontSize: 16.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: AppColor.blue,
+                                                        ),
+                                                      )
+                                                    : const SizedBox(),
                                       ],
                                     ),
                                     Row(
@@ -503,7 +513,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                                     ),
                                   ),
                                   Text(
-                                    'Name Service: ${orderDetails.name_service ?? ''}',
+                                    'Service Name: ${orderDetails.service_name ?? ''}',
                                     style: const TextStyle(
                                       fontSize: 18.0,
                                       fontWeight: FontWeight.w400,
@@ -550,7 +560,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                                       const Spacer(),
                                       orderDetails.status_id == 1
                                           ? const Text(
-                                              'Processing',
+                                              'Pending confirmation',
                                               style: TextStyle(
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.w400,
@@ -559,14 +569,24 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                                             )
                                           : orderDetails.status_id == 2
                                               ? const Text(
-                                                  'Success Payment',
+                                                  'In Progress',
                                                   style: TextStyle(
                                                     fontSize: 16.0,
                                                     fontWeight: FontWeight.w500,
                                                     color: AppColor.green,
                                                   ),
                                                 )
-                                              : const SizedBox(),
+                                              : orderDetails.status_id == 3
+                                                  ? const Text(
+                                                      'Completed',
+                                                      style: TextStyle(
+                                                        fontSize: 16.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: AppColor.blue,
+                                                      ),
+                                                    )
+                                                  : const SizedBox(),
                                     ],
                                   ),
                                   Row(

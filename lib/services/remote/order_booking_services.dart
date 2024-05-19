@@ -8,13 +8,14 @@ abstract class ImlOrderBooking {
   Future<http.Response> orderBookingDetails(OrderDetailsRequest body);
   Future<http.Response> getListOrderDetailsByUserID(int userId);
   Future<http.Response> getListOrderDetails();
-  Future<http.Response> searchServicesBooking(String name_service);
+  Future<http.Response> searchServicesBooking(String service_name);
   Future<http.Response> updateOrderStatus(int orderId);
   Future<http.Response> getListOrderDetailsByEmployeeCode(int employeeCode);
   Future<http.Response> getListOrderDetailsByWorkDate(
       String workDate, int employeeCode);
   // Future<http.Response> addCashPaymentToDatabase(
   //     int orderDetailId, double sumTotal);
+  Future<Map<String, dynamic>> getStatusByEmployeeCode(int employeeCode);
 }
 
 class OrderBookingServices implements ImlOrderBooking {
@@ -65,9 +66,9 @@ class OrderBookingServices implements ImlOrderBooking {
   }
 
   @override
-  Future<http.Response> searchServicesBooking(String name_service) async {
+  Future<http.Response> searchServicesBooking(String service_name) async {
     String url =
-        '${AppConstant.endPointSeachServicesBooking}?keyword=$name_service';
+        '${AppConstant.endPointSeachServicesBooking}?keyword=$service_name';
     return await _httpClient.get(
       Uri.parse(url),
       headers: {
@@ -137,5 +138,26 @@ class OrderBookingServices implements ImlOrderBooking {
       }),
     );
     return response;
+  }
+
+  @override
+  Future<Map<String, dynamic>> getStatusByEmployeeCode(int employeeCode) async {
+    final url = AppConstant.endPointGetStatusToEmployeeCode
+        .replaceAll(':employeeCode', employeeCode.toString());
+
+    final response = await _httpClient.get(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      return data;
+    } else {
+      throw Exception('Failed to load status for employee code $employeeCode');
+    }
   }
 }

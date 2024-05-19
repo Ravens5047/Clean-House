@@ -145,7 +145,7 @@ class _TaskViewEmployeeState extends State<TaskViewEmployee> {
                             ),
                           ),
                           Text(
-                            'Name Service: ${orderDetails.name_service ?? ''}',
+                            'Service Name: ${orderDetails.service_name ?? ''}',
                             style: const TextStyle(
                               fontSize: 18.0,
                               fontWeight: FontWeight.w400,
@@ -199,9 +199,9 @@ class _TaskViewEmployeeState extends State<TaskViewEmployee> {
                                         color: AppColor.black,
                                       ),
                                     )
-                                  : orderDetails.status_id == 2
+                                  : orderDetails.status_id == 3
                                       ? const Text(
-                                          'Success Payment',
+                                          'Completed',
                                           style: TextStyle(
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.w500,

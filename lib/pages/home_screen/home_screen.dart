@@ -57,8 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void _searchServices(String name_service) {
-    servicesName.searchServices(name_service).then((response) {
+  void _searchServices(String service_name) {
+    servicesName.searchServices(service_name).then((response) {
       if (response.statusCode == 200) {
         List<ServicesModel> tempList = [];
         List<dynamic> responseData = jsonDecode(response.body);
@@ -154,10 +154,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Image.asset(
-                      //   Assets.images.biaanh2.path,
-                      //   width: 250.0,
-                      // ),
                       Lottie.asset(
                         'assets/clean1.json',
                         width: 250.0,
@@ -233,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 10.0,
                               ),
                               Text(
-                                service.name_service ?? 'Unknown service',
+                                service.service_name ?? 'Unknown service',
                                 style: const TextStyle(
                                   color: Colors.blue,
                                   fontSize: 17.0,

@@ -50,7 +50,7 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
           },
         ),
         title: Text(
-          'Detail History Order',
+          'Detail History Booking',
           style: GoogleFonts.mandali(
             fontSize: 22.0,
             fontWeight: FontWeight.w400,
@@ -313,7 +313,7 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
                             const Spacer(),
                             widget.orderDetails.status_id == 1
                                 ? const Text(
-                                    'Processing',
+                                    'Pending confirmation',
                                     style: TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.w400,
@@ -322,14 +322,23 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
                                   )
                                 : widget.orderDetails.status_id == 2
                                     ? const Text(
-                                        'Success Payment',
+                                        'In Progress',
                                         style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500,
                                           color: AppColor.green,
                                         ),
                                       )
-                                    : const SizedBox(),
+                                    : widget.orderDetails.status_id == 3
+                                        ? const Text(
+                                            'Completed',
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColor.blue,
+                                            ),
+                                          )
+                                        : const SizedBox(),
                           ],
                         ),
                         Row(

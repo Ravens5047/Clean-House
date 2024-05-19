@@ -16,11 +16,11 @@ import 'package:intl/intl.dart';
 class BookingServicesPlace extends StatefulWidget {
   const BookingServicesPlace({
     super.key,
-    required this.name_service,
+    required this.service_name,
     required this.service_id,
   });
 
-  final String name_service;
+  final String service_name;
   final int service_id;
 
   @override
@@ -182,7 +182,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
             address: typeHouseController.text,
             fullname: fullnameController.text,
             phone_number: phoneNumberController.text,
-            name_service: widget.name_service,
+            service_name: widget.service_name,
             total_price: calculateTotal(),
             service_id: widget.service_id,
           ),

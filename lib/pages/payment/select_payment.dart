@@ -24,7 +24,7 @@ class SelectPayment extends StatefulWidget {
     this.fullname,
     this.note,
     this.phone_number,
-    this.name_service,
+    this.service_name,
     this.service_id,
     this.static_id,
     this.estimated_time,
@@ -40,7 +40,7 @@ class SelectPayment extends StatefulWidget {
   final String? address;
   final String? fullname;
   final String? phone_number;
-  final String? name_service;
+  final String? service_name;
   final String? note;
   final int? service_id;
   final int? static_id;
@@ -112,7 +112,7 @@ class _SelectPaymentState extends State<SelectPayment> {
         return;
       }
       OrderDetailsRequest orderDetails = OrderDetailsRequest(
-        name_service: widget.name_service,
+        service_name: widget.service_name,
         status_id: 1,
         sub_total_price: widget.total_price?.toDouble(),
         service_id: widget.service_id,
@@ -337,7 +337,7 @@ class _SelectPaymentState extends State<SelectPayment> {
                           address: widget.address,
                           fullname: widget.fullname,
                           phone_number: widget.phone_number,
-                          name_service: widget.name_service,
+                          service_name: widget.service_name,
                           note: widget.note,
                           total_price: widget.total_price,
                           service_id: widget.service_id,

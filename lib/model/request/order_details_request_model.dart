@@ -14,7 +14,7 @@ class OrderDetailsRequest {
   final String? area;
   final String? work_date;
   final String? start_time;
-  final String? name_service;
+  final String? service_name;
   final int? user_id;
   final String? estimated_time;
   final String? txn_ref;
@@ -25,6 +25,7 @@ class OrderDetailsRequest {
   final String? payment;
   final String? status_payment;
   final String? notification;
+  final String? status_name;
 
   OrderDetailsRequest({
     this.order_detail_id,
@@ -42,7 +43,7 @@ class OrderDetailsRequest {
     this.start_time,
     this.status_id = 1,
     this.total_price,
-    this.name_service,
+    this.service_name,
     this.user_id,
     this.estimated_time,
     this.txn_ref,
@@ -53,6 +54,7 @@ class OrderDetailsRequest {
     this.payment,
     this.status_payment,
     this.notification,
+    this.status_name,
   });
 
   factory OrderDetailsRequest.fromJson(Map<String, dynamic> json) {
@@ -76,7 +78,7 @@ class OrderDetailsRequest {
       start_time: json['start_time'] as String?,
       status_id: json['status_id'] as int?,
       total_price: json['total_price'] as double?,
-      name_service: json['name_service'] as String?,
+      service_name: json['service_name'] as String?,
       user_id: json['user_id'] as int?,
       estimated_time: json['estimated_time'] as String?,
       txn_ref: json['txn_ref'] as String?,
@@ -87,6 +89,7 @@ class OrderDetailsRequest {
       payment: json['payment'] as String?,
       status_payment: json['status_payment'] as String?,
       notification: json['notification'] as String?,
+      status_name: json['status_name'] as String?,
     );
   }
 
@@ -107,7 +110,7 @@ class OrderDetailsRequest {
       "start_time": start_time,
       "status_id": status_id,
       "total_price": total_price,
-      "name_service": name_service,
+      "service_name": service_name,
       "user_id": user_id,
       "estimated_time": estimated_time,
       "txn_ref": txn_ref,
@@ -118,6 +121,7 @@ class OrderDetailsRequest {
       "payment": payment,
       "status_payment": status_payment,
       "notification": notification,
+      "status_name": status_name,
     };
   }
 }

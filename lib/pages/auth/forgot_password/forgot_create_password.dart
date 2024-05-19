@@ -144,11 +144,11 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 40.0),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 5,
+                  horizontal: 20.0,
+                  vertical: 5.0,
                 ),
                 child: Row(
                   children: [
@@ -156,7 +156,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       child: MaterialButton(
                         color: Colors.blue,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
                         onPressed: _submitResetPassword,
                         child: const Padding(
@@ -165,7 +165,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                             "Reset Password",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16,
+                              fontSize: 16.0,
                             ),
                           ),
                         ),

@@ -29,15 +29,18 @@ class Data {
     this.username,
     this.email,
     this.token,
+    this.employee_code,
   });
   String? username;
   String? email;
   String? token;
+  int? employee_code;
 
   Data.fromJson(Map<String, dynamic> json) {
     username = json['username'];
     email = json['email'];
     token = json['token'];
+    employee_code = json['employee_code'];
   }
 
   Map<String, dynamic> toJson() {
@@ -45,6 +48,7 @@ class Data {
     _data['username'] = username;
     _data['email'] = email;
     _data['token'] = token;
+    _data['employee_code'] = employee_code;
     return _data;
   }
 }

@@ -70,7 +70,7 @@ class _HomeEmployeeDoneTaskState extends State<HomeEmployeeDoneTask> {
         List<dynamic> responseData = jsonDecode(response.body);
         for (var data in responseData) {
           OrderDetailsModel orderDetails = OrderDetailsModel.fromJson(data);
-          if (orderDetails.status_id == 2) {
+          if (orderDetails.status_id == 3) {
             tempListOrderDetails.add(orderDetails);
           }
         }
@@ -218,7 +218,7 @@ class _HomeEmployeeDoneTaskState extends State<HomeEmployeeDoneTask> {
                                   ),
                                 ),
                                 Text(
-                                  'Name Service: ${orderDetails.name_service ?? ''}',
+                                  'Service Name: ${orderDetails.service_name ?? ''}',
                                   style: const TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.w400,
@@ -265,23 +265,33 @@ class _HomeEmployeeDoneTaskState extends State<HomeEmployeeDoneTask> {
                                     const Spacer(),
                                     orderDetails.status_id == 1
                                         ? const Text(
-                                            'Processing',
+                                            'Pending confirmation',
                                             style: TextStyle(
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.w400,
-                                              color: AppColor.black,
+                                              color: AppColor.orange,
                                             ),
                                           )
                                         : orderDetails.status_id == 2
                                             ? const Text(
-                                                'Success Payment',
+                                                'In Progress',
                                                 style: TextStyle(
                                                   fontSize: 16.0,
                                                   fontWeight: FontWeight.w500,
                                                   color: AppColor.green,
                                                 ),
                                               )
-                                            : const SizedBox(),
+                                            : orderDetails.status_id == 3
+                                                ? const Text(
+                                                    'Completed',
+                                                    style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: AppColor.blue,
+                                                    ),
+                                                  )
+                                                : const SizedBox(),
                                   ],
                                 ),
                                 Row(
