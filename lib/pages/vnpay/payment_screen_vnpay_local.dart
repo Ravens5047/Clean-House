@@ -24,7 +24,7 @@ class VnpayScreenPayment1 extends StatefulWidget {
     this.note,
     this.total_price,
     this.phone_number,
-    this.name_service,
+    this.service_name,
     this.service_id,
     this.static_id,
     this.estimated_time,
@@ -42,7 +42,7 @@ class VnpayScreenPayment1 extends StatefulWidget {
   final String? address;
   final String? fullname;
   final String? phone_number;
-  final String? name_service;
+  final String? service_name;
   final String? note;
   final double? total_price;
   final int? service_id;
@@ -117,7 +117,7 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
         return;
       }
       OrderDetailsRequest orderDetails = OrderDetailsRequest(
-        name_service: widget.name_service,
+        service_name: widget.service_name,
         status_id: 1,
         sub_total_price: widget.total_price?.toDouble(),
         service_id: widget.service_id,

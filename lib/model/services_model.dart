@@ -1,7 +1,7 @@
 class ServicesModel {
   int? service_id;
   String? description;
-  String? name_service;
+  String? service_name;
   double? unit_price;
   String? created_at;
   int? created_by_id;
@@ -13,7 +13,7 @@ class ServicesModel {
   ServicesModel({
     this.service_id,
     this.description,
-    this.name_service,
+    this.service_name,
     this.unit_price,
     this.created_at,
     this.created_by_id,
@@ -27,7 +27,7 @@ class ServicesModel {
     return ServicesModel(
       service_id: json['service_id'] as int?,
       description: json['description'] as String?,
-      name_service: json['name_service'] as String?,
+      service_name: json['service_name'] as String?,
       unit_price: json['unit_price'] != null
           ? double.tryParse(json['unit_price'].toString())
           : null,

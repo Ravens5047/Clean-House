@@ -135,7 +135,7 @@ class _HistoryOrderState extends State<HistoryOrder> {
           ),
         ],
         title: Text(
-          'History Order',
+          'History Booking',
           style: GoogleFonts.mandali(
             fontSize: 22.0,
             fontWeight: FontWeight.w400,
@@ -200,7 +200,7 @@ class _HistoryOrderState extends State<HistoryOrder> {
                             ),
                           ),
                           Text(
-                            'Name Service: ${orderDetails.name_service ?? ''}',
+                            'Service Name: ${orderDetails.service_name ?? ''}',
                             style: const TextStyle(
                               fontSize: 18.0,
                               fontWeight: FontWeight.w400,
@@ -231,6 +231,14 @@ class _HistoryOrderState extends State<HistoryOrder> {
                               color: AppColor.black,
                             ),
                           ),
+                          // Text(
+                          //   'Employee Code: ${orderDetails.employee_code?.toString() ?? 'N/A'}',
+                          //   style: const TextStyle(
+                          //     fontSize: 18.0,
+                          //     fontWeight: FontWeight.w400,
+                          //     color: AppColor.black,
+                          //   ),
+                          // ),
                           Row(
                             children: [
                               const Align(
@@ -247,7 +255,7 @@ class _HistoryOrderState extends State<HistoryOrder> {
                               const Spacer(),
                               orderDetails.status_id == 1
                                   ? const Text(
-                                      'Processing',
+                                      'Pending confirmation',
                                       style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w400,
@@ -256,14 +264,23 @@ class _HistoryOrderState extends State<HistoryOrder> {
                                     )
                                   : orderDetails.status_id == 2
                                       ? const Text(
-                                          'Success Payment',
+                                          'In Progress',
                                           style: TextStyle(
                                             fontSize: 16.0,
                                             fontWeight: FontWeight.w500,
                                             color: AppColor.green,
                                           ),
                                         )
-                                      : const SizedBox(),
+                                      : orderDetails.status_id == 3
+                                          ? const Text(
+                                              'Completed',
+                                              style: TextStyle(
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w500,
+                                                color: AppColor.blue,
+                                              ),
+                                            )
+                                          : const SizedBox(),
                             ],
                           ),
                           Row(

@@ -1,0 +1,8 @@
+{
+    "@@locale": "en",
+    "app_title": "Flutter Demo",
+    "setting_screen_title": "Setting Screen",
+    "change_password": "Change Password",
+    "terms_conditions": "Terms & Conditions",
+    "sign_out": "Sign Out"
+}

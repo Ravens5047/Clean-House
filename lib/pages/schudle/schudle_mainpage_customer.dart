@@ -131,7 +131,7 @@ class _SchudleMainPageCustomerState extends State<SchudleMainPageCustomer> {
                       ),
                     ),
                     Text(
-                      'Name Service: ${orderDetails.name_service ?? ''}',
+                      'Service Name: ${orderDetails.service_name ?? ''}',
                       style: const TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.w400,
@@ -187,7 +187,7 @@ class _SchudleMainPageCustomerState extends State<SchudleMainPageCustomer> {
                               )
                             : orderDetails.status_id == 2
                                 ? const Text(
-                                    'Success Payment',
+                                    'Completed',
                                     style: TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.w500,

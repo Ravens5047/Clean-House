@@ -20,7 +20,7 @@ class BookingServicesSelectionTimeWorking extends StatefulWidget {
     required this.fullname,
     required this.total_price,
     required this.phone_number,
-    required this.name_service,
+    required this.service_name,
     required this.service_id,
   });
 
@@ -29,7 +29,7 @@ class BookingServicesSelectionTimeWorking extends StatefulWidget {
   final String address;
   final String fullname;
   final String phone_number;
-  final String name_service;
+  final String service_name;
   final double total_price;
   final int service_id;
 
@@ -342,7 +342,7 @@ class _BookingServicesSelectionTimeWorkingState
                           address: widget.address,
                           fullname: widget.fullname,
                           phone_number: widget.phone_number,
-                          name_service: widget.name_service,
+                          service_name: widget.service_name,
                           note: NoteController.text,
                           total_price: widget.total_price,
                           service_id: widget.service_id,

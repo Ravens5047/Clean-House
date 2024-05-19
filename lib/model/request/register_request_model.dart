@@ -4,6 +4,7 @@ class RegisterRequestModel {
   String? email;
   String? phone_number;
   int? role;
+  int? employee_code;
 
   RegisterRequestModel({
     this.username,
@@ -11,6 +12,7 @@ class RegisterRequestModel {
     this.email,
     this.phone_number,
     this.role = 4,
+    this.employee_code = 0,
   });
 
   RegisterRequestModel.fromJson(Map<String, dynamic> json) {
@@ -19,6 +21,7 @@ class RegisterRequestModel {
     email = json['email'];
     phone_number = json['phone_number'];
     role = json['role'];
+    employee_code = json['employee_code'];
   }
 
   Map<String, dynamic> toJson() {
@@ -28,6 +31,7 @@ class RegisterRequestModel {
       'email': email,
       'phone_number': phone_number,
       'role': role,
+      'employee_code': employee_code,
     };
   }
 }

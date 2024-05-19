@@ -35,7 +35,7 @@ class _DetailNameServicesState extends State<DetailNameServices> {
             },
           ),
           title: Text(
-            widget.service.name_service ?? '-:-',
+            widget.service.service_name ?? '-:-',
             style: GoogleFonts.mandali(
               fontSize: 22.0,
               fontWeight: FontWeight.w400,
@@ -169,7 +169,7 @@ class _DetailNameServicesState extends State<DetailNameServices> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => BookingServicesPlace(
-                        name_service: widget.service.name_service ?? '',
+                        service_name: widget.service.service_name ?? '',
                         service_id: widget.service.service_id ?? 0,
                       ),
                     ),

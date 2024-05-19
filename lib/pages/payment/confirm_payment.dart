@@ -18,7 +18,7 @@ class ConfirmPayment extends StatefulWidget {
     required this.note,
     required this.total_price,
     required this.phone_number,
-    required this.name_service,
+    required this.service_name,
     required this.service_id,
     required this.static_id,
     required this.estimated_time,
@@ -31,7 +31,7 @@ class ConfirmPayment extends StatefulWidget {
   final String address;
   final String fullname;
   final String phone_number;
-  final String name_service;
+  final String service_name;
   final String note;
   final double total_price;
   final int service_id;
@@ -128,7 +128,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                       width: 10.0,
                     ),
                     Text(
-                      widget.name_service,
+                      widget.service_name,
                       style: const TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.w500,
@@ -428,7 +428,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                           address: widget.address,
                           fullname: widget.fullname,
                           phone_number: widget.phone_number,
-                          name_service: widget.name_service,
+                          service_name: widget.service_name,
                           note: widget.note,
                           service_id: widget.service_id,
                           static_id: widget.static_id,

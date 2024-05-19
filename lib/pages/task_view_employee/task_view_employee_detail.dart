@@ -28,7 +28,7 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
   late int currentStatusId = orderDetailsModel.status_id ?? 0;
 
   Future<void> _handleDoneTaskButton() async {
-    if (widget.orderDetails.status_id != 2) {
+    if (widget.orderDetails.status_id != 3) {
       bool confirmUpdate = await _confirmUpdateTaskDialog();
       if (confirmUpdate) {
         setState(() {
@@ -36,21 +36,20 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
         });
         final response = await _orderBookingServices
             .updateOrderStatus(widget.orderDetails.order_id ?? 0);
-
         setState(() {
           _isProcessing = false;
         });
         if (response.statusCode == 200) {
           setState(() {
-            widget.orderDetails.status_id = 2;
+            widget.orderDetails.status_id = 3;
           });
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('Update Task Successfullu'),
+            content: Center(child: Text('Update Task Successfully')),
             backgroundColor: Colors.blue,
           ));
         } else {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('Update Task Failed'),
+            content: Center(child: Text('Update Task Failed')),
             backgroundColor: Colors.red,
           ));
         }
@@ -95,13 +94,13 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
       workDate = getDateWithoutTime(workDate);
       if (workDate.isBefore(today) &&
           workDate.isBefore(today.subtract(const Duration(days: 1))) &&
-          widget.orderDetails.status_id != 2) {
+          widget.orderDetails.status_id != 3) {
         final response = await _orderBookingServices
             .updateOrderStatus(widget.orderDetails.order_id ?? 0);
 
         if (response.statusCode == 200) {
           setState(() {
-            widget.orderDetails.status_id = 2;
+            widget.orderDetails.status_id = 3;
           });
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Center(
@@ -403,9 +402,9 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
                                       color: AppColor.orange,
                                     ),
                                   )
-                                : widget.orderDetails.status_id == 2
+                                : widget.orderDetails.status_id == 3
                                     ? const Text(
-                                        'Success Payment',
+                                        'Completed',
                                         style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500,
@@ -494,12 +493,12 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
   }
 
   _appElevatedButton() {
-    if (widget.orderDetails.status_id != 2) {
+    if (widget.orderDetails.status_id != 3) {
       return SizedBox(
         height: 60.0,
         width: 300.0,
         child: TdElevatedButton.fullmau(
-          text: 'Done Task Order',
+          text: 'Complete',
           fontSize: 17.0,
           color: Colors.blue,
           highlightColor: Colors.amber,
@@ -520,7 +519,7 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
         return AlertDialog(
           title: const Center(
               child: Text(
-            "Confirm Task Order",
+            "Confirm Task Booking",
             style: TextStyle(
               color: Colors.black,
               fontSize: 23.0,
