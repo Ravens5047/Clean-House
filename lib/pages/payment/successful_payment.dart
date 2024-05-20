@@ -35,12 +35,14 @@ class SuccessfulPayment extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20.0),
-            Text(
-              result == '00' ? 'Payment Successful' : 'Payment Failed',
-              style: GoogleFonts.dmSerifText(
-                fontSize: 30.0,
-                fontWeight: FontWeight.w400,
-                color: Colors.blue,
+            Center(
+              child: Text(
+                result == '00' ? 'Payment Successful' : 'Payment Failed',
+                style: GoogleFonts.dmSerifText(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.blue,
+                ),
               ),
             ),
             const SizedBox(height: 20.0),

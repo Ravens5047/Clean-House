@@ -1,5 +1,4 @@
 // ignore_for_file: constant_identifier_names
-
 import 'dart:convert';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/model/order_details_response_model.dart';
@@ -206,7 +205,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
   void toggleStatusFilter(bool bool) {
     setState(() {
       filterByStatus = !filterByStatus;
-      filterByProcessing = bool; // Update filter by Processing status
+      filterByProcessing = bool;
     });
   }
 
@@ -310,7 +309,8 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                         addOneDay(parseDate(orderDetails.work_date));
                     if (filterByStatus) {
                       if ((orderDetails.status_id == 1 && filterByProcessing) ||
-                          (orderDetails.status_id == 2 &&
+                          (orderDetails.status_id == 2 && filterByProcessing) ||
+                          (orderDetails.status_id == 3 &&
                               !filterByProcessing)) {
                         return GestureDetector(
                           onTap: () => Navigator.of(context).push(

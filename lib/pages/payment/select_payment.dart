@@ -321,10 +321,10 @@ class _SelectPaymentState extends State<SelectPayment> {
                 text: 'Payment',
                 onPressed: () async {
                   if (selectedLocation == 'VNPAY') {
-                    await NotificationServices.showNotification(
-                      title: 'Booking successful!',
-                      body: 'We will confirm your booking shortly.',
-                    );
+                    // await NotificationServices.showNotification(
+                    //   title: 'Booking successful!',
+                    //   body: 'We will confirm your booking shortly.',
+                    // );
                     Navigator.push(
                       context,
                       MaterialPageRoute(
