@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:bottom_picker/resources/time.dart';
 import 'package:capstone2_clean_house/components/constants/app_constant.dart';
 import 'package:capstone2_clean_house/model/request/order_details_request_model.dart';
+import 'package:capstone2_clean_house/pages/notifications/notification_service.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:capstone2_clean_house/services/remote/account_services.dart';
 import 'package:capstone2_clean_house/services/remote/order_booking_services.dart';
@@ -141,6 +142,10 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
       final response =
           await OrderBookingServices().orderBookingDetails(orderDetails);
       if (response.statusCode == 200) {
+        await NotificationServices.showNotification(
+          title: 'Booking successful!',
+          body: 'We will confirm your booking shortly.',
+        );
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Booking successful!'),
           backgroundColor: Colors.blue,
