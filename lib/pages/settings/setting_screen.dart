@@ -9,6 +9,7 @@ import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:capstone2_clean_house/pages/auth/change_password/change_password_page.dart';
 import 'package:capstone2_clean_house/pages/auth/login/login_page.dart';
 import 'package:capstone2_clean_house/pages/comming_soon/comming_soon_screen.dart';
+import 'package:capstone2_clean_house/pages/switch_account/switch_account.dart';
 import 'package:capstone2_clean_house/pages/terms%20and%20conditions/terms_and_conditions.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
@@ -302,6 +303,32 @@ class _SettingScreenState extends State<SettingScreen> {
                         title: Row(
                           children: [
                             Text('Change Password'),
+                            Spacer(),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 20.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30.0,
+                  ),
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => SwitchAccountScreen(
+                          appUser: appUser,
+                        ),
+                      ),
+                    ),
+                    child: const Card(
+                      child: ListTile(
+                        title: Row(
+                          children: [
+                            Text('Switch Account'),
                             Spacer(),
                             Icon(
                               Icons.arrow_forward_ios,

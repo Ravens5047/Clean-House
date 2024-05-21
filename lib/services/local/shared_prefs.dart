@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:capstone2_clean_house/model/app_users_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
@@ -147,5 +148,40 @@ class SharedPrefs {
 
   static String? getAvatarImagePath(int user_id) {
     return _prefs.getString('$avatarImagePathKey$user_id');
+  }
+
+  static Future<List<int>?> getSavedUserIds() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final List<String>? userIds = prefs.getStringList('savedUserIds');
+    return userIds?.map((userId) => int.tryParse(userId) ?? 0).toList();
+  }
+
+  static Future<AppUsersModel?> getSavedUser(int userId) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? userDataString = prefs.getString('user_$userId');
+    if (userDataString != null) {
+      final Map<String, dynamic> userData = jsonDecode(userDataString);
+      return AppUsersModel.fromJson(userData);
+    }
+    return null;
+  }
+
+  static Future<void> saveUser(AppUsersModel user) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? userIds = prefs.getStringList('savedUserIds');
+    userIds ??= [];
+    userIds.add(user.user_id.toString());
+    await prefs.setStringList('savedUserIds', userIds);
+    await prefs.setString('user_${user.user_id}', jsonEncode(user.toJson()));
+  }
+
+  static Future<void> removeUser(int userId) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? userIds = prefs.getStringList('savedUserIds');
+    if (userIds != null) {
+      userIds.remove(userId.toString());
+      await prefs.setStringList('savedUserIds', userIds);
+    }
+    await prefs.remove('user_$userId');
   }
 }
