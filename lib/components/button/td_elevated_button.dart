@@ -126,8 +126,14 @@ class TdElevatedButton extends StatelessWidget {
           padding: padding,
           height: height,
           decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: <Color>[
+                Color(0xFFaffcaf),
+                Color(0xFF12dff3),
+              ],
+            ),
             color: color,
-            border: Border.all(color: borderColor, width: 1),
+            border: Border.all(color: borderColor, width: 0.2),
             borderRadius: borderRadius,
           ),
           child: Row(

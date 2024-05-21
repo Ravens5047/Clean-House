@@ -162,7 +162,7 @@ class _HomeEmployeeDoneTaskState extends State<HomeEmployeeDoneTask> {
                 style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w600,
-                  color: AppColor.green,
+                  color: Colors.blue,
                 ),
               ),
               Expanded(

@@ -44,6 +44,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
   bool isAscending = true;
   bool filterByStatus = false;
   bool filterByProcessing = true;
+  bool filterByInProgress = false;
 
   @override
   void initState() {
@@ -131,7 +132,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                 },
               ),
               ListTile(
-                title: const Text('Status: Completed'),
+                title: const Text('Status: In Progress'),
                 onTap: () {
                   Navigator.pop(context, FilterCriteria.ByStatus);
                   toggleStatusFilter(false);
@@ -202,10 +203,11 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
     return total;
   }
 
-  void toggleStatusFilter(bool bool) {
+  void toggleStatusFilter(bool isProcessing) {
     setState(() {
-      filterByStatus = !filterByStatus;
-      filterByProcessing = bool;
+      filterByStatus = true;
+      filterByProcessing = isProcessing;
+      filterByInProgress = !isProcessing;
     });
   }
 
@@ -309,9 +311,7 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
                         addOneDay(parseDate(orderDetails.work_date));
                     if (filterByStatus) {
                       if ((orderDetails.status_id == 1 && filterByProcessing) ||
-                          (orderDetails.status_id == 2 && filterByProcessing) ||
-                          (orderDetails.status_id == 3 &&
-                              !filterByProcessing)) {
+                          (orderDetails.status_id == 2 && filterByInProgress)) {
                         return GestureDetector(
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute(

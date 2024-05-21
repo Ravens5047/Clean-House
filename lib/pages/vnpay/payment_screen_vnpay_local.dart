@@ -204,7 +204,11 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
                     this.responseCode = responseCode;
                     await _bookOrderDetails();
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Booking successful!'),
+                      content: Center(
+                        child: Text(
+                          'Booking successful!',
+                        ),
+                      ),
                     ));
                     Navigator.push(
                       context,

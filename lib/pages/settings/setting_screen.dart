@@ -195,10 +195,16 @@ class _SettingScreenState extends State<SettingScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(Assets.images.background_clean2.path),
-                  fit: BoxFit.fill,
+              decoration: const BoxDecoration(
+                // image: DecorationImage(
+                //   image: AssetImage(Assets.images.background_clean2.path),
+                //   fit: BoxFit.fill,
+                // ),
+                gradient: LinearGradient(
+                  colors: <Color>[
+                    Color(0xFFaffcaf),
+                    Color(0xFF12dff3),
+                  ],
                 ),
               ),
               child: Padding(
