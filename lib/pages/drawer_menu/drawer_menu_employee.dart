@@ -161,17 +161,23 @@ class _DrawerMenuEmployeeState extends State<DrawerMenuEmployee> {
                         ),
                 ),
               ),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    Assets.images.background_clean2.path,
-                  ),
+              decoration: const BoxDecoration(
+                // image: DecorationImage(
+                //   image: AssetImage(
+                //     Assets.images.background_clean2.path,
+                //   ),
+                // ),
+                gradient: LinearGradient(
+                  colors: <Color>[
+                    Color(0xFFaffcaf),
+                    Color(0xFF12dff3),
+                  ],
                 ),
                 color: AppColor.white,
-                borderRadius: const BorderRadius.all(
+                borderRadius: BorderRadius.all(
                   Radius.circular(15.0),
                 ),
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
                     color: AppColor.grey,
                     blurRadius: 10.0,

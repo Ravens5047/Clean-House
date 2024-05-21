@@ -222,33 +222,44 @@ class _OTPScreenState extends State<OTPScreen> {
                 ],
               ),
               const SizedBox(height: 70.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 5,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: MaterialButton(
-                        color: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+              Center(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.07,
+                  child: GestureDetector(
+                    onTap: _submitVerifyOTP,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: <Color>[
+                            Color(0xFFaffcaf),
+                            Color(0xFF12dff3),
+                          ],
                         ),
-                        onPressed: _submitVerifyOTP,
-                        child: const Padding(
-                          padding: EdgeInsets.all(15.0),
-                          child: Text(
-                            "Verify",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(8),
+                          onTap: _submitVerifyOTP,
+                          child: const Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: Center(
+                              child: Text(
+                                "Verify",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
               ),
               const SizedBox(
@@ -267,10 +278,10 @@ class _OTPScreenState extends State<OTPScreen> {
                   ),
                   GestureDetector(
                     onTap: _submitResendOTP,
-                    child: const Text(
+                    child: Text(
                       "Resend",
                       style: TextStyle(
-                        color: AppColor.black,
+                        color: AppColor.black.withOpacity(0.7),
                         fontSize: 16.0,
                         fontWeight: FontWeight.w700,
                       ),

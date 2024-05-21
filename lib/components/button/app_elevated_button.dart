@@ -74,7 +74,7 @@ class AppElevatedButton extends StatelessWidget {
     this.onPressed,
     Color? color,
     required this.text,
-    this.textColor = AppColor.black,
+    this.textColor = Colors.black,
     this.fontSize = 19.0,
     Color? borderColor,
     this.icon,
@@ -141,8 +141,14 @@ class AppElevatedButton extends StatelessWidget {
           padding: padding,
           height: height,
           decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: <Color>[
+                Color(0xFF9bf8f4),
+                Color(0xFF6f7bf7),
+              ],
+            ),
             color: color,
-            border: Border.all(color: borderColor, width: 1.2),
+            border: Border.all(color: borderColor, width: 0.7),
             borderRadius: borderRadius,
             boxShadow: const [
               BoxShadow(

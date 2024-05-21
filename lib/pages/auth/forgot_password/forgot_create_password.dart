@@ -150,28 +150,45 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                   horizontal: 20.0,
                   vertical: 5.0,
                 ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: MaterialButton(
-                        color: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
+                child: Center(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    child: GestureDetector(
+                      onTap: _submitResetPassword,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: <Color>[
+                              Color(0xFFaffcaf),
+                              Color(0xFF12dff3),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        onPressed: _submitResetPassword,
-                        child: const Padding(
-                          padding: EdgeInsets.all(15.0),
-                          child: Text(
-                            "Reset Password",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(8),
+                            onTap: _submitResetPassword,
+                            child: const Padding(
+                              padding: EdgeInsets.all(15.0),
+                              child: Center(
+                                child: Text(
+                                  "Reset Password",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
               ),
               const SizedBox(height: 20),

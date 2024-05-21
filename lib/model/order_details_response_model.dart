@@ -109,7 +109,7 @@ class OrderDetailsModel {
   Map<String, dynamic> toJson() {
     return {
       "order_detail_id": order_detail_id,
-      "oder_id": order_id,
+      "order_id": order_id,
       "sub_total_price": sub_total_price,
       "service_id": service_id,
       "note": note,

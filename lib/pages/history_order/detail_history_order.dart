@@ -39,6 +39,18 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
     return null;
   }
 
+  String formatTime(String? timeStr) {
+    if (timeStr != null) {
+      try {
+        final parsedTime = DateFormat('HH:mm:ss').parse(timeStr);
+        return DateFormat('HH:mm').format(parsedTime);
+      } catch (e) {
+        print('Invalid time format: $timeStr');
+      }
+    }
+    return '';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -264,7 +276,7 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
                             ),
                             const Spacer(),
                             Text(
-                              widget.orderDetails.estimated_time ?? '',
+                              formatTime(widget.orderDetails.estimated_time),
                               style: const TextStyle(
                                 color: AppColor.black,
                                 fontWeight: FontWeight.w400,
