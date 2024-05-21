@@ -73,6 +73,9 @@ class $AssetsImagesGen {
   AssetGenImage get onboardings =>
       const AssetGenImage('assets/images/onboarding_1.png');
 
+  AssetGenImage get addAccouunt =>
+      const AssetGenImage('assets/images/avatar_addaccount.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         splash,
@@ -88,6 +91,7 @@ class $AssetsImagesGen {
         background_clean1,
         background_clean2,
         bath_services,
+        addAccouunt,
       ];
 }
 
