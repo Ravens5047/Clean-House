@@ -43,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
         List<dynamic> responseData = jsonDecode(response.body);
         for (var data in responseData) {
           ServicesModel service = ServicesModel.fromJson(data);
+
           tempList.add(service);
         }
         print('Connection Successfully Call API');

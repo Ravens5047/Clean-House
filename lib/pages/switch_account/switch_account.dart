@@ -235,6 +235,12 @@ class _SwitchAccountScreenState extends State<SwitchAccountScreen> {
             width: double.infinity,
             height: 50.0,
             decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: <Color>[
+                  Color(0xFFaffcaf),
+                  Color(0xFF12dff3),
+                ],
+              ),
               color: Colors.grey.withOpacity(0.4),
             ),
             child: const Center(
@@ -266,6 +272,7 @@ class _SwitchAccountScreenState extends State<SwitchAccountScreen> {
                                 radius: 35.0,
                                 child: Image.asset(
                                   Assets.images.addAccouunt.path,
+                                  color: AppColor.black,
                                   width: 100.0,
                                   height: 100.0,
                                   fit: BoxFit.cover,

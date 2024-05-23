@@ -62,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
         phone_number: phoneController.text.trim(),
         password: passwordController.text,
         role: 4,
-        employee_code: 0,
+        // employee_code: 0,
       );
       await authServices.register(body).then((response) {
         if (response.statusCode >= 200 && response.statusCode < 300) {
