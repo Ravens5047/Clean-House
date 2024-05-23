@@ -106,6 +106,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     children: [
                       currentIndex > 0
                           ? TdElevatedButton.outline(
+                              textColor: AppColor.white.withOpacity(0.9),
+                              borderColor: AppColor.grey.withOpacity(0.6),
                               color: AppColor.white,
                               onPressed: () {
                                 currentIndex--;
@@ -119,7 +121,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                               text: 'Back',
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 30.0),
-                              textColor: AppColor.black.withOpacity(0.9),
+                              textColor: AppColor.white.withOpacity(0.9),
                               borderColor: AppColor.grey.withOpacity(0.6),
                             ),
                       TdElevatedButton(

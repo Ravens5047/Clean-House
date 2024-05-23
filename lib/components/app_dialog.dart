@@ -45,6 +45,7 @@ class AppDialog {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AppElevatedButton.smallOutline(
+                textColor: AppColor.white,
                 fontSize: 15.0,
                 borderColor: AppColor.grey,
                 onPressed: () {
@@ -60,6 +61,7 @@ class AppDialog {
               Padding(
                 padding: const EdgeInsets.only(left: 12.0),
                 child: AppElevatedButton.smallOutline(
+                  textColor: AppColor.white,
                   fontSize: 15.0,
                   borderColor: AppColor.grey,
                   onPressed: () => Navigator.pop(context),

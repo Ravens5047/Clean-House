@@ -110,6 +110,7 @@ class WelcomePage extends StatelessWidget {
                   width: 170.0,
                   height: 70.0,
                   child: AppElevatedButton.outline(
+                    textColor: AppColor.black.withOpacity(0.9),
                     splashColor: AppColor.red,
                     highlightColor: Colors.blue,
                     borderColor: AppColor.grey,
