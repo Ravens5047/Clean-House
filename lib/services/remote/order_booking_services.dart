@@ -8,7 +8,8 @@ abstract class ImlOrderBooking {
   Future<http.Response> orderBookingDetails(OrderDetailsRequest body);
   Future<http.Response> getListOrderDetailsByUserID(int userId);
   Future<http.Response> getListOrderDetails();
-  Future<http.Response> searchServicesBooking(String service_name, int employeeCode);
+  Future<http.Response> searchServicesBooking(
+      String service_name, int employeeCode);
   Future<http.Response> updateOrderStatus(int orderId);
   Future<http.Response> getListOrderDetailsByEmployeeCode(int employeeCode);
   Future<http.Response> getListOrderDetailsByWorkDate(

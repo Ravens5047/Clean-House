@@ -49,6 +49,7 @@ class _HistoryOrderState extends State<HistoryOrder> {
           }
           print(userId);
           print('Connection Successfully Call API');
+          print('Response Body: ${_prettyJson(response.body)}');
           setState(() {
             orderDetailsList = tempListOrderDetails;
           });
@@ -61,6 +62,11 @@ class _HistoryOrderState extends State<HistoryOrder> {
     } else {
       print('User_id not found in SharedPreferences');
     }
+  }
+
+  String _prettyJson(String input) {
+    JsonEncoder encoder = const JsonEncoder.withIndent('  ');
+    return encoder.convert(jsonDecode(input));
   }
 
   void _handleSort() {
