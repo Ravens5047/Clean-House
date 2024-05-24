@@ -83,26 +83,33 @@ class _HomeScreenEmployeeState extends State<HomeScreenEmployee> {
   }
 
   void _searchServices(String service_name) {
-    orderBookingServices.searchServicesBooking(service_name).then((response) {
-      if (response.statusCode == 200) {
-        List<OrderDetailsModel> tempList = [];
-        List<dynamic> responseData = jsonDecode(response.body);
-        for (var data in responseData) {
-          OrderDetailsModel service = OrderDetailsModel.fromJson(data);
-          tempList.add(service);
+    int? employeeCode = SharedPrefs.employeeCode;
+    if (employeeCode != null) {
+      orderBookingServices
+          .searchServicesBooking(service_name, employeeCode)
+          .then((response) {
+        if (response.statusCode == 200) {
+          List<OrderDetailsModel> tempList = [];
+          List<dynamic> responseData = jsonDecode(response.body);
+          for (var data in responseData) {
+            OrderDetailsModel service = OrderDetailsModel.fromJson(data);
+            tempList.add(service);
+          }
+          setState(() {
+            orderDetailsList = tempList;
+          });
+        } else {
+          print('Failed to search services booking');
         }
-        setState(() {
-          orderDetailsList = tempList;
-        });
-      } else {
-        print('Failed to search services booking');
-      }
-      if (orderDetailsList.isEmpty) {
-        _reloadUI();
-      }
-    }).catchError((onError) {
-      print('Error occurred: $onError');
-    });
+        if (orderDetailsList.isEmpty) {
+          _reloadUI();
+        }
+      }).catchError((onError) {
+        print('Error occurred: $onError');
+      });
+    } else {
+      print('Employee code is null');
+    }
   }
 
   void _reloadUI() {
