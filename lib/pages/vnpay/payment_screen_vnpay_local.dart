@@ -146,10 +146,10 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
           title: 'Booking successful!',
           body: 'We will confirm your booking shortly.',
         );
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Booking successful!'),
-          backgroundColor: Colors.blue,
-        ));
+        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        //   content: Text('Booking successful!'),
+        //   backgroundColor: Colors.blue,
+        // ));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Error: ${response.statusCode}'),
@@ -204,6 +204,7 @@ class _VnpayScreenPayment1State extends State<VnpayScreenPayment1> {
                     this.responseCode = responseCode;
                     await _bookOrderDetails();
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      backgroundColor: Colors.blue,
                       content: Center(
                         child: Text(
                           'Booking successful!',
