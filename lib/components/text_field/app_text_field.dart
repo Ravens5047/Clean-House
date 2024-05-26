@@ -1,6 +1,7 @@
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/resources/app_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppTextField extends StatelessWidget {
   const AppTextField({
@@ -13,6 +14,10 @@ class AppTextField extends StatelessWidget {
     this.onFieldSubmitted,
     this.readOnly = false,
     this.height = 100.0,
+    this.onTextChanged,
+    this.errorText,
+    this.inputFormatters,
+    this.keyboardType,
   });
 
   final TextEditingController? controller;
@@ -23,6 +28,10 @@ class AppTextField extends StatelessWidget {
   final Function(String)? onFieldSubmitted;
   final bool readOnly;
   final double height;
+  final Function(String)? onTextChanged;
+  final String? errorText;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +48,8 @@ class AppTextField extends StatelessWidget {
         controller: controller,
         textInputAction: textInputAction,
         validator: validator,
+        inputFormatters: inputFormatters,
+        keyboardType: keyboardType,
         style: AppStyle.h16Normal.copyWith(color: AppColor.brown),
         decoration: InputDecoration(
           contentPadding:

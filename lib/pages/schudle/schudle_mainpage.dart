@@ -252,7 +252,7 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
                         const Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'Status Bill',
+                            'Status',
                             style: TextStyle(
                               fontSize: 18.0,
                               fontWeight: FontWeight.w400,
@@ -263,23 +263,32 @@ class _SchudleMainPageState extends State<SchudleMainPage> {
                         const Spacer(),
                         orderDetails.status_id == 1
                             ? const Text(
-                                'Processing',
+                                'Pending confirmation',
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w400,
-                                  color: AppColor.black,
+                                  color: AppColor.orange,
                                 ),
                               )
                             : orderDetails.status_id == 2
                                 ? const Text(
-                                    'Completed',
+                                    'In Progress',
                                     style: TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.w500,
-                                      color: Colors.blue,
+                                      color: AppColor.green,
                                     ),
                                   )
-                                : const SizedBox(),
+                                : orderDetails.status_id == 3
+                                    ? const Text(
+                                        'Completed',
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColor.blue,
+                                        ),
+                                      )
+                                    : const SizedBox(),
                       ],
                     ),
                   ],

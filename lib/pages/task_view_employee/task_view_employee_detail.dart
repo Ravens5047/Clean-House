@@ -397,7 +397,7 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
                             const Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'Status Bill:',
+                                'Status:',
                                 style: TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.w400,
