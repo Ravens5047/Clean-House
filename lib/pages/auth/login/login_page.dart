@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
           final token = loginResponse.key;
           final user_Id = loginResponse.id;
           final role = loginResponse.role;
-          final employeeCode = loginResponse.employee_code;
+          final employeeCode = loginResponse.id;
           print('Token: $token');
           print('User_id: $user_Id');
           print('Role: $role');

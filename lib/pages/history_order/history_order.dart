@@ -237,14 +237,6 @@ class _HistoryOrderState extends State<HistoryOrder> {
                               color: AppColor.black,
                             ),
                           ),
-                          // Text(
-                          //   'Employee Code: ${orderDetails.employee_code?.toString() ?? 'N/A'}',
-                          //   style: const TextStyle(
-                          //     fontSize: 18.0,
-                          //     fontWeight: FontWeight.w400,
-                          //     color: AppColor.black,
-                          //   ),
-                          // ),
                           Row(
                             children: [
                               const Align(

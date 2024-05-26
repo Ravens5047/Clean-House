@@ -408,23 +408,32 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
                             const Spacer(),
                             widget.orderDetails.status_id == 1
                                 ? const Text(
-                                    'Processing',
+                                    'Pending confirmation',
                                     style: TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.w400,
                                       color: AppColor.orange,
                                     ),
                                   )
-                                : widget.orderDetails.status_id == 3
+                                : widget.orderDetails.status_id == 2
                                     ? const Text(
-                                        'Completed',
+                                        'In Progress',
                                         style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500,
                                           color: AppColor.green,
                                         ),
                                       )
-                                    : const SizedBox(),
+                                    : widget.orderDetails.status_id == 3
+                                        ? const Text(
+                                            'Completed',
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColor.blue,
+                                            ),
+                                          )
+                                        : const SizedBox(),
                           ],
                         ),
                         Row(

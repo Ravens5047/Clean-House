@@ -46,8 +46,8 @@ class AppTextField extends StatelessWidget {
           border: outlineInputBorder(AppColor.red),
           focusedBorder: outlineInputBorder(AppColor.blue),
           enabledBorder: outlineInputBorder(AppColor.white),
-          errorBorder: outlineInputBorder(Colors.blue),
-          errorStyle: const TextStyle(color: Colors.blue),
+          errorBorder: outlineInputBorder(Colors.red),
+          errorStyle: const TextStyle(color: Colors.red),
           hintText: hintext,
           hintStyle: AppStyle.h16Normal.copyWith(
             color: AppColor.black.withOpacity(0.5),
