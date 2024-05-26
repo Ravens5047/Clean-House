@@ -1,5 +1,6 @@
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppTextFieldProfile extends StatelessWidget {
   const AppTextFieldProfile({
@@ -15,6 +16,7 @@ class AppTextFieldProfile extends StatelessWidget {
     this.readOnly = false,
     this.onTextChanged,
     this.errorText,
+    this.inputFormatters,
   });
 
   final TextEditingController? controller;
@@ -28,6 +30,7 @@ class AppTextFieldProfile extends StatelessWidget {
   final bool readOnly;
   final Function(String)? onTextChanged;
   final String? errorText;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +62,7 @@ class AppTextFieldProfile extends StatelessWidget {
           validator: validator,
           readOnly: readOnly,
           onChanged: onTextChanged,
+          inputFormatters: inputFormatters,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
             contentPadding:

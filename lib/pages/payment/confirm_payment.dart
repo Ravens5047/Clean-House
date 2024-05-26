@@ -211,7 +211,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                 Row(
                   children: [
                     const Text(
-                      'House Type',
+                      'House Type:',
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
@@ -232,12 +232,12 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   ],
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: 5.0,
                 ),
                 Row(
                   children: [
                     const Text(
-                      'Area: ',
+                      'House Area: ',
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.w500,
@@ -258,7 +258,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   ],
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: 5.0,
                 ),
                 Row(
                   children: [
@@ -282,7 +282,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   ],
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: 5.0,
                 ),
                 Row(
                   children: [
@@ -306,7 +306,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   ],
                 ),
                 const SizedBox(
-                  height: 10.0,
+                  height: 5.0,
                 ),
                 Row(
                   children: [
@@ -363,7 +363,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   ],
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: 5.0,
                 ),
                 const Text(
                   'Note for the Tasker',
@@ -374,7 +374,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   ),
                 ),
                 const SizedBox(
-                  height: 25.0,
+                  height: 30.0,
                 ),
                 Container(
                   height: 100.0,
@@ -412,7 +412,7 @@ class _ConfirmPaymentState extends State<ConfirmPayment> {
                   ),
                 ),
                 const SizedBox(
-                  height: 45.0,
+                  height: 70.0,
                 ),
                 AppElevatedButton.normal1(
                   onPressed: () {

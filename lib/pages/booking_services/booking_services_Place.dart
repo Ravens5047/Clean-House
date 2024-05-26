@@ -11,6 +11,7 @@ import 'package:capstone2_clean_house/pages/booking_services/booking_services_se
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/local/shared_prefs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class BookingServicesPlace extends StatefulWidget {
@@ -163,7 +164,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
   String? phoneNumberValidator(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter phone number';
-    } else if (value.length != 10) {
+    } else if (!RegExp(r'^\d{10}$').hasMatch(value)) {
       return 'Phone number must be 10 digits';
     }
     return null;
@@ -173,6 +174,22 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
     setState(() {
       _isFormSubmitted = true;
     });
+    if (selectedHouse == null || selectedArea == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.blue,
+          content: Center(
+            child: Text(
+              'Please select house type and area.',
+            ),
+          ),
+        ),
+      );
+      Timer(const Duration(milliseconds: 500), () {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      });
+      return;
+    }
     if (formKey.currentState!.validate()) {
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -267,6 +284,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   hintText: 'Phone Number',
                   textInputAction: TextInputAction.done,
                   keyboardType: TextInputType.phone,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onFieldSubmitted: (value) {
                     setState(() {
                       isAddressEntered = value.isNotEmpty;
@@ -278,13 +296,10 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                       ? phoneNumberValidator(phoneNumberController.text)
                       : null,
                 ),
-                const SizedBox(
-                  height: 10.0,
-                ),
                 const Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    'Selection type house, number house',
+                    'Selection House Type',
                     style: TextStyle(
                       fontSize: 15.0,
                       fontWeight: FontWeight.w400,
@@ -292,22 +307,19 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10.0,
-                ),
                 const Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    'Selection type house',
+                    '\n*Please selection type house, tasker easy searching for house.',
                     style: TextStyle(
-                      fontSize: 15.0,
+                      fontSize: 13.0,
                       fontWeight: FontWeight.w400,
                       color: AppColor.black,
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 10.0,
+                  height: 5.0,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -316,6 +328,9 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   child: SelectionHouse(
                     text: 'House / Town House',
                     isSelected: selectedHouse == 0,
+                    errorText: _isFormSubmitted && selectedHouse == null
+                        ? 'Please select a house type'
+                        : null,
                   ),
                 ),
                 const SizedBox(
@@ -328,6 +343,9 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   child: SelectionHouse(
                     text: 'Apartment',
                     isSelected: selectedHouse == 1,
+                    errorText: _isFormSubmitted && selectedHouse == null
+                        ? 'Please select a house type'
+                        : null,
                   ),
                 ),
                 const SizedBox(
@@ -340,15 +358,22 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                   child: SelectionHouse(
                     text: 'Villas',
                     isSelected: selectedHouse == 2,
+                    errorText: _isFormSubmitted && selectedHouse == null
+                        ? 'Please select a house type'
+                        : null,
                   ),
                 ),
-                const SizedBox(
-                  height: 10.0,
+                const Divider(
+                  indent: 30.0,
+                  endIndent: 30.0,
+                  thickness: 2.0,
+                  height: 40.0,
+                  color: Colors.blue,
                 ),
                 const Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    'Selection number house',
+                    'Selection House Area',
                     style: TextStyle(
                       fontSize: 15.0,
                       fontWeight: FontWeight.w400,
@@ -359,42 +384,13 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                 const Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    '*Please selection type house, number house appropriately, Tasker easy searching for house.',
+                    '\n*Please provide an accurate estimate of the area requirement cleanup',
                     style: TextStyle(
                       fontSize: 13.0,
                       fontWeight: FontWeight.w400,
                       color: AppColor.black,
                     ),
                   ),
-                ),
-                const Divider(
-                  indent: 10.0,
-                  endIndent: 10.0,
-                  thickness: 2.0,
-                  height: 40.0,
-                  color: Colors.blue,
-                ),
-                const Text(
-                  'Area',
-                  style: TextStyle(
-                    fontSize: 17.0,
-                    fontWeight: FontWeight.w400,
-                    color: AppColor.black,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                const Text(
-                  'Please provide an accurate estimate of the area requirement cleanup',
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    fontWeight: FontWeight.w400,
-                    color: AppColor.black,
-                  ),
-                ),
-                const SizedBox(
-                  height: 15.0,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -405,6 +401,9 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                     child: SelectionTime(
                       text: 'Max 15m² \n2 hours',
                       isSelected: selectedArea == 0,
+                      errorText: _isFormSubmitted && selectedArea == null
+                          ? 'Please select an area'
+                          : null,
                     ),
                   ),
                 ),
@@ -417,6 +416,9 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                     child: SelectionTime(
                       text: 'Max 25m² \n2 hours',
                       isSelected: selectedArea == 1,
+                      errorText: _isFormSubmitted && selectedArea == null
+                          ? 'Please select an area'
+                          : null,
                     ),
                   ),
                 ),
@@ -429,6 +431,9 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                     child: SelectionTime(
                       text: 'Max 40m² \n2 hours',
                       isSelected: selectedArea == 2,
+                      errorText: _isFormSubmitted && selectedArea == null
+                          ? 'Please select an area'
+                          : null,
                     ),
                   ),
                 ),
@@ -441,6 +446,9 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                     child: SelectionTime(
                       text: 'Max 60m² \n4 hours',
                       isSelected: selectedArea == 3,
+                      errorText: _isFormSubmitted && selectedArea == null
+                          ? 'Please select an area'
+                          : null,
                     ),
                   ),
                 ),
@@ -453,6 +461,9 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                     child: SelectionTime(
                       text: 'Max 80m² \n4 hours',
                       isSelected: selectedArea == 4,
+                      errorText: _isFormSubmitted && selectedArea == null
+                          ? 'Please select an area'
+                          : null,
                     ),
                   ),
                 ),
@@ -465,6 +476,9 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                     child: SelectionTime(
                       text: 'Max 100m² \n4 hours',
                       isSelected: selectedArea == 5,
+                      errorText: _isFormSubmitted && selectedArea == null
+                          ? 'Please select an area'
+                          : null,
                     ),
                   ),
                 ),

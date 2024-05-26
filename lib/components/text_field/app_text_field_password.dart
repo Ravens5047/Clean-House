@@ -54,8 +54,8 @@ class _AppTextFieldPasswordState extends State<AppTextFieldPassword> {
           border: outlineInputBorder(Colors.grey),
           focusedBorder: outlineInputBorder(AppColor.blue),
           enabledBorder: outlineInputBorder(AppColor.white),
-          errorBorder: outlineInputBorder(Colors.blue),
-          errorStyle: const TextStyle(color: Colors.blue),
+          errorBorder: outlineInputBorder(Colors.red),
+          errorStyle: const TextStyle(color: Colors.red),
           hintText: widget.hintext,
           hintStyle: AppStyle.h16Normal.copyWith(
             color: AppColor.black.withOpacity(0.5),
