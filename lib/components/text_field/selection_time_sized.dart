@@ -13,6 +13,7 @@ class SelectionTime extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: 16.0),
     BorderRadius? borderRadius,
     this.isSelected = false,
+    this.errorText,
   })  : color = color ?? AppColor.white.withOpacity(0.98),
         borderColor = borderColor ?? Colors.blue.withOpacity(0.98),
         borderRadius = borderRadius ?? BorderRadius.circular(8.0);
@@ -26,33 +27,45 @@ class SelectionTime extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final BorderRadius borderRadius;
   final bool isSelected;
+  final String? errorText;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
-      child: Container(
-        padding: padding,
-        height: height,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: color,
-          border: Border.all(
-              color: isSelected ? Colors.blue : AppColor.grey, width: 1),
-          borderRadius: borderRadius,
-        ),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            text,
-            style: TextStyle(
-              color: isSelected ? Colors.blue : AppColor.black,
-              fontSize: fontSize,
-              fontWeight: FontWeight.w400,
+      child: Column(
+        children: [
+          Container(
+            padding: padding,
+            height: height,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: color,
+              border: Border.all(
+                  color: isSelected ? Colors.blue : AppColor.grey, width: 1),
+              borderRadius: borderRadius,
+            ),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                text,
+                style: TextStyle(
+                  color: isSelected ? Colors.blue : AppColor.black,
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
             ),
           ),
-        ),
+          if (errorText != null)
+            Text(
+              errorText!,
+              style: const TextStyle(
+                color: Colors.red,
+              ),
+            ),
+        ],
       ),
     );
   }

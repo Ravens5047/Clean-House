@@ -280,7 +280,7 @@ class _TaskViewEmployeeDetailState extends State<TaskViewEmployeeDetail> {
                         Row(
                           children: [
                             const Text(
-                              'Area',
+                              'House Area',
                               style: TextStyle(
                                 color: AppColor.black,
                                 fontWeight: FontWeight.w400,
