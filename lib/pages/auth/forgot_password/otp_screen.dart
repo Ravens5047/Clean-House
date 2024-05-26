@@ -30,10 +30,12 @@ class _OTPScreenState extends State<OTPScreen> {
   String? receivedOTP;
   final String email;
   String? otp;
+
   _OTPScreenState({
     required this.email,
     required this.otp,
   });
+
   @override
   void initState() {
     super.initState();
