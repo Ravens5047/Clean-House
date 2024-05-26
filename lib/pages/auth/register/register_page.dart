@@ -15,6 +15,7 @@ import 'package:capstone2_clean_house/services/remote/auth_services.dart';
 import 'package:capstone2_clean_house/utils/validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shimmer/shimmer.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -37,6 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
   GlobalKey<FormState> formKey = GlobalKey();
   String errorMessage = '';
   bool isAgreed = false;
+  bool isAddressEntered = false;
 
   @override
   void initState() {
@@ -102,6 +104,21 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
+  void handleTextFieldsChanged(String value) {
+    setState(() {
+      phoneController.text.length == 10;
+    });
+  }
+
+  String? phoneNumberValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter phone number';
+    } else if (!RegExp(r'^\d{10}$').hasMatch(value)) {
+      return 'Phone number must be 10 digits';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     const textStyle = AppStyle.h16Normal;
@@ -149,9 +166,12 @@ class _RegisterPageState extends State<RegisterPage> {
             const SizedBox(height: 16.0),
             AppTextField(
               controller: phoneController,
-              hintext: 'Number Phone',
-              validator: Validator.phoneNumberValidator,
-              textInputAction: TextInputAction.next,
+              hintext: 'Phone Number',
+              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.phone,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              onTextChanged: handleTextFieldsChanged,
+              validator: phoneNumberValidator,
             ),
             const SizedBox(height: 16.0),
             AppTextFieldPassword(
