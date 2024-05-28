@@ -187,6 +187,7 @@ class _HistoryOrderSuccessfullyState extends State<HistoryOrderSuccessfully> {
                         MaterialPageRoute(
                           builder: (context) => DetailHistoryOrder(
                             orderDetails: orderDetails,
+                            order_details_id: orderDetails.order_detail_id,
                           ),
                         ),
                       ),

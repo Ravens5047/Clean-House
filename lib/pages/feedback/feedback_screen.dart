@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 class FeedbackScreen extends StatefulWidget {
   const FeedbackScreen({
+    this.order_details_id,
     this.service_id,
     this.fullname,
     super.key,
@@ -14,6 +15,7 @@ class FeedbackScreen extends StatefulWidget {
 
   final int? service_id;
   final String? fullname;
+  final int? order_details_id;
 
   @override
   State<FeedbackScreen> createState() => _FeedbackScreenState();
@@ -122,6 +124,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       content: _feedbackController.text,
                       service_id: widget.service_id,
                       full_name: widget.fullname,
+                      order_detail_id: widget.order_details_id,
                     );
                     try {
                       final response =
@@ -177,7 +180,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 }
               },
         borderColor: Colors.grey,
-        text: 'Feedback Submitted',
+        text: _isSubmitting ? 'Submitting...' : 'Submit Feedback',
       ),
     );
   }

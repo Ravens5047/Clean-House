@@ -10,6 +10,9 @@ class FeedbackRequestModel {
   int? updated_by_id;
   int? service_id;
   double? rating;
+  int? order_detail_id;
+  String? service_name;
+  String? address_order;
 
   FeedbackRequestModel({
     this.feedback_id,
@@ -23,6 +26,9 @@ class FeedbackRequestModel {
     this.service_id,
     this.rating,
     this.content,
+    this.order_detail_id,
+    this.service_name,
+    this.address_order,
   });
 
   factory FeedbackRequestModel.fromJson(Map<String, dynamic> json) {
@@ -40,6 +46,9 @@ class FeedbackRequestModel {
           ? double.tryParse(json['rating'].toString())
           : null,
       content: json['content'] as String?,
+      order_detail_id: json['order_detail_id'] as int?,
+      service_name: json['service_name'] as String?,
+      address_order: json['address_order'] as String?,
     );
   }
 
@@ -56,6 +65,9 @@ class FeedbackRequestModel {
       'service_id': service_id,
       'rating': rating,
       'content': content,
+      'order_detail_id': order_detail_id,
+      'service_name': service_name,
+      'address_order': address_order,
     };
   }
 }

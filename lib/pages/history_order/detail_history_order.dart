@@ -11,9 +11,11 @@ class DetailHistoryOrder extends StatefulWidget {
   const DetailHistoryOrder({
     super.key,
     required this.orderDetails,
+    required this.order_details_id,
   });
 
   final OrderDetailsModel orderDetails;
+  final int? order_details_id;
 
   @override
   State<DetailHistoryOrder> createState() => _DetailHistoryOrderState();
@@ -424,17 +426,19 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
                 const SizedBox(
                   height: 100.0,
                 ),
-                AppElevatedButton(
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => FeedbackScreen(
-                        service_id: widget.orderDetails.service_id,
-                        fullname: widget.orderDetails.full_name,
+                if (widget.orderDetails.status_id == 3)
+                  AppElevatedButton(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => FeedbackScreen(
+                          service_id: widget.orderDetails.service_id,
+                          fullname: widget.orderDetails.full_name,
+                          order_details_id: widget.orderDetails.order_detail_id,
+                        ),
                       ),
                     ),
+                    text: 'Feedback',
                   ),
-                  text: 'Feedback',
-                ),
               ],
             ),
           ),
