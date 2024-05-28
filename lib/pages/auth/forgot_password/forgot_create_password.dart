@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:capstone2_clean_house/components/snack_bar/td_snack_bar.dart';
 import 'package:capstone2_clean_house/components/snack_bar/top_snack_bar.dart';
 import 'package:capstone2_clean_house/components/text_field/app_text_field_password.dart';
@@ -45,22 +47,46 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
         newPassword: newPasswordController.text.trim(),
         confirmPassword: confirmPasswordController.text.trim(),
       );
-      await authServices.changePasswordOTP(body).then((response) {
+      try {
+        final response = await authServices.changePasswordOTP(body);
+        final data = jsonDecode(response.body);
         if (response.statusCode == 200) {
+          showTopSnackBar(
+            context,
+            const TDSnackBar.error(
+              message: 'Password changed successfully',
+            ),
+          );
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const LoginPage()),
           );
         } else {
+          String errorMessage;
+          if (data['errMessage'] ==
+              'New password cannot be the same as the current password') {
+            errorMessage =
+                'New password cannot be the same as the current password.';
+          } else if (data['errMessage'] == 'User not found') {
+            errorMessage = 'User not found.';
+          } else {
+            errorMessage = data['errMessage'] ?? 'An error occurred.';
+          }
           showTopSnackBar(
             context,
-            const TDSnackBar.error(
-              message: "New password and confirmation password do not match.",
+            TDSnackBar.error(
+              message: errorMessage,
             ),
           );
         }
-      });
-      print(otp);
+      } catch (e) {
+        showTopSnackBar(
+          context,
+          TDSnackBar.error(
+            message: 'An error occurred: $e',
+          ),
+        );
+      }
     }
   }
 

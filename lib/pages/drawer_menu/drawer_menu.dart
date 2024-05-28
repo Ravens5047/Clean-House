@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:capstone2_clean_house/components/gen/assets_gen.dart';
 import 'package:capstone2_clean_house/model/app_users_model.dart';
+import 'package:capstone2_clean_house/pages/feedback/feedback_detail_booking.dart';
 import 'package:capstone2_clean_house/pages/history_order/history_order.dart';
 import 'package:capstone2_clean_house/pages/settings/setting_screen.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
@@ -220,6 +221,38 @@ class _DrawerMenuState extends State<DrawerMenu> {
                         ),
                         Text(
                           'History',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const FeedbackDetailBooking(),
+                      ),
+                    ),
+                    child: const Row(
+                      children: [
+                        SizedBox(
+                          height: 30.0,
+                          width: 30.0,
+                          child: Ikonate(
+                            Ikonate.feed,
+                            color: Colors.blue,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15.0,
+                        ),
+                        Text(
+                          'Feedback',
                           style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.w400,

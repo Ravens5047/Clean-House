@@ -1,7 +1,6 @@
 import 'package:bottom_picker/resources/time.dart';
 import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
 import 'package:capstone2_clean_house/model/request/order_details_request_model.dart';
-import 'package:capstone2_clean_house/pages/notifications/notification_service.dart';
 import 'package:capstone2_clean_house/pages/payment/successful_payment.dart';
 import 'package:capstone2_clean_house/pages/vnpay/payment_screen_vnpay_local.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
@@ -353,10 +352,10 @@ class _SelectPaymentState extends State<SelectPayment> {
                     );
                   } else if (selectedLocation == 'Cash') {
                     _bookOrderDetails();
-                    await NotificationServices.showNotification(
-                      title: 'Booking successful!',
-                      body: 'We will confirm your booking shortly.',
-                    );
+                    // await NotificationServices.showNotification(
+                    //   title: 'Booking successful!',
+                    //   body: 'We will confirm your booking shortly.',
+                    // );
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                           builder: (context) => SuccessfulPayment(

@@ -56,16 +56,47 @@ class _ForgotMailState extends State<ForgotMail> {
         email: emailController.text.trim(),
         otp: '',
       );
-      await authServices.forgotPassword(body).then((response) {
+      try {
+        final response = await authServices.forgotPassword(body);
         final data = jsonDecode(response.body);
         if (response.statusCode >= 200 && response.statusCode < 300) {
-          String otp = data['OTP'];
-          _send_mail(otp);
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => OTPScreen(
-                email: emailController.text.trim(),
-                otp: otp,
+          if (data['status'] == 'email_not_found') {
+            showTopSnackBar(
+              context,
+              const Center(
+                child: TDSnackBar.error(
+                  message: 'Email not found',
+                ),
+              ),
+            );
+          } else if (data.containsKey('OTP') && data['OTP'] != null) {
+            String otp = data['OTP'];
+            _send_mail(otp);
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => OTPScreen(
+                  email: emailController.text.trim(),
+                  otp: otp,
+                ),
+              ),
+            );
+          } else {
+            showTopSnackBar(
+              context,
+              const Center(
+                child: TDSnackBar.error(
+                  message: 'OTP not found in response',
+                ),
+              ),
+            );
+          }
+        } else if (response.statusCode == 500 &&
+            data.containsKey('errMessage')) {
+          showTopSnackBar(
+            context,
+            Center(
+              child: TDSnackBar.error(
+                message: data['errMessage'],
               ),
             ),
           );
@@ -73,11 +104,18 @@ class _ForgotMailState extends State<ForgotMail> {
           showTopSnackBar(
             context,
             TDSnackBar.error(
-              message: data['message'],
+              message: data['message'] ?? 'An error occurred',
             ),
           );
         }
-      });
+      } catch (e) {
+        showTopSnackBar(
+          context,
+          TDSnackBar.error(
+            message: 'An error occurred: $e',
+          ),
+        );
+      }
     }
   }
 

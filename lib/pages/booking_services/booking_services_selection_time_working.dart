@@ -57,9 +57,10 @@ class _BookingServicesSelectionTimeWorkingState
   }
 
   Time _getCurrentTime() {
+    final now = DateTime.now();
     return Time(
-      hours: 8,
-      minutes: 00,
+      hours: now.hour,
+      minutes: now.minute,
     );
   }
 
@@ -124,10 +125,10 @@ class _BookingServicesSelectionTimeWorkingState
     Time endTime;
     if (selectedArea == 0 || selectedArea == 1 || selectedArea == 2) {
       startTime = Time(hours: 8, minutes: 0);
-      endTime = Time(hours: 16, minutes: 0);
+      endTime = Time(hours: 20, minutes: 0);
     } else {
       startTime = Time(hours: 8, minutes: 0);
-      endTime = Time(hours: 14, minutes: 0);
+      endTime = Time(hours: 20, minutes: 0);
     }
     BottomPicker.time(
       pickerTitle: const Center(
