@@ -11,7 +11,7 @@ class DetailHistoryOrder extends StatefulWidget {
   const DetailHistoryOrder({
     super.key,
     required this.orderDetails,
-    required this.order_details_id,
+    this.order_details_id,
   });
 
   final OrderDetailsModel orderDetails;
