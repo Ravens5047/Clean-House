@@ -114,6 +114,7 @@ class _HistoryOrderState extends State<HistoryOrder> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -154,162 +155,174 @@ class _HistoryOrderState extends State<HistoryOrder> {
         key: formKey,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: ListView.builder(
-            itemCount: orderDetailsList.length,
-            itemBuilder: (context, index) {
-              final orderDetails = orderDetailsList[index];
-              final DateTime? workDateWithOneDay =
-                  addOneDay(parseDate(orderDetails.work_date));
-              return GestureDetector(
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => DetailHistoryOrder(
-                      orderDetails: orderDetails,
+          child: orderDetailsList.isEmpty
+              ? const Center(
+                  child: Text(
+                    'No orders available',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w400,
+                      color: AppColor.black,
                     ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10.0,
-                    horizontal: 5.0,
-                  ),
-                  child: Container(
-                    height: 220.0,
-                    decoration: BoxDecoration(
-                      color: AppColor.white,
-                      border: Border.all(
-                        color: AppColor.black,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(5.0),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: AppColor.shadow,
-                          offset: Offset(0.0, 3.0),
-                          blurRadius: 6.0,
+                )
+              : ListView.builder(
+                  itemCount: orderDetailsList.length,
+                  itemBuilder: (context, index) {
+                    final orderDetails = orderDetailsList[index];
+                    final DateTime? workDateWithOneDay =
+                        addOneDay(parseDate(orderDetails.work_date));
+                    return GestureDetector(
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => DetailHistoryOrder(
+                            orderDetails: orderDetails,
+                          ),
                         ),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Center(
-                            child: Text(
-                              '#${orderDetails.order_detail_id.toString()}',
-                              style: const TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w400,
-                                color: AppColor.black,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10.0,
+                          horizontal: 5.0,
+                        ),
+                        child: Container(
+                          height: 220.0,
+                          decoration: BoxDecoration(
+                            color: AppColor.white,
+                            border: Border.all(
+                              color: AppColor.black,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(5.0),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: AppColor.shadow,
+                                offset: Offset(0.0, 3.0),
+                                blurRadius: 6.0,
                               ),
-                            ),
+                            ],
                           ),
-                          Text(
-                            'Service Name: ${orderDetails.service_name ?? ''}',
-                            style: const TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                          Text(
-                            'Work Date: ${workDateWithOneDay != null ? DateFormat('yyyy-MM-dd').format(workDateWithOneDay) : 'N/A'}',
-                            style: const TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                          Text(
-                            'Time: ${orderDetails.start_time}',
-                            style: const TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                          Text(
-                            'Total: ${orderDetails.sub_total_price != null ? NumberFormat('#,##0', 'en_US').format(orderDetails.sub_total_price) : 'N/A'} VND',
-                            style: const TextStyle(
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.w400,
-                              color: AppColor.black,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Status:',
-                                  style: TextStyle(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Center(
+                                  child: Text(
+                                    '#${orderDetails.order_detail_id.toString()}',
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColor.black,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  'Service Name: ${orderDetails.service_name ?? ''}',
+                                  style: const TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.w400,
                                     color: AppColor.black,
                                   ),
                                 ),
-                              ),
-                              const Spacer(),
-                              orderDetails.status_id == 1
-                                  ? const Text(
-                                      'Pending confirmation',
-                                      style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColor.orange,
+                                Text(
+                                  'Work Date: ${workDateWithOneDay != null ? DateFormat('yyyy-MM-dd').format(workDateWithOneDay) : 'N/A'}',
+                                  style: const TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColor.black,
+                                  ),
+                                ),
+                                Text(
+                                  'Time: ${orderDetails.start_time}',
+                                  style: const TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColor.black,
+                                  ),
+                                ),
+                                Text(
+                                  'Total: ${orderDetails.sub_total_price != null ? NumberFormat('#,##0', 'en_US').format(orderDetails.sub_total_price) : 'N/A'} VND',
+                                  style: const TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColor.black,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    const Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        'Status:',
+                                        style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColor.black,
+                                        ),
                                       ),
-                                    )
-                                  : orderDetails.status_id == 2
-                                      ? const Text(
-                                          'In Progress',
-                                          style: TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w500,
-                                            color: AppColor.green,
-                                          ),
-                                        )
-                                      : orderDetails.status_id == 3
-                                          ? const Text(
-                                              'Completed',
-                                              style: TextStyle(
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.w500,
-                                                color: AppColor.blue,
-                                              ),
-                                            )
-                                          : const SizedBox(),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              const Text(
-                                'Payment Method:',
-                                style: TextStyle(
-                                  color: AppColor.black,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 18.0,
+                                    ),
+                                    const Spacer(),
+                                    orderDetails.status_id == 1
+                                        ? const Text(
+                                            'Pending confirmation',
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColor.orange,
+                                            ),
+                                          )
+                                        : orderDetails.status_id == 2
+                                            ? const Text(
+                                                'In Progress',
+                                                style: TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: AppColor.green,
+                                                ),
+                                              )
+                                            : orderDetails.status_id == 3
+                                                ? const Text(
+                                                    'Completed',
+                                                    style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: AppColor.blue,
+                                                    ),
+                                                  )
+                                                : const SizedBox(),
+                                  ],
                                 ),
-                              ),
-                              const Spacer(),
-                              Text(
-                                orderDetails.payment ?? '',
-                                style: const TextStyle(
-                                  color: AppColor.black,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16.0,
+                                Row(
+                                  children: [
+                                    const Text(
+                                      'Payment Method:',
+                                      style: TextStyle(
+                                        color: AppColor.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18.0,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      orderDetails.payment ?? '',
+                                      style: const TextStyle(
+                                        color: AppColor.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
         ),
       ),
     );

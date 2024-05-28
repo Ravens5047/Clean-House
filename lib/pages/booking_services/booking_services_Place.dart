@@ -299,7 +299,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                 const Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    'Selection House Type',
+                    '\nSelection House Type',
                     style: TextStyle(
                       fontSize: 15.0,
                       fontWeight: FontWeight.w400,
@@ -310,7 +310,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                 const Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    '\n*Please selection type house, tasker easy searching for house.',
+                    '*Please selection type house, tasker easy searching for house.',
                     style: TextStyle(
                       fontSize: 13.0,
                       fontWeight: FontWeight.w400,
@@ -384,7 +384,7 @@ class _BookingServicesPlaceState extends State<BookingServicesPlace> {
                 const Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    '\n*Please provide an accurate estimate of the area requirement cleanup',
+                    '*Please provide an accurate estimate of the area requirement cleanup',
                     style: TextStyle(
                       fontSize: 13.0,
                       fontWeight: FontWeight.w400,

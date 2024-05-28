@@ -43,6 +43,7 @@ dependencies:
   flutter_bloc: ^8.1.4
   flutter_inappwebview: ^5.8.0
   flutter_launcher_icons: ^0.13.1
+  flutter_rating_bar: ^4.0.1
   flutter_secure_storage: ^9.0.0
   flutter_side_menu: ^0.4.0
   flutter_svg: ^1.0.3
@@ -52,6 +53,7 @@ dependencies:
   http: ^1.2.0
   icony: ^1.0.5
   image_picker: ^1.0.8
+  in_app_review: ^2.0.9
   intl: ^0.19.0
   json_annotation: ^4.8.1
   logging: ^1.2.0

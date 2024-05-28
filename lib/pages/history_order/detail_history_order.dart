@@ -1,5 +1,7 @@
+import 'package:capstone2_clean_house/components/button/app_elevated_button.dart';
 import 'package:capstone2_clean_house/components/text_field/selection_house_text_field.dart';
 import 'package:capstone2_clean_house/model/order_details_response_model.dart';
+import 'package:capstone2_clean_house/pages/feedback/feedback_screen.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -418,6 +420,20 @@ class _DetailHistoryOrderState extends State<DetailHistoryOrder> {
                       ],
                     ),
                   ),
+                ),
+                const SizedBox(
+                  height: 100.0,
+                ),
+                AppElevatedButton(
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => FeedbackScreen(
+                        service_id: widget.orderDetails.service_id,
+                        fullname: widget.orderDetails.full_name,
+                      ),
+                    ),
+                  ),
+                  text: 'Feedback',
                 ),
               ],
             ),
