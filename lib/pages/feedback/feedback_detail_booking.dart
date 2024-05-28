@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:capstone2_clean_house/model/feedback_model.dart';
+import 'package:capstone2_clean_house/model/order_details_response_model.dart';
 import 'package:capstone2_clean_house/resources/app_color.dart';
 import 'package:capstone2_clean_house/services/remote/feedback_services.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class _FeedbackDetailBookingState extends State<FeedbackDetailBooking> {
   FeedbackServiceAPI feedbackServiceAPI = FeedbackServiceAPI();
   FeedbackRequestModel feedbackRequestModel = FeedbackRequestModel();
   List<FeedbackRequestModel> feedbackDetailsList = [];
+  OrderDetailsModel orderDetailsModel = OrderDetailsModel();
 
   @override
   void initState() {
@@ -90,6 +92,8 @@ class _FeedbackDetailBookingState extends State<FeedbackDetailBooking> {
                   itemCount: feedbackDetailsList.length,
                   itemBuilder: (context, index) {
                     final feedbackDetails = feedbackDetailsList[index];
+                    List<String> contentLines =
+                        feedbackDetails.content?.split('\n') ?? [];
                     return GestureDetector(
                       onTap: () {},
                       child: Padding(
@@ -98,7 +102,7 @@ class _FeedbackDetailBookingState extends State<FeedbackDetailBooking> {
                           horizontal: 5.0,
                         ),
                         child: Container(
-                          height: 170.0,
+                          height: 280.0,
                           decoration: BoxDecoration(
                             color: AppColor.white,
                             border: Border.all(
@@ -122,6 +126,26 @@ class _FeedbackDetailBookingState extends State<FeedbackDetailBooking> {
                                 Row(
                                   children: [
                                     const Text(
+                                      'Serivce Name: ',
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColor.black,
+                                      ),
+                                    ),
+                                    Text(
+                                      feedbackDetails.service_name.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColor.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    const Text(
                                       'Full Name: ',
                                       style: TextStyle(
                                         fontSize: 18.0,
@@ -139,25 +163,42 @@ class _FeedbackDetailBookingState extends State<FeedbackDetailBooking> {
                                     ),
                                   ],
                                 ),
-                                Row(
-                                  children: [
-                                    const Text(
-                                      'Content Feedback: ',
-                                      style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColor.black,
-                                      ),
-                                    ),
-                                    Text(
-                                      feedbackDetails.content.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColor.black,
-                                      ),
-                                    ),
-                                  ],
+                                const Text(
+                                  'Address Order: ',
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColor.black,
+                                  ),
+                                ),
+                                Text(
+                                  feedbackDetails.address_order.toString(),
+                                  style: const TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColor.black,
+                                  ),
+                                ),
+                                const Text(
+                                  'Content Feedback:',
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColor.black,
+                                  ),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: contentLines
+                                      .map((line) => Text(
+                                            line,
+                                            style: const TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColor.black,
+                                            ),
+                                          ))
+                                      .toList(),
                                 ),
                                 const SizedBox(
                                   height: 20.0,
