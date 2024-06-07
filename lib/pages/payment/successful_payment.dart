@@ -37,7 +37,7 @@ class SuccessfulPayment extends StatelessWidget {
             const SizedBox(height: 20.0),
             Center(
               child: Text(
-                result == '00' ? 'Payment Successful' : 'Payment Failed',
+                result == '00' ? 'Booking Successful' : 'Booking Failed',
                 style: GoogleFonts.dmSerifText(
                   fontSize: 30.0,
                   fontWeight: FontWeight.w400,
@@ -50,11 +50,11 @@ class SuccessfulPayment extends StatelessWidget {
               'Payment Method: $payment',
               style: const TextStyle(fontSize: 16.0),
             ),
-            const SizedBox(height: 20.0),
-            Text(
-              'Status: $status_payment',
-              style: const TextStyle(fontSize: 16.0),
-            ),
+            // const SizedBox(height: 20.0),
+            // Text(
+            //   'Status: $status_payment',
+            //   style: const TextStyle(fontSize: 16.0),
+            // ),
             const SizedBox(height: 20.0),
             Padding(
               padding: const EdgeInsets.all(8.0),
